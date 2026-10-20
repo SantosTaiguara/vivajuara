@@ -1,0 +1,68 @@
+{
+  "kind": "privacy-policies",
+  "version": "0.1.0",
+  "status": "DRAFT",
+  "note": "Tópico 59. Políticas técnicas executáveis: mascaramento, logs, armazenamento no navegador, critérios de recomendação, extração de documentos, menores, tecnologias de rastreamento. São guardrails técnicos, não conformidade jurídica.",
+  "masking": [
+    { "id": "MASK_CPF", "fieldKey": "customer.cpf", "defaultMode": "MASKED", "permissionOverrides": {} },
+    { "id": "MASK_PHONE", "fieldKey": "customer.phone", "defaultMode": "PARTIAL", "permissionOverrides": {} },
+    { "id": "MASK_EMAIL", "fieldKey": "customer.email", "defaultMode": "PARTIAL", "permissionOverrides": {} },
+    { "id": "MASK_NAME", "fieldKey": "customer.displayName", "defaultMode": "FULL", "permissionOverrides": {} },
+    { "id": "MASK_BUDGET", "fieldKey": "legacyCustomer.profile.constraints.budget", "defaultMode": "HIDDEN", "permissionOverrides": { "customer_profile.manage": "FULL" } },
+    { "id": "MASK_HIDDEN", "fieldKey": "customer.notes", "defaultMode": "HIDDEN", "permissionOverrides": {} }
+  ],
+  "logData": [
+    { "fieldClass": "cpf", "allowed": "DENY" }, { "fieldClass": "rg", "allowed": "DENY" }, { "fieldClass": "password", "allowed": "DENY" },
+    { "fieldClass": "token", "allowed": "DENY" }, { "fieldClass": "authorization", "allowed": "DENY" }, { "fieldClass": "cookie", "allowed": "DENY" },
+    { "fieldClass": "secret", "allowed": "DENY" }, { "fieldClass": "document", "allowed": "DENY" }, { "fieldClass": "signature", "allowed": "DENY" },
+    { "fieldClass": "proposalterms", "allowed": "DENY" }, { "fieldClass": "notes", "allowed": "DENY" },
+    { "fieldClass": "email", "allowed": "REDACT", "replacement": "[e-mail removido]" }, { "fieldClass": "phone", "allowed": "REDACT", "replacement": "[telefone removido]" },
+    { "fieldClass": "name", "allowed": "REDACT", "replacement": "[nome removido]" }, { "fieldClass": "address", "allowed": "REDACT", "replacement": "[endereço removido]" },
+    { "fieldClass": "budget", "allowed": "REDACT", "replacement": "[valor removido]" },
+    { "fieldClass": "customerid", "allowed": "HASH" }, { "fieldClass": "subjectref", "allowed": "HASH" }, { "fieldClass": "userid", "allowed": "HASH" }
+  ],
+  "browserStorage": {
+    "neverPersistCategories": ["DOCUMENT_IDENTIFIER", "SIGNATURE_DATA", "AUTHENTICATION", "COMMUNICATION_HISTORY", "SENSITIVE_OTHER"],
+    "customerOfflinePersistence": false,
+    "note": "Customer PII → memória/online, salvo política offline aprovada (§204). O nome do cliente de trabalho legado em localStorage é achado LPF_LOCAL_CUSTOMER_NAMES (decisão pendente)."
+  },
+  "clientSafeForbiddenKeys": ["notes", "internalNotes", "presenterNotes", "speakerNotes", "brokerNotes", "cpf", "rg", "phone", "email", "budget", "customerName", "customerId", "token", "shareToken", "address"],
+  "recommendationCriteria": [
+    { "criterionId": "budget", "allowed": true, "dataCategoryId": "FINANCIAL_DECLARED", "reason": "Critério financeiro informado pelo cliente.", "reviewedBy": null },
+    { "criterionId": "area", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Característica do imóvel.", "reviewedBy": null },
+    { "criterionId": "areaRange", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Característica do imóvel.", "reviewedBy": null },
+    { "criterionId": "solar", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Característica do imóvel.", "reviewedBy": null },
+    { "criterionId": "quiet", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Característica do imóvel.", "reviewedBy": null },
+    { "criterionId": "lowTraffic", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Característica do imóvel.", "reviewedBy": null },
+    { "criterionId": "privacy", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Privacidade do lote (vizinhança), não dado da pessoa.", "reviewedBy": null },
+    { "criterionId": "leisure", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Estilo de vida declarado (proximidade do lazer).", "reviewedBy": null },
+    { "criterionId": "gate", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Característica do imóvel.", "reviewedBy": null },
+    { "criterionId": "green", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Característica do imóvel.", "reviewedBy": null },
+    { "criterionId": "view", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Característica do imóvel.", "reviewedBy": null },
+    { "criterionId": "investment", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Objetivo declarado (lente de score do lote).", "reviewedBy": null },
+    { "criterionId": "priceQuality", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Lente de score do lote.", "reviewedBy": null },
+    { "criterionId": "geometry", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Característica do imóvel.", "reviewedBy": null },
+    { "criterionId": "housing", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Lente de score do lote.", "reviewedBy": null },
+    { "criterionId": "family", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Score do lote para uso familiar escolhido pelo corretor; nunca inferido da composição familiar do cliente.", "reviewedBy": null },
+    { "criterionId": "premium", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Lente de score do lote.", "reviewedBy": null },
+    { "criterionId": "noCorner", "allowed": true, "dataCategoryId": "CUSTOMER_PREFERENCE", "reason": "Característica do imóvel.", "reviewedBy": null }
+  ],
+  "sensitiveTraits": ["religion", "religiao", "health", "saude", "disability", "deficiencia", "sexualOrientation", "orientacaoSexual", "politicalOpinion", "opiniaoPolitica", "race", "raca", "ethnicity", "etnia", "biometric", "biometria", "genetic", "genetico", "unionMembership", "sindicato", "pregnancy", "gravidez", "age", "idade", "nationality", "nacionalidade", "maritalStatus", "estadoCivil", "children", "filhos"],
+  "sensitiveTextHints": ["doença", "doenca", "diagnóstico", "diagnostico", "câncer", "cancer", "gravidez", "grávida", "gravida", "deficiência", "deficiencia", "religião", "religiao", "igreja", "evangélic", "católic", "candomblé", "partido", "eleitor", "orientação sexual", "gay", "lésbica", "raça", "cor da pele", "remédio", "remedio", "tratamento médico", "hiv", "depressão", "depressao"],
+  "documentExtraction": [
+    { "documentType": "IDENTITY_DOCUMENT", "allowedFieldKeys": [], "prohibitedFieldKeys": ["biometric", "photo", "fatherName", "motherName", "birthPlace"], "purposeId": "CONTRACT_PREPARATION", "status": "NECESSITA_CONFIRMACAO" },
+    { "documentType": "PROOF_OF_ADDRESS", "allowedFieldKeys": [], "prohibitedFieldKeys": ["consumption", "billAmount"], "purposeId": "CONTRACT_PREPARATION", "status": "NECESSITA_CONFIRMACAO" }
+  ],
+  "minorData": { "policy": "PRIVACY_REVIEW_REQUIRED", "validatedProcess": null, "status": "NECESSITA_CONFIRMACAO" },
+  "profiling": [
+    { "id": "PROF_LOT_FIT", "purposeId": "LOT_RECOMMENDATION", "inputDataCategories": ["CUSTOMER_PREFERENCE", "FINANCIAL_DECLARED"], "outputProfileFields": ["fitScore", "recommendationTier"], "method": "RULE_BASED", "humanInTheLoop": true, "humanInTheLoopEvidence": "O corretor escolhe o que mostrar; incluir lote fora do perfil pede motivo (tópico 56).", "producesSolelyAutomatedDecision": false, "impactDescription": "Ordena sugestões de lotes; não recusa atendimento nem preço.", "legalBasisAssessmentRef": "LBA_LOT_RECOMMENDATION", "riskAssessmentRef": null }
+  ],
+  "trackingTechnologies": [
+    { "id": "TT_LS_STATE", "provider": "primeira parte", "name": "localStorage ws:<dev>:state", "category": "FUNCTIONAL", "dataCategories": ["IDENTITY", "CUSTOMER_PREFERENCE", "FINANCIAL_DECLARED"], "purposeIds": ["CUSTOMER_RELATIONSHIP"], "duration": null, "transferRefs": [], "enabledByDefault": true, "policyRef": "RET_DEVICE_LOCAL" },
+    { "id": "TT_LS_DEVICE_ID", "provider": "primeira parte", "name": "localStorage vj-device-id", "category": "FUNCTIONAL", "dataCategories": ["DEVICE_TECHNICAL"], "purposeIds": ["CUSTOMER_RELATIONSHIP"], "duration": null, "transferRefs": [], "enabledByDefault": true, "policyRef": "RET_DEVICE_LOCAL" },
+    { "id": "TT_IDB_FAVORITES", "provider": "primeira parte", "name": "IndexedDB ws-favorites", "category": "FUNCTIONAL", "dataCategories": ["CUSTOMER_BEHAVIOR"], "purposeIds": ["CUSTOMER_RELATIONSHIP"], "duration": null, "transferRefs": [], "enabledByDefault": true, "policyRef": "RET_DEVICE_LOCAL" },
+    { "id": "TT_ANALYTICS_MEMORY", "provider": "primeira parte", "name": "Analytics local em memória", "category": "ANALYTICS", "dataCategories": ["ANALYTICS_PSEUDONYMOUS"], "purposeIds": ["PRODUCT_ANALYTICS"], "duration": "sessão da aba", "transferRefs": [], "enabledByDefault": true, "policyRef": "RET_ANALYTICS" },
+    { "id": "TT_GOOGLE_FONTS", "provider": "Google", "name": "Requisição às fontes", "category": "FUNCTIONAL", "dataCategories": ["DEVICE_TECHNICAL"], "purposeIds": [], "duration": null, "transferRefs": ["TR_GOOGLE_FONTS"], "enabledByDefault": true, "policyRef": "D50-3" },
+    { "id": "TT_SESSION_COOKIE", "provider": "primeira parte (backend)", "name": "Cookie __Host-plat_session / plat_oauth", "category": "STRICTLY_NECESSARY", "dataCategories": ["AUTHENTICATION"], "purposeIds": ["SECURITY"], "duration": null, "transferRefs": [], "enabledByDefault": false, "policyRef": "RET_AUTH_SESSIONS" }
+  ]
+}

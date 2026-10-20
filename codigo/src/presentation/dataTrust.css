@@ -1,0 +1,16 @@
+/* dataTrust.css — topics 32-34 (documents, provenance badges, technical confidence panel). Uses existing tokens only. */
+.dt-badge{display:inline-block;font-size:11px;line-height:1.5;padding:0 6px;border-radius:999px;border:1px solid var(--line);background:var(--surface-2);color:var(--fg-2);white-space:nowrap}
+.dt-badge[role=button]{cursor:pointer}.dt-badge[role=button]:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.dt-badge.dt-conf{border-color:var(--c-conf);color:var(--c-conf)}.dt-badge.dt-calc{border-color:var(--c-calc);color:var(--c-calc)}.dt-badge.dt-est{border-color:var(--c-est);color:var(--c-est)}
+.dt-badge.dt-chk{border-color:var(--c-chk);color:var(--c-chk)}.dt-badge.dt-nd{border-color:var(--c-nd);color:var(--c-nd)}
+.dt-docs h3,.dt-cpanel h3{margin:0 0 6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-3)}
+.dt-doclist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.dt-doc{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:8px 10px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.dt-doc-t{display:flex;flex-direction:column;gap:1px;overflow-wrap:anywhere}.dt-doc-a{display:flex;gap:6px;flex-wrap:wrap}
+.dt-muted{color:var(--fg-3);font-size:12px}
+.dt-panel,.dt-cpanel{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px 12px;font-size:12.5px;overflow-wrap:anywhere}
+.dt-panel p,.dt-cpanel p{margin:4px 0}.dt-src,.dt-tree{margin:4px 0;padding-left:18px}
+.dt-warn{padding:6px 10px;background:var(--warn-bg);color:var(--warn-fg);border:1px solid var(--warn-line);border-radius:8px}
+.dt-tag{font-size:11px;text-transform:none;letter-spacing:0;border:1px dashed var(--line-2);border-radius:6px;padding:0 5px;color:var(--fg-3)}
+.dt-table{width:100%;border-collapse:collapse;font-size:12px;display:block;overflow-x:auto}.dt-table th,.dt-table td{text-align:left;padding:3px 6px;border-bottom:1px solid var(--line)}
+.dt-acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}

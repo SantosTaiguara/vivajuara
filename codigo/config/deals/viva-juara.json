@@ -1,0 +1,21 @@
+{
+  "kind": "deals-policy",
+  "version": "57.1.0",
+  "organizationId": "org_house7",
+  "developmentId": "viva-juara",
+  "status": "NECESSITA_CONFIRMACAO",
+  "note": "Tópico 57. Todo valor null é decisão comercial/jurídica da organização ainda não informada (necessita confirmação): a ação que depende dele é recusada com POLICY_NOT_CONFIGURED ou COMMERCIAL_AUTHORITY_NOT_CONFIGURED. Nada aqui é conselho jurídico. Preço de referência: tabela publicada vigente (R$ 1.196/m², 2026-10-06), nunca alterado por proposta.",
+  "businessTimezone": null,
+  "authorityMatrix": { "proposal": null, "negotiation": null, "reservation": null, "availability": null, "contract": null, "signature": null, "journey": null },
+  "workflow": { "policyId": null, "version": null, "proposalRequiredBeforeReservation": null, "reservationRequiredBeforeProposal": null, "acceptedProposalRequiredForClosing": null, "reservationRequiredForClosing": null },
+  "proposalConcurrency": { "mode": null, "priorityRule": null },
+  "submission": { "requiredCustomerFields": null, "requiredProposalFields": null, "requireFinancialSimulation": null, "requireAvailabilityFreshness": null, "maxAvailabilityAgeSeconds": null },
+  "approval": { "policyId": null, "version": null, "rules": null, "requesterCannotApprove": null },
+  "reservation": { "maxDurationSeconds": null, "allowWithoutExpiry": false, "availabilityAfterExpiry": "AVAILABLE", "extension": { "allowed": null, "maxExtensionSeconds": null, "maxExtensions": null, "reasonRequired": true } },
+  "closingChecklist": { "policyId": null, "version": null, "items": null },
+  "closingReadiness": { "policyId": null, "version": null, "readyForSignature": null },
+  "saleCompletion": { "policyId": null, "version": null, "requiredConditions": null },
+  "closingCancellation": { "policyId": null, "version": null, "availabilityAfterCancel": null },
+  "contractTemplates": [],
+  "signature": { "providers": [] }
+}

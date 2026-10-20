@@ -1,0 +1,31 @@
+{
+ "kind": "map-layer-config",
+ "developmentId": "viva-juara",
+ "version": "1.0.0",
+ "schemaVersion": 1,
+ "defaultPrimaryLayer": "availability",
+ "defaultBaseMap": "PLANT",
+ "hybridBlend": 0.42,
+ "enabledLayers": ["availability", "price", "pricePerM2", "area", "class", "score", "fit", "sun", "noise", "privacy", "forest", "traffic", "gate", "leisure", "none"],
+ "layerOrder": ["availability", "price", "pricePerM2", "area", "class", "score", "fit", "noise", "privacy", "sun", "forest", "traffic", "gate", "leisure", "none"],
+ "defaultOverlays": ["recommendation", "comparison", "references"],
+ "groups": [
+  { "id": "COMMERCIAL", "label": "Comercial" },
+  { "id": "INTELLIGENCE", "label": "Inteligência" },
+  { "id": "CUSTOMER", "label": "Cliente" },
+  { "id": "COMFORT", "label": "Conforto" },
+  { "id": "LOCATION", "label": "Localização" },
+  { "id": "BASE", "label": "Base" }
+ ],
+ "layerOverrides": {
+  "sun": { "label": "Sol nos fundos (orientação)" }
+ },
+ "legendPolicy": {
+  "version": "1.0.0",
+  "lowCoverageRatio": 0.8,
+  "countModeWithoutFilter": "TOTAL_ONLY",
+  "countModeWithFilter": "FILTERED_AND_TOTAL",
+  "interaction": { "hoverHighlight": true, "clickFocus": true, "clickPin": false, "explicitFilterAction": true, "allowMultiFocus": false, "keyboardNavigation": true }
+ },
+ "notes": "Faixas e cores das camadas são as mesmas do painel publicado (services/layers.js). Este arquivo só habilita, ordena e agrupa camadas deste empreendimento; não altera significado de nenhuma escala."
+}

@@ -1,0 +1,6 @@
+{
+  "kind": "iam-explicit-role-grants",
+  "version": 1,
+  "note": "Concessões explícitas de permissões explicitGrantOnly (rodada 5) a papéis além do template. OWNER_ADMIN já recebe todas por decisão de 2026-10-18 (Edmilson). Editar só com `npm run iam -- grant ... --confirm`; nenhum segredo aqui.",
+  "grants": []
+}

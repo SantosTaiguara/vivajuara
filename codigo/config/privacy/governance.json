@@ -1,0 +1,234 @@
+{
+  "kind": "privacy-governance",
+  "version": "0.1.0",
+  "status": "DRAFT",
+  "note": "Tópico 59. Encarregado, avisos, configuração por organização, matriz controlador/operador e registro de mudanças regulatórias. Tudo vazio/null até confirmação da organização. A função de encarregado não concede permissão técnica (§141). Não é parecer jurídico.",
+  "dpo": {
+    "organizationId": "org_house7",
+    "type": "ORGANIZATION",
+    "publicDisplayName": "House 7 Imobiliária",
+    "publicContactChannel": null,
+    "appointmentDocumentRef": null,
+    "effectiveFrom": null,
+    "effectiveTo": null,
+    "conflictAssessmentRef": null,
+    "status": null,
+    "configurationStatus": "NECESSITA_CONFIRMACAO",
+    "decision": "Encarregado definido por Edmilson Margon em 2026-10-18. Falta o canal público de contato (e-mail/página) e o documento de nomeação."
+  },
+  "notices": [],
+  "noticeTypes": [
+    "GENERAL_PRIVACY",
+    "CUSTOMER_COLLECTION",
+    "MARKETING",
+    "COOKIES",
+    "SHARE",
+    "OTHER"
+  ],
+  "tenantConfig": [
+    {
+      "organizationId": "org_house7",
+      "controllerIdentityRef": null,
+      "dpoRef": null,
+      "privacyNoticeRefs": [],
+      "retentionPolicySetRef": "lifecycle.json@0.1.0",
+      "consentPolicySetRef": null,
+      "rightsRequestPolicyRef": null,
+      "transferPolicyRef": null,
+      "status": "NECESSITA_CONFIRMACAO"
+    }
+  ],
+  "controllerOperatorMatrix": {
+    "parties": [
+      "House 7",
+      "Loteadora",
+      "Provedor"
+    ],
+    "rows": [
+      {
+        "activity": "LEAD_INTAKE",
+        "roles": {
+          "House 7": null,
+          "Loteadora": null,
+          "Provedor": "-"
+        }
+      },
+      {
+        "activity": "LOT_RECOMMENDATION",
+        "roles": {
+          "House 7": null,
+          "Loteadora": "-",
+          "Provedor": "-"
+        }
+      },
+      {
+        "activity": "RESERVATION_PROCESS",
+        "roles": {
+          "House 7": null,
+          "Loteadora": null,
+          "Provedor": "-"
+        }
+      },
+      {
+        "activity": "SIGNATURE_PROCESS",
+        "roles": {
+          "House 7": null,
+          "Loteadora": null,
+          "Provedor": null
+        }
+      },
+      {
+        "activity": "PRODUCT_ANALYTICS",
+        "roles": {
+          "House 7": null,
+          "Loteadora": "-",
+          "Provedor": null
+        }
+      },
+      {
+        "activity": "SECURITY (login Google)",
+        "roles": {
+          "House 7": null,
+          "Loteadora": "-",
+          "Provedor": null
+        }
+      }
+    ],
+    "note": "null = '?' a preencher pelo jurídico/negócio; '-' = parte não envolvida no fluxo atual."
+  },
+  "denialReasons": [
+    {
+      "code": "IDENTITY_NOT_VERIFIED",
+      "label": "Não foi possível confirmar a identidade do solicitante.",
+      "version": "0.1.0"
+    },
+    {
+      "code": "NOT_THE_CONTROLLER",
+      "label": "A organização não é a controladora deste tratamento; o pedido foi encaminhado.",
+      "version": "0.1.0"
+    },
+    {
+      "code": "LEGAL_RETENTION_REQUIRED",
+      "label": "Parte dos dados precisa ser mantida por obrigação legal ou defesa de direitos.",
+      "version": "0.1.0"
+    },
+    {
+      "code": "THIRD_PARTY_DATA",
+      "label": "O pedido envolve dados de outras pessoas.",
+      "version": "0.1.0"
+    },
+    {
+      "code": "NO_DATA_FOUND",
+      "label": "Não encontramos dados pessoais seus nos sistemas pesquisados.",
+      "version": "0.1.0"
+    },
+    {
+      "code": "DUPLICATE_REQUEST",
+      "label": "Pedido igual já está em andamento.",
+      "version": "0.1.0"
+    }
+  ],
+  "regulatoryChanges": [
+    {
+      "id": "REG_ANPD_15_2024",
+      "authority": "ANPD",
+      "instrument": "Resolução CD/ANPD nº 15/2024 (comunicação de incidente)",
+      "effectiveAt": "2024-04-26",
+      "affectedPolicies": [
+        "INCIDENT_NOTIFICATION_ANPD",
+        "INCIDENT_NOTIFICATION_SUBJECTS"
+      ],
+      "reviewStatus": "PENDING",
+      "notes": "Prazo citado na especificação (3 dias úteis) aguarda validação."
+    },
+    {
+      "id": "REG_ANPD_18_2024",
+      "authority": "ANPD",
+      "instrument": "Resolução CD/ANPD nº 18/2024 (encarregado)",
+      "effectiveAt": "2024-07-17",
+      "affectedPolicies": [
+        "dpo"
+      ],
+      "reviewStatus": "PENDING",
+      "notes": ""
+    },
+    {
+      "id": "REG_ANPD_19_2024",
+      "authority": "ANPD",
+      "instrument": "Resolução CD/ANPD nº 19/2024 (transferência internacional)",
+      "effectiveAt": "2024-08-23",
+      "affectedPolicies": [
+        "internationalTransfers"
+      ],
+      "reviewStatus": "PENDING",
+      "notes": ""
+    }
+  ],
+  "policyDocuments": [
+    "PRIVACY_GOVERNANCE_POLICY",
+    "RETENTION_POLICY",
+    "DATA_SUBJECT_RIGHTS_POLICY",
+    "CONSENT_POLICY",
+    "VENDOR_PRIVACY_POLICY",
+    "INCIDENT_PRIVACY_POLICY",
+    "INTERNATIONAL_TRANSFER_POLICY",
+    "TRACKING_POLICY",
+    "AI_DATA_USE_POLICY"
+  ],
+  "privacyExceptions": [],
+  "legacyFindings": [
+    {
+      "id": "LPF_LOCAL_CUSTOMER_NAMES",
+      "location": "localStorage ws:<dev>:state → prefs.customers[] (src/state/store.js save; criado em src/presentation/app.js 'custAdd')",
+      "dataCategories": [
+        "IDENTITY",
+        "CUSTOMER_PREFERENCE",
+        "FINANCIAL_DECLARED",
+        "CUSTOMER_BEHAVIOR"
+      ],
+      "issueType": "NO_BASIS_RECORD",
+      "severity": "MEDIUM",
+      "remediation": "Decisão D59-1: manter nomes no aparelho (com base legal validada e aviso) ou passar a guardar só um apelido/id. Até lá: Central de privacidade permite exportar e apagar; nada é enviado."
+    },
+    {
+      "id": "LPF_SHARE_NAME_IN_URL",
+      "location": "src/services/share.js whatsappUrl (wa.me/?text=) com o nome opcional digitado no modal Compartilhar",
+      "dataCategories": [
+        "IDENTITY"
+      ],
+      "issueType": "UNCONTROLLED_SHARING",
+      "severity": "MEDIUM",
+      "remediation": "Decisão D59-2: o nome vai na URL do WhatsApp (terceiro) quando o corretor o digita. Opções: aviso no campo, só primeiro nome, ou copiar texto sem URL."
+    },
+    {
+      "id": "LPF_GOOGLE_FONTS",
+      "location": "fonts.googleapis.com / fonts.gstatic.com (todas as páginas)",
+      "dataCategories": [
+        "DEVICE_TECHNICAL"
+      ],
+      "issueType": "UNCONTROLLED_SHARING",
+      "severity": "LOW",
+      "remediation": "Decisão D50-3 (auto-hospedar as fontes) elimina o terceiro e a possível transferência internacional."
+    },
+    {
+      "id": "LPF_DEVICE_ID",
+      "location": "localStorage vj-device-id",
+      "dataCategories": [
+        "DEVICE_TECHNICAL"
+      ],
+      "issueType": "NO_BASIS_RECORD",
+      "severity": "LOW",
+      "remediation": "Id pseudônimo (não é anônimo): registrar finalidade/base; apagado em 'Apagar tudo deste aparelho'."
+    },
+    {
+      "id": "LPF_LOCAL_BUDGET",
+      "location": "localStorage ws:<dev>:state → prefs.constraints (orçamento da sessão de trabalho)",
+      "dataCategories": [
+        "FINANCIAL_DECLARED"
+      ],
+      "issueType": "NO_BASIS_RECORD",
+      "severity": "LOW",
+      "remediation": "Incluído em 'Apagar dados pessoais deste aparelho'."
+    }
+  ]
+}

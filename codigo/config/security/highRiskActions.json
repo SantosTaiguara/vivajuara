@@ -1,0 +1,131 @@
+{
+ "kind": "high-risk-action-policy",
+ "version": "1.0.0",
+ "note": "HighRiskActionPolicy (§134–135). requiredPermissions inexistentes no PermissionRegistry negam (fail closed) até a aprovação humana D50-5 registrá-las no frontend E no backend.",
+ "proposedPermissions": [
+  {
+   "key": "customer.export",
+   "riskLevel": "HIGH"
+  },
+  {
+   "key": "analytics.export",
+   "riskLevel": "HIGH"
+  },
+  {
+   "key": "document.download",
+   "riskLevel": "HIGH"
+  },
+  {
+   "key": "customer.sensitive.read",
+   "riskLevel": "HIGH"
+  },
+  {
+   "key": "assignment.manage",
+   "riskLevel": "CRITICAL"
+  },
+  {
+   "key": "organization.settings.manage",
+   "riskLevel": "HIGH"
+  },
+  {
+   "key": "share.revoke",
+   "riskLevel": "MEDIUM"
+  },
+  {
+   "key": "secret.rotate",
+   "riskLevel": "CRITICAL"
+  }
+ ],
+ "actions": [
+  {
+   "actionCode": "PRICING_PUBLISH",
+   "requiredPermissions": [
+    "price_table.publish"
+   ],
+   "requireStepUp": true,
+   "requireAudit": true,
+   "requireReason": true,
+   "requireExpectedRevision": true,
+   "requireDualApproval": false,
+   "maxSessionAgeForActionMs": 900000
+  },
+  {
+   "actionCode": "PRICING_ACTIVATE",
+   "requiredPermissions": [
+    "price_table.publish"
+   ],
+   "requireStepUp": true,
+   "requireAudit": true,
+   "requireReason": true,
+   "requireExpectedRevision": true,
+   "maxSessionAgeForActionMs": 900000
+  },
+  {
+   "actionCode": "AVAILABILITY_OVERRIDE",
+   "requiredPermissions": [
+    "availability.write"
+   ],
+   "requireStepUp": false,
+   "requireAudit": true,
+   "requireReason": true,
+   "requireExpectedRevision": true
+  },
+  {
+   "actionCode": "USER_ROLE_CHANGE",
+   "requiredPermissions": [
+    "assignment.manage"
+   ],
+   "requireStepUp": true,
+   "requireAudit": true,
+   "requireReason": true,
+   "maxSessionAgeForActionMs": 900000
+  },
+  {
+   "actionCode": "ORG_SETTINGS_CHANGE",
+   "requiredPermissions": [
+    "organization.settings.manage"
+   ],
+   "requireStepUp": true,
+   "requireAudit": true,
+   "requireReason": false
+  },
+  {
+   "actionCode": "SHARE_BULK_EXPORT",
+   "requiredPermissions": [
+    "customer.export"
+   ],
+   "requireStepUp": true,
+   "requireAudit": true,
+   "requireReason": true
+  },
+  {
+   "actionCode": "SECRET_ROTATION",
+   "requiredPermissions": [
+    "secret.rotate"
+   ],
+   "requireStepUp": true,
+   "requireAudit": true,
+   "requireReason": true,
+   "requireDualApproval": true
+  },
+  {
+   "actionCode": "DOCUMENT_RESTRICTED_DOWNLOAD",
+   "requiredPermissions": [
+    "document.download"
+   ],
+   "requireStepUp": false,
+   "requireAudit": true,
+   "requireReason": false
+  },
+  {
+   "actionCode": "PROVENANCE_CONFLICT_RESOLVE",
+   "requiredPermissions": [
+    "provenance.resolveConflict"
+   ],
+   "requireStepUp": false,
+   "requireAudit": true,
+   "requireReason": true,
+   "requireExpectedRevision": true
+  }
+ ]
+}

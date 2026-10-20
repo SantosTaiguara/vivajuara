@@ -1,0 +1,116 @@
+{
+ "kind": "rate-limit-policies",
+ "version": "1.0.0",
+ "note": "RateLimitPolicy por categoria (§151–161). O backend hoje aplica só o limite global por IP (RATE_LIMIT_MAX); estas políticas são o contrato para o middleware (patch B2). Resposta: 429 + Retry-After, mensagem genérica.",
+ "policies": [
+  {
+   "policyId": "global.ip",
+   "keyDimensions": [
+    "ip"
+   ],
+   "windowSeconds": 60,
+   "maxRequests": 300,
+   "action": "REJECT"
+  },
+  {
+   "policyId": "auth.login",
+   "keyDimensions": [
+    "ip",
+    "account"
+   ],
+   "windowSeconds": 60,
+   "maxRequests": 5,
+   "burst": 0,
+   "action": "REJECT"
+  },
+  {
+   "policyId": "auth.passwordReset",
+   "keyDimensions": [
+    "ip",
+    "account"
+   ],
+   "windowSeconds": 3600,
+   "maxRequests": 3,
+   "action": "REJECT"
+  },
+  {
+   "policyId": "share.validate",
+   "keyDimensions": [
+    "ip"
+   ],
+   "windowSeconds": 60,
+   "maxRequests": 20,
+   "action": "REJECT"
+  },
+  {
+   "policyId": "share.validate.token",
+   "keyDimensions": [
+    "shareTokenPrefix"
+   ],
+   "windowSeconds": 60,
+   "maxRequests": 30,
+   "action": "THROTTLE"
+  },
+  {
+   "policyId": "search",
+   "keyDimensions": [
+    "ip",
+    "organization"
+   ],
+   "windowSeconds": 60,
+   "maxRequests": 60,
+   "burst": 20,
+   "action": "THROTTLE"
+  },
+  {
+   "policyId": "analytics.expensive",
+   "keyDimensions": [
+    "user",
+    "organization"
+   ],
+   "windowSeconds": 60,
+   "maxRequests": 10,
+   "action": "THROTTLE"
+  },
+  {
+   "policyId": "export.bulk",
+   "keyDimensions": [
+    "user",
+    "organization"
+   ],
+   "windowSeconds": 3600,
+   "maxRequests": 5,
+   "action": "REJECT"
+  },
+  {
+   "policyId": "admin.write",
+   "keyDimensions": [
+    "user",
+    "endpoint"
+   ],
+   "windowSeconds": 60,
+   "maxRequests": 30,
+   "action": "REJECT"
+  },
+  {
+   "policyId": "upload",
+   "keyDimensions": [
+    "user",
+    "organization"
+   ],
+   "windowSeconds": 3600,
+   "maxRequests": 50,
+   "action": "REJECT"
+  }
+ ],
+ "inputLimits": {
+  "maxBodyBytes": 16384,
+  "maxAdminBodyBytes": 262144,
+  "maxJsonDepth": 20,
+  "maxPageSize": 500,
+  "maxBulkIds": 500,
+  "maxSearchQueryLength": 80,
+  "maxGeometryVertices": 20000,
+  "maxGeometryFeatures": 2000
+ }
+}

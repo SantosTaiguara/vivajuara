@@ -1,0 +1,1950 @@
+{
+ "kind": "journey-policy",
+ "version": "1.0.0",
+ "note": "Tópico 40. Não havia pipeline comercial no código (inventário em docs/JOURNEY_LEGACY_PIPELINE_MIGRATION_REPORT.md): o modelo V1 abaixo é o template técnico do spec (§44), publicado para uso inicial e marcado requiresHumanValidation. Nada aqui altera lote, disponibilidade, preço, score ou Fit.",
+ "organizations": {
+  "org_house7": {
+   "stageModelDefinitionId": "jsm_house7_default"
+  }
+ },
+ "stageModels": [
+  {
+   "definition": {
+    "id": "jsm_house7_default",
+    "organizationId": "org_house7",
+    "code": "DEFAULT",
+    "title": "Jornada comercial (template inicial)",
+    "scope": "ORGANIZATION",
+    "status": "ACTIVE",
+    "createdAt": "2026-10-09T00:00:00.000Z"
+   },
+   "versions": [
+    {
+     "id": "jsmv_house7_default_1",
+     "stageModelDefinitionId": "jsm_house7_default",
+     "version": 1,
+     "requiresHumanValidation": true,
+     "stages": [
+      {
+       "id": "stg_new",
+       "code": "NEW",
+       "title": "Novo",
+       "order": 0,
+       "category": "NEW",
+       "terminal": false,
+       "recommendedNextActionType": "CONTACT",
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_contacted",
+       "code": "CONTACTED",
+       "title": "Contato feito",
+       "order": 1,
+       "category": "ENGAGEMENT",
+       "terminal": false,
+       "recommendedNextActionType": "COMPLETE_PROFILE",
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_qualifying",
+       "code": "QUALIFYING",
+       "title": "Qualificando",
+       "order": 2,
+       "category": "QUALIFICATION",
+       "terminal": false,
+       "recommendedNextActionType": "COMPLETE_PROFILE",
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_profiled",
+       "code": "PROFILED",
+       "title": "Perfil levantado",
+       "order": 3,
+       "category": "DISCOVERY",
+       "terminal": false,
+       "recommendedNextActionType": "PREPARE_RECOMMENDATION",
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_recommending",
+       "code": "RECOMMENDING",
+       "title": "Opções em preparo",
+       "order": 4,
+       "category": "RECOMMENDATION",
+       "terminal": false,
+       "recommendedNextActionType": "PRESENT_OPTIONS",
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_shortlisted",
+       "code": "SHORTLISTED",
+       "title": "Opções selecionadas",
+       "order": 5,
+       "category": "SHORTLIST",
+       "terminal": false,
+       "recommendedNextActionType": "SCHEDULE_VISIT",
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_visit_planned",
+       "code": "VISIT_PLANNED",
+       "title": "Visita agendada",
+       "order": 6,
+       "category": "VISIT",
+       "terminal": false,
+       "recommendedNextActionType": "FOLLOW_UP",
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_visited",
+       "code": "VISITED",
+       "title": "Visitou",
+       "order": 7,
+       "category": "VISIT",
+       "terminal": false,
+       "recommendedNextActionType": "FOLLOW_UP_VISIT",
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_negotiating",
+       "code": "NEGOTIATING",
+       "title": "Negociação",
+       "order": 8,
+       "category": "NEGOTIATION",
+       "terminal": false,
+       "recommendedNextActionType": "PREPARE_SIMULATION",
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_proposal",
+       "code": "PROPOSAL",
+       "title": "Proposta",
+       "order": 9,
+       "category": "PROPOSAL",
+       "terminal": false,
+       "recommendedNextActionType": "FOLLOW_UP_PROPOSAL",
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_reservation",
+       "code": "RESERVATION",
+       "title": "Reserva em andamento",
+       "order": 10,
+       "category": "RESERVATION",
+       "terminal": false,
+       "recommendedNextActionType": "FOLLOW_UP",
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_closed_won",
+       "code": "CLOSED_WON",
+       "title": "Fechado (ganho)",
+       "order": 11,
+       "category": "WON",
+       "terminal": true,
+       "recommendedNextActionType": null,
+       "visibility": "NORMAL"
+      },
+      {
+       "id": "stg_closed_lost",
+       "code": "CLOSED_LOST",
+       "title": "Encerrado (perdido)",
+       "order": 12,
+       "category": "LOST",
+       "terminal": true,
+       "recommendedNextActionType": null,
+       "visibility": "NORMAL"
+      }
+     ],
+     "transitions": [
+      {
+       "id": "tr_new__contacted",
+       "fromStageId": "stg_new",
+       "toStageId": "stg_contacted",
+       "allowed": true,
+       "requireReason": false
+      },
+      {
+       "id": "tr_new__qualifying",
+       "fromStageId": "stg_new",
+       "toStageId": "stg_qualifying",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_new__closed_lost",
+       "fromStageId": "stg_new",
+       "toStageId": "stg_closed_lost",
+       "allowed": true,
+       "requireReason": true,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_contacted__qualifying",
+       "fromStageId": "stg_contacted",
+       "toStageId": "stg_qualifying",
+       "allowed": true,
+       "requireReason": false
+      },
+      {
+       "id": "tr_contacted__profiled",
+       "fromStageId": "stg_contacted",
+       "toStageId": "stg_profiled",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_contacted__new",
+       "fromStageId": "stg_contacted",
+       "toStageId": "stg_new",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_contacted__closed_lost",
+       "fromStageId": "stg_contacted",
+       "toStageId": "stg_closed_lost",
+       "allowed": true,
+       "requireReason": true,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_qualifying__profiled",
+       "fromStageId": "stg_qualifying",
+       "toStageId": "stg_profiled",
+       "allowed": true,
+       "requireReason": false
+      },
+      {
+       "id": "tr_qualifying__recommending",
+       "fromStageId": "stg_qualifying",
+       "toStageId": "stg_recommending",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_qualifying__new",
+       "fromStageId": "stg_qualifying",
+       "toStageId": "stg_new",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_qualifying__contacted",
+       "fromStageId": "stg_qualifying",
+       "toStageId": "stg_contacted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_qualifying__closed_lost",
+       "fromStageId": "stg_qualifying",
+       "toStageId": "stg_closed_lost",
+       "allowed": true,
+       "requireReason": true,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_profiled__recommending",
+       "fromStageId": "stg_profiled",
+       "toStageId": "stg_recommending",
+       "allowed": true,
+       "requireReason": false
+      },
+      {
+       "id": "tr_profiled__shortlisted",
+       "fromStageId": "stg_profiled",
+       "toStageId": "stg_shortlisted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_profiled__new",
+       "fromStageId": "stg_profiled",
+       "toStageId": "stg_new",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_profiled__contacted",
+       "fromStageId": "stg_profiled",
+       "toStageId": "stg_contacted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_profiled__qualifying",
+       "fromStageId": "stg_profiled",
+       "toStageId": "stg_qualifying",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_profiled__closed_lost",
+       "fromStageId": "stg_profiled",
+       "toStageId": "stg_closed_lost",
+       "allowed": true,
+       "requireReason": true,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_recommending__shortlisted",
+       "fromStageId": "stg_recommending",
+       "toStageId": "stg_shortlisted",
+       "allowed": true,
+       "requireReason": false
+      },
+      {
+       "id": "tr_recommending__visit_planned",
+       "fromStageId": "stg_recommending",
+       "toStageId": "stg_visit_planned",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_recommending__new",
+       "fromStageId": "stg_recommending",
+       "toStageId": "stg_new",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_recommending__contacted",
+       "fromStageId": "stg_recommending",
+       "toStageId": "stg_contacted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_recommending__qualifying",
+       "fromStageId": "stg_recommending",
+       "toStageId": "stg_qualifying",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_recommending__profiled",
+       "fromStageId": "stg_recommending",
+       "toStageId": "stg_profiled",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_recommending__closed_lost",
+       "fromStageId": "stg_recommending",
+       "toStageId": "stg_closed_lost",
+       "allowed": true,
+       "requireReason": true,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_shortlisted__visit_planned",
+       "fromStageId": "stg_shortlisted",
+       "toStageId": "stg_visit_planned",
+       "allowed": true,
+       "requireReason": false
+      },
+      {
+       "id": "tr_shortlisted__visited",
+       "fromStageId": "stg_shortlisted",
+       "toStageId": "stg_visited",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_shortlisted__new",
+       "fromStageId": "stg_shortlisted",
+       "toStageId": "stg_new",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_shortlisted__contacted",
+       "fromStageId": "stg_shortlisted",
+       "toStageId": "stg_contacted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_shortlisted__qualifying",
+       "fromStageId": "stg_shortlisted",
+       "toStageId": "stg_qualifying",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_shortlisted__profiled",
+       "fromStageId": "stg_shortlisted",
+       "toStageId": "stg_profiled",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_shortlisted__recommending",
+       "fromStageId": "stg_shortlisted",
+       "toStageId": "stg_recommending",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_shortlisted__closed_lost",
+       "fromStageId": "stg_shortlisted",
+       "toStageId": "stg_closed_lost",
+       "allowed": true,
+       "requireReason": true,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_visit_planned__visited",
+       "fromStageId": "stg_visit_planned",
+       "toStageId": "stg_visited",
+       "allowed": true,
+       "requireReason": false
+      },
+      {
+       "id": "tr_visit_planned__negotiating",
+       "fromStageId": "stg_visit_planned",
+       "toStageId": "stg_negotiating",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visit_planned__new",
+       "fromStageId": "stg_visit_planned",
+       "toStageId": "stg_new",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visit_planned__contacted",
+       "fromStageId": "stg_visit_planned",
+       "toStageId": "stg_contacted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visit_planned__qualifying",
+       "fromStageId": "stg_visit_planned",
+       "toStageId": "stg_qualifying",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visit_planned__profiled",
+       "fromStageId": "stg_visit_planned",
+       "toStageId": "stg_profiled",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visit_planned__recommending",
+       "fromStageId": "stg_visit_planned",
+       "toStageId": "stg_recommending",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visit_planned__shortlisted",
+       "fromStageId": "stg_visit_planned",
+       "toStageId": "stg_shortlisted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visit_planned__closed_lost",
+       "fromStageId": "stg_visit_planned",
+       "toStageId": "stg_closed_lost",
+       "allowed": true,
+       "requireReason": true,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_visited__negotiating",
+       "fromStageId": "stg_visited",
+       "toStageId": "stg_negotiating",
+       "allowed": true,
+       "requireReason": false
+      },
+      {
+       "id": "tr_visited__proposal",
+       "fromStageId": "stg_visited",
+       "toStageId": "stg_proposal",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visited__new",
+       "fromStageId": "stg_visited",
+       "toStageId": "stg_new",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visited__contacted",
+       "fromStageId": "stg_visited",
+       "toStageId": "stg_contacted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visited__qualifying",
+       "fromStageId": "stg_visited",
+       "toStageId": "stg_qualifying",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visited__profiled",
+       "fromStageId": "stg_visited",
+       "toStageId": "stg_profiled",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visited__recommending",
+       "fromStageId": "stg_visited",
+       "toStageId": "stg_recommending",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visited__shortlisted",
+       "fromStageId": "stg_visited",
+       "toStageId": "stg_shortlisted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visited__visit_planned",
+       "fromStageId": "stg_visited",
+       "toStageId": "stg_visit_planned",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_visited__closed_lost",
+       "fromStageId": "stg_visited",
+       "toStageId": "stg_closed_lost",
+       "allowed": true,
+       "requireReason": true,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_negotiating__proposal",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_proposal",
+       "allowed": true,
+       "requireReason": false
+      },
+      {
+       "id": "tr_negotiating__reservation",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_reservation",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_negotiating__new",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_new",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_negotiating__contacted",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_contacted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_negotiating__qualifying",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_qualifying",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_negotiating__profiled",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_profiled",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_negotiating__recommending",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_recommending",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_negotiating__shortlisted",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_shortlisted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_negotiating__visit_planned",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_visit_planned",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_negotiating__visited",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_visited",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_negotiating__closed_lost",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_closed_lost",
+       "allowed": true,
+       "requireReason": true,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_proposal__reservation",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_reservation",
+       "allowed": true,
+       "requireReason": false
+      },
+      {
+       "id": "tr_proposal__new",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_new",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_proposal__contacted",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_contacted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_proposal__qualifying",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_qualifying",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_proposal__profiled",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_profiled",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_proposal__recommending",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_recommending",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_proposal__shortlisted",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_shortlisted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_proposal__visit_planned",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_visit_planned",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_proposal__visited",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_visited",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_proposal__negotiating",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_negotiating",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_proposal__closed_lost",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_closed_lost",
+       "allowed": true,
+       "requireReason": true,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_reservation__new",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_new",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_reservation__contacted",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_contacted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_reservation__qualifying",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_qualifying",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_reservation__profiled",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_profiled",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_reservation__recommending",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_recommending",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_reservation__shortlisted",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_shortlisted",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_reservation__visit_planned",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_visit_planned",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_reservation__visited",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_visited",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_reservation__negotiating",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_negotiating",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_reservation__proposal",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_proposal",
+       "allowed": true,
+       "requireReason": true
+      },
+      {
+       "id": "tr_reservation__closed_lost",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_closed_lost",
+       "allowed": true,
+       "requireReason": true,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_negotiating__closed_won",
+       "fromStageId": "stg_negotiating",
+       "toStageId": "stg_closed_won",
+       "allowed": true,
+       "requireReason": false,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_proposal__closed_won",
+       "fromStageId": "stg_proposal",
+       "toStageId": "stg_closed_won",
+       "allowed": true,
+       "requireReason": false,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      },
+      {
+       "id": "tr_reservation__closed_won",
+       "fromStageId": "stg_reservation",
+       "toStageId": "stg_closed_won",
+       "allowed": true,
+       "requireReason": false,
+       "requireOutcomeData": true,
+       "requiredPermission": "journey.close"
+      }
+     ],
+     "entryStageId": "stg_new",
+     "wonStageIds": [
+      "stg_closed_won"
+     ],
+     "lostStageIds": [
+      "stg_closed_lost"
+     ],
+     "pausedStageIds": [],
+     "lifecycleStatus": "PUBLISHED",
+     "createdAt": "2026-10-09T00:00:00.000Z",
+     "publishedAt": "2026-10-09T00:00:00.000Z"
+    }
+   ]
+  }
+ ],
+ "eventTypes": [
+  {
+   "code": "JOURNEY_CREATED",
+   "category": "STAGE",
+   "title": "Jornada aberta",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [],
+    "allowed": [
+     "developmentId",
+     "journeyType"
+    ]
+   }
+  },
+  {
+   "code": "MIGRATED_TO_STAGE",
+   "category": "STAGE",
+   "title": "Jornada migrada do registro anterior",
+   "allowedSources": [
+    "IMPORT",
+    "SYSTEM"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": false,
+   "customerTouch": false,
+   "brokerAction": false,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "legacyCurrentStage",
+     "historyUnavailable"
+    ],
+    "allowed": [
+     "legacyLabel",
+     "migrationVersion"
+    ]
+   }
+  },
+  {
+   "code": "STAGE_CHANGED",
+   "category": "STAGE",
+   "title": "Etapa alterada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT",
+    "CRM_SYNC",
+    "INTEGRATION"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "fromStageId",
+     "toStageId",
+     "transitionId"
+    ],
+    "allowed": [
+     "reasonCode",
+     "override"
+    ]
+   }
+  },
+  {
+   "code": "CUSTOMER_CONTACTED",
+   "category": "CONTACT",
+   "title": "Contato com o cliente",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT",
+    "CRM_SYNC",
+    "WHATSAPP",
+    "PHONE",
+    "EMAIL"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": true,
+   "brokerAction": true,
+   "stageSuggestion": "CONTACTED",
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "touchpointId"
+    ],
+    "allowed": [
+     "channel",
+     "direction",
+     "outcomeCode"
+    ]
+   }
+  },
+  {
+   "code": "PROFILE_UPDATED",
+   "category": "PROFILE",
+   "title": "Perfil do cliente atualizado",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": "PROFILED",
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "profileVersionId"
+    ],
+    "allowed": [
+     "version"
+    ]
+   }
+  },
+  {
+   "code": "RECOMMENDATION_GENERATED",
+   "category": "RECOMMENDATION",
+   "title": "Recomendação gerada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": false,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "recommendationResultId"
+    ],
+    "allowed": [
+     "profileVersionId"
+    ]
+   }
+  },
+  {
+   "code": "RECOMMENDATION_PRESENTED",
+   "category": "RECOMMENDATION",
+   "title": "Opções apresentadas ao cliente",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": true,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": true,
+   "brokerAction": true,
+   "stageSuggestion": "SHORTLISTED",
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "recommendationResultId"
+    ],
+    "allowed": [
+     "lotIds",
+     "presentationRef"
+    ]
+   }
+  },
+  {
+   "code": "OPTION_PRESENTED",
+   "category": "RECOMMENDATION",
+   "title": "Lote registrado como opção apresentada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": true,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": true,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "lotId"
+    ],
+    "allowed": [
+     "recommendationResultId"
+    ]
+   }
+  },
+  {
+   "code": "FAVORITE_ADDED_FOR_CUSTOMER",
+   "category": "FAVORITE",
+   "title": "Lote favoritado para o cliente",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": true,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "lotId"
+    ],
+    "allowed": [
+     "favoriteId"
+    ]
+   }
+  },
+  {
+   "code": "FAVORITE_REMOVED_FOR_CUSTOMER",
+   "category": "FAVORITE",
+   "title": "Lote retirado dos favoritos do cliente",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": false,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "lotId"
+    ],
+    "allowed": [
+     "favoriteId"
+    ]
+   }
+  },
+  {
+   "code": "COMPARISON_CREATED",
+   "category": "COMPARISON",
+   "title": "Comparação criada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "comparisonSessionId"
+    ],
+    "allowed": [
+     "candidateCount"
+    ]
+   }
+  },
+  {
+   "code": "COMPARISON_UPDATED",
+   "category": "COMPARISON",
+   "title": "Comparação atualizada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": false,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "comparisonSessionId"
+    ],
+    "allowed": [
+     "candidateCount"
+    ]
+   }
+  },
+  {
+   "code": "FINANCIAL_SIMULATION_CREATED",
+   "category": "SIMULATION",
+   "title": "Simulação financeira registrada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "simulationId"
+    ],
+    "allowed": [
+     "version"
+    ]
+   }
+  },
+  {
+   "code": "VISIT_SCHEDULED",
+   "category": "VISIT",
+   "title": "Visita agendada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": "VISIT_PLANNED",
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [],
+    "allowed": [
+     "touchpointId",
+     "scheduledFor"
+    ]
+   }
+  },
+  {
+   "code": "VISIT_COMPLETED",
+   "category": "VISIT",
+   "title": "Visita realizada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": true,
+   "brokerAction": true,
+   "stageSuggestion": "VISITED",
+   "actionSuggestion": {
+    "type": "FOLLOW_UP_VISIT",
+    "inHours": 24,
+    "reasonCode": "AFTER_VISIT"
+   },
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [],
+    "allowed": [
+     "touchpointId"
+    ]
+   }
+  },
+  {
+   "code": "DOCUMENT_REQUESTED",
+   "category": "DOCUMENT",
+   "title": "Documento solicitado",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "documentId"
+    ],
+    "allowed": []
+   }
+  },
+  {
+   "code": "DOCUMENT_RECEIVED",
+   "category": "DOCUMENT",
+   "title": "Documento recebido",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": true,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "documentId"
+    ],
+    "allowed": []
+   }
+  },
+  {
+   "code": "PROPOSAL_STARTED",
+   "category": "PROPOSAL",
+   "title": "Proposta iniciada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": "PROPOSAL",
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "proposalId"
+    ],
+    "allowed": []
+   }
+  },
+  {
+   "code": "PROPOSAL_SUBMITTED",
+   "category": "PROPOSAL",
+   "title": "Proposta enviada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "proposalId"
+    ],
+    "allowed": []
+   }
+  },
+  {
+   "code": "RESERVATION_CREATED",
+   "category": "RESERVATION",
+   "title": "Reserva registrada no sistema comercial",
+   "allowedSources": [
+    "DOMAIN_EVENT",
+    "INTEGRATION",
+    "CRM_SYNC"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": "RESERVATION",
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "reservationId"
+    ],
+    "allowed": [
+     "lotId"
+    ]
+   }
+  },
+  {
+   "code": "RESERVATION_RELEASED",
+   "category": "RESERVATION",
+   "title": "Reserva liberada no sistema comercial",
+   "allowedSources": [
+    "DOMAIN_EVENT",
+    "INTEGRATION",
+    "CRM_SYNC"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "reservationId"
+    ],
+    "allowed": [
+     "lotId"
+    ]
+   }
+  },
+  {
+   "code": "JOURNEY_PAUSED",
+   "category": "STAGE",
+   "title": "Jornada pausada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "pauseRecordId",
+     "reasonCode"
+    ],
+    "allowed": [
+     "expectedResumeAt"
+    ]
+   }
+  },
+  {
+   "code": "JOURNEY_RESUMED",
+   "category": "STAGE",
+   "title": "Jornada retomada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "pauseRecordId"
+    ],
+    "allowed": []
+   }
+  },
+  {
+   "code": "JOURNEY_WON",
+   "category": "OUTCOME",
+   "title": "Jornada encerrada com ganho",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "outcomeId"
+    ],
+    "allowed": [
+     "relatedResourceRefs"
+    ]
+   }
+  },
+  {
+   "code": "JOURNEY_LOST",
+   "category": "OUTCOME",
+   "title": "Jornada encerrada sem conversão",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "outcomeId",
+     "reasonCode"
+    ],
+    "allowed": []
+   }
+  },
+  {
+   "code": "FOLLOW_UP_CREATED",
+   "category": "FOLLOW_UP",
+   "title": "Próxima ação definida",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "nextActionId",
+     "type"
+    ],
+    "allowed": [
+     "dueAt"
+    ]
+   }
+  },
+  {
+   "code": "FOLLOW_UP_COMPLETED",
+   "category": "FOLLOW_UP",
+   "title": "Próxima ação concluída",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "nextActionId"
+    ],
+    "allowed": [
+     "completionReasonCode"
+    ]
+   }
+  },
+  {
+   "code": "FOLLOW_UP_CANCELLED",
+   "category": "FOLLOW_UP",
+   "title": "Próxima ação cancelada",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": false,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "nextActionId"
+    ],
+    "allowed": [
+     "completionReasonCode"
+    ]
+   }
+  },
+  {
+   "code": "ASSIGNMENT_CHANGED",
+   "category": "ASSIGNMENT",
+   "title": "Responsável alterado",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": true,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "assignmentId"
+    ],
+    "allowed": [
+     "role"
+    ]
+   }
+  },
+  {
+   "code": "ARTIFACT_LINKED",
+   "category": "OTHER",
+   "title": "Recurso vinculado",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": false,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "linkId",
+     "resourceType"
+    ],
+    "allowed": [
+     "relationType"
+    ]
+   }
+  },
+  {
+   "code": "CRM_SYNC_COMPLETED",
+   "category": "INTEGRATION",
+   "title": "Sincronização com CRM",
+   "allowedSources": [
+    "CRM_SYNC",
+    "INTEGRATION"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": false,
+   "customerTouch": false,
+   "brokerAction": false,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [],
+    "allowed": [
+     "provider"
+    ]
+   }
+  },
+  {
+   "code": "EVENT_CORRECTED",
+   "category": "OTHER",
+   "title": "Registro corrigido",
+   "allowedSources": [
+    "MANUAL",
+    "DOMAIN_EVENT"
+   ],
+   "clientVisible": false,
+   "countsAsMeaningfulActivity": false,
+   "customerTouch": false,
+   "brokerAction": true,
+   "stageSuggestion": null,
+   "actionSuggestion": null,
+   "retentionClass": "OPERATIONAL",
+   "payload": {
+    "required": [
+     "originalEventId",
+     "correctionId",
+     "reasonCode"
+    ],
+    "allowed": []
+   }
+  }
+ ],
+ "ingestionPolicies": [
+  {
+   "sourceEventType": "FavoriteAdded",
+   "eligible": true,
+   "condition": {
+    "contextType": "CUSTOMER"
+   },
+   "eventType": "FAVORITE_ADDED_FOR_CUSTOMER",
+   "journeyResolutionStrategy": "ACTIVE_JOURNEY_OF_CUSTOMER_IN_DEVELOPMENT",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "FavoriteRemoved",
+   "eligible": true,
+   "condition": {
+    "contextType": "CUSTOMER"
+   },
+   "eventType": "FAVORITE_REMOVED_FOR_CUSTOMER",
+   "journeyResolutionStrategy": "ACTIVE_JOURNEY_OF_CUSTOMER_IN_DEVELOPMENT",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "RecommendationGenerated",
+   "eligible": true,
+   "condition": {
+    "requiresCustomer": true
+   },
+   "eventType": "RECOMMENDATION_GENERATED",
+   "journeyResolutionStrategy": "EXPLICIT_OR_ACTIVE",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "RecommendationPresented",
+   "eligible": true,
+   "condition": {
+    "requiresCustomer": true,
+    "requiresExplicitPresentation": true
+   },
+   "eventType": "RECOMMENDATION_PRESENTED",
+   "journeyResolutionStrategy": "EXPLICIT_OR_ACTIVE",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "ComparisonCreated",
+   "eligible": true,
+   "condition": {
+    "requiresCustomer": true
+   },
+   "eventType": "COMPARISON_CREATED",
+   "journeyResolutionStrategy": "EXPLICIT_OR_ACTIVE",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "ComparisonUpdated",
+   "eligible": true,
+   "condition": {
+    "requiresCustomer": true
+   },
+   "eventType": "COMPARISON_UPDATED",
+   "journeyResolutionStrategy": "EXPLICIT_OR_ACTIVE",
+   "deduplicationPolicy": "COALESCE_BY_SUBJECT",
+   "coalesceWindowMinutes": 60
+  },
+  {
+   "sourceEventType": "ComparisonCandidatesReordered",
+   "eligible": false,
+   "reason": "NOISE"
+  },
+  {
+   "sourceEventType": "FinancialSimulationCreated",
+   "eligible": true,
+   "condition": {
+    "requiresCustomer": true
+   },
+   "eventType": "FINANCIAL_SIMULATION_CREATED",
+   "journeyResolutionStrategy": "EXPLICIT_OR_ACTIVE",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "DocumentRequested",
+   "eligible": true,
+   "condition": {
+    "requiresCustomer": true
+   },
+   "eventType": "DOCUMENT_REQUESTED",
+   "journeyResolutionStrategy": "EXPLICIT",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "DocumentReceived",
+   "eligible": true,
+   "condition": {
+    "requiresCustomer": true
+   },
+   "eventType": "DOCUMENT_RECEIVED",
+   "journeyResolutionStrategy": "EXPLICIT",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "ReservationCreated",
+   "eligible": true,
+   "condition": {
+    "requiresCustomer": true
+   },
+   "eventType": "RESERVATION_CREATED",
+   "journeyResolutionStrategy": "EXPLICIT",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "ReservationReleased",
+   "eligible": true,
+   "condition": {
+    "requiresCustomer": true
+   },
+   "eventType": "RESERVATION_RELEASED",
+   "journeyResolutionStrategy": "EXPLICIT",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "CustomerPreferenceProfileUpdated",
+   "eligible": true,
+   "condition": {
+    "requiresCustomer": true
+   },
+   "eventType": "PROFILE_UPDATED",
+   "journeyResolutionStrategy": "ACTIVE_JOURNEY_OF_CUSTOMER_IN_DEVELOPMENT",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "CrmSyncCompleted",
+   "eligible": true,
+   "condition": {},
+   "eventType": "CRM_SYNC_COMPLETED",
+   "journeyResolutionStrategy": "EXPLICIT",
+   "deduplicationPolicy": "SOURCE_EVENT_ID"
+  },
+  {
+   "sourceEventType": "LotHovered",
+   "eligible": false,
+   "reason": "ANALYTICS_ONLY"
+  },
+  {
+   "sourceEventType": "LotClicked",
+   "eligible": false,
+   "reason": "ANALYTICS_ONLY"
+  },
+  {
+   "sourceEventType": "QuickViewOpened",
+   "eligible": false,
+   "reason": "ANALYTICS_ONLY"
+  },
+  {
+   "sourceEventType": "MapPanned",
+   "eligible": false,
+   "reason": "ANALYTICS_ONLY"
+  },
+  {
+   "sourceEventType": "FilterChanged",
+   "eligible": false,
+   "reason": "ANALYTICS_ONLY"
+  }
+ ],
+ "lossReasons": [
+  {
+   "code": "PRICE"
+  },
+  {
+   "code": "PAYMENT_TERMS"
+  },
+  {
+   "code": "LOT_SIZE"
+  },
+  {
+   "code": "LOCATION"
+  },
+  {
+   "code": "TIMING"
+  },
+  {
+   "code": "NO_RESPONSE"
+  },
+  {
+   "code": "CHANGED_PLAN"
+  },
+  {
+   "code": "BOUGHT_ELSEWHERE"
+  },
+  {
+   "code": "FINANCING"
+  },
+  {
+   "code": "NO_SUITABLE_LOT"
+  },
+  {
+   "code": "COMMERCIAL_CONDITION"
+  },
+  {
+   "code": "OTHER"
+  },
+  {
+   "code": "UNKNOWN"
+  }
+ ],
+ "lossReasonLabels": {
+  "PRICE": "Preço",
+  "PAYMENT_TERMS": "Condições de pagamento",
+  "LOT_SIZE": "Tamanho do lote",
+  "LOCATION": "Localização",
+  "TIMING": "Momento",
+  "NO_RESPONSE": "Sem resposta",
+  "CHANGED_PLAN": "Mudou de planos",
+  "BOUGHT_ELSEWHERE": "Comprou em outro lugar",
+  "FINANCING": "Financiamento",
+  "NO_SUITABLE_LOT": "Nenhum lote adequado",
+  "COMMERCIAL_CONDITION": "Condição comercial",
+  "OTHER": "Outro",
+  "UNKNOWN": "Não informado"
+ },
+ "pauseReasons": [
+  "CUSTOMER_REQUEST",
+  "TIMING",
+  "WAITING_FINANCING",
+  "WAITING_DOCUMENTS",
+  "OTHER"
+ ],
+ "overrideReasons": [
+  "DATA_CORRECTION",
+  "OPERATIONAL_EXCEPTION",
+  "CUSTOMER_REQUEST",
+  "OTHER"
+ ],
+ "sources": [
+  "WEBSITE",
+  "PAID_MEDIA",
+  "ORGANIC_SOCIAL",
+  "REFERRAL",
+  "BROKER",
+  "EVENT",
+  "CRM_REACTIVATION",
+  "DIRECT",
+  "PARTNER",
+  "OTHER",
+  "UNKNOWN"
+ ],
+ "sourceLabels": {
+  "WEBSITE": "Site",
+  "PAID_MEDIA": "Mídia paga",
+  "ORGANIC_SOCIAL": "Redes sociais (orgânico)",
+  "REFERRAL": "Indicação",
+  "BROKER": "Corretor",
+  "EVENT": "Evento",
+  "CRM_REACTIVATION": "Reativação (CRM)",
+  "DIRECT": "Direto",
+  "PARTNER": "Parceiro",
+  "OTHER": "Outro",
+  "UNKNOWN": "Origem não informada"
+ },
+ "primaryAttributionRule": "FIRST_TOUCH",
+ "touchpointOutcomes": [
+  "INTERESTED",
+  "NOT_INTERESTED",
+  "NO_ANSWER",
+  "CALL_BACK",
+  "SCHEDULED",
+  "INFORMATION_SENT",
+  "OTHER"
+ ],
+ "nextActionTypes": [
+  "CONTACT",
+  "FOLLOW_UP",
+  "COMPLETE_PROFILE",
+  "PREPARE_RECOMMENDATION",
+  "PRESENT_OPTIONS",
+  "SCHEDULE_VISIT",
+  "FOLLOW_UP_VISIT",
+  "PREPARE_SIMULATION",
+  "REQUEST_DOCUMENT",
+  "FOLLOW_UP_PROPOSAL",
+  "WAIT_CUSTOMER",
+  "OTHER"
+ ],
+ "nextActionDueSoonHours": 24,
+ "agingPolicies": [
+  {
+   "stageCode": "NEW",
+   "warningAfterHours": 24,
+   "criticalAfterHours": 72,
+   "basedOn": "LAST_MEANINGFUL_EVENT"
+  },
+  {
+   "stageCode": "CONTACTED",
+   "warningAfterHours": 72,
+   "criticalAfterHours": 168,
+   "basedOn": "LAST_CUSTOMER_TOUCH"
+  },
+  {
+   "stageCode": "VISITED",
+   "warningAfterHours": 48,
+   "criticalAfterHours": 120,
+   "basedOn": "LAST_CUSTOMER_TOUCH"
+  },
+  {
+   "stageCode": "NEGOTIATING",
+   "warningAfterHours": 72,
+   "criticalAfterHours": 168,
+   "basedOn": "NEXT_ACTION_DUE"
+  }
+ ],
+ "agingNote": "Prazos ilustrativos por etapa (sem regra universal). Validar com a operação comercial.",
+ "automationPolicy": {
+  "allowAutoStageTransition": false,
+  "trustedEventTypes": [],
+  "allowedTransitionIds": []
+ },
+ "followUpPolicy": {
+  "createAutomatically": false
+ },
+ "uniquenessPolicy": {
+  "maxActivePerKey": 1,
+  "key": [
+   "customerId",
+   "developmentId",
+   "journeyType"
+  ]
+ },
+ "offlinePolicy": {
+  "allowSummaryCache": false,
+  "allowTimelineCache": false,
+  "allowNextActionCache": false,
+  "allowOfflineTouchpointQueue": false,
+  "allowOfflineStageTransition": false,
+  "maxCacheAgeSeconds": null
+ },
+ "permissionCatalog": {
+  "note": "Chaves do domínio Journey (contrato p/ backend). Não registradas em config/security/permissions.json: negadas até serem registradas.",
+  "keys": [
+   "journey.read",
+   "journey.readAssigned",
+   "journey.create",
+   "journey.update",
+   "journey.transition",
+   "journey.overrideTransition",
+   "journey.pause",
+   "journey.close",
+   "journey.reopen",
+   "journey.assign",
+   "journey.timeline.read",
+   "journey.timeline.record",
+   "journey.nextAction.manage",
+   "journey.outcome.manage",
+   "journey.technical.read"
+  ]
+ },
+ "stageMappingPolicies": []
+}

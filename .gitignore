@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+!.env.example
+codigo/backend/backups/*
+!codigo/backend/backups/.gitkeep
+codigo/backend/reports/*
+!codigo/backend/reports/.gitkeep
+.DS_Store

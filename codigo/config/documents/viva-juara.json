@@ -1,0 +1,2279 @@
+{
+ "kind": "document-config",
+ "developmentId": "viva-juara",
+ "organizationId": "org_house7",
+ "version": "1.0.0",
+ "generatedAt": "2026-10-09T00:00:00.000Z",
+ "note": "Gerado por scripts/documents/buildLegacyInventory.js. Checksums são SHA-256 dos arquivos existentes; classificação, autoridade e correspondência com fontes legadas são PROVISÓRIAS (validação humana).",
+ "documentTypes": [
+  {
+   "code": "OFFICIAL_PLAN",
+   "label": "Planta oficial",
+   "extensible": true
+  },
+  {
+   "code": "TECHNICAL_PLAN",
+   "label": "Planta técnica",
+   "extensible": true
+  },
+  {
+   "code": "GEOSPATIAL_FILE",
+   "label": "Arquivo geoespacial",
+   "extensible": true
+  },
+  {
+   "code": "REGULATION",
+   "label": "Regulamento",
+   "extensible": true
+  },
+  {
+   "code": "TECHNICAL_REPORT",
+   "label": "Relatório técnico",
+   "extensible": true
+  },
+  {
+   "code": "COMMERCIAL_TABLE",
+   "label": "Tabela comercial",
+   "extensible": true
+  },
+  {
+   "code": "COMMERCIAL_PRESENTATION",
+   "label": "Apresentação comercial",
+   "extensible": true
+  },
+  {
+   "code": "MARKETING_MATERIAL",
+   "label": "Material de divulgação",
+   "extensible": true
+  },
+  {
+   "code": "LEGAL_DOCUMENT",
+   "label": "Documento jurídico",
+   "extensible": true
+  },
+  {
+   "code": "INTERNAL_ANALYSIS",
+   "label": "Análise interna",
+   "extensible": true
+  },
+  {
+   "code": "DATA_SOURCE",
+   "label": "Fonte de dados",
+   "extensible": true
+  },
+  {
+   "code": "GENERATED_REPORT",
+   "label": "Relatório gerado",
+   "extensible": true
+  },
+  {
+   "code": "EVENT_RECORD",
+   "label": "Registro de evento",
+   "extensible": true
+  },
+  {
+   "code": "OTHER_CONFIGURED",
+   "label": "Outro",
+   "extensible": true
+  }
+ ],
+ "filePolicy": {
+  "version": "1.0.0",
+  "allowedMediaTypes": [
+   "application/pdf",
+   "image/png",
+   "image/jpeg",
+   "image/webp",
+   "application/zip",
+   "application/vnd.google-earth.kmz",
+   "application/vnd.google-earth.kml+xml",
+   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+   "text/csv",
+   "application/json",
+   "application/geo+json"
+  ],
+  "maxSizeBytes": 104857600,
+  "requireSecurityScan": true,
+  "allowExternalReference": true,
+  "requireManagedCopyForAuthorityLevels": [
+   "OFFICIAL_PRIMARY",
+   "OFFICIAL_SECONDARY"
+  ],
+  "scriptableBehavior": "BLOCK",
+  "parserLimits": {
+   "maxArchiveEntries": 2000,
+   "maxUncompressedBytes": 524288000,
+   "maxCompressionRatio": 100,
+   "maxPdfPages": 2000
+  },
+  "equivalentMediaTypes": {
+   "application/vnd.google-earth.kmz": "application/zip",
+   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "application/zip"
+  }
+ },
+ "duplicatePolicy": "REQUIRE_REVIEW",
+ "accessPolicy": {
+  "version": "1.0.0",
+  "classificationRules": {
+   "PUBLIC": {
+    "readPermission": "document.read",
+    "downloadPermission": "document.download",
+    "anonymousRead": true,
+    "clientVisible": true,
+    "hideExistence": false,
+    "auditDownload": false
+   },
+   "ORGANIZATION_INTERNAL": {
+    "readPermission": "document.read",
+    "downloadPermission": "document.download",
+    "anonymousRead": false,
+    "clientVisible": false,
+    "hideExistence": false,
+    "auditDownload": false
+   },
+   "CONFIDENTIAL": {
+    "readPermission": "document.read.confidential",
+    "downloadPermission": "document.download",
+    "anonymousRead": false,
+    "clientVisible": false,
+    "hideExistence": false,
+    "auditDownload": true
+   },
+   "RESTRICTED": {
+    "readPermission": "document.read.restricted",
+    "downloadPermission": "document.download",
+    "anonymousRead": false,
+    "clientVisible": false,
+    "hideExistence": true,
+    "auditDownload": true
+   }
+  },
+  "publicAccessRules": {
+   "requirePublishedVersion": true
+  },
+  "downloadRules": {
+   "signedUrlTtlMs": 300000,
+   "maxTtlMs": 900000
+  },
+  "offlineRules": {
+   "cacheMetadata": true,
+   "cachePrivateContent": false,
+   "cachePublicContent": true,
+   "clearOnTenantSwitch": true,
+   "clearOnLogout": true
+  },
+  "auditRules": {
+   "auditClassifications": [
+    "CONFIDENTIAL",
+    "RESTRICTED"
+   ],
+   "auditPublication": true
+  }
+ },
+ "retentionPolicies": [
+  {
+   "classification": "PUBLIC",
+   "retentionClass": "STANDARD",
+   "minRetentionDays": null,
+   "allowHardDelete": false,
+   "legalHoldSupported": true,
+   "version": "1.0.0"
+  },
+  {
+   "classification": "ORGANIZATION_INTERNAL",
+   "retentionClass": "RECORD",
+   "minRetentionDays": null,
+   "allowHardDelete": false,
+   "legalHoldSupported": true,
+   "version": "1.0.0"
+  },
+  {
+   "classification": "CONFIDENTIAL",
+   "retentionClass": "LONG_TERM",
+   "minRetentionDays": null,
+   "allowHardDelete": false,
+   "legalHoldSupported": true,
+   "version": "1.0.0"
+  },
+  {
+   "classification": "RESTRICTED",
+   "retentionClass": "LONG_TERM",
+   "minRetentionDays": null,
+   "allowHardDelete": false,
+   "legalHoldSupported": true,
+   "version": "1.0.0"
+  }
+ ],
+ "documents": [
+  {
+   "organizationId": "org_house7",
+   "developmentId": "viva-juara",
+   "lifecycleStatus": "DRAFT",
+   "origin": "MIGRATED_LEGACY",
+   "tags": [],
+   "createdAt": "2026-10-09T00:00:00.000Z",
+   "updatedAt": "2026-10-09T00:00:00.000Z",
+   "createdBy": "system:legacy-migration",
+   "id": "doc_vj_official_plan",
+   "documentCode": "VJ-PLANTA",
+   "documentType": "OFFICIAL_PLAN",
+   "title": "Planta de situação do parcelamento",
+   "description": "Quadro de áreas, contorno dos lotes, áreas comuns, servidões e norte.",
+   "classification": "ORGANIZATION_INTERNAL",
+   "authority": "OFFICIAL_PRIMARY",
+   "scope": {
+    "scopeType": "DEVELOPMENT"
+   },
+   "metadata": {
+    "legacySourceId": "official-plan-v1",
+    "legacySourceVersion": "1",
+    "classificationStatus": "PROVISIONAL",
+    "authorityStatus": "PROVISIONAL",
+    "authorityBasis": "Fonte cadastrada como \"PDF oficial\" em developments.js",
+    "pageCount": 1
+   },
+   "versions": [
+    {
+     "id": "docver_vj_official_plan_v1",
+     "versionNumber": 1,
+     "versionLabel": null,
+     "lifecycleStatus": "UPLOADED",
+     "sourceEffectiveFrom": null,
+     "sourceEffectiveTo": null,
+     "issuedAt": null,
+     "uploadedAt": "2026-10-09T00:00:00.000Z",
+     "validatedAt": null,
+     "publishedAt": null,
+     "supersedesVersionId": null,
+     "primaryFileAssetId": "fa_vj_official_plan_pdf",
+     "fileAssetIds": [
+      "fa_vj_official_plan_pdf"
+     ],
+     "contentChecksum": "sha256:a53146f09f70c1f00b4db0a9e72ab5fdfe7c2f9f28db561305e472cb3cd6d0df",
+     "sourceChecksum": null,
+     "extractionRef": null,
+     "uploadedBy": "system:legacy-migration",
+     "notes": "Registro legado: arquivo identificado fora do storage gerenciado; aguarda ingestão, varredura, validação e publicação humanas."
+    }
+   ],
+   "fileAssets": [
+    {
+     "id": "fa_vj_official_plan_pdf",
+     "contentChecksum": "sha256:a53146f09f70c1f00b4db0a9e72ab5fdfe7c2f9f28db561305e472cb3cd6d0df",
+     "sizeBytes": 2978219,
+     "originalFilename": "Viva_Juara_-_Planta.pdf",
+     "mediaType": "application/pdf",
+     "detectedMediaType": "application/pdf",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "CONVERSATION_UPLOAD",
+       "externalId": "uploads/Viva_Juara_-_Planta.pdf",
+       "snapshotChecksum": "sha256:a53146f09f70c1f00b4db0a9e72ab5fdfe7c2f9f28db561305e472cb3cd6d0df",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": 1
+     }
+    }
+   ],
+   "representations": [
+    {
+     "id": "rep_vj_official_plan_page1",
+     "type": "PAGE_IMAGE",
+     "assetPath": "planta.webp",
+     "contentChecksum": "sha256:d8ca4c2809be5c7dab524d455af6aedee4e1178ad33f21081abba59bd5a783a1",
+     "sizeBytes": 1263324,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "pageNumber": 1,
+      "use": "fundo do mapa"
+     },
+     "documentVersionId": "docver_vj_official_plan_v1"
+    }
+   ],
+   "legacyMatch": {
+    "legacySourceId": "official-plan-v1",
+    "candidateVersionId": "docver_vj_official_plan_v1",
+    "status": "REQUIRES_REVIEW",
+    "basis": "Arquivo enviado na conversa; a correspondência com a fonte legada official-plan-v1 (versão 1) não pode ser provada por nome de arquivo."
+   },
+   "latestVersionId": "docver_vj_official_plan_v1",
+   "currentPublishedVersionId": null,
+   "relations": [
+    {
+     "id": "rel_vj_official_plan_dev",
+     "relationType": "APPLIES_TO",
+     "targetType": "DEVELOPMENT",
+     "targetId": "viva-juara",
+     "documentVersionId": null
+    }
+   ]
+  },
+  {
+   "organizationId": "org_house7",
+   "developmentId": "viva-juara",
+   "lifecycleStatus": "DRAFT",
+   "origin": "MIGRATED_LEGACY",
+   "tags": [],
+   "createdAt": "2026-10-09T00:00:00.000Z",
+   "updatedAt": "2026-10-09T00:00:00.000Z",
+   "createdBy": "system:legacy-migration",
+   "id": "doc_vj_geo_implantation",
+   "documentCode": "VJ-KMZ",
+   "documentType": "GEOSPATIAL_FILE",
+   "title": "Implantação georreferenciada (KMZ)",
+   "description": "Sobreposição georreferenciada (GroundOverlay) usada para coordenadas, vias, áreas verdes e distâncias.",
+   "classification": "ORGANIZATION_INTERNAL",
+   "authority": "UNKNOWN",
+   "scope": {
+    "scopeType": "DEVELOPMENT"
+   },
+   "metadata": {
+    "legacySourceId": "kmz-v1",
+    "legacySourceVersion": "1",
+    "classificationStatus": "PROVISIONAL",
+    "authorityStatus": "UNKNOWN",
+    "container": "KMZ (zip): doc.kml + imagem PNG"
+   },
+   "versions": [
+    {
+     "id": "docver_vj_geo_implantation_v1",
+     "versionNumber": 1,
+     "versionLabel": null,
+     "lifecycleStatus": "UPLOADED",
+     "sourceEffectiveFrom": null,
+     "sourceEffectiveTo": null,
+     "issuedAt": null,
+     "uploadedAt": "2026-10-09T00:00:00.000Z",
+     "validatedAt": null,
+     "publishedAt": null,
+     "supersedesVersionId": null,
+     "primaryFileAssetId": "fa_vj_kmz",
+     "fileAssetIds": [
+      "fa_vj_kmz"
+     ],
+     "contentChecksum": "sha256:176ed02d2912f70f2f32e4e6745589a6f400a84cb50fb3a1c83bada0954f4a9f",
+     "sourceChecksum": null,
+     "extractionRef": null,
+     "uploadedBy": "system:legacy-migration",
+     "notes": "Registro legado: arquivo identificado fora do storage gerenciado; aguarda ingestão, varredura, validação e publicação humanas."
+    }
+   ],
+   "fileAssets": [
+    {
+     "id": "fa_vj_kmz",
+     "contentChecksum": "sha256:176ed02d2912f70f2f32e4e6745589a6f400a84cb50fb3a1c83bada0954f4a9f",
+     "sizeBytes": 17013259,
+     "originalFilename": "VIVAJUARA_-_KMZ_Humanizado.kmz",
+     "mediaType": "application/vnd.google-earth.kmz",
+     "detectedMediaType": "application/zip",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "CONVERSATION_UPLOAD",
+       "externalId": "uploads/VIVAJUARA_-_KMZ_Humanizado.kmz",
+       "snapshotChecksum": "sha256:176ed02d2912f70f2f32e4e6745589a6f400a84cb50fb3a1c83bada0954f4a9f",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null
+     }
+    }
+   ],
+   "representations": [],
+   "legacyMatch": {
+    "legacySourceId": "kmz-v1",
+    "candidateVersionId": "docver_vj_geo_implantation_v1",
+    "status": "REQUIRES_REVIEW",
+    "basis": "Correspondência por conteúdo declarado, sem identificador estável da fonte."
+   },
+   "latestVersionId": "docver_vj_geo_implantation_v1",
+   "currentPublishedVersionId": null,
+   "relations": [
+    {
+     "id": "rel_vj_geo_implantation_dev",
+     "relationType": "APPLIES_TO",
+     "targetType": "DEVELOPMENT",
+     "targetId": "viva-juara",
+     "documentVersionId": null
+    }
+   ]
+  },
+  {
+   "organizationId": "org_house7",
+   "developmentId": "viva-juara",
+   "lifecycleStatus": "DRAFT",
+   "origin": "MIGRATED_LEGACY",
+   "tags": [
+    "divulgação"
+   ],
+   "createdAt": "2026-10-09T00:00:00.000Z",
+   "updatedAt": "2026-10-09T00:00:00.000Z",
+   "createdBy": "system:legacy-migration",
+   "id": "doc_vj_aerial_illustration",
+   "documentCode": "VJ-AEREA",
+   "documentType": "MARKETING_MATERIAL",
+   "title": "Ilustração aérea de divulgação",
+   "description": "Imagem ilustrativa; posição aproximada.",
+   "classification": "PUBLIC",
+   "authority": "MARKETING",
+   "scope": {
+    "scopeType": "DEVELOPMENT"
+   },
+   "metadata": {
+    "legacySourceId": "aerial-v1",
+    "legacySourceVersion": "1",
+    "classificationStatus": "PROVISIONAL",
+    "classificationBasis": "Já exibida publicamente no painel (aerea.webp)."
+   },
+   "versions": [
+    {
+     "id": "docver_vj_aerial_illustration_v1",
+     "versionNumber": 1,
+     "versionLabel": null,
+     "lifecycleStatus": "UPLOADED",
+     "sourceEffectiveFrom": null,
+     "sourceEffectiveTo": null,
+     "issuedAt": null,
+     "uploadedAt": "2026-10-09T00:00:00.000Z",
+     "validatedAt": null,
+     "publishedAt": null,
+     "supersedesVersionId": null,
+     "primaryFileAssetId": "fa_vj_aerial_jpg",
+     "fileAssetIds": [
+      "fa_vj_aerial_jpg"
+     ],
+     "contentChecksum": "sha256:91a0f4786409826f0977074017aad5d8315ab6d721406a1ed714d0b814cc9c5c",
+     "sourceChecksum": null,
+     "extractionRef": null,
+     "uploadedBy": "system:legacy-migration",
+     "notes": "Registro legado: arquivo identificado fora do storage gerenciado; aguarda ingestão, varredura, validação e publicação humanas."
+    }
+   ],
+   "fileAssets": [
+    {
+     "id": "fa_vj_aerial_jpg",
+     "contentChecksum": "sha256:91a0f4786409826f0977074017aad5d8315ab6d721406a1ed714d0b814cc9c5c",
+     "sizeBytes": 813064,
+     "originalFilename": "viva-juara-aerea.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/viva-juara-aerea.jpg",
+       "snapshotChecksum": "sha256:91a0f4786409826f0977074017aad5d8315ab6d721406a1ed714d0b814cc9c5c",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null
+     }
+    }
+   ],
+   "representations": [
+    {
+     "id": "rep_vj_aerial_webp",
+     "type": "PAGE_IMAGE",
+     "assetPath": "aerea.webp",
+     "contentChecksum": "sha256:41fbe43e115469fe6e2b58e8ca26c41fd76f0410a645d38a29549fc25ab8f108",
+     "sizeBytes": 381144,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "use": "fundo aéreo do mapa"
+     },
+     "documentVersionId": "docver_vj_aerial_illustration_v1"
+    }
+   ],
+   "legacyMatch": {
+    "legacySourceId": "aerial-v1",
+    "candidateVersionId": "docver_vj_aerial_illustration_v1",
+    "status": "REQUIRES_REVIEW",
+    "basis": "Correspondência pelo conteúdo descrito."
+   },
+   "latestVersionId": "docver_vj_aerial_illustration_v1",
+   "currentPublishedVersionId": null,
+   "relations": [
+    {
+     "id": "rel_vj_aerial_illustration_dev",
+     "relationType": "APPLIES_TO",
+     "targetType": "DEVELOPMENT",
+     "targetId": "viva-juara",
+     "documentVersionId": null
+    }
+   ]
+  },
+  {
+   "organizationId": "org_house7",
+   "developmentId": "viva-juara",
+   "lifecycleStatus": "DRAFT",
+   "origin": "MIGRATED_LEGACY",
+   "tags": [],
+   "createdAt": "2026-10-09T00:00:00.000Z",
+   "updatedAt": "2026-10-09T00:00:00.000Z",
+   "createdBy": "system:legacy-migration",
+   "id": "doc_vj_launch_event",
+   "documentCode": "VJ-EVENTO",
+   "documentType": "EVENT_RECORD",
+   "title": "Gravação do evento de lançamento",
+   "description": "Condições de pagamento, entrada padrão, muro e gradil (declarações verbais).",
+   "classification": "ORGANIZATION_INTERNAL",
+   "authority": "UNKNOWN",
+   "scope": {
+    "scopeType": "DEVELOPMENT"
+   },
+   "metadata": {
+    "legacySourceId": "launch-event-v1",
+    "legacySourceVersion": "1",
+    "fileStatus": "NOT_AVAILABLE",
+    "note": "Nem a gravação nem a transcrição (VIVAJUARA-TXT.csv, citada no resumo) estão disponíveis: nenhuma versão foi criada."
+   },
+   "versions": [],
+   "fileAssets": [],
+   "representations": [],
+   "legacyMatch": {
+    "legacySourceId": "launch-event-v1",
+    "candidateVersionId": null,
+    "status": "SOURCE_NOT_AVAILABLE",
+    "basis": "Arquivo não encontrado."
+   },
+   "latestVersionId": null,
+   "currentPublishedVersionId": null,
+   "relations": [
+    {
+     "id": "rel_vj_launch_event_dev",
+     "relationType": "APPLIES_TO",
+     "targetType": "DEVELOPMENT",
+     "targetId": "viva-juara",
+     "documentVersionId": null
+    }
+   ]
+  },
+  {
+   "organizationId": "org_house7",
+   "developmentId": "viva-juara",
+   "lifecycleStatus": "DRAFT",
+   "origin": "MIGRATED_LEGACY",
+   "tags": [],
+   "createdAt": "2026-10-09T00:00:00.000Z",
+   "updatedAt": "2026-10-09T00:00:00.000Z",
+   "createdBy": "system:legacy-migration",
+   "id": "doc_vj_price_table_2026_10",
+   "documentCode": "VJ-TABELA-2026-10",
+   "documentType": "COMMERCIAL_TABLE",
+   "title": "Tabela de preço de lançamento (2026-10-06)",
+   "description": "Lote de 250 m² por R$ 299.000 (R$ 1.196/m²), confirmada pelo corretor.",
+   "classification": "ORGANIZATION_INTERNAL",
+   "authority": "UNKNOWN",
+   "scope": {
+    "scopeType": "DEVELOPMENT"
+   },
+   "metadata": {
+    "legacySourceId": "price-table-v1",
+    "legacySourceVersion": "2026-10-06",
+    "fileStatus": "NOT_AVAILABLE",
+    "priceTableId": "lancamento-2026-10",
+    "note": "O Pricing Domain (PriceTableVersion lancamento-2026-10) continua dono do preço; o documento-fonte da tabela não foi recebido."
+   },
+   "versions": [],
+   "fileAssets": [],
+   "representations": [],
+   "legacyMatch": {
+    "legacySourceId": "price-table-v1",
+    "candidateVersionId": null,
+    "status": "SOURCE_NOT_AVAILABLE",
+    "basis": "Tabela informada pelo corretor, sem arquivo."
+   },
+   "latestVersionId": null,
+   "currentPublishedVersionId": null,
+   "relations": [
+    {
+     "id": "rel_vj_price_table_2026_10_dev",
+     "relationType": "APPLIES_TO",
+     "targetType": "DEVELOPMENT",
+     "targetId": "viva-juara",
+     "documentVersionId": null
+    }
+   ]
+  },
+  {
+   "organizationId": "org_house7",
+   "developmentId": "viva-juara",
+   "lifecycleStatus": "DRAFT",
+   "origin": "MIGRATED_LEGACY",
+   "tags": [
+    "divulgação",
+    "lazer"
+   ],
+   "createdAt": "2026-10-09T00:00:00.000Z",
+   "updatedAt": "2026-10-09T00:00:00.000Z",
+   "createdBy": "system:legacy-migration",
+   "id": "doc_vj_renders",
+   "documentCode": "VJ-PERSPECTIVAS",
+   "documentType": "MARKETING_MATERIAL",
+   "title": "Perspectivas 3D das áreas comuns",
+   "description": "Imagens ilustrativas de divulgação.",
+   "classification": "PUBLIC",
+   "authority": "MARKETING",
+   "scope": {
+    "scopeType": "DEVELOPMENT"
+   },
+   "metadata": {
+    "legacySourceId": "renders-v1",
+    "legacySourceVersion": "1",
+    "classificationStatus": "PROVISIONAL",
+    "classificationBasis": "Já exibidas publicamente no painel (img/*.webp).",
+    "imageSet": true,
+    "primaryAssetConvention": "primeira imagem do conjunto"
+   },
+   "versions": [
+    {
+     "id": "docver_vj_renders_v1",
+     "versionNumber": 1,
+     "versionLabel": null,
+     "lifecycleStatus": "UPLOADED",
+     "sourceEffectiveFrom": null,
+     "sourceEffectiveTo": null,
+     "issuedAt": null,
+     "uploadedAt": "2026-10-09T00:00:00.000Z",
+     "validatedAt": null,
+     "publishedAt": null,
+     "supersedesVersionId": null,
+     "primaryFileAssetId": "fa_vj_render_01",
+     "fileAssetIds": [
+      "fa_vj_render_01",
+      "fa_vj_render_02",
+      "fa_vj_render_03",
+      "fa_vj_render_04",
+      "fa_vj_render_05",
+      "fa_vj_render_06",
+      "fa_vj_render_07",
+      "fa_vj_render_08",
+      "fa_vj_render_09",
+      "fa_vj_render_10",
+      "fa_vj_render_11",
+      "fa_vj_render_12",
+      "fa_vj_render_13",
+      "fa_vj_render_14",
+      "fa_vj_render_15",
+      "fa_vj_render_16",
+      "fa_vj_render_17",
+      "fa_vj_render_18",
+      "fa_vj_render_19",
+      "fa_vj_render_20"
+     ],
+     "contentChecksum": "sha256:70ec46ee27de3ca40b4043e5f5604a290c112362e2a85a84ac730440782c9df0",
+     "sourceChecksum": null,
+     "extractionRef": null,
+     "uploadedBy": "system:legacy-migration",
+     "notes": "Registro legado: arquivo identificado fora do storage gerenciado; aguarda ingestão, varredura, validação e publicação humanas."
+    }
+   ],
+   "fileAssets": [
+    {
+     "id": "fa_vj_render_01",
+     "contentChecksum": "sha256:70ec46ee27de3ca40b4043e5f5604a290c112362e2a85a84ac730440782c9df0",
+     "sizeBytes": 1640290,
+     "originalFilename": "01-CBL_VIVAJUARA_Portaria_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/01-CBL_VIVAJUARA_Portaria_R04.jpg",
+       "snapshotChecksum": "sha256:70ec46ee27de3ca40b4043e5f5604a290c112362e2a85a84ac730440782c9df0",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_02",
+     "contentChecksum": "sha256:41fd8ff0ab8374cbccc63a23f8c6224d55ec314c09add5280e94692e8896d00e",
+     "sizeBytes": 5517645,
+     "originalFilename": "02-CBL_VIVAJUARA_Praca_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/02-CBL_VIVAJUARA_Praca_R04.jpg",
+       "snapshotChecksum": "sha256:41fd8ff0ab8374cbccc63a23f8c6224d55ec314c09add5280e94692e8896d00e",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_03",
+     "contentChecksum": "sha256:0c1d94aa12d2c7ff75a43b3e414efb07e80a9afa501087503e800cf2cdc93bfc",
+     "sizeBytes": 814410,
+     "originalFilename": "03-CBL_VIVAJUARA_Bar-Lounge_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/03-CBL_VIVAJUARA_Bar-Lounge_R04.jpg",
+       "snapshotChecksum": "sha256:0c1d94aa12d2c7ff75a43b3e414efb07e80a9afa501087503e800cf2cdc93bfc",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_04",
+     "contentChecksum": "sha256:946ec69eec4b96c4bb12467f53f28feee47492f17e4e6c36364aacb51d3cd106",
+     "sizeBytes": 5973655,
+     "originalFilename": "04-CBL_VIVAJUARA_Cooper_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/04-CBL_VIVAJUARA_Cooper_R04.jpg",
+       "snapshotChecksum": "sha256:946ec69eec4b96c4bb12467f53f28feee47492f17e4e6c36364aacb51d3cd106",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_05",
+     "contentChecksum": "sha256:e54eba7f5d473aade80c26a736f554933be50b028bf50fe4a7ef8cc1d76b5e9f",
+     "sizeBytes": 6267388,
+     "originalFilename": "05-CBL_VIVAJUARA_Deck-Sunset_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/05-CBL_VIVAJUARA_Deck-Sunset_R04.jpg",
+       "snapshotChecksum": "sha256:e54eba7f5d473aade80c26a736f554933be50b028bf50fe4a7ef8cc1d76b5e9f",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_06",
+     "contentChecksum": "sha256:c8ff1909dea1914709ef0d3398ddb47460006c33664c3fad4822b394859f6850",
+     "sizeBytes": 1313735,
+     "originalFilename": "06-CBL_VIVAJUARA_Piscina-Deck_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/06-CBL_VIVAJUARA_Piscina-Deck_R04.jpg",
+       "snapshotChecksum": "sha256:c8ff1909dea1914709ef0d3398ddb47460006c33664c3fad4822b394859f6850",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_07",
+     "contentChecksum": "sha256:7c3fbc879064ff1507364304b8bc2c9f99b36c670736894b9d2e48e26b8ce84a",
+     "sizeBytes": 3977453,
+     "originalFilename": "07-CBL_VIVAJUARA_Piscina-Deck-02_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/07-CBL_VIVAJUARA_Piscina-Deck-02_R04.jpg",
+       "snapshotChecksum": "sha256:7c3fbc879064ff1507364304b8bc2c9f99b36c670736894b9d2e48e26b8ce84a",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_08",
+     "contentChecksum": "sha256:92521456b7ae3db47669ce7dee86fc0c0e180863747205b6977713d0d0c6c412",
+     "sizeBytes": 1603714,
+     "originalFilename": "08-CBL_VIVAJUARA_Piscina-Deck-03_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/08-CBL_VIVAJUARA_Piscina-Deck-03_R04.jpg",
+       "snapshotChecksum": "sha256:92521456b7ae3db47669ce7dee86fc0c0e180863747205b6977713d0d0c6c412",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_09",
+     "contentChecksum": "sha256:7f093bb309445a1c3b88dd910a5425adda366e384ee73fb22d6999ffee714bde",
+     "sizeBytes": 1741344,
+     "originalFilename": "09-CBL_VIVAJUARA_Area-Gourmet-01_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/09-CBL_VIVAJUARA_Area-Gourmet-01_R04.jpg",
+       "snapshotChecksum": "sha256:7f093bb309445a1c3b88dd910a5425adda366e384ee73fb22d6999ffee714bde",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_10",
+     "contentChecksum": "sha256:b1ee2c782b09992a601a7eab3d8f31944081ecbf7dd90d42bcf4b17b7e31e2c6",
+     "sizeBytes": 2754757,
+     "originalFilename": "10-CBL_VIVAJUARA_Area-Gourmet-02_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/10-CBL_VIVAJUARA_Area-Gourmet-02_R04.jpg",
+       "snapshotChecksum": "sha256:b1ee2c782b09992a601a7eab3d8f31944081ecbf7dd90d42bcf4b17b7e31e2c6",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_11",
+     "contentChecksum": "sha256:720a25bc7a101e9b5f9d02ea56f99800c4c67f0d1018a5aced917a8a0c8db538",
+     "sizeBytes": 3374368,
+     "originalFilename": "11-CBL_VIVAJUARA_Area-Gourmet-03_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/11-CBL_VIVAJUARA_Area-Gourmet-03_R04.jpg",
+       "snapshotChecksum": "sha256:720a25bc7a101e9b5f9d02ea56f99800c4c67f0d1018a5aced917a8a0c8db538",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_12",
+     "contentChecksum": "sha256:e83bc3467281d32d05ef2183b595665be5debd0d9a1400d560ac6b06a4e9a4c4",
+     "sizeBytes": 5928700,
+     "originalFilename": "13-CBL_VIVAJUARA_Playkids-01_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/13-CBL_VIVAJUARA_Playkids-01_R04.jpg",
+       "snapshotChecksum": "sha256:e83bc3467281d32d05ef2183b595665be5debd0d9a1400d560ac6b06a4e9a4c4",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_13",
+     "contentChecksum": "sha256:c584aea8711a8f37b5629b7c89b00e476851f7916d1fba6b2f32b6628e1175f0",
+     "sizeBytes": 6063576,
+     "originalFilename": "14-CBL_VIVAJUARA_Society_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/14-CBL_VIVAJUARA_Society_R04.jpg",
+       "snapshotChecksum": "sha256:c584aea8711a8f37b5629b7c89b00e476851f7916d1fba6b2f32b6628e1175f0",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_14",
+     "contentChecksum": "sha256:9fa399008e6a40ad4a231501b815f8f958cf49be5da57f1d3419187fbb5337c3",
+     "sizeBytes": 4364330,
+     "originalFilename": "15-CBL_VIVAJUARA_Bech-Tennis_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/15-CBL_VIVAJUARA_Bech-Tennis_R04.jpg",
+       "snapshotChecksum": "sha256:9fa399008e6a40ad4a231501b815f8f958cf49be5da57f1d3419187fbb5337c3",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_15",
+     "contentChecksum": "sha256:260908ccd45c49587409cf86d900b776efe682b3aa5b375300b8598e8c6acc21",
+     "sizeBytes": 2805247,
+     "originalFilename": "16-CBL_VIVAJUARA_Mercadinho_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/16-CBL_VIVAJUARA_Mercadinho_R04.jpg",
+       "snapshotChecksum": "sha256:260908ccd45c49587409cf86d900b776efe682b3aa5b375300b8598e8c6acc21",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_16",
+     "contentChecksum": "sha256:91617d83367ed241fb0bc7a97df1589c88b89d63ce8239584d2fc1981a085a9b",
+     "sizeBytes": 5762418,
+     "originalFilename": "17-CBL_VIVAJUARA_Playground-01_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/17-CBL_VIVAJUARA_Playground-01_R04.jpg",
+       "snapshotChecksum": "sha256:91617d83367ed241fb0bc7a97df1589c88b89d63ce8239584d2fc1981a085a9b",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_17",
+     "contentChecksum": "sha256:54a95d1d2089cd9adca87ae508a839519890d6a8920920a688dc69bdc1ea5146",
+     "sizeBytes": 4210440,
+     "originalFilename": "18-CBL_VIVAJUARA_Playground-02_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/18-CBL_VIVAJUARA_Playground-02_R04.jpg",
+       "snapshotChecksum": "sha256:54a95d1d2089cd9adca87ae508a839519890d6a8920920a688dc69bdc1ea5146",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_18",
+     "contentChecksum": "sha256:c5b0d759b5c415b50637b71306bfefbd120023b47ae9505a80f0cb5835010a86",
+     "sizeBytes": 6900376,
+     "originalFilename": "19-CBL_VIVAJUARA_PetPlace-01_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/19-CBL_VIVAJUARA_PetPlace-01_R04.jpg",
+       "snapshotChecksum": "sha256:c5b0d759b5c415b50637b71306bfefbd120023b47ae9505a80f0cb5835010a86",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_19",
+     "contentChecksum": "sha256:5e53c950d9e71b1b2132cbe9e9aea9317eefd8a00f3ee8bb08f60d6d6026d7d9",
+     "sizeBytes": 5264900,
+     "originalFilename": "20-CBL_VIVAJUARA_PetPlace-02_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/20-CBL_VIVAJUARA_PetPlace-02_R04.jpg",
+       "snapshotChecksum": "sha256:5e53c950d9e71b1b2132cbe9e9aea9317eefd8a00f3ee8bb08f60d6d6026d7d9",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    },
+    {
+     "id": "fa_vj_render_20",
+     "contentChecksum": "sha256:5b06e6b515c0b559892fd0b1c2455b5de2e6a751edc1a32d046b9884241ec8b7",
+     "sizeBytes": 4074977,
+     "originalFilename": "21-CBL_VIVAJUARA_Playkids-02_R04.jpg",
+     "mediaType": "image/jpeg",
+     "detectedMediaType": "image/jpeg",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/perspectivas-3d/21-CBL_VIVAJUARA_Playkids-02_R04.jpg",
+       "snapshotChecksum": "sha256:5b06e6b515c0b559892fd0b1c2455b5de2e6a751edc1a32d046b9884241ec8b7",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null,
+      "filenameRevisionHint": "R04"
+     }
+    }
+   ],
+   "representations": [
+    {
+     "id": "rep_vj_render_web_01",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/01.webp",
+     "contentChecksum": "sha256:54ee314119b05fb232b419c5ffd7180ef20d5bd59c8956503d5f53d39f03f29e",
+     "sizeBytes": 75622,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Portaria",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_02",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/02.webp",
+     "contentChecksum": "sha256:bd0612f98435735a48e72ca5ba134d7350e9cec686f1a717efefeffc830d73b3",
+     "sizeBytes": 173234,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Praça",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_03",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/03.webp",
+     "contentChecksum": "sha256:12836cbb24542e330e76bb4409e42ff52410e29eba77317a3f8a255eab4558c1",
+     "sizeBytes": 38614,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Bar lounge",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_04",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/04.webp",
+     "contentChecksum": "sha256:1a1e592decf8708224fe390c90929dc2ff0bebbbe22aa5faa8ac991d7e85dec1",
+     "sizeBytes": 189336,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Pista de cooper",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_05",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/05.webp",
+     "contentChecksum": "sha256:60ee626d6658312433020f63a0d4c0f087ba98842fd8a8a3bdacea36a3d7b2e7",
+     "sizeBytes": 201814,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Deck sunset",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_06",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/06.webp",
+     "contentChecksum": "sha256:53de42f364f21553cf14fc2a47f41640c4b1b7a0685093f89ee289a6b9c397d2",
+     "sizeBytes": 56166,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Piscina e deck",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_07",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/07.webp",
+     "contentChecksum": "sha256:12fc5e68d89c54b5419b873604990f4ed4d98f9bbcb673bd7b1b52d316886a7a",
+     "sizeBytes": 108716,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Piscina e deck",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_08",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/08.webp",
+     "contentChecksum": "sha256:f9983fad1ecd327a3f8c2fbd9bcc2f54d61025277bb0b91a0b6282631a364c6d",
+     "sizeBytes": 86910,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Piscina e deck",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_09",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/09.webp",
+     "contentChecksum": "sha256:a9c9acc1c8e6f85234259d3520eaa6f75e530ee4e218a0b4809c09b2dfb87abf",
+     "sizeBytes": 68922,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Área gourmet",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_10",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/10.webp",
+     "contentChecksum": "sha256:dfc858c3e3f769deb9963f556e320b57def1ec9bfd22de06b1db90f17b8f4eeb",
+     "sizeBytes": 68800,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Área gourmet",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_11",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/11.webp",
+     "contentChecksum": "sha256:3561532f8dec9276d98807906d7cfeca4cdaaebfc515acff0d253c8ca86757d3",
+     "sizeBytes": 72626,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Área gourmet",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_13",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/13.webp",
+     "contentChecksum": "sha256:173c623a91065b61a5afd46bc8f90e8a72678ea4ba4765412f48e93fa5ee15c7",
+     "sizeBytes": 184212,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Playkids",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_14",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/14.webp",
+     "contentChecksum": "sha256:96f1faf878e75872bc1d0bd9e399389e7fbe77fcd1162dd495933a5b82554a77",
+     "sizeBytes": 158156,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Campo society",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_15",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/15.webp",
+     "contentChecksum": "sha256:aa7623d330e40207764486aba1ac6538e98d34f65082fb22948629d59a2aa368",
+     "sizeBytes": 137340,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Beach tennis",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_16",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/16.webp",
+     "contentChecksum": "sha256:513fa280a29ec1c6214cd89496375ca8dda4a612406aed5af35cf0d6246b4407",
+     "sizeBytes": 56260,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Mercadinho",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_17",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/17.webp",
+     "contentChecksum": "sha256:dbc4ce19e7330a45058dd5f627e5408bd65f938c8ef6315f16aafb98ec53858a",
+     "sizeBytes": 177922,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Playground",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_18",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/18.webp",
+     "contentChecksum": "sha256:2deff5ee697d1c4afd4cf01f618aa3084cc6b8cf44a7016dd4568038b1db3405",
+     "sizeBytes": 123334,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Playground",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_19",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/19.webp",
+     "contentChecksum": "sha256:e181402b5d8c540bab9f40b460b09497dc0a6576ab30b95bdced1eaaf1bb97c6",
+     "sizeBytes": 226578,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Pet place",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_20",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/20.webp",
+     "contentChecksum": "sha256:44417be18ffd22f3484f3bd00520ebdd0046234018ca5086687f9319a73a445c",
+     "sizeBytes": 153712,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Pet place",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    },
+    {
+     "id": "rep_vj_render_web_21",
+     "type": "OTHER_DERIVED",
+     "assetPath": "img/21.webp",
+     "contentChecksum": "sha256:4ae653df6455b9c5fa38eb643509dbda2d18b53f46c3cc9548fc2e4ae912bf7a",
+     "sizeBytes": 114812,
+     "detectedMediaType": "image/webp",
+     "generatorId": "legacy-build",
+     "generatorVersion": null,
+     "status": "AVAILABLE",
+     "metadata": {
+      "derived": true,
+      "title": "Playkids",
+      "matchBasis": "FILENAME_NUMBER_INFERRED",
+      "matchStatus": "NEEDS_CONFIRMATION"
+     },
+     "documentVersionId": "docver_vj_renders_v1"
+    }
+   ],
+   "legacyMatch": {
+    "legacySourceId": "renders-v1",
+    "candidateVersionId": "docver_vj_renders_v1",
+    "status": "REQUIRES_REVIEW",
+    "basis": "Correspondência pelo número do arquivo."
+   },
+   "latestVersionId": "docver_vj_renders_v1",
+   "currentPublishedVersionId": null,
+   "relations": [
+    {
+     "id": "rel_vj_renders_dev",
+     "relationType": "APPLIES_TO",
+     "targetType": "DEVELOPMENT",
+     "targetId": "viva-juara",
+     "documentVersionId": null
+    }
+   ]
+  },
+  {
+   "organizationId": "org_house7",
+   "developmentId": "viva-juara",
+   "lifecycleStatus": "DRAFT",
+   "origin": "MIGRATED_LEGACY",
+   "tags": [
+    "divulgação"
+   ],
+   "createdAt": "2026-10-09T00:00:00.000Z",
+   "updatedAt": "2026-10-09T00:00:00.000Z",
+   "createdBy": "system:legacy-migration",
+   "id": "doc_vj_folder_digital",
+   "documentCode": "VJ-FOLDER",
+   "documentType": "MARKETING_MATERIAL",
+   "title": "Folder digital do lançamento",
+   "description": "Material comercial de divulgação (5 páginas).",
+   "classification": "PUBLIC",
+   "authority": "MARKETING",
+   "scope": {
+    "scopeType": "DEVELOPMENT"
+   },
+   "metadata": {
+    "classificationStatus": "PROVISIONAL",
+    "classificationBasis": "Material de distribuição.",
+    "pageCount": 5
+   },
+   "versions": [
+    {
+     "id": "docver_vj_folder_digital_v1",
+     "versionNumber": 1,
+     "versionLabel": null,
+     "lifecycleStatus": "UPLOADED",
+     "sourceEffectiveFrom": null,
+     "sourceEffectiveTo": null,
+     "issuedAt": null,
+     "uploadedAt": "2026-10-09T00:00:00.000Z",
+     "validatedAt": null,
+     "publishedAt": null,
+     "supersedesVersionId": null,
+     "primaryFileAssetId": "fa_vj_folder_pdf",
+     "fileAssetIds": [
+      "fa_vj_folder_pdf"
+     ],
+     "contentChecksum": "sha256:85cf43bfc20a3da347874554bd69ed2e683827602ee6925a24328bc35da982c7",
+     "sourceChecksum": null,
+     "extractionRef": null,
+     "uploadedBy": "system:legacy-migration",
+     "notes": "Registro legado: arquivo identificado fora do storage gerenciado; aguarda ingestão, varredura, validação e publicação humanas."
+    }
+   ],
+   "fileAssets": [
+    {
+     "id": "fa_vj_folder_pdf",
+     "contentChecksum": "sha256:85cf43bfc20a3da347874554bd69ed2e683827602ee6925a24328bc35da982c7",
+     "sizeBytes": 1405597,
+     "originalFilename": "viva-juara-folder-digital.pdf",
+     "mediaType": "application/pdf",
+     "detectedMediaType": "application/pdf",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/viva-juara-folder-digital.pdf",
+       "snapshotChecksum": "sha256:85cf43bfc20a3da347874554bd69ed2e683827602ee6925a24328bc35da982c7",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": 5
+     }
+    }
+   ],
+   "representations": [],
+   "legacyMatch": null,
+   "latestVersionId": "docver_vj_folder_digital_v1",
+   "currentPublishedVersionId": null,
+   "relations": [
+    {
+     "id": "rel_vj_folder_digital_dev",
+     "relationType": "APPLIES_TO",
+     "targetType": "DEVELOPMENT",
+     "targetId": "viva-juara",
+     "documentVersionId": null
+    }
+   ]
+  },
+  {
+   "organizationId": "org_house7",
+   "developmentId": "viva-juara",
+   "lifecycleStatus": "DRAFT",
+   "origin": "MIGRATED_LEGACY",
+   "tags": [],
+   "createdAt": "2026-10-09T00:00:00.000Z",
+   "updatedAt": "2026-10-09T00:00:00.000Z",
+   "createdBy": "system:legacy-migration",
+   "id": "doc_vj_launch_presentation",
+   "documentCode": "VJ-APRESENTACAO",
+   "documentType": "COMMERCIAL_PRESENTATION",
+   "title": "Apresentação comercial do lançamento",
+   "description": "Apresentação em PDF para corretores.",
+   "classification": "ORGANIZATION_INTERNAL",
+   "authority": "UNKNOWN",
+   "scope": {
+    "scopeType": "DEVELOPMENT"
+   },
+   "metadata": {
+    "classificationStatus": "PROVISIONAL",
+    "pageCount": 17
+   },
+   "versions": [
+    {
+     "id": "docver_vj_launch_presentation_v1",
+     "versionNumber": 1,
+     "versionLabel": null,
+     "lifecycleStatus": "UPLOADED",
+     "sourceEffectiveFrom": null,
+     "sourceEffectiveTo": null,
+     "issuedAt": null,
+     "uploadedAt": "2026-10-09T00:00:00.000Z",
+     "validatedAt": null,
+     "publishedAt": null,
+     "supersedesVersionId": null,
+     "primaryFileAssetId": "fa_vj_presentation_pdf",
+     "fileAssetIds": [
+      "fa_vj_presentation_pdf"
+     ],
+     "contentChecksum": "sha256:b8e60fd245a229ede0366973623a799a4805b705e742c4948e218e3d9e6c9747",
+     "sourceChecksum": null,
+     "extractionRef": null,
+     "uploadedBy": "system:legacy-migration",
+     "notes": "Registro legado: arquivo identificado fora do storage gerenciado; aguarda ingestão, varredura, validação e publicação humanas."
+    }
+   ],
+   "fileAssets": [
+    {
+     "id": "fa_vj_presentation_pdf",
+     "contentChecksum": "sha256:b8e60fd245a229ede0366973623a799a4805b705e742c4948e218e3d9e6c9747",
+     "sizeBytes": 11118901,
+     "originalFilename": "Viva-Juara-House7.pdf",
+     "mediaType": "application/pdf",
+     "detectedMediaType": "application/pdf",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/apresentacao/Viva-Juara-House7.pdf",
+       "snapshotChecksum": "sha256:b8e60fd245a229ede0366973623a799a4805b705e742c4948e218e3d9e6c9747",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": 17
+     }
+    }
+   ],
+   "representations": [],
+   "legacyMatch": null,
+   "latestVersionId": "docver_vj_launch_presentation_v1",
+   "currentPublishedVersionId": null,
+   "relations": [
+    {
+     "id": "rel_vj_launch_presentation_dev",
+     "relationType": "APPLIES_TO",
+     "targetType": "DEVELOPMENT",
+     "targetId": "viva-juara",
+     "documentVersionId": null
+    }
+   ]
+  },
+  {
+   "organizationId": "org_house7",
+   "developmentId": "viva-juara",
+   "lifecycleStatus": "DRAFT",
+   "origin": "MIGRATED_LEGACY",
+   "tags": [],
+   "createdAt": "2026-10-09T00:00:00.000Z",
+   "updatedAt": "2026-10-09T00:00:00.000Z",
+   "createdBy": "system:legacy-migration",
+   "id": "doc_vj_implantation_image",
+   "documentCode": "VJ-IMPLANTACAO",
+   "documentType": "MARKETING_MATERIAL",
+   "title": "Implantação ilustrada",
+   "description": "Imagem da implantação do material de lançamento.",
+   "classification": "ORGANIZATION_INTERNAL",
+   "authority": "UNKNOWN",
+   "scope": {
+    "scopeType": "DEVELOPMENT"
+   },
+   "metadata": {
+    "classificationStatus": "PROVISIONAL",
+    "pendingCandidate": {
+     "externalPath": "uploads/viva-juara-implantacao-2.png",
+     "contentChecksum": "sha256:d12ff547f06fe6dbc0d3788fb11ee1b769caf86ebafd6c91b93611e4b4563e06",
+     "status": "REQUIRES_REVIEW",
+     "reason": "Arquivo de nome parecido com conteúdo diferente: pode ser nova versão ou outro documento; não foi fundido."
+    }
+   },
+   "versions": [
+    {
+     "id": "docver_vj_implantation_image_v1",
+     "versionNumber": 1,
+     "versionLabel": null,
+     "lifecycleStatus": "UPLOADED",
+     "sourceEffectiveFrom": null,
+     "sourceEffectiveTo": null,
+     "issuedAt": null,
+     "uploadedAt": "2026-10-09T00:00:00.000Z",
+     "validatedAt": null,
+     "publishedAt": null,
+     "supersedesVersionId": null,
+     "primaryFileAssetId": "fa_vj_implantation_png",
+     "fileAssetIds": [
+      "fa_vj_implantation_png"
+     ],
+     "contentChecksum": "sha256:35552c2a694feba814822dbe7ea2e5ab5e11d6190f535031c2252a08bfdc0e07",
+     "sourceChecksum": null,
+     "extractionRef": null,
+     "uploadedBy": "system:legacy-migration",
+     "notes": "Registro legado: arquivo identificado fora do storage gerenciado; aguarda ingestão, varredura, validação e publicação humanas."
+    }
+   ],
+   "fileAssets": [
+    {
+     "id": "fa_vj_implantation_png",
+     "contentChecksum": "sha256:35552c2a694feba814822dbe7ea2e5ab5e11d6190f535031c2252a08bfdc0e07",
+     "sizeBytes": 9430621,
+     "originalFilename": "viva-juara-implantacao.png",
+     "mediaType": "image/png",
+     "detectedMediaType": "image/png",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/viva-juara-implantacao.png",
+       "snapshotChecksum": "sha256:35552c2a694feba814822dbe7ea2e5ab5e11d6190f535031c2252a08bfdc0e07",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null
+     }
+    }
+   ],
+   "representations": [],
+   "legacyMatch": null,
+   "latestVersionId": "docver_vj_implantation_image_v1",
+   "currentPublishedVersionId": null,
+   "relations": [
+    {
+     "id": "rel_vj_implantation_image_dev",
+     "relationType": "APPLIES_TO",
+     "targetType": "DEVELOPMENT",
+     "targetId": "viva-juara",
+     "documentVersionId": null
+    }
+   ]
+  },
+  {
+   "organizationId": "org_house7",
+   "developmentId": "viva-juara",
+   "lifecycleStatus": "DRAFT",
+   "origin": "MIGRATED_LEGACY",
+   "tags": [
+    "divulgação"
+   ],
+   "createdAt": "2026-10-09T00:00:00.000Z",
+   "updatedAt": "2026-10-09T00:00:00.000Z",
+   "createdBy": "system:legacy-migration",
+   "id": "doc_vj_location_map",
+   "documentCode": "VJ-LOCALIZACAO",
+   "documentType": "MARKETING_MATERIAL",
+   "title": "Mapa de localização",
+   "description": "Mapa de localização do material de lançamento.",
+   "classification": "PUBLIC",
+   "authority": "MARKETING",
+   "scope": {
+    "scopeType": "DEVELOPMENT"
+   },
+   "metadata": {
+    "classificationStatus": "PROVISIONAL"
+   },
+   "versions": [
+    {
+     "id": "docver_vj_location_map_v1",
+     "versionNumber": 1,
+     "versionLabel": null,
+     "lifecycleStatus": "UPLOADED",
+     "sourceEffectiveFrom": null,
+     "sourceEffectiveTo": null,
+     "issuedAt": null,
+     "uploadedAt": "2026-10-09T00:00:00.000Z",
+     "validatedAt": null,
+     "publishedAt": null,
+     "supersedesVersionId": null,
+     "primaryFileAssetId": "fa_vj_location_png",
+     "fileAssetIds": [
+      "fa_vj_location_png"
+     ],
+     "contentChecksum": "sha256:81ef6ec63628ce51c1f951656bf5240af535e6ca28552355ac73b25e7ce02a54",
+     "sourceChecksum": null,
+     "extractionRef": null,
+     "uploadedBy": "system:legacy-migration",
+     "notes": "Registro legado: arquivo identificado fora do storage gerenciado; aguarda ingestão, varredura, validação e publicação humanas."
+    }
+   ],
+   "fileAssets": [
+    {
+     "id": "fa_vj_location_png",
+     "contentChecksum": "sha256:81ef6ec63628ce51c1f951656bf5240af535e6ca28552355ac73b25e7ce02a54",
+     "sizeBytes": 1383905,
+     "originalFilename": "viva-juara-mapa-localizacao.png",
+     "mediaType": "image/png",
+     "detectedMediaType": "image/png",
+     "storageProvider": "EXTERNAL_REFERENCE",
+     "storageKey": null,
+     "uploadStatus": "UPLOADED",
+     "securityScanStatus": "NOT_SCANNED",
+     "encryptionState": null,
+     "metadata": {
+      "externalRef": {
+       "provider": "PROJECT_FILES",
+       "externalId": "project-files/viva-juara/viva-juara-mapa-localizacao.png",
+       "snapshotChecksum": "sha256:81ef6ec63628ce51c1f951656bf5240af535e6ca28552355ac73b25e7ce02a54",
+       "accessedAt": "2026-10-09T00:00:00.000Z"
+      },
+      "pageCount": null
+     }
+    }
+   ],
+   "representations": [],
+   "legacyMatch": null,
+   "latestVersionId": "docver_vj_location_map_v1",
+   "currentPublishedVersionId": null,
+   "relations": [
+    {
+     "id": "rel_vj_location_map_dev",
+     "relationType": "APPLIES_TO",
+     "targetType": "DEVELOPMENT",
+     "targetId": "viva-juara",
+     "documentVersionId": null
+    }
+   ]
+  }
+ ],
+ "inventory": [
+  {
+   "path": "uploads/Viva_Juara_-_Planta.pdf",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_official_plan",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "uploads/VIVAJUARA_-_KMZ_Humanizado.kmz",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_geo_implantation",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/viva-juara-aerea.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_aerial_illustration",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/01-CBL_VIVAJUARA_Portaria_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/02-CBL_VIVAJUARA_Praca_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/03-CBL_VIVAJUARA_Bar-Lounge_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/04-CBL_VIVAJUARA_Cooper_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/05-CBL_VIVAJUARA_Deck-Sunset_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/06-CBL_VIVAJUARA_Piscina-Deck_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/07-CBL_VIVAJUARA_Piscina-Deck-02_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/08-CBL_VIVAJUARA_Piscina-Deck-03_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/09-CBL_VIVAJUARA_Area-Gourmet-01_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/10-CBL_VIVAJUARA_Area-Gourmet-02_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/11-CBL_VIVAJUARA_Area-Gourmet-03_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/13-CBL_VIVAJUARA_Playkids-01_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/14-CBL_VIVAJUARA_Society_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/15-CBL_VIVAJUARA_Bech-Tennis_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/16-CBL_VIVAJUARA_Mercadinho_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/17-CBL_VIVAJUARA_Playground-01_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/18-CBL_VIVAJUARA_Playground-02_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/19-CBL_VIVAJUARA_PetPlace-01_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/20-CBL_VIVAJUARA_PetPlace-02_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/perspectivas-3d/21-CBL_VIVAJUARA_Playkids-02_R04.jpg",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_renders",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/viva-juara-folder-digital.pdf",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_folder_digital",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/apresentacao/Viva-Juara-House7.pdf",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_launch_presentation",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/viva-juara-implantacao.png",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_implantation_image",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "project-files/viva-juara/viva-juara-mapa-localizacao.png",
+   "classification": "DOCUMENT",
+   "documentId": "doc_vj_location_map",
+   "note": "arquivo original (fonte)"
+  },
+  {
+   "path": "planta.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_official_plan",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "aerea.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_aerial_illustration",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/01.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/02.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/03.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/04.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/05.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/06.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/07.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/08.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/09.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/10.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/11.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/13.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/14.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/15.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/16.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/17.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/18.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/19.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/20.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "img/21.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_renders",
+   "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "logo.png",
+   "classification": "UI_ASSET",
+   "documentId": null,
+   "note": "marca na interface; não é documento"
+  },
+  {
+   "path": "project-files/viva-juara/logo/*.png",
+   "classification": "UI_ASSET",
+   "documentId": null,
+   "note": "7 variações de marca"
+  },
+  {
+   "path": "lots.json",
+   "classification": "GENERATED",
+   "documentId": null,
+   "note": "snapshot estático+analítico (staticDataVersion 2026-10-06.1 / analysisVersion 2026-10-06); dono: Lot/Lifecycle"
+  },
+  {
+   "path": "commercial.json",
+   "classification": "GENERATED",
+   "documentId": null,
+   "note": "snapshot comercial; dono: Pricing"
+  },
+  {
+   "path": "routes.json",
+   "classification": "GENERATED",
+   "documentId": null,
+   "note": "rotas calculadas; dono: Map/Spatial"
+  },
+  {
+   "path": "analysis-input.json",
+   "classification": "GENERATED",
+   "documentId": null,
+   "note": "entrada do IntelligenceEngine"
+  },
+  {
+   "path": "manifest.json",
+   "classification": "GENERATED",
+   "documentId": null,
+   "note": "manifesto de cache (topic 10)"
+  },
+  {
+   "path": "img_list.json",
+   "classification": "GENERATED",
+   "documentId": null,
+   "note": "índice das imagens de divulgação"
+  },
+  {
+   "path": "index.html / sw.js",
+   "classification": "UI_ASSET",
+   "documentId": null,
+   "note": "aplicação"
+  },
+  {
+   "path": "index_v1.html, index_v2_before_ws.html, lots_v2_backup.json",
+   "classification": "TEMPORARY",
+   "documentId": null,
+   "note": "cópias de segurança de versões anteriores do painel"
+  },
+  {
+   "path": "project-files/viva-juara/viva-juara-areas-dos-lotes.xlsx",
+   "classification": "GENERATED",
+   "documentId": null,
+   "note": "planilha gerada pela análise (LibreOffice); candidata a GENERATED_REPORT, não é fonte primária"
+  },
+  {
+   "path": "project-files/viva-juara/arquitetura-mapa-viva-juara.pdf",
+   "classification": "GENERATED",
+   "documentId": null,
+   "note": "documento técnico gerado sobre a plataforma"
+  },
+  {
+   "path": "project-files/viva-juara/resumo-viva-juara.md",
+   "classification": "GENERATED",
+   "documentId": null,
+   "note": "resumo gerado a partir das fontes de lançamento (INTERNAL_ANALYSIS candidata)"
+  },
+  {
+   "path": "uploads/viva-juara-implantacao-2.png",
+   "classification": "UNKNOWN",
+   "documentId": null,
+   "note": "possível nova versão de doc_vj_implantation_image — revisão manual (não fundido)"
+  }
+ ],
+ "methodsNotDocuments": [
+  {
+   "legacySourceId": "plan-geometry-v1",
+   "becomes": "MethodRef plan_geometry_measurement@1",
+   "note": "medidas calculadas sobre a planta (cálculo, não documento)"
+  },
+  {
+   "legacySourceId": "analysis-v1",
+   "becomes": "MethodRef analysis_model@2026-10-06 + AnalysisEvidenceRef (methodology 1.0.0)",
+   "note": "modelo analítico"
+  },
+  {
+   "legacySourceId": "solar-model-v1",
+   "becomes": "MethodRef solar_orientation@1",
+   "note": "cálculo astronômico"
+  }
+ ]
+}

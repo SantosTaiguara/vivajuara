@@ -1,0 +1,11 @@
+{
+"availability.AVAILABLE": "Disponível",
+"availability.UNKNOWN": "Status não confirmado",
+"availabilityStatus": [["AVAILABLE","Disponível"],["RESERVED","Reservado"],["PROPOSAL","Em proposta"],["BLOCKED","Bloqueado"],["SOLD","Vendido"],["UNAVAILABLE","Indisponível"],["UNKNOWN","Status não confirmado"]],
+"dataStatus": [["CONFIRMED","Confirmado","Oficial"],["CALCULATED","Calculado","Calculado"],["ESTIMATED","Estimado","Estimado"],["TO_CONFIRM","Requer validação","Validar"],["UNKNOWN","Não disponível","Não disponível"],["NOT_APPLICABLE","Não aplicável","Não aplicável"],["CONFLICTED","Fontes divergentes","Divergente"]],
+"format.area": "675,10 m²",
+"format.notAvailable": "Preço não disponível",
+"format.price": "R$ 807.420",
+"format.pricePerM2": "R$ 1.196/m²",
+"share.footer": "Valores sem correção pelo IGP-M. Análise de ruído, privacidade e sol é estimativa."
+}

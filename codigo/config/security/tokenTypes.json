@@ -1,0 +1,87 @@
+{
+ "kind": "token-types",
+ "version": "1.0.0",
+ "note": "Cada tipo tem um papel; nunca reutilizar um no papel de outro (§44).",
+ "types": [
+  {
+   "type": "SESSION_TOKEN",
+   "where": "cookie HttpOnly; Secure; SameSite=Lax (futuro IdP)",
+   "clientReadable": false,
+   "maxTtl": "idle 30 min / absoluto 12 h (admin: 15 min / 8 h)",
+   "rotation": "login, elevação de privilégio",
+   "status": "PLANEJADO (D50-4)"
+  },
+  {
+   "type": "ACCESS_TOKEN",
+   "where": "somente servidor↔IdP; nunca localStorage",
+   "clientReadable": false,
+   "maxTtl": "≤ 15 min",
+   "rotation": "refresh",
+   "status": "PLANEJADO"
+  },
+  {
+   "type": "REFRESH_TOKEN",
+   "where": "cookie HttpOnly restrito ao path de refresh",
+   "clientReadable": false,
+   "maxTtl": "≤ 14 dias, rotativo, reuse detection",
+   "rotation": "a cada uso",
+   "status": "PLANEJADO"
+  },
+  {
+   "type": "ADMIN_API_TOKEN",
+   "where": "env do servidor (secret manager); header Authorization do operador",
+   "clientReadable": false,
+   "maxTtl": "rotação manual (runbook)",
+   "rotation": "runbook SECRET_LEAK",
+   "status": "ATIVO"
+  },
+  {
+   "type": "DEV_TOKEN",
+   "where": "somente local/teste; produção recusa",
+   "clientReadable": false,
+   "maxTtl": "30 dias (dev)",
+   "rotation": "n/a",
+   "status": "ATIVO (dev)"
+  },
+  {
+   "type": "SHARE_TOKEN",
+   "where": "path /s/<token>; servidor guarda só HMAC",
+   "clientReadable": true,
+   "maxTtl": "expiração do grant",
+   "rotation": "CREATE_NEW_LINK",
+   "status": "CONTRATO (tópico 42)"
+  },
+  {
+   "type": "SIGNED_ASSET_TOKEN",
+   "where": "query de URL assinada",
+   "clientReadable": true,
+   "maxTtl": "≤ 5 min, asset exato",
+   "rotation": "por requisição",
+   "status": "PLANEJADO"
+  },
+  {
+   "type": "CSRF_TOKEN",
+   "where": "header X-CSRF-Token (double-submit) quando houver cookie de sessão",
+   "clientReadable": true,
+   "maxTtl": "sessão",
+   "rotation": "com a sessão",
+   "status": "PLANEJADO"
+  },
+  {
+   "type": "IDEMPOTENCY_KEY",
+   "where": "header Idempotency-Key",
+   "clientReadable": true,
+   "maxTtl": "24 h",
+   "rotation": "por comando",
+   "status": "ATIVO"
+  },
+  {
+   "type": "WEBHOOK_SIGNATURE",
+   "where": "header de assinatura HMAC + timestamp",
+   "clientReadable": false,
+   "maxTtl": "janela 5 min",
+   "rotation": "secret com kid",
+   "status": "PLANEJADO"
+  }
+ ]
+}

@@ -1,0 +1,151 @@
+{
+ "kind": "browser-security-policy",
+ "version": "1.0.0",
+ "note": "Tópico 50. CSP e headers do painel (artefato de arquivo único) e da API. O build calcula os hashes sha256 do <script> e dos <style> inline (scripts/securityHeaders.js). Em meta CSP, frame-ancestors/report-uri são ignorados pelo navegador: precisam de header HTTP no host estático.",
+ "csp": {
+  "directives": {
+   "default-src": [
+    "'none'"
+   ],
+   "script-src": [
+    "'self'"
+   ],
+   "style-src-elem": [
+    "'self'",
+    "https://fonts.googleapis.com"
+   ],
+   "style-src-attr": [
+    "'unsafe-inline'"
+   ],
+   "img-src": [
+    "'self'",
+    "data:",
+    "blob:",
+    "https://tile.openstreetmap.org"
+   ],
+   "font-src": [
+    "https://fonts.gstatic.com"
+   ],
+   "connect-src": [
+    "'self'"
+   ],
+   "worker-src": [
+    "'self'"
+   ],
+   "manifest-src": [
+    "'self'"
+   ],
+   "base-uri": [
+    "'none'"
+   ],
+   "object-src": [
+    "'none'"
+   ],
+   "form-action": [
+    "'none'"
+   ],
+   "frame-ancestors": [
+    "'none'"
+   ],
+   "upgrade-insecure-requests": []
+  },
+  "verified": "2026-10-12: painel completo (mapa, ficha, simulação, sol, comparar, clientes, empreendimento, SW) sem nenhuma violação com esta política em header e em meta; os 11 vetores de XSS armazenado encontrados ficam inertes (script-src-attr bloqueado).",
+  "thirdParty": [
+   {
+    "origin": "https://fonts.googleapis.com",
+    "purpose": "CSS das fontes Bricolage Grotesque/Figtree",
+    "directive": "style-src-elem",
+    "dataSent": "IP e User-Agent do visitante (sem Referer: no-referrer)",
+    "decision": "D50-3: auto-hospedar as fontes elimina o terceiro"
+   },
+   {
+    "origin": "https://fonts.gstatic.com",
+    "purpose": "arquivos de fonte",
+    "directive": "font-src",
+    "dataSent": "IP e User-Agent",
+    "decision": "D50-3"
+   },
+   {
+    "origin": "https://tile.openstreetmap.org",
+    "purpose": "tiles do mapa de fundo do Entorno (OpenStreetMap, sem chave), só quando o usuário abre o Entorno",
+    "directive": "img-src",
+    "dataSent": "IP, User-Agent e a origem da página (strict-origin-when-cross-origin); nenhum dado de cliente, lote ou preço",
+    "decision": "Rodada 7 (2026-10-19): pedido do proprietário; política de uso de tiles da OSMF (atribuição visível, só tiles visíveis, sem cache em massa)"
+   }
+  ]
+ },
+ "headers": {
+  "app": {
+   "X-Content-Type-Options": "nosniff",
+   "Referrer-Policy": "no-referrer",
+   "X-Frame-Options": "DENY",
+   "Permissions-Policy": "camera=(), microphone=(), payment=(), usb=(), geolocation=(self)",
+   "Cross-Origin-Opener-Policy": "same-origin",
+   "Cross-Origin-Resource-Policy": "same-origin",
+   "Strict-Transport-Security": "max-age=31536000; includeSubDomains"
+  },
+  "share": {
+   "X-Content-Type-Options": "nosniff",
+   "Referrer-Policy": "no-referrer",
+   "X-Frame-Options": "DENY",
+   "Cache-Control": "no-store",
+   "Cross-Origin-Opener-Policy": "same-origin",
+   "Strict-Transport-Security": "max-age=31536000; includeSubDomains"
+  },
+  "sw": {
+   "Cache-Control": "no-cache",
+   "X-Content-Type-Options": "nosniff",
+   "Service-Worker-Allowed": "/"
+  },
+  "api": {
+   "X-Content-Type-Options": "nosniff",
+   "X-Frame-Options": "DENY",
+   "Referrer-Policy": "no-referrer",
+   "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'",
+   "Cross-Origin-Resource-Policy": "cross-origin"
+  },
+  "apiSensitive": {
+   "Cache-Control": "no-store",
+   "Pragma": "no-cache"
+  }
+ },
+ "storage": {
+  "rule": "localStorage/sessionStorage: somente preferências de baixo risco e estado de navegação. Nunca token, segredo, documento, Journey sensível, grant de share. IndexedDB: somente dados públicos/cópias versionadas e favoritos (ids de lote).",
+  "allowedKeyPatterns": [
+   "^ws:[a-z0-9-]+:state$",
+   "^ws:org:[A-Za-z0-9_.-]+:dev:[a-z0-9-]+:state$",
+   "^ws:[a-z0-9-]+:layout:[a-z]+$",
+   "^ws-state$",
+   "^vj-device-id$",
+   "^vj-(favs|ent|sun-s|sun-h|sel|bg2)$",
+   "^ws:.*:fav.*$",
+   "^ws:.*:analytics.*$",
+   "^ws:.*:pwa.*$",
+   "^ws:.*:obs.*$"
+  ],
+  "indexedDbAllowed": [
+   "ws-cache",
+   "ws-cache-l2",
+   "ws-favorites",
+   "ws-analytics-outbox"
+  ],
+  "knownExceptions": [
+   {
+    "key": "ws:<dev>:state prefs.customers[].name",
+    "classification": "CONFIDENTIAL",
+    "status": "PENDENTE_DECISAO",
+    "decision": "D50-1 (já aberta no tópico 39: manter cópia local de conveniência ou mover para o servidor)"
+   }
+  ]
+ },
+ "logout": {
+  "steps": [
+   "POST /api/v1/auth/logout (servidor revoga a sessão e limpa o cookie HttpOnly)",
+   "App.authz.reset('logout') → contexto público anônimo",
+   "limpar estado sensível do tenant (App.tenancy.TENANT_SENSITIVE_STATE) e cache de cliente/journey em memória",
+   "purgar partições de cache userAware/tenantAware (cacheManager) e pacotes offline RESTRICTED",
+   "cancelar mutações offline pendentes do usuário (nunca reenviar como outro usuário)",
+   "history.replaceState sem estado sensível; pageshow(persisted) revalida a sessão (BFCache)"
+  ]
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "kind": "quickview-field-priority",
+ "developmentId": "viva-juara",
+ "version": "1.0.0",
+ "viewModelVersion": 2,
+ "modes": {
+  "client":       { "p0Fields": ["availability.status", "geometry.areaM2", "commercial.price"], "p1Fields": ["commercial.pricePerM2", "environmental.noiseLevel", "environmental.privacyLevel", "environmental.northSunSide"], "p2Fields": [], "maxMetrics": 3, "maxHighlights": 3, "maxAlerts": 2, "showScore": false, "showFacts": true },
+  "broker":       { "p0Fields": ["availability.status", "geometry.areaM2", "commercial.price"], "p1Fields": ["commercial.pricePerM2", "intelligence.scores", "environmental.noiseLevel", "environmental.privacyLevel", "environmental.northSunSide"], "p2Fields": ["intelligence.class", "intelligence.rankings"], "maxMetrics": 3, "maxHighlights": 4, "maxAlerts": 3, "showScore": true, "showFacts": true },
+  "technical":    { "p0Fields": ["availability.status", "geometry.areaM2", "commercial.price"], "p1Fields": ["commercial.pricePerM2", "intelligence.scores", "environmental.noiseLevel", "environmental.privacyLevel", "environmental.northSunSide"], "p2Fields": ["intelligence.class", "intelligence.rankings", "identity.id", "metadata.dataVersions"], "maxMetrics": 3, "maxHighlights": 5, "maxAlerts": 4, "showScore": true, "showFacts": true },
+  "presentation": { "p0Fields": ["availability.status", "geometry.areaM2", "commercial.price"], "p1Fields": ["environmental.noiseLevel", "environmental.privacyLevel", "environmental.northSunSide"], "p2Fields": [], "maxMetrics": 3, "maxHighlights": 3, "maxAlerts": 2, "showScore": false, "showFacts": true }
+ },
+ "actionOrder": ["primary", "details", "compare", "simulate", "share", "favorite", "solar", "routeGate", "routeLeisure", "explain", "copyId", "provenance"],
+ "notes": "Somente decide o que aparece primeiro na Quick View de cada modo. Não altera nenhum valor."
+}

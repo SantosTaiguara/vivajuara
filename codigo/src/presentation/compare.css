@@ -1,0 +1,64 @@
+/* compare.css — comparison view (topics 24–25). Reuses the tokens of styles.css (light + dark).
+   Highlight = icon + text badge + subtle background + border (never color alone, never a green table). */
+.cmpv{display:flex;flex-direction:column;gap:12px;min-width:0}
+.cmpv-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.cmpv-prof{display:flex;flex-wrap:wrap;gap:6px}
+.cmpv-warn{margin:0;padding:8px 12px 8px 28px;background:var(--warn-bg);color:var(--warn-fg);border:1px solid var(--warn-line);border-radius:8px;font-size:12.5px}
+.cmpv-warn li+li{margin-top:2px}
+.cmpv-hl{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px 12px}
+.cmpv-hl h3{margin:0 0 6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-3)}
+.cmpv-hl ul{margin:0;padding-left:18px;font-size:13px}
+.cmpv-hl p{margin:6px 0 0}
+/* candidate cards: grid on wide screens, horizontal scroll on phones */
+.cmpv-cands{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
+.cmpv-cand{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.cmpv-cand.missing{border-style:dashed;color:var(--fg-3)}
+.cmpv-cand p{margin:0}
+.cmpv-ch{display:flex;align-items:center;gap:6px}
+.cmpv-ch .nm{font-size:14px;text-align:left}
+.cmpv-st{font-size:12.5px;font-weight:600}
+.cmpv-st.warn{color:var(--warn-fg)}
+.cmpv-st.warn::before{content:"! ";font-weight:800}
+.cmpv-pr{font-weight:700}
+.cmpv-cs{font-size:12px;color:var(--brand);font-weight:600}
+.cmpv-ca{display:flex;gap:10px;align-items:center;margin-top:4px}
+.cmpv-ca .lbtn[disabled]{color:var(--fg-3);text-decoration:none;cursor:default;opacity:.5}
+/* groups: one accessible table per group */
+.cmpv-grp{border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.cmpv-grp>summary{cursor:pointer;padding:10px 12px;font-weight:700;display:flex;gap:8px;align-items:baseline;list-style:revert}
+.cmpv-grp[open]>summary{border-bottom:1px solid var(--line)}
+.cmpv-empty{margin:0;padding:10px 12px}
+.cmpv-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cmpv-t{border-collapse:collapse;width:100%;min-width:480px;font-size:13px}
+.cmpv-t th,.cmpv-t td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cmpv-t thead th{font-size:12px;color:var(--fg-2);background:var(--surface-2);white-space:nowrap}
+.cmpv-t tbody th{color:var(--fg-2);font-weight:600;position:sticky;left:0;background:var(--surface);min-width:120px;max-width:180px}
+.cmpv-t td .v{display:block}
+.cmpv-t td .nt{display:block;font-size:11px;color:var(--warn-fg)}
+.cmpv-t tr.emph th{color:var(--fg);box-shadow:inset 3px 0 0 var(--cmp)}
+.cmpv-t td.emph{background:color-mix(in srgb,var(--cmp) 6%,transparent)}
+.cmpv-t tr.cmpv-why td{font-size:12px;color:var(--fg-2);background:var(--surface-2);padding:6px 10px}
+.cmpv-t tr.cmpv-why td span+span{margin-left:4px}
+/* evaluation states */
+.cmpv-t td.cs-winner{background:var(--brand-soft);box-shadow:inset 0 0 0 1px var(--brand)}
+.cmpv-t tr.hl-subtle td.cs-winner{background:transparent;box-shadow:inset 0 0 0 1px var(--line-2)}
+.cmpv-t td.cs-co_winner{box-shadow:inset 0 0 0 1px var(--line-2)}
+.cmpv-t td.cs-no_data .v,.cmpv-t td.cs-suppressed .v{color:var(--fg-3)}
+.cmpv-t td.cs-conflicted .v{color:var(--c-chk);font-weight:600}
+.cmpv-t td.cs-conflicted .v::before{content:"⚠ "}
+.cmpv-t td.cs-stale .v::after{content:" *";color:var(--warn-fg)}
+.bdg{display:inline-block;margin-top:3px;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:1px 7px;border:1px solid var(--line-2);color:var(--fg-2)}
+.bdg-winner{border-color:var(--brand);color:var(--brand)}
+.cmpv-tech{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px}
+@media (max-width:699px){
+  .cmpv-cands{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
+  .cmpv-cand{flex:0 0 72%;scroll-snap-align:start}
+  .cmpv-t{min-width:0;font-size:12.5px}
+  .cmpv-t tbody th{min-width:96px;max-width:120px}
+}
+@media (pointer:coarse){
+  .cmpv-ca .lbtn,.cmpv-prof .chip,.cmpv-grp>summary,.cmpv-ch .nm{min-height:44px;min-width:44px}
+  .cmpv-ca{gap:4px}
+}
+/* visually-hidden spans are absolutely positioned: keep them inside the horizontal scrollers (no page overflow on phones) */
+.cmpv-cands,.cmpv-scroll,.cmpv-cand{position:relative}

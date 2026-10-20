@@ -1,0 +1,3020 @@
+{
+ "schemaVersion": "1.0",
+ "roadmapVersion": "2026-10-17.1",
+ "statuses": [
+  "NOT_STARTED",
+  "READY",
+  "IN_PROGRESS",
+  "BLOCKED",
+  "VALIDATING",
+  "DONE"
+ ],
+ "dependencyTypes": [
+  "HARD",
+  "SOFT",
+  "VALIDATION",
+  "OPTIONAL"
+ ],
+ "qualityGates": [
+  "BUILD",
+  "TEST",
+  "PARITY",
+  "SECURITY",
+  "PERFORMANCE",
+  "OBSERVABILITY",
+  "DOCUMENTATION",
+  "ARCHITECTURE"
+ ],
+ "waves": [
+  {
+   "waveId": "W0",
+   "name": "Baseline e segurança da migração"
+  },
+  {
+   "waveId": "W1",
+   "name": "Fundação de domínio e dados"
+  },
+  {
+   "waveId": "W2",
+   "name": "Mapa e experiência principal"
+  },
+  {
+   "waveId": "W3",
+   "name": "Backend/API e autoridade dinâmica"
+  },
+  {
+   "waveId": "W4",
+   "name": "Inteligência explicável"
+  },
+  {
+   "waveId": "W5",
+   "name": "Cliente e jornada"
+  },
+  {
+   "waveId": "W6",
+   "name": "Apresentação, Share e colaboração"
+  },
+  {
+   "waveId": "W7",
+   "name": "PWA, segurança e observabilidade"
+  },
+  {
+   "waveId": "W8",
+   "name": "Multi-tenant e expansão"
+  },
+  {
+   "waveId": "W9",
+   "name": "Otimização e retirada do legado"
+  }
+ ],
+ "topics": {
+  "1": "Reestruturação da plataforma (SRV)",
+  "2": "Mapa como núcleo operacional",
+  "3": "Separação dados × apresentação",
+  "4": "Modelo hierárquico da informação",
+  "5": "Domínios e campos dos lotes",
+  "6": "Entidade canônica Lot",
+  "7": "Dados estáticos, versionáveis e dinâmicos",
+  "8": "Status comercial de primeira classe",
+  "9": "Migração para backend V2",
+  "10": "Cache híbrido e offline",
+  "11": "Camada de API formal versionada",
+  "12": "Motor de inteligência separado",
+  "13": "Scores configuráveis e versionados",
+  "14": "Fit Score personalizado",
+  "15": "Recommendation Engine",
+  "16": "Rankings explicáveis",
+  "17": "Filtros em três níveis",
+  "18": "Arquitetura de map layers",
+  "19": "Legenda inteligente",
+  "20": "Lot Quick View",
+  "21": "Mobile bottom sheet",
+  "22": "Workstation desktop",
+  "23": "Tablet adaptativo",
+  "24": "Comparador como domínio",
+  "25": "Vencedor por critério",
+  "26": "Serviço financeiro (spec não recebida)",
+  "27": "Versionamento de tabela de preços (spec não recebida)",
+  "28": "Histórico de preços",
+  "29": "Disponibilidade independente do preço",
+  "30": "Usuários, permissões, autorização",
+  "31": "Multi-tenant",
+  "32": "Documentos como entidades",
+  "33": "Proveniência por atributo",
+  "34": "Confidence score",
+  "35": "Versionamento analítico",
+  "36": "Alertas e Rule Engine",
+  "37": "Estados de dado desconhecido",
+  "38": "Favoritos",
+  "39": "Customer domain",
+  "40": "Jornada do cliente",
+  "41": "Modo apresentação",
+  "42": "Share service",
+  "43": "Deep links",
+  "44": "Analytics / semantic layer",
+  "45": "Event tracking",
+  "46": "Performance geoespacial",
+  "47": "Lazy loading",
+  "48": "Arquitetura de cache",
+  "49": "PWA / offline / service worker",
+  "50": "Segurança da plataforma",
+  "51": "Observabilidade",
+  "52": "Arquitetura de referência final",
+  "53": "Menu compacto / navegação",
+  "54": "Preservação das forças / não regressão",
+  "55": "Roadmap por fases",
+  "56": "Decisão comercial orientada ao cliente",
+  "57": "Propostas, reservas e fechamento (deals)",
+  "58": "Onboarding de novos empreendimentos",
+  "59": "Privacidade e LGPD",
+  "60": "Console administrativo (backoffice) separado",
+  "61": "Qualidade de dados e governança operacional",
+  "63": "Inteligência de localização (Entorno)"
+ },
+ "specMissing": [
+  26,
+  27
+ ],
+ "phases": [
+  {
+   "phaseId": "0.1",
+   "waveId": "W0",
+   "name": "Architecture Inventory",
+   "topics": [
+    52
+   ],
+   "status": "DONE",
+   "objective": "Inventariar a arquitetura real (módulos, App.*, dados, storage, fetch, fórmulas, cache, PWA, auth).",
+   "deliverables": [
+    "docs/CURRENT_ARCHITECTURE_INVENTORY.md",
+    "config/governance/architecture.json (módulo→contexto→camada)"
+   ],
+   "evidence": [
+    "tests/governance.test.js: todo arquivo de src/ classificado"
+   ],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "DOCUMENTATION",
+    "TEST"
+   ],
+   "exitCriteria": [
+    "todo módulo de src/ tem contexto e camada"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S0",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "0.2",
+   "waveId": "W0",
+   "name": "Architecture Gap Report",
+   "topics": [
+    52
+   ],
+   "status": "DONE",
+   "objective": "Comparar arquitetura atual × referência v1 e classificar gaps.",
+   "deliverables": [
+    "docs/ARCHITECTURE_GAP_REPORT.md",
+    "knownViolations com gapId"
+   ],
+   "evidence": [
+    "architecture fitness test (ratchet)"
+   ],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "DOCUMENTATION",
+    "TEST"
+   ],
+   "exitCriteria": [
+    "gaps CRITICAL/HIGH com fase recomendada"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S0",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "0.3",
+   "waveId": "W0",
+   "name": "Capability Preservation Baseline",
+   "topics": [
+    54
+   ],
+   "status": "DONE",
+   "objective": "Registrar as forças atuais com nível de preservação e prioridade.",
+   "deliverables": [
+    "config/governance/capabilities.json",
+    "docs/CAPABILITY_PRESERVATION_MATRIX.md"
+   ],
+   "evidence": [
+    "governance.test.js valida registro"
+   ],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "DOCUMENTATION",
+    "TEST"
+   ],
+   "exitCriteria": [
+    "toda capacidade P0 tem golden ou teste"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S0",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "0.4",
+   "waveId": "W0",
+   "name": "Golden Dataset",
+   "topics": [
+    54
+   ],
+   "status": "DONE",
+   "objective": "Fixture versionada do Viva Juara com hash.",
+   "deliverables": [
+    "tests/golden/*.golden.json",
+    "tests/golden/baseline.json (fingerprints)"
+   ],
+   "evidence": [
+    "dataset.fileFingerprints (sha256)"
+   ],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "PARITY"
+   ],
+   "exitCriteria": [
+    "datasetChecksum registrado"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S0",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "0.5",
+   "waveId": "W0",
+   "name": "Regression Harness",
+   "topics": [
+    54
+   ],
+   "status": "VALIDATING",
+   "objective": "Unit + golden + parity + E2E básico + baseline visual antes de reestruturar.",
+   "deliverables": [
+    "tests/*.test.js (node:test)",
+    "tests/golden",
+    "t18.js (paridade de cores)",
+    "scripts Playwright (fora do CI)"
+   ],
+   "evidence": [],
+   "pending": [
+    "E2E e baseline visual ainda rodam fora do CI (scratchpad), não há pipeline"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [
+    "E2E das 5 jornadas no CI"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S0",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "1.1",
+   "waveId": "W1",
+   "name": "Data Catalog / Field Registry",
+   "topics": [
+    5
+   ],
+   "status": "DONE",
+   "objective": "Data Catalog / Field Registry",
+   "deliverables": [
+    "domain/model.js (138 campos)",
+    "docs/DOMAIN_MODEL.md",
+    "LEGACY_FIELD_MAPPING.*"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [
+    "todo campo com domínio, tipo, unidade, status"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S1",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "1.2",
+   "waveId": "W1",
+   "name": "Canonical Lot",
+   "topics": [
+    6
+   ],
+   "status": "DONE",
+   "objective": "Canonical Lot",
+   "deliverables": [
+    "domain/lot.js",
+    "data/legacyAdapter.js"
+   ],
+   "evidence": [
+    "regression.test.js: 498 lotes = lots.json"
+   ],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [
+    "IDs canônicos imutáveis"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S1",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "1.3",
+   "waveId": "W1",
+   "name": "Data State Semantics",
+   "topics": [
+    37
+   ],
+   "status": "DONE",
+   "objective": "Data State Semantics",
+   "deliverables": [
+    "datastate/dataState.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [
+    "null≠0, unknown≠false, UNKNOWN≠AVAILABLE testados"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S1",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "1.4",
+   "waveId": "W1",
+   "name": "Static / Versioned / Dynamic split",
+   "topics": [
+    7
+   ],
+   "status": "DONE",
+   "objective": "Static / Versioned / Dynamic split",
+   "deliverables": [
+    "data/lifecycle.js",
+    "docs/DATA_LIFECYCLE.md"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [
+    "snapshots com versão própria"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S1",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "1.5",
+   "waveId": "W1",
+   "name": "Repository Boundary",
+   "topics": [
+    3,
+    9
+   ],
+   "status": "VALIDATING",
+   "objective": "Repository Boundary",
+   "deliverables": [
+    "data/repositories.js",
+    "data/apiSource.js"
+   ],
+   "evidence": [],
+   "pending": [
+    "presentation/app.js ainda busca analysis-input.json pelo nome (GAP-ARCH-11)",
+    "priceHistory acessa App.repos dentro do domínio (GAP-ARCH-05)"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "ARCHITECTURE"
+   ],
+   "exitCriteria": [
+    "nenhuma view/composition nomeia arquivo bruto"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S1",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "1.6",
+   "waveId": "W1",
+   "name": "Provenance Foundation",
+   "topics": [
+    33
+   ],
+   "status": "DONE",
+   "objective": "Provenance Foundation",
+   "deliverables": [
+    "provenance/*"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [
+    "proveniência por atributo, nunca fabricada"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S1",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "1.7",
+   "waveId": "W1",
+   "name": "Analysis Versioning Foundation",
+   "topics": [
+    35,
+    12
+   ],
+   "status": "DONE",
+   "objective": "Analysis Versioning Foundation",
+   "deliverables": [
+    "versioning/analysisVersioning.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [
+    "baseline legado registrado sem recálculo"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S1",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "2.1",
+   "waveId": "W2",
+   "name": "Map Workspace",
+   "topics": [
+    1,
+    2,
+    4
+   ],
+   "status": "DONE",
+   "objective": "Map Workspace",
+   "deliverables": [
+    "presentation/map.js",
+    "presentation/app.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY",
+    "PERFORMANCE"
+   ],
+   "exitCriteria": [
+    "mapa como workspace"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S2",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "2.2",
+   "waveId": "W2",
+   "name": "Map Layer Architecture",
+   "topics": [
+    18
+   ],
+   "status": "DONE",
+   "objective": "Map Layer Architecture",
+   "deliverables": [
+    "map/layers.js"
+   ],
+   "evidence": [
+    "t18 TOTAL DIFF 0",
+    "golden:layers"
+   ],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S2",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "2.3",
+   "waveId": "W2",
+   "name": "Smart Legend",
+   "topics": [
+    19
+   ],
+   "status": "DONE",
+   "objective": "Smart Legend",
+   "deliverables": [
+    "map/legend.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S2",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "2.4",
+   "waveId": "W2",
+   "name": "LotQuickView",
+   "topics": [
+    20,
+    4
+   ],
+   "status": "DONE",
+   "objective": "LotQuickView",
+   "deliverables": [
+    "quickview/quickview.js"
+   ],
+   "evidence": [
+    "golden:quickview"
+   ],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S2",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "2.5",
+   "waveId": "W2",
+   "name": "Mobile Bottom Sheet",
+   "topics": [
+    21
+   ],
+   "status": "DONE",
+   "objective": "Mobile Bottom Sheet",
+   "deliverables": [
+    "mobile/sheet.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S2",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "2.6",
+   "waveId": "W2",
+   "name": "Desktop Workstation",
+   "topics": [
+    22
+   ],
+   "status": "DONE",
+   "objective": "Desktop Workstation",
+   "deliverables": [
+    "layout/workspace.js",
+    "layout/shortcuts.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S2",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "2.7",
+   "waveId": "W2",
+   "name": "Tablet Adaptive Profile",
+   "topics": [
+    23
+   ],
+   "status": "DONE",
+   "objective": "Tablet Adaptive Profile",
+   "deliverables": [
+    "layout/responsiveProfile.js"
+   ],
+   "evidence": [],
+   "pending": [
+    "resolver lê DOM (GAP-ARCH-09)"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S2",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "2.8",
+   "waveId": "W2",
+   "name": "Filter System",
+   "topics": [
+    17
+   ],
+   "status": "DONE",
+   "objective": "Filter System",
+   "deliverables": [
+    "filters/filters.js"
+   ],
+   "evidence": [
+    "golden:filters"
+   ],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S2",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "2.9",
+   "waveId": "W2",
+   "name": "Menu Compacto",
+   "topics": [
+    53
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Menu Compacto",
+   "deliverables": [
+    "tópico 53 (em paralelo nesta rodada)"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [
+    "nenhuma função removida, só movida (golden + matriz de preservação)"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S2",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "2.10",
+   "waveId": "W2",
+   "name": "Geometry Performance",
+   "topics": [
+    46,
+    47,
+    48
+   ],
+   "status": "DONE",
+   "objective": "Geometry Performance",
+   "deliverables": [
+    "geo/*",
+    "loading/*",
+    "cache/*"
+   ],
+   "evidence": [
+    "MAP_PERFORMANCE_BASELINE_REPORT.md",
+    "LAZY_LOADING_BASELINE_REPORT.md"
+   ],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "PERFORMANCE",
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S2",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "3.1",
+   "waveId": "W3",
+   "name": "Backend Skeleton",
+   "topics": [
+    9,
+    52
+   ],
+   "status": "VALIDATING",
+   "objective": "Backend Skeleton",
+   "deliverables": [
+    "plat/backend (Node + Postgres, módulos por contexto)",
+    "migrations 001–009 com down"
+   ],
+   "evidence": [],
+   "pending": [
+    "testes de banco não rodam neste ambiente (senha do Postgres)",
+    "sem CI/CD"
+   ],
+   "blockers": [
+    "D-PG-PASSWORD"
+   ],
+   "qualityGates": [
+    "BUILD",
+    "TEST",
+    "SECURITY"
+   ],
+   "exitCriteria": [
+    "testes de banco verdes em CI"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S3",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "3.2",
+   "waveId": "W3",
+   "name": "API v1",
+   "topics": [
+    11
+   ],
+   "status": "VALIDATING",
+   "objective": "API v1",
+   "deliverables": [
+    "backend/docs/openapi.json (1.3.0)",
+    "data/apiSource.js"
+   ],
+   "evidence": [],
+   "pending": [
+    "painel ainda lê JSON estático; shadow read API × JSON não ligado"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [
+    "parity report API × JSON = 0 diferenças"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S3",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "3.3",
+   "waveId": "W3",
+   "name": "Authentication",
+   "topics": [
+    30,
+    50
+   ],
+   "status": "VALIDATING",
+   "objective": "Authentication",
+   "deliverables": [
+    "backend/src/modules/iam (tokens de dev; recusados em produção)",
+    "backend/src/modules/auth (login Google OIDC: Authorization Code + PKCE, sessão opaca, CSRF, convites)",
+    "backend/migrations/010_auth_sessions.sql",
+    "security/authorization.js (App.authz.account; deny by default)",
+    "navigation/menuView.js (Entrar com Google / Sair, só com backend)",
+    "backend/docs/AUTH_GOOGLE_OIDC.md",
+    "backend/docs/GUIA_GOOGLE_CLOUD_OAUTH.md",
+    "docs/RELATORIO_LOGIN_GOOGLE.md"
+   ],
+   "evidence": [
+    "backend/tests/authGoogle.test.js (Google falso: state, nonce, aud/iss, exp, e-mail não verificado, hd, convite, CSRF, timeouts)",
+    "tests/loginGoogle.test.js (modo estático inalterado; cabeçalho em modo backend)"
+   ],
+   "pending": [
+    "login real depende das credenciais OAuth do Google (GOOGLE_CLIENT_ID/SECRET) configuradas no host",
+    "repositórios Postgres e migração 010 não testados contra banco (D-PG-PASSWORD)",
+    "primeiro convite OWNER_ADMIN em org_house7 via npm run iam -- invite"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "SECURITY"
+   ],
+   "exitCriteria": [
+    "login real; tokens de dev recusados em produção"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S3",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "3.4",
+   "waveId": "W3",
+   "name": "Organization/Tenant Context",
+   "topics": [
+    31
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Organization/Tenant Context",
+   "deliverables": [
+    "migration 008",
+    "security/organization.js"
+   ],
+   "evidence": [],
+   "pending": [
+    "RLS não habilitado",
+    "dois IDs de organização (org_house7 × house7)"
+   ],
+   "blockers": [
+    "D-ORG-ID"
+   ],
+   "qualityGates": [
+    "SECURITY",
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S3",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "3.5",
+   "waveId": "W3",
+   "name": "Availability backend authority",
+   "topics": [
+    8,
+    29
+   ],
+   "status": "BLOCKED",
+   "objective": "Availability backend authority",
+   "deliverables": [
+    "availability.service + stream SSE",
+    "domain/availability.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [
+    "D-SALES-MIRROR",
+    "D-AVAIL-FRESHNESS"
+   ],
+   "qualityGates": [
+    "PARITY",
+    "SECURITY"
+   ],
+   "exitCriteria": [
+    "espelho de vendas real publicado; UNKNOWN só onde a fonte não informa"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S3",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "3.6",
+   "waveId": "W3",
+   "name": "Pricing backend/versioning",
+   "topics": [
+    27,
+    28
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Pricing backend/versioning",
+   "deliverables": [
+    "POST price-tables (versão imutável, dryRun)",
+    "pricing/priceHistory.js"
+   ],
+   "evidence": [],
+   "pending": [
+    "spec do Tópico 27 não recebida"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S3",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "3.7",
+   "waveId": "W3",
+   "name": "Financial Service",
+   "topics": [
+    26
+   ],
+   "status": "READY",
+   "objective": "Financial Service",
+   "deliverables": [
+    "services/finance.js (paridade com index_v1.html)"
+   ],
+   "evidence": [],
+   "pending": [
+    "serviço versionado no backend; modo shadow contra a calculadora atual",
+    "spec do Tópico 26 não recebida"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "PARITY"
+   ],
+   "exitCriteria": [
+    "finance golden = 0 diferenças em shadow"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S3",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "3.8",
+   "waveId": "W3",
+   "name": "Documents foundation",
+   "topics": [
+    32
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Documents foundation",
+   "deliverables": [
+    "documents/*"
+   ],
+   "evidence": [],
+   "pending": [
+    "object storage e upload no backend"
+   ],
+   "blockers": [
+    "D-DOCS-STORAGE"
+   ],
+   "qualityGates": [
+    "SECURITY",
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S3",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "4.1",
+   "waveId": "W4",
+   "name": "Intelligence Engine",
+   "topics": [
+    12
+   ],
+   "status": "DONE",
+   "objective": "Intelligence Engine",
+   "deliverables": [
+    "intelligence/engine.js"
+   ],
+   "evidence": [
+    "498 lotes, 45 campos, zero diff"
+   ],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S4",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "4.2",
+   "waveId": "W4",
+   "name": "Configurable Scoring",
+   "topics": [
+    13
+   ],
+   "status": "DONE",
+   "objective": "Configurable Scoring",
+   "deliverables": [
+    "config/scoring/viva-juara"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S4",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "4.3",
+   "waveId": "W4",
+   "name": "Customer Fit",
+   "topics": [
+    14
+   ],
+   "status": "DONE",
+   "objective": "Customer Fit",
+   "deliverables": [
+    "intelligence/fit.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S4",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "4.4",
+   "waveId": "W4",
+   "name": "Recommendation Engine",
+   "topics": [
+    15
+   ],
+   "status": "DONE",
+   "objective": "Recommendation Engine",
+   "deliverables": [
+    "intelligence/recommendation.js"
+   ],
+   "evidence": [
+    "golden:recommendations"
+   ],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S4",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "4.5",
+   "waveId": "W4",
+   "name": "Explainable Rankings",
+   "topics": [
+    16
+   ],
+   "status": "DONE",
+   "objective": "Explainable Rankings",
+   "deliverables": [
+    "intelligence/explanation.js",
+    "intelligence/reasonCodes.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S4",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "4.6",
+   "waveId": "W4",
+   "name": "Confidence Score",
+   "topics": [
+    34
+   ],
+   "status": "VALIDATING",
+   "objective": "Confidence Score",
+   "deliverables": [
+    "confidence/*"
+   ],
+   "evidence": [],
+   "pending": [
+    "modo sombra; pesos/faixas aguardam aprovação"
+   ],
+   "blockers": [
+    "D-CONFIDENCE"
+   ],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S4",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "4.7",
+   "waveId": "W4",
+   "name": "Rule Engine",
+   "topics": [
+    36
+   ],
+   "status": "VALIDATING",
+   "objective": "Rule Engine",
+   "deliverables": [
+    "rules/*"
+   ],
+   "evidence": [],
+   "pending": [
+    "flag ruleEngineAlerts desligada; paridade legada em sombra"
+   ],
+   "blockers": [
+    "D-ALERTS"
+   ],
+   "qualityGates": [
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S4",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "4.8",
+   "waveId": "W4",
+   "name": "Comparison Domain",
+   "topics": [
+    24
+   ],
+   "status": "DONE",
+   "objective": "Comparison Domain",
+   "deliverables": [
+    "compare/comparisonDomain.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S4",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "4.9",
+   "waveId": "W4",
+   "name": "Winner per Criterion",
+   "topics": [
+    25
+   ],
+   "status": "DONE",
+   "objective": "Winner per Criterion",
+   "deliverables": [
+    "compare/criterionWinner.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S4",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "4.10",
+   "waveId": "W4",
+   "name": "Price History",
+   "topics": [
+    28
+   ],
+   "status": "VALIDATING",
+   "objective": "Price History",
+   "deliverables": [
+    "pricing/priceHistory.js",
+    "backend pricing-history"
+   ],
+   "evidence": [],
+   "pending": [
+    "só existe uma versão publicada de tabela"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S4",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "5.1",
+   "waveId": "W5",
+   "name": "Favorites Formal Domain",
+   "topics": [
+    38
+   ],
+   "status": "DONE",
+   "objective": "Favorites Formal Domain",
+   "deliverables": [
+    "favorites/favorites.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S5",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "5.2",
+   "waveId": "W5",
+   "name": "Customer Domain",
+   "topics": [
+    39
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Customer Domain",
+   "deliverables": [
+    "customer/* (memória, sem PII persistida)"
+   ],
+   "evidence": [],
+   "pending": [
+    "persistência server-side"
+   ],
+   "blockers": [
+    "D-CUSTOMER-RETENTION"
+   ],
+   "qualityGates": [
+    "SECURITY",
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S5",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "5.3",
+   "waveId": "W5",
+   "name": "Customer Preference Profile",
+   "topics": [
+    14,
+    39
+   ],
+   "status": "VALIDATING",
+   "objective": "Customer Preference Profile",
+   "deliverables": [
+    "perfil temporário do Fit"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S5",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "5.4",
+   "waveId": "W5",
+   "name": "Customer Context in UI",
+   "topics": [
+    39,
+    40
+   ],
+   "status": "DONE",
+   "objective": "Customer Context in UI",
+   "deliverables": [
+    "customer/customerContext.js",
+    "customer/customerView.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S5",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "5.5",
+   "waveId": "W5",
+   "name": "Journey",
+   "topics": [
+    40
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Journey",
+   "deliverables": [
+    "journey/*"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [
+    "D-JOURNEY"
+   ],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S5",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "5.6",
+   "waveId": "W5",
+   "name": "Recommendation + Customer",
+   "topics": [
+    15,
+    56
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Recommendation + Customer",
+   "deliverables": [
+    "tópico 56 (em paralelo)"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S5",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "5.7",
+   "waveId": "W5",
+   "name": "Comparison + Customer",
+   "topics": [
+    24,
+    56
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Comparison + Customer",
+   "deliverables": [
+    "tópico 56 (em paralelo)"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S5",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "5.8",
+   "waveId": "W5",
+   "name": "CRM adapters",
+   "topics": [
+    40
+   ],
+   "status": "BLOCKED",
+   "objective": "CRM adapters",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [
+    "D-CRM-OWNERSHIP"
+   ],
+   "qualityGates": [
+    "SECURITY",
+    "TEST"
+   ],
+   "exitCriteria": [
+    "ownership de campos definido antes de sincronizar"
+   ],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S5",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "6.1",
+   "waveId": "W6",
+   "name": "Presentation Mode",
+   "topics": [
+    41
+   ],
+   "status": "DONE",
+   "objective": "Presentation Mode",
+   "deliverables": [
+    "presentationmode/*"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "SECURITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S6",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "6.2",
+   "waveId": "W6",
+   "name": "Client-Safe Projection",
+   "topics": [
+    41
+   ],
+   "status": "VALIDATING",
+   "objective": "Client-Safe Projection",
+   "deliverables": [
+    "presentationmode/policy.js (deny by default)",
+    "config/presentation.js clientSafeFields"
+   ],
+   "evidence": [],
+   "pending": [
+    "projeção server-side"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "SECURITY",
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S6",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "6.3",
+   "waveId": "W6",
+   "name": "ShareService",
+   "topics": [
+    42
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "ShareService",
+   "deliverables": [
+    "share/*"
+   ],
+   "evidence": [],
+   "pending": [
+    "grants/tokens no servidor só como contrato"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "SECURITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S6",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "6.4",
+   "waveId": "W6",
+   "name": "Deep Links",
+   "topics": [
+    43
+   ],
+   "status": "DONE",
+   "objective": "Deep Links",
+   "deliverables": [
+    "deeplink/*"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S6",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "6.5",
+   "waveId": "W6",
+   "name": "WhatsApp Payload",
+   "topics": [
+    42
+   ],
+   "status": "VALIDATING",
+   "objective": "WhatsApp Payload",
+   "deliverables": [
+    "shareVM + services/share.js"
+   ],
+   "evidence": [
+    "golden:share"
+   ],
+   "pending": [],
+   "blockers": [
+    "D-WHATSAPP-TEXT"
+   ],
+   "qualityGates": [
+    "PARITY",
+    "SECURITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S6",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "6.6",
+   "waveId": "W6",
+   "name": "Presentation Journey Integration",
+   "topics": [
+    41,
+    40
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Presentation Journey Integration",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S6",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "6.7",
+   "waveId": "W6",
+   "name": "Export foundation",
+   "topics": [
+    41
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Export foundation",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "SECURITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S6",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "7.1",
+   "waveId": "W7",
+   "name": "Cache Architecture",
+   "topics": [
+    10,
+    48
+   ],
+   "status": "DONE",
+   "objective": "Cache Architecture",
+   "deliverables": [
+    "cache/*"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "SECURITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S7",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "7.2",
+   "waveId": "W7",
+   "name": "Lazy Loading",
+   "topics": [
+    47
+   ],
+   "status": "DONE",
+   "objective": "Lazy Loading",
+   "deliverables": [
+    "loading/*"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "PERFORMANCE"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S7",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "7.3",
+   "waveId": "W7",
+   "name": "PWA",
+   "topics": [
+    49,
+    10
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "PWA",
+   "deliverables": [
+    "sw.template.js; tópico 49 em paralelo"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "SECURITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S7",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "7.4",
+   "waveId": "W7",
+   "name": "Offline Pack",
+   "topics": [
+    49
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Offline Pack",
+   "deliverables": [
+    "data/offline.js; tópico 49 em paralelo"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "SECURITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S7",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "7.5",
+   "waveId": "W7",
+   "name": "Security hardening",
+   "topics": [
+    50,
+    30
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Security hardening",
+   "deliverables": [
+    "tópico 50 em paralelo"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "SECURITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S7",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "7.6",
+   "waveId": "W7",
+   "name": "Observability",
+   "topics": [
+    51,
+    44,
+    45
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Observability",
+   "deliverables": [
+    "analytics/* (local); tópico 51 em paralelo"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [
+    "D-ANALYTICS-LEGAL"
+   ],
+   "qualityGates": [
+    "OBSERVABILITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S7",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "7.7",
+   "waveId": "W7",
+   "name": "Operational Runbooks",
+   "topics": [
+    51
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Operational Runbooks",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "DOCUMENTATION"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S7",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "8.1",
+   "waveId": "W8",
+   "name": "Organization Management",
+   "topics": [
+    31
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Organization Management",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [
+    "só CLI npm run iam"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "SECURITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S8",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "8.2",
+   "waveId": "W8",
+   "name": "Multi-Development",
+   "topics": [
+    31,
+    52
+   ],
+   "status": "READY",
+   "objective": "Multi-Development",
+   "deliverables": [
+    "config/developments.js (DevelopmentConfig por empreendimento)"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S8",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "8.3",
+   "waveId": "W8",
+   "name": "Development Config",
+   "topics": [
+    52
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Development Config",
+   "deliverables": [
+    "config/developments.js",
+    "config/<área>/viva-juara.json"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S8",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "8.4",
+   "waveId": "W8",
+   "name": "Organization Branding",
+   "topics": [
+    31
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Organization Branding",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S8",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "8.5",
+   "waveId": "W8",
+   "name": "Entitlements",
+   "topics": [
+    30,
+    52
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Entitlements",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "SECURITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S8",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "8.6",
+   "waveId": "W8",
+   "name": "Cross-Tenant Security Tests",
+   "topics": [
+    31,
+    50
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Cross-Tenant Security Tests",
+   "deliverables": [
+    "backend tests de tenancy (não rodam aqui)"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [
+    "D-PG-PASSWORD"
+   ],
+   "qualityGates": [
+    "SECURITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S8",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "8.7",
+   "waveId": "W8",
+   "name": "New Development Import Pipeline",
+   "topics": [
+    9,
+    58
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "New Development Import Pipeline",
+   "deliverables": [
+    "backend importDevelopmentData.service.js"
+   ],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S8",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "9.1",
+   "waveId": "W9",
+   "name": "Legacy Usage Review",
+   "topics": [
+    54
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Legacy Usage Review",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "DOCUMENTATION"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S9",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "9.2",
+   "waveId": "W9",
+   "name": "Remove Migration Flags",
+   "topics": [
+    54
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Remove Migration Flags",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "TEST",
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S9",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "9.3",
+   "waveId": "W9",
+   "name": "Remove Legacy Adapters",
+   "topics": [
+    54
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Remove Legacy Adapters",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S9",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "9.4",
+   "waveId": "W9",
+   "name": "Remove Old JSON Direct Access",
+   "topics": [
+    3,
+    54
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Remove Old JSON Direct Access",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "ARCHITECTURE",
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S9",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "9.5",
+   "waveId": "W9",
+   "name": "Remove Duplicate Formula Paths",
+   "topics": [
+    54
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Remove Duplicate Formula Paths",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [
+    "services/comparison.js (legado) × compare/*; services/layers.js × map/layers.js"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S9",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "9.6",
+   "waveId": "W9",
+   "name": "Remove Legacy Menu/Routes",
+   "topics": [
+    53
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Remove Legacy Menu/Routes",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "PARITY"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S9",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "9.7",
+   "waveId": "W9",
+   "name": "Performance Optimization",
+   "topics": [
+    46
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Performance Optimization",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "PERFORMANCE"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S9",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "9.8",
+   "waveId": "W9",
+   "name": "Database/Index Optimization",
+   "topics": [
+    9
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Database/Index Optimization",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "PERFORMANCE"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S9",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "9.9",
+   "waveId": "W9",
+   "name": "Cost Optimization",
+   "topics": [
+    52
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Cost Optimization",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "DOCUMENTATION"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S9",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "9.10",
+   "waveId": "W9",
+   "name": "Architecture Review",
+   "topics": [
+    52,
+    55
+   ],
+   "status": "NOT_STARTED",
+   "objective": "Architecture Review",
+   "deliverables": [],
+   "evidence": [],
+   "pending": [],
+   "blockers": [],
+   "qualityGates": [
+    "ARCHITECTURE",
+    "DOCUMENTATION"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S9",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "2.11",
+   "waveId": "W2",
+   "name": "Location Intelligence (Entorno)",
+   "topics": [
+    63
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Location Intelligence (Entorno)",
+   "deliverables": [
+    "surroundings/* (flag location_intelligence_google_maps OFF; só no console administrativo)"
+   ],
+   "evidence": [],
+   "pending": [
+    "coordenada oficial do empreendimento não validada",
+    "chaves/projeto GCP, orçamento e revisão de termos (decisão humana)"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "ARCHITECTURE",
+    "DOCUMENTATION"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S2",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "3.9",
+   "waveId": "W3",
+   "name": "Deals: proposta, reserva e fechamento",
+   "topics": [
+    57
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Deals: proposta, reserva e fechamento",
+   "deliverables": [
+    "deals/* + backend/src/modules/deals (rotas não ligadas)"
+   ],
+   "evidence": [],
+   "pending": [
+    "matriz de alçadas, prazos de reserva, definição de WON (decisão humana)",
+    "ligar rotas e permissões no backend (iam/permissions.js concederia OWNER_ADMIN)"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "ARCHITECTURE",
+    "DOCUMENTATION"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S3",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "7.8",
+   "waveId": "W7",
+   "name": "Privacy / LGPD",
+   "topics": [
+    59
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Privacy / LGPD",
+   "deliverables": [
+    "privacy/* (central local 'Dados neste aparelho' no painel público; governança só no console)"
+   ],
+   "evidence": [],
+   "pending": [
+    "bases legais, retenção, prazos de titular e encarregado (decisão humana; não é parecer jurídico)"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "ARCHITECTURE",
+    "DOCUMENTATION"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S7",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "8.8",
+   "waveId": "W8",
+   "name": "Admin / Operations Shell",
+   "topics": [
+    60
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Admin / Operations Shell",
+   "deliverables": [
+    "dash/admin.html (scripts/buildAdmin.js, src/admin/adminApp.js, backoffice/*)"
+   ],
+   "evidence": [],
+   "pending": [
+    "papéis, SoD, step-up/MFA e concessões backoffice.* (decisão humana; rotas do backend não ligadas)"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "ARCHITECTURE",
+    "DOCUMENTATION"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S8",
+   "canRunInParallelWith": []
+  },
+  {
+   "phaseId": "8.9",
+   "waveId": "W8",
+   "name": "Data Quality Governance",
+   "topics": [
+    61
+   ],
+   "status": "IN_PROGRESS",
+   "objective": "Data Quality Governance",
+   "deliverables": [
+    "dataquality/* (só no console administrativo)"
+   ],
+   "evidence": [],
+   "pending": [
+    "owners/stewards, limiares de frescor e metas de SLO (decisão humana)"
+   ],
+   "blockers": [],
+   "qualityGates": [
+    "ARCHITECTURE",
+    "DOCUMENTATION"
+   ],
+   "exitCriteria": [],
+   "rollbackStrategy": "Reverter o build estático anterior (artefato versionado); dados publicados são imutáveis.",
+   "risks": [],
+   "workstream": "S8",
+   "canRunInParallelWith": []
+  }
+ ],
+ "dependencies": [
+  {
+   "fromPhaseId": "0.1",
+   "toPhaseId": "0.2",
+   "type": "HARD",
+   "reason": "gap report compara o inventário"
+  },
+  {
+   "fromPhaseId": "0.1",
+   "toPhaseId": "0.3",
+   "type": "HARD",
+   "reason": "capacidades vêm do inventário"
+  },
+  {
+   "fromPhaseId": "0.3",
+   "toPhaseId": "0.4",
+   "type": "HARD",
+   "reason": "golden cobre as capacidades"
+  },
+  {
+   "fromPhaseId": "0.4",
+   "toPhaseId": "0.5",
+   "type": "HARD",
+   "reason": "harness compara com o golden"
+  },
+  {
+   "fromPhaseId": "0.5",
+   "toPhaseId": "1.1",
+   "type": "VALIDATION",
+   "reason": "fundação de dados só corta com regressão verde"
+  },
+  {
+   "fromPhaseId": "1.1",
+   "toPhaseId": "1.2",
+   "type": "HARD",
+   "reason": "Lot canônico usa o Field Registry"
+  },
+  {
+   "fromPhaseId": "1.2",
+   "toPhaseId": "1.3",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "1.2",
+   "toPhaseId": "1.4",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "1.2",
+   "toPhaseId": "1.5",
+   "type": "HARD",
+   "reason": "repositório devolve Lot canônico"
+  },
+  {
+   "fromPhaseId": "1.1",
+   "toPhaseId": "1.6",
+   "type": "HARD",
+   "reason": "proveniência por campo do registro"
+  },
+  {
+   "fromPhaseId": "1.4",
+   "toPhaseId": "1.7",
+   "type": "HARD",
+   "reason": "versão analítica separada"
+  },
+  {
+   "fromPhaseId": "1.5",
+   "toPhaseId": "2.1",
+   "type": "SOFT",
+   "reason": "mapa pode evoluir antes do repositório completo"
+  },
+  {
+   "fromPhaseId": "1.2",
+   "toPhaseId": "2.2",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "2.2",
+   "toPhaseId": "2.3",
+   "type": "HARD",
+   "reason": "legenda deriva do modelo de render"
+  },
+  {
+   "fromPhaseId": "1.2",
+   "toPhaseId": "2.4",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "2.4",
+   "toPhaseId": "2.5",
+   "type": "HARD",
+   "reason": "sheet contém o QuickView"
+  },
+  {
+   "fromPhaseId": "2.1",
+   "toPhaseId": "2.6",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "2.1",
+   "toPhaseId": "2.7",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "1.3",
+   "toPhaseId": "2.8",
+   "type": "HARD",
+   "reason": "filtros respeitam data state"
+  },
+  {
+   "fromPhaseId": "2.1",
+   "toPhaseId": "2.9",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "2.2",
+   "toPhaseId": "2.10",
+   "type": "SOFT",
+   "reason": "otimizar renderer só com baseline"
+  },
+  {
+   "fromPhaseId": "0.4",
+   "toPhaseId": "2.10",
+   "type": "VALIDATION",
+   "reason": "paridade de geometria"
+  },
+  {
+   "fromPhaseId": "1.5",
+   "toPhaseId": "3.1",
+   "type": "SOFT",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.1",
+   "toPhaseId": "3.2",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.2",
+   "toPhaseId": "3.3",
+   "type": "HARD",
+   "reason": "security boundary antes de writes"
+  },
+  {
+   "fromPhaseId": "3.3",
+   "toPhaseId": "3.4",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.4",
+   "toPhaseId": "3.5",
+   "type": "HARD",
+   "reason": "disponibilidade é tenant-owned"
+  },
+  {
+   "fromPhaseId": "3.4",
+   "toPhaseId": "3.6",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.6",
+   "toPhaseId": "3.7",
+   "type": "HARD",
+   "reason": "financeiro consome PriceTableVersion"
+  },
+  {
+   "fromPhaseId": "3.4",
+   "toPhaseId": "3.8",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "1.7",
+   "toPhaseId": "4.1",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "4.1",
+   "toPhaseId": "4.2",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "1.2",
+   "toPhaseId": "4.3",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "4.3",
+   "toPhaseId": "4.4",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "4.4",
+   "toPhaseId": "4.5",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "1.6",
+   "toPhaseId": "4.6",
+   "type": "HARD",
+   "reason": "confiança usa proveniência"
+  },
+  {
+   "fromPhaseId": "4.1",
+   "toPhaseId": "4.7",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "1.2",
+   "toPhaseId": "4.8",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "4.8",
+   "toPhaseId": "4.9",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.6",
+   "toPhaseId": "4.10",
+   "type": "SOFT",
+   "reason": "paralela após versionamento da tabela"
+  },
+  {
+   "fromPhaseId": "1.2",
+   "toPhaseId": "5.1",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.4",
+   "toPhaseId": "5.2",
+   "type": "VALIDATION",
+   "reason": "Customer antes de tenant é anti-padrão: persistência só com tenant"
+  },
+  {
+   "fromPhaseId": "4.3",
+   "toPhaseId": "5.3",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "5.2",
+   "toPhaseId": "5.4",
+   "type": "SOFT",
+   "reason": "contexto pode usar perfil temporário"
+  },
+  {
+   "fromPhaseId": "5.2",
+   "toPhaseId": "5.5",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "4.4",
+   "toPhaseId": "5.6",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "5.3",
+   "toPhaseId": "5.6",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "4.8",
+   "toPhaseId": "5.7",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "5.5",
+   "toPhaseId": "5.8",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "4.9",
+   "toPhaseId": "6.1",
+   "type": "SOFT",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "6.1",
+   "toPhaseId": "6.2",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "6.2",
+   "toPhaseId": "6.3",
+   "type": "HARD",
+   "reason": "share antes de client-safe é anti-padrão"
+  },
+  {
+   "fromPhaseId": "3.3",
+   "toPhaseId": "6.3",
+   "type": "VALIDATION",
+   "reason": "share público exige authz real"
+  },
+  {
+   "fromPhaseId": "2.8",
+   "toPhaseId": "6.4",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "6.3",
+   "toPhaseId": "6.5",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "5.5",
+   "toPhaseId": "6.6",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "6.2",
+   "toPhaseId": "6.7",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "1.4",
+   "toPhaseId": "7.1",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "7.1",
+   "toPhaseId": "7.2",
+   "type": "SOFT",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "7.1",
+   "toPhaseId": "7.3",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "7.3",
+   "toPhaseId": "7.4",
+   "type": "HARD",
+   "reason": "offline pack depois de cache/versão"
+  },
+  {
+   "fromPhaseId": "7.5",
+   "toPhaseId": "7.4",
+   "type": "VALIDATION",
+   "reason": "offline pack depois de segurança"
+  },
+  {
+   "fromPhaseId": "3.3",
+   "toPhaseId": "7.5",
+   "type": "SOFT",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.1",
+   "toPhaseId": "7.6",
+   "type": "SOFT",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "7.6",
+   "toPhaseId": "7.7",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.4",
+   "toPhaseId": "8.1",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.4",
+   "toPhaseId": "8.2",
+   "type": "HARD",
+   "reason": "multi-tenant rollout depende de tenant"
+  },
+  {
+   "fromPhaseId": "8.2",
+   "toPhaseId": "8.3",
+   "type": "SOFT",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "8.1",
+   "toPhaseId": "8.4",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "8.1",
+   "toPhaseId": "8.5",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.4",
+   "toPhaseId": "8.6",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "8.3",
+   "toPhaseId": "8.7",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "0.5",
+   "toPhaseId": "9.1",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.2",
+   "toPhaseId": "9.1",
+   "type": "HARD",
+   "reason": "uso legado só é medido com o caminho novo em produção"
+  },
+  {
+   "fromPhaseId": "9.1",
+   "toPhaseId": "9.4",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "9.1",
+   "toPhaseId": "9.7",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "9.1",
+   "toPhaseId": "9.8",
+   "type": "SOFT",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "9.1",
+   "toPhaseId": "9.2",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "9.1",
+   "toPhaseId": "9.3",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "1.5",
+   "toPhaseId": "9.4",
+   "type": "HARD",
+   "reason": "remover acesso direto só com repositório validado"
+  },
+  {
+   "fromPhaseId": "9.1",
+   "toPhaseId": "9.5",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "2.9",
+   "toPhaseId": "9.6",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "2.10",
+   "toPhaseId": "9.7",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.1",
+   "toPhaseId": "9.8",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "9.1",
+   "toPhaseId": "9.9",
+   "type": "SOFT",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "9.2",
+   "toPhaseId": "9.10",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "9.3",
+   "toPhaseId": "9.10",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "9.4",
+   "toPhaseId": "9.10",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "9.5",
+   "toPhaseId": "9.10",
+   "type": "HARD",
+   "reason": ""
+  },
+  {
+   "fromPhaseId": "3.3",
+   "toPhaseId": "8.8",
+   "type": "HARD",
+   "reason": "o console administrativo só abre com sessão confirmada pelo servidor"
+  },
+  {
+   "fromPhaseId": "3.3",
+   "toPhaseId": "3.9",
+   "type": "HARD",
+   "reason": "propostas/reservas exigem identidade e autorização no servidor"
+  },
+  {
+   "fromPhaseId": "8.8",
+   "toPhaseId": "8.9",
+   "type": "SOFT",
+   "reason": "filas de qualidade de dados aparecem no console"
+  }
+ ],
+ "decisions": [
+  {
+   "decisionId": "D-PG-PASSWORD",
+   "question": "Senha/ambiente do Postgres para rodar testes de banco",
+   "source": "RELATORIO_TOPICOS_43_48.md",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-IDP",
+   "question": "Provedor de identidade (OIDC gerenciado × Keycloak × link mágico)",
+   "source": "RELATORIO_BACKEND_TOPICOS_28_31.md §7.1",
+   "status": "DECIDED",
+   "decidedBy": "responsável do projeto (rodada W3)",
+   "decidedAt": "2026-10-16",
+   "outcome": "Google (OIDC, Authorization Code + PKCE); papéis vêm de org_house7 por convite; sem autoprovisionamento"
+  },
+  {
+   "decisionId": "D-ORG-ID",
+   "question": "ID oficial da organização: org_house7 × house7",
+   "source": "RELATORIO_TOPICOS_32_42.md §10",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-SALES-MIRROR",
+   "question": "Fonte do espelho de vendas (disponibilidade real)",
+   "source": "RELATORIO_PENDENCIAS_2026-10-08.md",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-AVAIL-FRESHNESS",
+   "question": "Política de frescor da disponibilidade",
+   "source": "RELATORIO_BACKEND_TOPICOS_28_31.md §7.6",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-DOCS-STORAGE",
+   "question": "Local de armazenamento e publicação da planta oficial",
+   "source": "RELATORIO_TOPICOS_32_42.md §8",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-CONFIDENCE",
+   "question": "Aprovar pesos/faixas da confiança e saída do modo sombra",
+   "source": "RELATORIO_TOPICOS_32_42.md §9",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-ALERTS",
+   "question": "Quando ligar ruleEngineAlerts; corrigir alerta \"área ausente\"",
+   "source": "RELATORIO_TOPICOS_32_42.md §1",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-CUSTOMER-RETENTION",
+   "question": "Retenção e base legal de clientes; aparelho × servidor",
+   "source": "RELATORIO_TOPICOS_32_42.md §5",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-JOURNEY",
+   "question": "Etapas, prazos, motivos de perda e mapeamento CRM da jornada",
+   "source": "RELATORIO_TOPICOS_32_42.md §6",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-CRM-OWNERSHIP",
+   "question": "Ownership de campos antes de qualquer sincronização com CRM",
+   "source": "Tópico 55 §132",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-WHATSAPP-TEXT",
+   "question": "Texto do WhatsApp (nome do cliente, preço e status na URL)",
+   "source": "RELATORIO_TOPICOS_32_42.md §3",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-ANALYTICS-LEGAL",
+   "question": "Base legal, destino e retenção de eventos/métricas",
+   "source": "RELATORIO_TOPICOS_43_48.md §1",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-HOSTING",
+   "question": "Compressão, cabeçalhos de cache e divisão do bundle",
+   "source": "RELATORIO_TOPICOS_43_48.md §7",
+   "status": "OPEN"
+  },
+  {
+   "decisionId": "D-RPO-RTO",
+   "question": "RPO/RTO e política de backup/restore (não inventar)",
+   "source": "Tópico 52 §165",
+   "status": "OPEN"
+  }
+ ]
+}

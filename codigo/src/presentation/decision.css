@@ -1,0 +1,48 @@
+/* decision.css — topic 56 panel "O que mostrar a este cliente — e por quê". Reuses the tokens of styles.css (light + dark).
+   Status by icon + text + border, never by color alone. No horizontal scroll at 320 px. */
+.dcs{display:flex;flex-direction:column;gap:10px;min-width:0}
+.dcs-h h3{margin:0 0 2px}
+.dcs-ctx{margin:0 0 6px;overflow-wrap:anywhere}
+.dcs-modes{flex-wrap:wrap;max-width:100%}
+.dcs-status{border:1px solid var(--line);border-left-width:4px;border-radius:8px;padding:8px 10px;background:var(--surface)}
+.dcs-status p{margin:2px 0 0;font-size:13px;color:var(--fg-2)}
+.dcs-status.warn{border-left-color:var(--warn-line);background:var(--warn-bg)}
+.dcs-status.warn b{color:var(--warn-fg)}
+.dcs-status.ok{border-left-color:var(--brand)}
+.dcs-status.info{border-left-color:var(--cmp)}
+.dcs-val{margin:0;padding-left:18px}
+.dcs-ready{margin:0;font-size:13px}
+.dcs-nba{border:1px dashed var(--line-2);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.dcs-nba p{margin:0;font-size:13px}
+.dcs-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.dcs-card{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.dcs-card.in{border-color:var(--brand);box-shadow:inset 3px 0 0 var(--brand)}
+.dcs-card p{margin:0}
+.dcs-ch{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px}
+.dcs-ch .nm{border:0;background:none;padding:0;font-weight:800;font-size:15px;color:var(--fg);cursor:pointer}
+.dcs-pos{font-size:12px;color:var(--fg-2);font-weight:600}
+.dcs-tier{font-size:11px;font-weight:700;border:1px solid var(--line-2);border-radius:999px;padding:1px 7px;color:var(--fg-2)}
+.dcs-facts{font-size:13px}
+.dcs-av{font-size:12.5px;font-weight:600}
+.dcs-av.warn{color:var(--warn-fg)}
+.dcs-av.warn::before{content:"! ";font-weight:800}
+.dcs-av.ok{color:var(--brand)}
+.dcs-pros,.dcs-cons{list-style:none;margin:2px 0 0;padding:0;font-size:13px;display:flex;flex-direction:column;gap:2px}
+.dcs-pros span[aria-hidden]{color:var(--brand);font-weight:800}
+.dcs-cons span[aria-hidden]{color:var(--warn-fg);font-weight:800}
+.dcs-cons .sev-high{font-weight:600}
+.dcs-breach{font-size:12px;color:var(--warn-fg);background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:6px;padding:3px 6px}
+.dcs-obj summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--fg-2)}
+.dcs-obj ul{margin:4px 0 0;padding-left:18px;font-size:12.5px}
+.dcs-acts{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-top:4px}
+.dcs-acts .btn[disabled]{opacity:.5;cursor:default}
+.dcs-sl{border-top:1px solid var(--line);padding-top:8px;display:flex;flex-direction:column;gap:4px}
+.dcs-sl p{margin:0}
+.dcs-res{border:1px solid var(--warn-line);background:var(--warn-bg);border-radius:8px;padding:8px 10px;font-size:13px}
+.dcs-res ul{margin:4px 0;padding-left:18px}
+.dcs-ex summary{cursor:pointer;font-size:12.5px;font-weight:600}
+.dcs-cav{margin:0;padding-left:18px}
+.dcs-qv{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface-2);font-size:13px}
+.dcs-qv ul{margin:4px 0 0;padding-left:18px}
+@media (max-width:420px){.dcs-cards{grid-template-columns:1fr}.dcs-modes button{padding:6px 8px}}
+.dcs-listh{margin:14px 0 4px}

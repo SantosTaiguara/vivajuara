@@ -1,0 +1,1289 @@
+{
+  "kind": "dq-policy",
+  "scope": "DEVELOPMENT",
+  "developmentId": "viva-juara",
+  "organizationId": "org_house7",
+  "version": "1.0.0",
+  "policyVersion": "dq-viva-juara-2026-10-16.1",
+  "note": "Regras e políticas específicas do Viva Juara. A contagem 498 vem da planta oficial (confirmado) e não é genérica. Limites de frescor, tolerâncias de volume e de distribuição: null = não configurado.",
+  "rules": [
+    {
+      "id": "DQ-VOL-001",
+      "code": "DQ-VOL-001",
+      "name": "Volume esperado de lotes do Viva Juara",
+      "description": "expected 498 lots (planta oficial). Lote a menos/mais = possível paginação interrompida ou fonte errada.",
+      "dataDomainId": "LOT_IDENTITY",
+      "scope": "DATASET",
+      "dimension": "COMPLETENESS",
+      "severity": "BLOCKING",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "VOLUME",
+      "thresholdConfig": {
+        "volumePolicyRef": "VOL-VJ-LOTS"
+      },
+      "ownerRef": null,
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": false,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-VJ-LOT-003",
+      "code": "DQ-VJ-LOT-003",
+      "name": "Formato do ID canônico VJ-Q<quadra>-L<0000>",
+      "description": "ID técnico do legado: empreendimento + quadra + número com 4 dígitos.",
+      "dataDomainId": "LOT_IDENTITY",
+      "scope": "FIELD",
+      "dimension": "VALIDITY",
+      "severity": "BLOCKING",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "PATTERN",
+      "thresholdConfig": {
+        "fieldKey": "identity.id",
+        "pattern": "^VJ-Q[A-Z]+-L\\d{4}$"
+      },
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": false,
+      "dependsOn": [
+        "DQ-LOT-002"
+      ]
+    },
+    {
+      "id": "DQ-VJ-SCHEMA-001",
+      "code": "DQ-VJ-SCHEMA-001",
+      "name": "Schema da fonte de lotes sem drift breaking",
+      "description": "Compara as chaves/tipos/nulabilidade da fonte (lots.json) com a baseline versionada; campo removido, tipo mudado ou nulabilidade nova bloqueiam.",
+      "dataDomainId": "INTEGRATION_REFERENCE",
+      "scope": "DATASET",
+      "dimension": "VERSION_COMPATIBILITY",
+      "severity": "BLOCKING",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "SCHEMA_DRIFT",
+      "thresholdConfig": {
+        "baselineRef": "SCHEMA-VJ-LOTS-JSON"
+      },
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "MEDIUM",
+      "platformMandatory": false,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-VJ-DIST-001",
+      "code": "DQ-VJ-DIST-001",
+      "name": "Distribuição de campos selecionados sem drift",
+      "description": "min/max/mediana da área, distribuição de status e de classe e taxa de nulos comparadas à baseline. Drift exige revisão humana; nunca bloqueia sozinho (mudança legítima de lançamento).",
+      "dataDomainId": "GEOMETRY",
+      "scope": "DATASET",
+      "dimension": "CONSISTENCY",
+      "severity": "ERROR",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "DISTRIBUTION_DRIFT",
+      "thresholdConfig": {
+        "baselineRef": "DIST-VJ-LOTS"
+      },
+      "ownerRef": null,
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "WARNING",
+      "priority": "P2",
+      "cost": "MEDIUM",
+      "platformMandatory": false,
+      "dependsOn": [
+        "DQ-LOT-001"
+      ]
+    }
+  ],
+  "volumeExpectations": [
+    {
+      "id": "VOL-VJ-LOTS",
+      "datasetRef": "viva-juara/lots",
+      "expectedMin": 498,
+      "expectedMax": 498,
+      "basis": "Planta oficial: 498 lotes (confirmado)",
+      "changeTolerancePercent": null,
+      "changeToleranceStatus": "NECESSITA_CONFIRMACAO",
+      "actionOnBreach": "BLOCK"
+    }
+  ],
+  "freshnessPolicies": [
+    {
+      "id": "FP-AVAILABILITY",
+      "dataDomainId": "AVAILABILITY",
+      "sourceRef": null,
+      "mode": "CLOCK",
+      "expectedCadence": null,
+      "maxAgeForDisplay": null,
+      "maxAgeForDecision": null,
+      "maxAgeForTransaction": null,
+      "staleBehavior": {
+        "DISPLAY": "WARN",
+        "DECISION": "DEGRADE",
+        "TRANSACTION": "BLOCK"
+      },
+      "thresholdStatus": "NECESSITA_CONFIRMACAO",
+      "version": "1.0.0"
+    },
+    {
+      "id": "FP-PRICING",
+      "dataDomainId": "PRICING",
+      "sourceRef": "price-table-v1",
+      "mode": "VERSION",
+      "expectedCadence": null,
+      "maxAgeForDisplay": null,
+      "maxAgeForDecision": null,
+      "maxAgeForTransaction": null,
+      "staleBehavior": {
+        "DISPLAY": "WARN",
+        "DECISION": "DEGRADE",
+        "TRANSACTION": "BLOCK"
+      },
+      "thresholdStatus": "NECESSITA_CONFIRMACAO",
+      "version": "1.0.0"
+    },
+    {
+      "id": "FP-GEOMETRY",
+      "dataDomainId": "GEOMETRY",
+      "sourceRef": "official-plan-v1",
+      "mode": "VERSION",
+      "expectedCadence": null,
+      "maxAgeForDisplay": null,
+      "maxAgeForDecision": null,
+      "maxAgeForTransaction": null,
+      "staleBehavior": {
+        "DISPLAY": "WARN",
+        "DECISION": "WARN",
+        "TRANSACTION": "BLOCK"
+      },
+      "thresholdStatus": "NOT_APPLICABLE",
+      "version": "1.0.0"
+    },
+    {
+      "id": "FP-ANALYSIS",
+      "dataDomainId": "ANALYSIS",
+      "sourceRef": "analysis-v1",
+      "mode": "VERSION",
+      "expectedCadence": null,
+      "maxAgeForDisplay": null,
+      "maxAgeForDecision": null,
+      "maxAgeForTransaction": null,
+      "staleBehavior": {
+        "DISPLAY": "WARN",
+        "DECISION": "DEGRADE",
+        "TRANSACTION": "WARN"
+      },
+      "thresholdStatus": "NOT_APPLICABLE",
+      "version": "1.0.0"
+    },
+    {
+      "id": "FP-LOT-IDENTITY",
+      "dataDomainId": "LOT_IDENTITY",
+      "sourceRef": "official-plan-v1",
+      "mode": "VERSION",
+      "expectedCadence": null,
+      "maxAgeForDisplay": null,
+      "maxAgeForDecision": null,
+      "maxAgeForTransaction": null,
+      "staleBehavior": {
+        "DISPLAY": "WARN",
+        "DECISION": "WARN",
+        "TRANSACTION": "BLOCK"
+      },
+      "thresholdStatus": "NOT_APPLICABLE",
+      "version": "1.0.0"
+    }
+  ],
+  "reconciliationPolicies": [
+    {
+      "id": "RP-AVAILABILITY",
+      "dataDomainId": "AVAILABILITY",
+      "authoritativeSourceRef": null,
+      "authoritativeSourceStatus": "NECESSITA_CONFIRMACAO",
+      "comparisonKeyRefs": [
+        "identity.id"
+      ],
+      "comparedFields": [
+        "availability.status",
+        "availability.revision"
+      ],
+      "cadence": null,
+      "toleranceRules": [],
+      "mismatchSeverityPolicyRef": "incidentSeverityPolicy",
+      "automaticCorrection": "NEVER",
+      "version": "1.0.0"
+    },
+    {
+      "id": "RP-LOT-IDENTITY",
+      "dataDomainId": "LOT_IDENTITY",
+      "authoritativeSourceRef": "official-plan-v1",
+      "comparisonKeyRefs": [
+        "identity.id"
+      ],
+      "comparedFields": [
+        "identity.code",
+        "identity.blockId",
+        "identity.lotNumber"
+      ],
+      "cadence": null,
+      "toleranceRules": [],
+      "mismatchSeverityPolicyRef": "incidentSeverityPolicy",
+      "automaticCorrection": "NEVER",
+      "version": "1.0.0"
+    },
+    {
+      "id": "RP-GEOMETRY",
+      "dataDomainId": "GEOMETRY",
+      "authoritativeSourceRef": "official-plan-v1",
+      "comparisonKeyRefs": [
+        "identity.id"
+      ],
+      "comparedFields": [
+        "geometry.areaM2"
+      ],
+      "cadence": null,
+      "toleranceRules": [],
+      "mismatchSeverityPolicyRef": "incidentSeverityPolicy",
+      "automaticCorrection": "NEVER",
+      "version": "1.0.0"
+    },
+    {
+      "id": "RP-PRICING",
+      "dataDomainId": "PRICING",
+      "authoritativeSourceRef": "price-table-v1",
+      "comparisonKeyRefs": [
+        "identity.id"
+      ],
+      "comparedFields": [
+        "commercial.price",
+        "commercial.priceTableVersion"
+      ],
+      "cadence": null,
+      "toleranceRules": [],
+      "mismatchSeverityPolicyRef": "incidentSeverityPolicy",
+      "automaticCorrection": "NEVER",
+      "version": "1.0.0"
+    },
+    {
+      "id": "RP-SPATIAL-INDEX",
+      "dataDomainId": "GEOMETRY",
+      "derivedArtifact": true,
+      "authoritativeSourceRef": "official-plan-v1",
+      "comparisonKeyRefs": [
+        "identity.id"
+      ],
+      "comparedFields": [
+        "spatialIndexVersion"
+      ],
+      "cadence": null,
+      "toleranceRules": [],
+      "mismatchSeverityPolicyRef": "incidentSeverityPolicy",
+      "automaticCorrection": "SAFE_ONLY",
+      "version": "1.0.0",
+      "note": "Índice espacial é cache derivado: reconstruir é seguro (sugestão determinística, nunca aplicada pelo módulo de qualidade)."
+    }
+  ],
+  "contracts": [
+    {
+      "id": "DC-PRICING-FINANCIAL",
+      "producerRef": "pricing",
+      "consumerRefs": [
+        "financial",
+        "proposal",
+        "share"
+      ],
+      "dataDomainId": "PRICING",
+      "schemaRef": "field-registry",
+      "schemaVersion": "1.0.0",
+      "fields": [
+        {
+          "fieldKey": "commercial.price",
+          "type": "number",
+          "unit": "BRL",
+          "nullable": true
+        },
+        {
+          "fieldKey": "commercial.pricePerM2",
+          "type": "number",
+          "unit": "BRL/m²",
+          "nullable": true
+        },
+        {
+          "fieldKey": "commercial.priceTableVersion",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "fieldKey": "commercial.currency",
+          "type": "string",
+          "nullable": false,
+          "allowedValues": [
+            "BRL"
+          ]
+        }
+      ],
+      "semantics": {
+        "currency": "BRL em reais (number, 2 casas); unidade menor (centavos) é decisão pendente do backend",
+        "priceTableVersionRequired": true,
+        "nullMeaning": "null = sem preço de tabela publicado para o lote; nunca 0 e nunca indisponível"
+      },
+      "semanticsRef": "docs/DATA_CONTRACT_ARCHITECTURE.md#pricing-financial",
+      "qualityRuleSetRef": "RS-PRICING",
+      "freshnessPolicyRef": "FP-PRICING",
+      "compatibilityPolicy": "BACKWARD",
+      "ownerRef": null,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DC-AVAILABILITY-RECOMMENDATION",
+      "producerRef": "availability",
+      "consumerRefs": [
+        "recommendation",
+        "decision",
+        "map",
+        "share"
+      ],
+      "dataDomainId": "AVAILABILITY",
+      "schemaRef": "field-registry",
+      "schemaVersion": "1.0.0",
+      "fields": [
+        {
+          "fieldKey": "availability.status",
+          "type": "enum",
+          "nullable": false,
+          "allowedValues": [
+            "AVAILABLE",
+            "RESERVED",
+            "PROPOSAL",
+            "BLOCKED",
+            "SOLD",
+            "UNAVAILABLE",
+            "UNKNOWN"
+          ]
+        },
+        {
+          "fieldKey": "availability.revision",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "fieldKey": "availability.updatedAt",
+          "type": "timestamp-utc",
+          "nullable": true
+        }
+      ],
+      "semantics": {
+        "statusEnum": "AvailabilityStatus; UNKNOWN nunca é disponível",
+        "revision": "monotônica",
+        "freshness": "por uso (FP-AVAILABILITY)",
+        "nullMeaning": "updatedAt null = sem data da fonte → frescor UNKNOWN"
+      },
+      "semanticsRef": "docs/DATA_CONTRACT_ARCHITECTURE.md#availability-recommendation",
+      "qualityRuleSetRef": "RS-AVAILABILITY",
+      "freshnessPolicyRef": "FP-AVAILABILITY",
+      "compatibilityPolicy": "FULL",
+      "ownerRef": null,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DC-LOT-STATIC-MAP",
+      "producerRef": "lot",
+      "consumerRefs": [
+        "map",
+        "quickview",
+        "compare",
+        "filters"
+      ],
+      "dataDomainId": "LOT_IDENTITY",
+      "schemaRef": "field-registry",
+      "schemaVersion": "1.0.0",
+      "fields": [
+        {
+          "fieldKey": "identity.id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "fieldKey": "identity.code",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "fieldKey": "geometry.areaM2",
+          "type": "number",
+          "unit": "m²",
+          "nullable": true
+        },
+        {
+          "fieldKey": "geometry.polygon",
+          "type": "polygon",
+          "unit": "IMAGE_RELATIVE",
+          "nullable": false
+        }
+      ],
+      "semantics": {
+        "idImmutable": true,
+        "areaUnit": "m²",
+        "polygonSpace": "IMAGE_RELATIVE (unidades da planta)"
+      },
+      "semanticsRef": "docs/DATA_CONTRACT_ARCHITECTURE.md#lot-static-map",
+      "qualityRuleSetRef": "RS-GEOMETRY",
+      "freshnessPolicyRef": "FP-GEOMETRY",
+      "compatibilityPolicy": "BACKWARD",
+      "ownerRef": null,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DC-ANALYSIS-RECOMMENDATION",
+      "producerRef": "analysis",
+      "consumerRefs": [
+        "recommendation",
+        "compare",
+        "quickview"
+      ],
+      "dataDomainId": "ANALYSIS",
+      "schemaRef": "field-registry",
+      "schemaVersion": "1.0.0",
+      "fields": [
+        {
+          "fieldKey": "intelligence.scores.overall",
+          "type": "number",
+          "unit": "0–100",
+          "nullable": true
+        },
+        {
+          "fieldKey": "intelligence.class",
+          "type": "enum",
+          "nullable": true
+        },
+        {
+          "fieldKey": "intelligence.analysisVersion",
+          "type": "string",
+          "nullable": false
+        }
+      ],
+      "semantics": {
+        "scoreRange": "0–100",
+        "methodologyVersionRequired": true
+      },
+      "semanticsRef": "docs/DATA_CONTRACT_ARCHITECTURE.md#analysis-recommendation",
+      "qualityRuleSetRef": "RS-ANALYSIS",
+      "freshnessPolicyRef": "FP-ANALYSIS",
+      "compatibilityPolicy": "BACKWARD",
+      "ownerRef": null,
+      "status": "ACTIVE"
+    }
+  ],
+  "knownLimitations": [
+    {
+      "id": "KL-AVAILABILITY-NO-MIRROR",
+      "scopeRef": "viva-juara/AVAILABILITY",
+      "description": "Sem espelho de vendas: os 498 lotes estão com disponibilidade UNKNOWN (sem data nem fonte).",
+      "impact": "Nenhum lote pode ser apresentado como disponível; reserva e proposta ficam bloqueadas pelo gate de frescor.",
+      "workaround": "Confirmar com a loteadora lote a lote.",
+      "clientSafeMessage": "Disponibilidade a confirmar com o corretor.",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "KL-TOPOGRAPHY",
+      "scopeRef": "viva-juara/construction.topography",
+      "description": "Topografia e declividade não levantadas.",
+      "impact": "Sem análise de terreno/terraplenagem.",
+      "workaround": null,
+      "clientSafeMessage": "Informação de topografia ainda não disponível.",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "KL-DRAINAGE",
+      "scopeRef": "viva-juara/construction.drainage",
+      "description": "Drenagem não informada pela fonte.",
+      "impact": "Sem avaliação de drenagem.",
+      "workaround": null,
+      "clientSafeMessage": "Informação de drenagem ainda não disponível.",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "KL-VENTILATION",
+      "scopeRef": "viva-juara/environmental.ventilation",
+      "description": "Ventilação não modelada.",
+      "impact": "Nota de ventilação ausente (nt.vent nulo).",
+      "workaround": null,
+      "clientSafeMessage": "Informação de ventilação ainda não disponível.",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "KL-CONSTRUCTION-RULES",
+      "scopeRef": "viva-juara/construction",
+      "description": "Regras construtivas (recuos, taxa de ocupação, coeficiente, gabarito) não publicadas.",
+      "impact": "Potencial construtivo não calculável.",
+      "workaround": "Consultar o regulamento quando publicado.",
+      "clientSafeMessage": "Regras construtivas ainda não disponíveis.",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "KL-NOISE-ESTIMATE",
+      "scopeRef": "viva-juara/environmental.noiseLevel",
+      "description": "Ruído é estimativa por distância a fontes, sem medição.",
+      "impact": "Classificação de ruído com confiança limitada.",
+      "workaround": null,
+      "clientSafeMessage": "Ruído estimado (sem medição).",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "KL-AERIAL-ILLUSTRATIVE",
+      "scopeRef": "viva-juara/surroundings",
+      "description": "Vizinhança dos fundos interpretada sobre ilustração aérea de divulgação.",
+      "impact": "Mata/área aberta nos fundos com confiança baixa.",
+      "workaround": null,
+      "clientSafeMessage": "Entorno estimado a partir de imagem ilustrativa.",
+      "status": "ACTIVE"
+    }
+  ],
+  "dataDebt": [
+    {
+      "id": "DD-SPREADSHEET-AUTHORITY",
+      "dataDomainId": "PRICING",
+      "description": "Tabela de preço vem de material manual (confirmada pelo corretor), não de fonte estruturada com ID de máquina.",
+      "risk": "Erro de digitação não detectado na origem.",
+      "workaround": "Validação da tabela na publicação (INVALID_PRICE_TABLE) e regras DQ-PRICE-*.",
+      "ownerRef": null,
+      "targetResolution": null,
+      "status": "OPEN"
+    },
+    {
+      "id": "DD-AVAILABILITY-SOURCE",
+      "dataDomainId": "AVAILABILITY",
+      "description": "Fonte de autoridade da disponibilidade não definida.",
+      "risk": "Sem reconciliação possível.",
+      "workaround": "Status UNKNOWN em todos os lotes.",
+      "ownerRef": null,
+      "targetResolution": null,
+      "status": "OPEN"
+    },
+    {
+      "id": "DD-NO-SOURCE-DATES",
+      "dataDomainId": "DEVELOPMENT",
+      "description": "Fontes official-plan-v1, kmz-v1, aerial-v1, launch-event-v1 e renders-v1 sem data registrada.",
+      "risk": "Currentness das fontes estáticas não verificável por data.",
+      "workaround": "Currentness por versão.",
+      "ownerRef": null,
+      "targetResolution": null,
+      "status": "OPEN"
+    },
+    {
+      "id": "DD-TOPOGRAPHY",
+      "dataDomainId": "GEOMETRY",
+      "description": "Topografia ausente.",
+      "risk": "Sem análise de declividade.",
+      "workaround": null,
+      "ownerRef": null,
+      "targetResolution": null,
+      "status": "OPEN"
+    }
+  ],
+  "baselines": {
+    "createdAt": "2026-10-16",
+    "status": "calculado a partir dos dados publicados (staticVersion 2026-10-06.1, analysisVersion 2026-10-06, tabela 2026-10-06)",
+    "schema": {
+      "SCHEMA-VJ-LOTS-JSON": {
+        "datasetRef": "viva-juara/lots.json",
+        "baselineVersion": "1.0.0",
+        "createdAt": "2026-10-16",
+        "rowCount": 498,
+        "fields": {
+          "a": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "al": {
+            "types": [
+              "array"
+            ],
+            "nullable": false
+          },
+          "az": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "bs": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "L",
+              "N",
+              "NE",
+              "NO",
+              "O",
+              "S",
+              "SE",
+              "SO"
+            ]
+          },
+          "c": {
+            "types": [
+              "array"
+            ],
+            "nullable": false
+          },
+          "cl": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "A",
+              "A+",
+              "B",
+              "C",
+              "D"
+            ]
+          },
+          "conf": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Média"
+            ]
+          },
+          "dav": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "dclube": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "deeeb": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "did": {
+            "types": [
+              "string"
+            ],
+            "nullable": false
+          },
+          "dp": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "dpark": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "dplay": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "dport": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "dpraca": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "edgeB": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "edgeF": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "efic": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Baixa",
+              "Boa",
+              "Média"
+            ]
+          },
+          "fc": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Alto",
+              "Baixo",
+              "Muito alto",
+              "Muito baixo",
+              "Médio"
+            ]
+          },
+          "fech": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Divisa com outro lote (não é perímetro)",
+              "Gradil (lotes com APP/mata atrás, conforme evento de lançamento) – necessita confirmação",
+              "Muro (conforme evento de lançamento) – necessita confirmação",
+              "Não informado – necessita confirmação"
+            ]
+          },
+          "flow": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "fontes": {
+            "types": [
+              "string"
+            ],
+            "nullable": false
+          },
+          "forma": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Esquina",
+              "Esquina (frente para duas ruas)",
+              "Irregular",
+              "Quadrado",
+              "Retangular",
+              "Retangular (frente para duas ruas)",
+              "Trapezoidal"
+            ]
+          },
+          "fr": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "fs": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "L",
+              "N",
+              "NE",
+              "NO",
+              "O",
+              "S",
+              "SE",
+              "SO"
+            ]
+          },
+          "fundo": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Fora do perímetro: mata/vegetação densa (imagem aérea)",
+              "Fora do perímetro: área externa aberta (imagem aérea)",
+              "Não foi possível determinar",
+              "Outro lote",
+              "Parque florestal / área verde do condomínio (KMZ)",
+              "Rua (lote com frente para duas ruas)"
+            ]
+          },
+          "id": {
+            "types": [
+              "string"
+            ],
+            "nullable": false
+          },
+          "lat": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "lat_s": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "L / O",
+              "N / S",
+              "NE / SO",
+              "NO / SE",
+              "O / L",
+              "S / N",
+              "SE / NO",
+              "SO / NE"
+            ]
+          },
+          "lazer": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Frente/recuo frontal recebe o sol do norte; nos fundos a piscina tende a ter mais sombra",
+              "Fundos (recebem sol do norte: bom para piscina e área de lazer)",
+              "Lateral voltada para o norte, conforme projeto"
+            ]
+          },
+          "liq": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Alta",
+              "Baixa",
+              "Muito alta",
+              "Muito baixa",
+              "Média"
+            ]
+          },
+          "lon": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "manha": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "frente",
+              "frente, lateral",
+              "fundos",
+              "fundos, lateral",
+              "lateral"
+            ]
+          },
+          "mata": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Não",
+              "Sim"
+            ]
+          },
+          "mconf": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Alta"
+            ]
+          },
+          "n": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "nt": {
+            "types": [
+              "object"
+            ],
+            "nullable": false
+          },
+          "nt.flux": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "nt.geo": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "nt.laz": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "nt.liq": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "nt.pc": {
+            "types": [],
+            "nullable": true
+          },
+          "nt.port": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "nt.pq": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "nt.priv": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "nt.sil": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "nt.sol": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "nt.topo": {
+            "types": [],
+            "nullable": true
+          },
+          "nt.val": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "nt.vent": {
+            "types": [],
+            "nullable": true
+          },
+          "nt.vista": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "p": {
+            "types": [
+              "array"
+            ],
+            "nullable": false
+          },
+          "perfil": {
+            "types": [
+              "string"
+            ],
+            "nullable": false
+          },
+          "portc": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Distante",
+              "Intermediário",
+              "Muito próximo",
+              "Próximo"
+            ]
+          },
+          "pos": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Esquina",
+              "Frente para duas ruas",
+              "Interno"
+            ]
+          },
+          "priv": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Alta",
+              "Baixa",
+              "Muito alta",
+              "Muito baixa",
+              "Média"
+            ]
+          },
+          "q": {
+            "types": [
+              "string"
+            ],
+            "nullable": false
+          },
+          "quartos": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Lado leste (sol da manhã): frente",
+              "Lado leste (sol da manhã): fundos",
+              "Lado leste (sol da manhã): lateral leste"
+            ]
+          },
+          "rclube": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "rport": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "ruido": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Alto",
+              "Baixo",
+              "Muito alto",
+              "Muito baixo",
+              "Médio"
+            ]
+          },
+          "sf": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "sg": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "si": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "sideD": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "sideE": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "sm": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "sp": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "st": {
+            "types": [],
+            "nullable": true
+          },
+          "tarde": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "frente",
+              "frente, lateral",
+              "fundos",
+              "fundos, lateral",
+              "lateral"
+            ]
+          },
+          "via": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Final de rua sem saída (balão de retorno)",
+              "Local",
+              "Local (poucos veículos de passagem)",
+              "Principal (acesso de muitos lotes à portaria/clube)",
+              "Secundária (passagem de outros moradores)"
+            ]
+          },
+          "vista": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Vista aberta para área externa (pode ser ocupada no futuro)",
+              "Vista interna (lotes vizinhos)",
+              "Vista interna (lotes vizinhos); frente próxima a praça/clube",
+              "Vista para mata fora do perímetro (atual; permanência não confirmada)",
+              "Vista para parque florestal do condomínio (atual; manutenção como área verde a confirmar)",
+              "Vista para rua nos dois lados"
+            ]
+          },
+          "vzD": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Limite do condomínio",
+              "Outro lote",
+              "Parque florestal / área verde",
+              "Rua",
+              "Área comum"
+            ]
+          },
+          "vzE": {
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "enumValues": [
+              "Limite do condomínio",
+              "Outro lote",
+              "Parque florestal / área verde",
+              "Rua",
+              "Área comum"
+            ]
+          },
+          "wb": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          },
+          "wf": {
+            "types": [
+              "number"
+            ],
+            "nullable": false
+          }
+        }
+      }
+    },
+    "distribution": {
+      "DIST-VJ-LOTS": {
+        "datasetRef": "viva-juara/lots",
+        "baselineVersion": "1.0.0",
+        "createdAt": "2026-10-16",
+        "stats": {
+          "count": 498,
+          "fields": {
+            "geometry.areaM2": {
+              "min": 250,
+              "max": 761.96,
+              "median": 300,
+              "nullRate": 0
+            },
+            "geometry.frontM": {
+              "min": 9.8,
+              "max": 37.2,
+              "median": 11.9,
+              "nullRate": 0
+            },
+            "intelligence.scores.overall": {
+              "min": 33,
+              "max": 91,
+              "median": 68,
+              "nullRate": 0
+            },
+            "availability.status": {
+              "distinct": 1,
+              "distribution": {
+                "UNKNOWN": 498
+              }
+            },
+            "intelligence.class": {
+              "distinct": 5,
+              "distribution": {
+                "A": 100,
+                "A_PLUS": 25,
+                "B": 199,
+                "C": 125,
+                "D": 49
+              }
+            },
+            "geometry.shape": {
+              "distinct": 5,
+              "distribution": {
+                "IRREGULAR": 14,
+                "RECTANGULAR": 380,
+                "SQUARE": 1,
+                "TRAPEZOIDAL": 49,
+                "UNKNOWN": 54
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

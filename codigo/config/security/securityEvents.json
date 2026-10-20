@@ -1,0 +1,79 @@
+{
+ "kind": "security-event-registry",
+ "version": "1.0.0",
+ "note": "SecurityEvent ≠ AuditEvent ≠ evento de analytics. Nunca token/segredo bruto; IP só como hash.",
+ "eventTypes": [
+  {
+   "eventType": "LOGIN_SUCCESS",
+   "severity": "INFO"
+  },
+  {
+   "eventType": "LOGIN_FAILURE",
+   "severity": "LOW"
+  },
+  {
+   "eventType": "MFA_FAILURE",
+   "severity": "MEDIUM"
+  },
+  {
+   "eventType": "PERMISSION_DENIED",
+   "severity": "LOW"
+  },
+  {
+   "eventType": "TENANT_SCOPE_VIOLATION",
+   "severity": "HIGH"
+  },
+  {
+   "eventType": "TOKEN_REPLAY",
+   "severity": "HIGH"
+  },
+  {
+   "eventType": "RATE_LIMIT_TRIGGERED",
+   "severity": "LOW"
+  },
+  {
+   "eventType": "SUSPICIOUS_EXPORT",
+   "severity": "HIGH"
+  },
+  {
+   "eventType": "UPLOAD_MALWARE_DETECTED",
+   "severity": "HIGH"
+  },
+  {
+   "eventType": "UPLOAD_REJECTED",
+   "severity": "LOW"
+  },
+  {
+   "eventType": "CSRF_VALIDATION_FAILED",
+   "severity": "MEDIUM"
+  },
+  {
+   "eventType": "INVALID_SIGNATURE",
+   "severity": "MEDIUM"
+  },
+  {
+   "eventType": "SSRF_BLOCKED",
+   "severity": "MEDIUM"
+  },
+  {
+   "eventType": "STORED_STATE_SCRUBBED",
+   "severity": "LOW"
+  },
+  {
+   "eventType": "STEP_UP_REQUIRED",
+   "severity": "INFO"
+  },
+  {
+   "eventType": "SECRET_LEAK_DETECTED",
+   "severity": "CRITICAL"
+  },
+  {
+   "eventType": "CSP_VIOLATION",
+   "severity": "MEDIUM"
+  },
+  {
+   "eventType": "OFFLINE_ACCESS_REVOKED",
+   "severity": "MEDIUM"
+  }
+ ]
+}

@@ -1,0 +1,1678 @@
+{
+ "kind": "rule-catalog",
+ "schemaVersion": "1.0",
+ "organizationId": "house7",
+ "developmentId": "viva-juara",
+ "featureFlag": "RULE_ENGINE_ALERTS_ENABLED",
+ "featureFlagDefault": false,
+ "description": "Regras de alerta migradas 1:1 dos alertas legados (metodologia 1.0.0, statusVM e shareVM). Executadas em SHADOW até a troca da UI.",
+ "ruleSet": {
+  "id": "ruleset:viva-juara:legacy-v1",
+  "organizationId": "house7",
+  "code": "LEGACY_ALERTS",
+  "version": "1.0.0",
+  "ruleVersionIds": [
+   "rule:viva-juara:NOISE@1.0.0",
+   "rule:viva-juara:PRIVACY@1.0.0",
+   "rule:viva-juara:AFTERNOON_SUN@1.0.0",
+   "rule:viva-juara:TECHNICAL_AREA@1.0.0",
+   "rule:viva-juara:EASEMENT@1.0.0",
+   "rule:viva-juara:AVENUE@1.0.0",
+   "rule:viva-juara:TRAFFIC@1.0.0",
+   "rule:viva-juara:GEOMETRY@1.0.0",
+   "rule:viva-juara:BUILDING_RESTRICTION@1.0.0",
+   "rule:viva-juara:MISSING_AREA@1.0.0",
+   "rule:viva-juara:AVAILABILITY_CONFIRMATION@1.0.0",
+   "rule:viva-juara:SHARE_STATUS_NOT_CONFIRMED@1.0.0",
+   "rule:viva-juara:SHARE_NOT_OFFERABLE@1.0.0",
+   "rule:viva-juara:SHARE_PRICE_FROM_LAST_TABLE@1.0.0"
+  ],
+  "lifecycleStatus": "PUBLISHED",
+  "publishedAt": "2026-10-06T00:00:00.000Z",
+  "reason": "Migração zero-delta dos alertas legados"
+ },
+ "definitions": [
+  {
+   "id": "rule:viva-juara:NOISE",
+   "organizationId": "house7",
+   "code": "NOISE",
+   "titleKey": "AlertType.NOISE",
+   "category": "ENVIRONMENTAL",
+   "targetEntityType": "LOT",
+   "contextType": "BASE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "ATTENTION",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "config/scoring/viva-juara/1.0.json#alerts[0]",
+    "legacySurface": "INTELLIGENCE_ALERTS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:PRIVACY",
+   "organizationId": "house7",
+   "code": "PRIVACY",
+   "titleKey": "AlertType.PRIVACY",
+   "category": "ENVIRONMENTAL",
+   "targetEntityType": "LOT",
+   "contextType": "BASE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "ATTENTION",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "config/scoring/viva-juara/1.0.json#alerts[1]",
+    "legacySurface": "INTELLIGENCE_ALERTS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:AFTERNOON_SUN",
+   "organizationId": "house7",
+   "code": "AFTERNOON_SUN",
+   "titleKey": "AlertType.AFTERNOON_SUN",
+   "category": "ENVIRONMENTAL",
+   "targetEntityType": "LOT",
+   "contextType": "BASE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "INFO",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "config/scoring/viva-juara/1.0.json#alerts[2]",
+    "legacySurface": "INTELLIGENCE_ALERTS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:TECHNICAL_AREA",
+   "organizationId": "house7",
+   "code": "TECHNICAL_AREA",
+   "titleKey": "AlertType.TECHNICAL_AREA",
+   "category": "LOCATION",
+   "targetEntityType": "LOT",
+   "contextType": "BASE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "IMPORTANT",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "config/scoring/viva-juara/1.0.json#alerts[3]",
+    "legacySurface": "INTELLIGENCE_ALERTS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:EASEMENT",
+   "organizationId": "house7",
+   "code": "EASEMENT",
+   "titleKey": "AlertType.EASEMENT",
+   "category": "CONSTRUCTION",
+   "targetEntityType": "LOT",
+   "contextType": "BASE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "IMPORTANT",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "config/scoring/viva-juara/1.0.json#alerts[4]",
+    "legacySurface": "INTELLIGENCE_ALERTS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:AVENUE",
+   "organizationId": "house7",
+   "code": "AVENUE",
+   "titleKey": "AlertType.AVENUE",
+   "category": "MOBILITY",
+   "targetEntityType": "LOT",
+   "contextType": "BASE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "IMPORTANT",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "config/scoring/viva-juara/1.0.json#alerts[5]",
+    "legacySurface": "INTELLIGENCE_ALERTS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:TRAFFIC",
+   "organizationId": "house7",
+   "code": "TRAFFIC",
+   "titleKey": "AlertType.TRAFFIC",
+   "category": "MOBILITY",
+   "targetEntityType": "LOT",
+   "contextType": "BASE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "ATTENTION",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "config/scoring/viva-juara/1.0.json#alerts[6]",
+    "legacySurface": "INTELLIGENCE_ALERTS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:GEOMETRY",
+   "organizationId": "house7",
+   "code": "GEOMETRY",
+   "titleKey": "AlertType.GEOMETRY",
+   "category": "GEOMETRY",
+   "targetEntityType": "LOT",
+   "contextType": "BASE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "ATTENTION",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "config/scoring/viva-juara/1.0.json#alerts[7]",
+    "legacySurface": "INTELLIGENCE_ALERTS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:BUILDING_RESTRICTION",
+   "organizationId": "house7",
+   "code": "BUILDING_RESTRICTION",
+   "titleKey": "AlertType.BUILDING_RESTRICTION",
+   "category": "CONSTRUCTION",
+   "targetEntityType": "LOT",
+   "contextType": "BASE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "IMPORTANT",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "config/scoring/viva-juara/1.0.json#alerts[8]",
+    "legacySurface": "INTELLIGENCE_ALERTS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:MISSING_AREA",
+   "organizationId": "house7",
+   "code": "MISSING_AREA",
+   "titleKey": "AlertType.OTHER",
+   "category": "DATA_QUALITY",
+   "targetEntityType": "LOT",
+   "contextType": "BASE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "ATTENTION",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "config/scoring/viva-juara/1.0.json#alerts[9]",
+    "legacySurface": "INTELLIGENCE_ALERTS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:AVAILABILITY_CONFIRMATION",
+   "organizationId": "house7",
+   "code": "AVAILABILITY_CONFIRMATION",
+   "titleKey": "RuleTitle.AVAILABILITY_CONFIRMATION",
+   "category": "AVAILABILITY",
+   "targetEntityType": "LOT",
+   "contextType": "BASE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "ATTENTION",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "src/presentation/viewmodels.js#statusVM",
+    "legacySurface": "STATUS_NOTE"
+   }
+  },
+  {
+   "id": "rule:viva-juara:SHARE_STATUS_NOT_CONFIRMED",
+   "organizationId": "house7",
+   "code": "SHARE_STATUS_NOT_CONFIRMED",
+   "titleKey": "RuleTitle.SHARE_STATUS_NOT_CONFIRMED",
+   "category": "AVAILABILITY",
+   "targetEntityType": "LOT",
+   "contextType": "SHARE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "ATTENTION",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "src/presentation/viewmodels.js#shareVM (1)",
+    "legacySurface": "SHARE_WARNINGS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:SHARE_NOT_OFFERABLE",
+   "organizationId": "house7",
+   "code": "SHARE_NOT_OFFERABLE",
+   "titleKey": "RuleTitle.SHARE_NOT_OFFERABLE",
+   "category": "AVAILABILITY",
+   "targetEntityType": "LOT",
+   "contextType": "SHARE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "ATTENTION",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "src/presentation/viewmodels.js#shareVM (2)",
+    "legacySurface": "SHARE_WARNINGS"
+   }
+  },
+  {
+   "id": "rule:viva-juara:SHARE_PRICE_FROM_LAST_TABLE",
+   "organizationId": "house7",
+   "code": "SHARE_PRICE_FROM_LAST_TABLE",
+   "titleKey": "RuleTitle.SHARE_PRICE_FROM_LAST_TABLE",
+   "category": "PRICING",
+   "targetEntityType": "LOT",
+   "contextType": "SHARE",
+   "scope": {
+    "organizationId": "house7",
+    "developmentIds": [
+     "viva-juara"
+    ]
+   },
+   "defaultSeverity": "ATTENTION",
+   "status": "ACTIVE",
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "updatedAt": "2026-10-06T00:00:00.000Z",
+   "metadata": {
+    "legacySource": "src/presentation/viewmodels.js#shareVM (3)",
+    "legacySurface": "SHARE_WARNINGS"
+   }
+  }
+ ],
+ "versions": [
+  {
+   "id": "rule:viva-juara:NOISE@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:NOISE",
+   "version": "1.0.0",
+   "sequence": 1,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "COMPARISON",
+    "left": {
+     "type": "METRIC",
+     "metricId": "ANALYSIS_NOTE_QUIET"
+    },
+    "operator": "LT",
+    "right": {
+     "type": "CONFIG",
+     "key": "maxQuietNote"
+    }
+   },
+   "parameters": {
+    "maxQuietNote": 5
+   },
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "ATTENTION"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_NOISE"
+   },
+   "messageTemplates": {
+    "DEFAULT": [
+     {
+      "text": "exposição potencial a "
+     },
+     {
+      "list": {
+       "type": "METRIC",
+       "metricId": "NOISE_SOURCES"
+      },
+      "separator": ", ",
+      "item": [
+       {
+        "when": {
+         "type": "COMPARISON",
+         "left": {
+          "type": "ITEM",
+          "field": "kind"
+         },
+         "operator": "EQ",
+         "right": {
+          "type": "LITERAL",
+          "value": "STREET_FLOW",
+          "valueType": "ENUM"
+         }
+        },
+        "then": [
+         {
+          "text": "fluxo "
+         },
+         {
+          "value": {
+           "type": "ITEM",
+           "field": "level"
+          },
+          "format": "MAP",
+          "map": {
+           "VERY_LOW": "muito baixo",
+           "LOW": "baixo",
+           "MEDIUM": "médio",
+           "HIGH": "alto",
+           "VERY_HIGH": "muito alto"
+          }
+         },
+         {
+          "text": " na rua"
+         }
+        ],
+        "else": [
+         {
+          "value": {
+           "type": "ITEM",
+           "field": "source"
+          },
+          "format": "MAP",
+          "map": {
+           "AVENUE": "Av. Porto Dourado",
+           "GATE": "portaria",
+           "CLUB": "clube",
+           "PLAYGROUND": "playground",
+           "SQUARE": "praça",
+           "PARKING": "estacionamento",
+           "TECHNICAL_AREA": "EEEB"
+          }
+         },
+         {
+          "text": " ("
+         },
+         {
+          "value": {
+           "type": "ITEM",
+           "field": "distanceM"
+          },
+          "format": "FIXED_0"
+         },
+         {
+          "text": " m)"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "INTELLIGENCE_ALERTS",
+    "type": "NOISE",
+    "title": "RUÍDO",
+    "fieldKey": "environmental.noiseLevel",
+    "sourceId": "analysis-v1",
+    "textFormat": "TITLE_PREFIX"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta do alerta legado (topico 36, fase 3): condição e limite exatamente como na metodologia 1.0.0."
+  },
+  {
+   "id": "rule:viva-juara:PRIVACY@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:PRIVACY",
+   "version": "1.0.0",
+   "sequence": 2,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "COMPARISON",
+    "left": {
+     "type": "METRIC",
+     "metricId": "ANALYSIS_NOTE_PRIVACY"
+    },
+    "operator": "LT",
+    "right": {
+     "type": "CONFIG",
+     "key": "maxPrivacyNote"
+    }
+   },
+   "parameters": {
+    "maxPrivacyNote": 4
+   },
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "ATTENTION"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_PRIVACY"
+   },
+   "messageTemplates": {
+    "DEFAULT": [
+     {
+      "when": {
+       "type": "COMPARISON",
+       "left": {
+        "type": "METRIC",
+        "metricId": "IS_CORNER"
+       },
+       "operator": "EQ",
+       "right": {
+        "type": "LITERAL",
+        "value": true,
+        "valueType": "BOOLEAN"
+       }
+      },
+      "then": [
+       {
+        "text": "esquina; "
+       }
+      ]
+     },
+     {
+      "when": {
+       "type": "COMPARISON",
+       "left": {
+        "type": "METRIC",
+        "metricId": "HAS_TWO_FRONTS"
+       },
+       "operator": "EQ",
+       "right": {
+        "type": "LITERAL",
+        "value": true,
+        "valueType": "BOOLEAN"
+       }
+      },
+      "then": [
+       {
+        "text": "frente para duas ruas; "
+       }
+      ]
+     },
+     {
+      "text": "fluxo "
+     },
+     {
+      "value": {
+       "type": "METRIC",
+       "metricId": "ESTIMATED_TRAFFIC"
+      },
+      "format": "MAP",
+      "map": {
+       "VERY_LOW": "muito baixo",
+       "LOW": "baixo",
+       "MEDIUM": "médio",
+       "HIGH": "alto",
+       "VERY_HIGH": "muito alto"
+      }
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "INTELLIGENCE_ALERTS",
+    "type": "PRIVACY",
+    "title": "PRIVACIDADE",
+    "fieldKey": "environmental.privacyScore",
+    "sourceId": "analysis-v1",
+    "textFormat": "TITLE_PREFIX"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta do alerta legado (topico 36, fase 3): condição e limite exatamente como na metodologia 1.0.0."
+  },
+  {
+   "id": "rule:viva-juara:AFTERNOON_SUN@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:AFTERNOON_SUN",
+   "version": "1.0.0",
+   "sequence": 3,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "COMPARISON",
+    "left": {
+     "type": "METRIC",
+     "metricId": "STRONG_AFTERNOON_SUN"
+    },
+    "operator": "EQ",
+    "right": {
+     "type": "LITERAL",
+     "value": true,
+     "valueType": "BOOLEAN"
+    }
+   },
+   "parameters": {},
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "INFO"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_AFTERNOON_SUN"
+   },
+   "messageTemplates": {
+    "DEFAULT": [
+     {
+      "value": {
+       "type": "METRIC",
+       "metricId": "STRONG_AFTERNOON_SIDE"
+      },
+      "format": "MAP",
+      "map": {
+       "FRONT": "frente"
+      },
+      "default": "fundos"
+     },
+     {
+      "text": " voltada para oeste/noroeste"
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "INTELLIGENCE_ALERTS",
+    "type": "AFTERNOON_SUN",
+    "title": "SOL DA TARDE",
+    "fieldKey": "environmental.afternoonSun",
+    "sourceId": "analysis-v1",
+    "textFormat": "TITLE_PREFIX"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta do alerta legado (topico 36, fase 3): condição e limite exatamente como na metodologia 1.0.0."
+  },
+  {
+   "id": "rule:viva-juara:TECHNICAL_AREA@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:TECHNICAL_AREA",
+   "version": "1.0.0",
+   "sequence": 4,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "COMPARISON",
+    "left": {
+     "type": "METRIC",
+     "metricId": "DISTANCE_TECHNICAL_AREA_M"
+    },
+    "operator": "LT",
+    "right": {
+     "type": "CONFIG",
+     "key": "maxDistanceM"
+    }
+   },
+   "parameters": {
+    "maxDistanceM": 40
+   },
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "IMPORTANT"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_TECHNICAL_AREA"
+   },
+   "messageTemplates": {
+    "DEFAULT": [
+     {
+      "text": "a "
+     },
+     {
+      "value": {
+       "type": "METRIC",
+       "metricId": "DISTANCE_TECHNICAL_AREA_M"
+      },
+      "format": "FIXED_0"
+     },
+     {
+      "text": " m da EEEB (estação elevatória de esgoto)"
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "INTELLIGENCE_ALERTS",
+    "type": "TECHNICAL_AREA",
+    "title": "ÁREA TÉCNICA",
+    "fieldKey": "location.distanceToTechnicalAreaM",
+    "sourceId": "analysis-v1",
+    "textFormat": "TITLE_PREFIX"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta do alerta legado (topico 36, fase 3): condição e limite exatamente como na metodologia 1.0.0."
+  },
+  {
+   "id": "rule:viva-juara:EASEMENT@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:EASEMENT",
+   "version": "1.0.0",
+   "sequence": 5,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "COMPARISON",
+    "left": {
+     "type": "METRIC",
+     "metricId": "ADJACENT_PROJECTED_EASEMENT"
+    },
+    "operator": "EQ",
+    "right": {
+     "type": "LITERAL",
+     "value": true,
+     "valueType": "BOOLEAN"
+    }
+   },
+   "parameters": {},
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "IMPORTANT"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_EASEMENT"
+   },
+   "messageTemplates": {
+    "DEFAULT": [
+     {
+      "text": "lote junto à \"servidão projetada\" indicada na planta"
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "INTELLIGENCE_ALERTS",
+    "type": "EASEMENT",
+    "title": "SERVIDÃO",
+    "fieldKey": "construction.easements",
+    "sourceId": "official-plan-v1",
+    "textFormat": "TITLE_PREFIX"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta do alerta legado (topico 36, fase 3): condição e limite exatamente como na metodologia 1.0.0."
+  },
+  {
+   "id": "rule:viva-juara:AVENUE@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:AVENUE",
+   "version": "1.0.0",
+   "sequence": 6,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "COMPARISON",
+    "left": {
+     "type": "METRIC",
+     "metricId": "DISTANCE_EXTERNAL_ROAD_M"
+    },
+    "operator": "LTE",
+    "right": {
+     "type": "CONFIG",
+     "key": "maxDistanceM"
+    }
+   },
+   "parameters": {
+    "maxDistanceM": 100
+   },
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "IMPORTANT"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_AVENUE"
+   },
+   "messageTemplates": {
+    "DEFAULT": [
+     {
+      "text": "a planta prevê ampliação da Av. Porto Dourado (faixa de 3.228,11 m² a ser doada ao Município da Serra); a distância até a pista pode diminuir"
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "INTELLIGENCE_ALERTS",
+    "type": "AVENUE",
+    "title": "AVENIDA",
+    "fieldKey": "location.distanceToExternalRoadM",
+    "sourceId": "analysis-v1",
+    "textFormat": "TITLE_PREFIX"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta do alerta legado (topico 36, fase 3): condição e limite exatamente como na metodologia 1.0.0."
+  },
+  {
+   "id": "rule:viva-juara:TRAFFIC@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:TRAFFIC",
+   "version": "1.0.0",
+   "sequence": 7,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "COMPARISON",
+    "left": {
+     "type": "METRIC",
+     "metricId": "ESTIMATED_TRAFFIC"
+    },
+    "operator": "IN",
+    "right": {
+     "type": "CONFIG",
+     "key": "levels"
+    }
+   },
+   "parameters": {
+    "levels": [
+     "HIGH",
+     "VERY_HIGH"
+    ]
+   },
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "ATTENTION"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_TRAFFIC"
+   },
+   "messageTemplates": {
+    "DEFAULT": [
+     {
+      "text": "rua com fluxo estimado "
+     },
+     {
+      "value": {
+       "type": "METRIC",
+       "metricId": "ESTIMATED_TRAFFIC"
+      },
+      "format": "MAP",
+      "map": {
+       "VERY_LOW": "muito baixo",
+       "LOW": "baixo",
+       "MEDIUM": "médio",
+       "HIGH": "alto",
+       "VERY_HIGH": "muito alto"
+      }
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "INTELLIGENCE_ALERTS",
+    "type": "TRAFFIC",
+    "title": "TRÁFEGO",
+    "fieldKey": "mobility.estimatedTraffic",
+    "sourceId": "analysis-v1",
+    "textFormat": "TITLE_PREFIX"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta do alerta legado (topico 36, fase 3): condição e limite exatamente como na metodologia 1.0.0."
+  },
+  {
+   "id": "rule:viva-juara:GEOMETRY@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:GEOMETRY",
+   "version": "1.0.0",
+   "sequence": 8,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "LOGICAL",
+    "operator": "OR",
+    "children": [
+     {
+      "type": "COMPARISON",
+      "left": {
+       "type": "METRIC",
+       "metricId": "ANALYSIS_NOTE_GEOMETRY"
+      },
+      "operator": "LT",
+      "right": {
+       "type": "CONFIG",
+       "key": "maxGeometryNote"
+      }
+     },
+     {
+      "type": "COMPARISON",
+      "left": {
+       "type": "METRIC",
+       "metricId": "FRONT_WIDTH_M"
+      },
+      "operator": "LT",
+      "right": {
+       "type": "CONFIG",
+       "key": "minFrontWidthM"
+      }
+     }
+    ]
+   },
+   "parameters": {
+    "maxGeometryNote": 6,
+    "minFrontWidthM": 9,
+    "narrowFrontBelowM": 9
+   },
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "ATTENTION"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_GEOMETRY"
+   },
+   "messageTemplates": {
+    "DEFAULT": [
+     {
+      "group": [
+       {
+        "value": {
+         "type": "METRIC",
+         "metricId": "SHAPE_CLASS"
+        },
+        "format": "MAP",
+        "map": {
+         "CORNER": "Esquina",
+         "TRAPEZOIDAL": "Trapezoidal",
+         "IRREGULAR": "Irregular",
+         "SQUARE": "Quadrado",
+         "RECTANGULAR": "Retangular"
+        }
+       },
+       {
+        "when": {
+         "type": "COMPARISON",
+         "left": {
+          "type": "METRIC",
+          "metricId": "HAS_TWO_FRONTS"
+         },
+         "operator": "EQ",
+         "right": {
+          "type": "LITERAL",
+          "value": true,
+          "valueType": "BOOLEAN"
+         }
+        },
+        "then": [
+         {
+          "text": " (frente para duas ruas)"
+         }
+        ]
+       }
+      ],
+      "format": "LOWER"
+     },
+     {
+      "when": {
+       "type": "COMPARISON",
+       "left": {
+        "type": "METRIC",
+        "metricId": "FRONT_WIDTH_M"
+       },
+       "operator": "LT",
+       "right": {
+        "type": "CONFIG",
+        "key": "narrowFrontBelowM"
+       }
+      },
+      "then": [
+       {
+        "text": ", frente de cerca de "
+       },
+       {
+        "value": {
+         "type": "METRIC",
+         "metricId": "FRONT_WIDTH_M"
+        },
+        "format": "FIXED_1"
+       },
+       {
+        "text": " m"
+       }
+      ]
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "INTELLIGENCE_ALERTS",
+    "type": "GEOMETRY",
+    "title": "GEOMETRIA",
+    "fieldKey": "geometry.usableGeometryScore",
+    "sourceId": "analysis-v1",
+    "textFormat": "TITLE_PREFIX"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta do alerta legado (topico 36, fase 3): condição e limite exatamente como na metodologia 1.0.0."
+  },
+  {
+   "id": "rule:viva-juara:BUILDING_RESTRICTION@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:BUILDING_RESTRICTION",
+   "version": "1.0.0",
+   "sequence": 9,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "COMPARISON",
+    "left": {
+     "type": "METRIC",
+     "metricId": "REAR_CLASS"
+    },
+    "operator": "EQ",
+    "right": {
+     "type": "LITERAL",
+     "value": "GREEN_EXTERNAL",
+     "valueType": "ENUM"
+    }
+   },
+   "parameters": {},
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "IMPORTANT"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_BUILDING_RESTRICTION"
+   },
+   "messageTemplates": {
+    "DEFAULT": [
+     {
+      "text": "APP/mata nos fundos (citada no evento); confirmar faixa não edificável"
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "INTELLIGENCE_ALERTS",
+    "type": "BUILDING_RESTRICTION",
+    "title": "RESTRIÇÃO CONSTRUTIVA",
+    "fieldKey": "construction.nonBuildableRearToConfirm",
+    "sourceId": "launch-event-v1",
+    "textFormat": "TITLE_PREFIX"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta do alerta legado (topico 36, fase 3): condição e limite exatamente como na metodologia 1.0.0."
+  },
+  {
+   "id": "rule:viva-juara:MISSING_AREA@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:MISSING_AREA",
+   "version": "1.0.0",
+   "sequence": 10,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "EXISTS",
+    "operand": {
+     "type": "METRIC",
+     "metricId": "AREA_M2"
+    },
+    "expected": false
+   },
+   "parameters": {},
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "ATTENTION"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_MISSING_AREA"
+   },
+   "messageTemplates": {
+    "DEFAULT": [
+     {
+      "text": "ATENÇÃO — ÁREA NÃO INFORMADA NA PLANTA"
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "INTELLIGENCE_ALERTS",
+    "type": "OTHER",
+    "title": null,
+    "fieldKey": null,
+    "sourceId": "analysis-v1",
+    "textFormat": "MESSAGE_ONLY"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta do alerta legado (topico 36, fase 3): condição e limite exatamente como na metodologia 1.0.0."
+  },
+  {
+   "id": "rule:viva-juara:AVAILABILITY_CONFIRMATION@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:AVAILABILITY_CONFIRMATION",
+   "version": "1.0.0",
+   "sequence": 11,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "LOGICAL",
+    "operator": "OR",
+    "children": [
+     {
+      "type": "COMPARISON",
+      "left": {
+       "type": "ATTRIBUTE",
+       "attributePath": "availability.status"
+      },
+      "operator": "EQ",
+      "right": {
+       "type": "LITERAL",
+       "value": "UNKNOWN",
+       "valueType": "ENUM"
+      }
+     },
+     {
+      "type": "COMPARISON",
+      "left": {
+       "type": "ATTRIBUTE",
+       "attributePath": "availability.freshness"
+      },
+      "operator": "IN",
+      "right": {
+       "type": "CONFIG",
+       "key": "staleFreshness"
+      }
+     }
+    ]
+   },
+   "parameters": {
+    "staleFreshness": [
+     "EXPIRED",
+     "STALE"
+    ]
+   },
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "ATTENTION"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_AVAILABILITY_CONFIRMATION"
+   },
+   "messageTemplates": {
+    "CLIENT": [
+     {
+      "text": "Disponibilidade sujeita a confirmação"
+     }
+    ],
+    "BROKER": [
+     {
+      "when": {
+       "type": "COMPARISON",
+       "left": {
+        "type": "ATTRIBUTE",
+        "attributePath": "availability.status"
+       },
+       "operator": "EQ",
+       "right": {
+        "type": "LITERAL",
+        "value": "UNKNOWN",
+        "valueType": "ENUM"
+       }
+      },
+      "then": [
+       {
+        "text": "Sem espelho de vendas: confirme com a loteadora"
+       }
+      ],
+      "else": [
+       {
+        "when": {
+         "type": "COMPARISON",
+         "left": {
+          "type": "ATTRIBUTE",
+          "attributePath": "availability.freshness"
+         },
+         "operator": "EQ",
+         "right": {
+          "type": "LITERAL",
+          "value": "EXPIRED",
+          "valueType": "ENUM"
+         }
+        },
+        "then": [
+         {
+          "text": "Informação vencida, confirme antes de oferecer"
+         },
+         {
+          "when": {
+           "type": "EXISTS",
+           "operand": {
+            "type": "ATTRIBUTE",
+            "attributePath": "availability.updatedAt"
+           },
+           "expected": true
+          },
+          "then": [
+           {
+            "text": " · "
+           },
+           {
+            "value": {
+             "type": "ATTRIBUTE",
+             "attributePath": "availability.updatedAt"
+            },
+            "format": "AGE"
+           }
+          ]
+         }
+        ],
+        "else": [
+         {
+          "text": "Disponibilidade não confirmada"
+         },
+         {
+          "when": {
+           "type": "EXISTS",
+           "operand": {
+            "type": "ATTRIBUTE",
+            "attributePath": "availability.updatedAt"
+           },
+           "expected": true
+          },
+          "then": [
+           {
+            "text": " · última atualização "
+           },
+           {
+            "value": {
+             "type": "ATTRIBUTE",
+             "attributePath": "availability.updatedAt"
+            },
+            "format": "AGE"
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "STATUS_NOTE"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta (topico 36): src/presentation/viewmodels.js#statusVM"
+  },
+  {
+   "id": "rule:viva-juara:SHARE_STATUS_NOT_CONFIRMED@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:SHARE_STATUS_NOT_CONFIRMED",
+   "version": "1.0.0",
+   "sequence": 12,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "LOGICAL",
+    "operator": "OR",
+    "children": [
+     {
+      "type": "COMPARISON",
+      "left": {
+       "type": "ATTRIBUTE",
+       "attributePath": "availability.status"
+      },
+      "operator": "EQ",
+      "right": {
+       "type": "LITERAL",
+       "value": "UNKNOWN",
+       "valueType": "ENUM"
+      }
+     },
+     {
+      "type": "PREDICATE",
+      "predicateId": "IS_NOT_CONFIRMED_FRESH",
+      "args": [
+       {
+        "type": "ATTRIBUTE",
+        "attributePath": "availability.freshness"
+       }
+      ]
+     }
+    ]
+   },
+   "parameters": {},
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "ATTENTION"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_SHARE_STATUS_NOT_CONFIRMED"
+   },
+   "messageTemplates": {
+    "BROKER": [
+     {
+      "value": {
+       "type": "ATTRIBUTE",
+       "attributePath": "identity.code"
+      },
+      "format": "RAW"
+     },
+     {
+      "text": ": status "
+     },
+     {
+      "when": {
+       "type": "COMPARISON",
+       "left": {
+        "type": "ATTRIBUTE",
+        "attributePath": "availability.status"
+       },
+       "operator": "EQ",
+       "right": {
+        "type": "LITERAL",
+        "value": "UNKNOWN",
+        "valueType": "ENUM"
+       }
+      },
+      "then": [
+       {
+        "text": "não confirmado"
+       }
+      ],
+      "else": [
+       {
+        "text": "pode estar desatualizado"
+       }
+      ]
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "SHARE_WARNINGS"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta (topico 36): src/presentation/viewmodels.js#shareVM (1)"
+  },
+  {
+   "id": "rule:viva-juara:SHARE_NOT_OFFERABLE@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:SHARE_NOT_OFFERABLE",
+   "version": "1.0.0",
+   "sequence": 13,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "LOGICAL",
+    "operator": "AND",
+    "children": [
+     {
+      "type": "LOGICAL",
+      "operator": "NOT",
+      "children": [
+       {
+        "type": "LOGICAL",
+        "operator": "OR",
+        "children": [
+         {
+          "type": "COMPARISON",
+          "left": {
+           "type": "ATTRIBUTE",
+           "attributePath": "availability.status"
+          },
+          "operator": "EQ",
+          "right": {
+           "type": "LITERAL",
+           "value": "UNKNOWN",
+           "valueType": "ENUM"
+          }
+         },
+         {
+          "type": "PREDICATE",
+          "predicateId": "IS_NOT_CONFIRMED_FRESH",
+          "args": [
+           {
+            "type": "ATTRIBUTE",
+            "attributePath": "availability.freshness"
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "type": "LOGICAL",
+      "operator": "NOT",
+      "children": [
+       {
+        "type": "PREDICATE",
+        "predicateId": "IS_OFFERABLE",
+        "args": [
+         {
+          "type": "ATTRIBUTE",
+          "attributePath": "availability.status"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "parameters": {},
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "ATTENTION"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_SHARE_NOT_OFFERABLE"
+   },
+   "messageTemplates": {
+    "BROKER": [
+     {
+      "value": {
+       "type": "ATTRIBUTE",
+       "attributePath": "identity.code"
+      },
+      "format": "RAW"
+     },
+     {
+      "text": ": "
+     },
+     {
+      "value": {
+       "type": "ATTRIBUTE",
+       "attributePath": "availability.status"
+      },
+      "format": "I18N_LOWER",
+      "enum": "AvailabilityStatus"
+     },
+     {
+      "text": ", não é uma oportunidade disponível"
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "SHARE_WARNINGS"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta (topico 36): src/presentation/viewmodels.js#shareVM (2)"
+  },
+  {
+   "id": "rule:viva-juara:SHARE_PRICE_FROM_LAST_TABLE@1.0.0",
+   "organizationId": "house7",
+   "ruleDefinitionId": "rule:viva-juara:SHARE_PRICE_FROM_LAST_TABLE",
+   "version": "1.0.0",
+   "sequence": 14,
+   "lifecycleStatus": "PUBLISHED",
+   "condition": {
+    "type": "LOGICAL",
+    "operator": "AND",
+    "children": [
+     {
+      "type": "COMPARISON",
+      "left": {
+       "type": "METRIC",
+       "metricId": "COMMERCIAL_FRESHNESS_TRACKED"
+      },
+      "operator": "EQ",
+      "right": {
+       "type": "LITERAL",
+       "value": true,
+       "valueType": "BOOLEAN"
+      }
+     },
+     {
+      "type": "PREDICATE",
+      "predicateId": "IS_NOT_CONFIRMED_FRESH",
+      "args": [
+       {
+        "type": "METRIC",
+        "metricId": "COMMERCIAL_FRESHNESS"
+       }
+      ]
+     },
+     {
+      "type": "EXISTS",
+      "operand": {
+       "type": "ATTRIBUTE",
+       "attributePath": "commercial.price"
+      },
+      "expected": true
+     }
+    ]
+   },
+   "parameters": {},
+   "severityPolicy": {
+    "type": "STATIC",
+    "severity": "ATTENTION"
+   },
+   "unknownPolicy": {
+    "behavior": "NO_ALERT",
+    "reasonCode": "ALERT_INPUT_UNKNOWN_SHARE_PRICE_FROM_LAST_TABLE"
+   },
+   "messageTemplates": {
+    "BROKER": [
+     {
+      "value": {
+       "type": "ATTRIBUTE",
+       "attributePath": "identity.code"
+      },
+      "format": "RAW"
+     },
+     {
+      "text": ": preço baseado na última tabela disponível"
+     }
+    ]
+   },
+   "evidencePolicy": {
+    "includeOperands": true,
+    "includeDataVersions": true
+   },
+   "lifecyclePolicy": {
+    "autoResolveWhenFalse": true,
+    "reopenWhenTrue": true,
+    "acknowledgeAllowed": true,
+    "dismissAllowed": true,
+    "snoozeAllowed": true
+   },
+   "legacyProjection": {
+    "surface": "SHARE_WARNINGS"
+   },
+   "createdAt": "2026-10-06T00:00:00.000Z",
+   "publishedAt": "2026-10-06T00:00:00.000Z",
+   "notes": "Migração zero-delta (topico 36): src/presentation/viewmodels.js#shareVM (3)"
+  }
+ ]
+}

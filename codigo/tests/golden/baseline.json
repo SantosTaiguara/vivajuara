@@ -1,0 +1,41 @@
+{
+ "schemaVersion": "1.0",
+ "baselineId": "golden-viva-juara-2026-10-11",
+ "developmentId": "viva-juara",
+ "lotCount": 498,
+ "fixedClock": "2026-10-11T12:00:00-03:00",
+ "datasetVersion": "2026-10-06.1|2026-10-06|2026-10-06",
+ "fixtureRefs": [
+  "tests/golden/dataset.golden.json",
+  "tests/golden/lots.golden.json",
+  "tests/golden/map.golden.json",
+  "tests/golden/layers.golden.json",
+  "tests/golden/filters.golden.json",
+  "tests/golden/recommendations.golden.json",
+  "tests/golden/finance.golden.json",
+  "tests/golden/solar.golden.json",
+  "tests/golden/quickview.golden.json",
+  "tests/golden/share.golden.json",
+  "tests/golden/comparison.golden.json",
+  "tests/golden/search.golden.json",
+  "tests/golden/texts.golden.json"
+ ],
+ "categoryFingerprints": {
+  "dataset": "885496c27b5f4e6ca9ddec4c26ebccb7d8e3e1e85b02fb1aa1ec409f3f61a9ae",
+  "lots": "576f90407ee70463db3b35cea5e0aa7d4ba888cae1cb4b554adeea532e87d5bb",
+  "map": "e90ec97850ae22c917d87bc26a44167002df9cbbdb23c38724463b7dd5f7d40c",
+  "layers": "a94c3d13ab1c1359b46c636c4f277d5ab01ae0be34cf6505d7fb0845f852389e",
+  "filters": "8284a2ea745d331466d051809a531c3a3deb47c1a60213d7126b1e104aa7c29a",
+  "recommendations": "af52b719f8b91a51ea65ae5a32f0ecded2220282dda52cc2c98939dec47b6b06",
+  "finance": "f65454a2cd249501665ee359e817fb87dd46fbf71005c4d6877083af5bc26ebb",
+  "solar": "9ef9648d75ea7d6094bf24130d4ee01cfb2fddc0ee2eba79f0fb3b8df7fc7ee2",
+  "quickview": "34f796eba7189a379ee83e5869fb983a6b14021dc954a987709153d6d170693c",
+  "share": "1f990e4bb5088bb9856491a96a216b89adc63be1fdc3c005c4cf9a98cd697a18",
+  "comparison": "ca7286f4c7c8b427ea000989174d0d8ffdc9399c1f2290efd8a329fdf8ffa1d2",
+  "search": "be1d03a42072d71771fbe52b4d39bc660e0f71ca134b43f4f534cd275ee897fd",
+  "texts": "f3b7cc67e275bcd209779afa7c8aaa35b35720c26fa6c6fcf213a6a1e00f19ce"
+ },
+ "createdAt": "2026-10-11T12:00:00-03:00",
+ "appVersion": "single-file build (plat/src) — topics 1–56",
+ "knownExceptions": []
+}

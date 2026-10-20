@@ -1,0 +1,106 @@
+{
+ "kind": "upload-policy",
+ "version": "1.0.0",
+ "note": "Pipeline de upload (§186–197): tamanho → allow-list → extensão×MIME declarado×magic bytes → scan → quarentena. Nome é metadado; caminho = id gerado no servidor.",
+ "policies": {
+  "document": {
+   "maxBytes": 26214400,
+   "malwareScan": true,
+   "allowSvg": false,
+   "allow": [
+    {
+     "ext": [
+      "pdf"
+     ],
+     "mime": [
+      "application/pdf"
+     ]
+    },
+    {
+     "ext": [
+      "png"
+     ],
+     "mime": [
+      "image/png"
+     ]
+    },
+    {
+     "ext": [
+      "jpg",
+      "jpeg"
+     ],
+     "mime": [
+      "image/jpeg"
+     ]
+    },
+    {
+     "ext": [
+      "webp"
+     ],
+     "mime": [
+      "image/webp"
+     ]
+    }
+   ]
+  },
+  "image": {
+   "maxBytes": 10485760,
+   "malwareScan": true,
+   "allowSvg": false,
+   "maxPixels": 40000000,
+   "allow": [
+    {
+     "ext": [
+      "png"
+     ],
+     "mime": [
+      "image/png"
+     ]
+    },
+    {
+     "ext": [
+      "jpg",
+      "jpeg"
+     ],
+     "mime": [
+      "image/jpeg"
+     ]
+    },
+    {
+     "ext": [
+      "webp"
+     ],
+     "mime": [
+      "image/webp"
+     ]
+    }
+   ]
+  },
+  "geometry": {
+   "maxBytes": 20971520,
+   "malwareScan": true,
+   "allowSvg": false,
+   "allow": [
+    {
+     "ext": [
+      "kmz",
+      "zip"
+     ],
+     "mime": [
+      "application/zip",
+      "application/vnd.google-earth.kmz"
+     ]
+    }
+   ]
+  }
+ },
+ "archives": {
+  "kmz": {
+   "maxEntries": 200,
+   "maxNesting": 0,
+   "maxEntryBytes": 52428800,
+   "maxTotalUncompressedBytes": 104857600,
+   "maxRatio": 100
+  }
+ }
+}

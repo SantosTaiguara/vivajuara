@@ -1,0 +1,60 @@
+{
+ "kind": "commercial-source",
+ "schemaVersion": "1.0",
+ "developmentId": "viva-juara",
+ "revision": 1,
+ "updatedAt": "2026-10-06T00:00:00.000Z",
+ "currentPriceTableId": "lancamento-2026-10",
+ "priceTables": [
+  {
+   "id": "lancamento-2026-10",
+   "developmentId": "viva-juara",
+   "version": "2026-10-06",
+   "name": "Tabela de lançamento",
+   "sourceId": "price-table-v1",
+   "createdAt": "2026-10-06",
+   "validFrom": null,
+   "validUntil": null,
+   "pricePerM2": 1196,
+   "downPaymentDefault": 0.12,
+   "plans": [
+    {
+     "id": "P144",
+     "name": "Normal 144x",
+     "kind": "PRICE",
+     "months": 144,
+     "rate": 0.008,
+     "desc": "Tabela Price 0,8% a.m. + IGP-M anual"
+    },
+    {
+     "id": "P144A",
+     "name": "Normal com anuais",
+     "kind": "PRICE_ANNUAL",
+     "months": 144,
+     "rate": 0.008,
+     "annualCount": 11,
+     "firstAnnualMonth": 11,
+     "monthlyShare": 0.7727000213116787,
+     "desc": "1ª anual em novembro do ano seguinte + IGP-M"
+    },
+    {
+     "id": "I18",
+     "name": "Investidor 18x",
+     "kind": "INSTALLMENTS",
+     "months": 18,
+     "discount": 0.1,
+     "desc": "10% de desconto, sem juros e sem correção"
+    },
+    {
+     "id": "I36",
+     "name": "Investidor 36x",
+     "kind": "INSTALLMENTS",
+     "months": 36,
+     "discount": 0.05,
+     "desc": "5% de desconto, sem juros, com IGP-M"
+    }
+   ]
+  }
+ ],
+ "note": "Fonte comercial publicada. O aplicativo busca este arquivo na rede antes de usar a cópia salva."
+}

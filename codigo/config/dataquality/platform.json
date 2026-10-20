@@ -1,0 +1,1282 @@
+{
+  "kind": "dq-policy",
+  "scope": "PLATFORM",
+  "version": "1.0.0",
+  "policyVersion": "dq-platform-2026-10-16.1",
+  "note": "Tópico 61. Regras obrigatórias da plataforma (nenhuma organização ou empreendimento pode enfraquecer). Criticidade dos domínios = proposta da especificação (§22), necessita confirmação do owner. ownerRef 'SYSTEM:platform-invariant' = invariante estrutural já garantida pelo código (LotFactory, máquina de estados da disponibilidade, validação da tabela de preço); NÃO substitui o owner humano do domínio, que segue sem atribuição.",
+  "evidence": {
+    "maxSampleRefs": 10
+  },
+  "domains": [
+    {
+      "id": "DEVELOPMENT",
+      "code": "DEV",
+      "name": "Empreendimento",
+      "description": "Configuração do empreendimento: nome, implantação, áreas comuns, fontes.",
+      "ownerType": "BUSINESS",
+      "criticality": "MEDIUM",
+      "sourceOfTruthRef": "official-plan-v1",
+      "dataContractRefs": [],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": true,
+      "dynamic": false,
+      "freshnessMode": "VERSION"
+    },
+    {
+      "id": "LOT_IDENTITY",
+      "code": "LOT",
+      "name": "Identidade do lote",
+      "description": "ID canônico, código, quadra e número do lote.",
+      "ownerType": "SHARED",
+      "criticality": "CRITICAL",
+      "sourceOfTruthRef": "official-plan-v1",
+      "dataContractRefs": [
+        "DC-LOT-STATIC-MAP"
+      ],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": true,
+      "dynamic": false,
+      "freshnessMode": "VERSION"
+    },
+    {
+      "id": "GEOMETRY",
+      "code": "GEO",
+      "name": "Geometria",
+      "description": "Polígono do lote no espaço da planta, área, medidas, centróide e limites.",
+      "ownerType": "SHARED",
+      "criticality": "HIGH",
+      "sourceOfTruthRef": "official-plan-v1",
+      "dataContractRefs": [
+        "DC-LOT-STATIC-MAP"
+      ],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": true,
+      "dynamic": false,
+      "freshnessMode": "VERSION"
+    },
+    {
+      "id": "PRICING",
+      "code": "PRICE",
+      "name": "Preço de tabela",
+      "description": "Tabela de preço publicada (R$/m², planos) e preço por lote.",
+      "ownerType": "BUSINESS",
+      "criticality": "CRITICAL",
+      "sourceOfTruthRef": "price-table-v1",
+      "dataContractRefs": [
+        "DC-PRICING-FINANCIAL"
+      ],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": true,
+      "dynamic": true,
+      "freshnessMode": "VERSION"
+    },
+    {
+      "id": "AVAILABILITY",
+      "code": "AVAIL",
+      "name": "Disponibilidade comercial",
+      "description": "Status comercial, revisão, data da fonte e motivo.",
+      "ownerType": "BUSINESS",
+      "criticality": "CRITICAL",
+      "sourceOfTruthRef": null,
+      "dataContractRefs": [
+        "DC-AVAILABILITY-RECOMMENDATION"
+      ],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": true,
+      "dynamic": true,
+      "freshnessMode": "CLOCK"
+    },
+    {
+      "id": "DOCUMENTS",
+      "code": "DOC",
+      "name": "Documentos",
+      "description": "Documentos do empreendimento e do lote (versão, classificação, checksum).",
+      "ownerType": "SHARED",
+      "criticality": "HIGH",
+      "sourceOfTruthRef": null,
+      "dataContractRefs": [],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": true,
+      "dynamic": false,
+      "freshnessMode": "VERSION"
+    },
+    {
+      "id": "ANALYSIS",
+      "code": "ANA",
+      "name": "Análise",
+      "description": "Scores, classes, rankings, notas, alertas e confiança da análise publicada.",
+      "ownerType": "TECHNICAL",
+      "criticality": "MEDIUM",
+      "sourceOfTruthRef": "analysis-v1",
+      "dataContractRefs": [
+        "DC-ANALYSIS-RECOMMENDATION"
+      ],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": true,
+      "dynamic": false,
+      "freshnessMode": "VERSION"
+    },
+    {
+      "id": "CUSTOMER",
+      "code": "CUST",
+      "name": "Cliente",
+      "description": "Registro do cliente (completude do registro, nunca qualidade da pessoa).",
+      "ownerType": "BUSINESS",
+      "criticality": "HIGH",
+      "sourceOfTruthRef": null,
+      "dataContractRefs": [],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": false,
+      "dynamic": true,
+      "freshnessMode": "NOT_APPLICABLE"
+    },
+    {
+      "id": "JOURNEY",
+      "code": "JRN",
+      "name": "Jornada",
+      "description": "Eventos e etapas da jornada do cliente.",
+      "ownerType": "BUSINESS",
+      "criticality": "MEDIUM",
+      "sourceOfTruthRef": null,
+      "dataContractRefs": [],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": false,
+      "dynamic": true,
+      "freshnessMode": "NOT_APPLICABLE"
+    },
+    {
+      "id": "COMMERCIAL_TRANSACTION",
+      "code": "TX",
+      "name": "Transação comercial",
+      "description": "Proposta, reserva e fechamento.",
+      "ownerType": "BUSINESS",
+      "criticality": "CRITICAL",
+      "sourceOfTruthRef": null,
+      "dataContractRefs": [],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": false,
+      "dynamic": true,
+      "freshnessMode": "CLOCK"
+    },
+    {
+      "id": "PRIVACY",
+      "code": "PRIV",
+      "name": "Privacidade",
+      "description": "Registros de consentimento (finalidade, versão do aviso, status, data).",
+      "ownerType": "SHARED",
+      "criticality": "CRITICAL",
+      "sourceOfTruthRef": null,
+      "dataContractRefs": [],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": false,
+      "dynamic": true,
+      "freshnessMode": "NOT_APPLICABLE"
+    },
+    {
+      "id": "INTEGRATION_REFERENCE",
+      "code": "INT",
+      "name": "Referências de integração",
+      "description": "IDs externos, mapeamentos e sincronizações.",
+      "ownerType": "TECHNICAL",
+      "criticality": "MEDIUM",
+      "sourceOfTruthRef": null,
+      "dataContractRefs": [],
+      "qualityPolicyRef": "dq-platform-2026-10-16.1",
+      "active": false,
+      "dynamic": true,
+      "freshnessMode": "CLOCK"
+    }
+  ],
+  "rules": [
+    {
+      "id": "DQ-LOT-001",
+      "code": "DQ-LOT-001",
+      "name": "ID canônico do lote é único",
+      "description": "CanonicalLotId must be unique within the development.",
+      "dataDomainId": "LOT_IDENTITY",
+      "scope": "DATASET",
+      "dimension": "UNIQUENESS",
+      "severity": "BLOCKING",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "UNIQUE",
+      "thresholdConfig": {
+        "fieldKey": "identity.id"
+      },
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-LOT-002",
+      "code": "DQ-LOT-002",
+      "name": "ID e código do lote presentes",
+      "description": "identity.id e identity.code nunca nulos.",
+      "dataDomainId": "LOT_IDENTITY",
+      "scope": "ENTITY",
+      "dimension": "COMPLETENESS",
+      "severity": "BLOCKING",
+      "executionMode": "ON_WRITE",
+      "evaluatorRef": "NOT_NULL",
+      "thresholdConfig": {
+        "fieldKeys": [
+          "identity.id",
+          "identity.code"
+        ]
+      },
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-LOT-004",
+      "code": "DQ-LOT-004",
+      "name": "Código curto do lote é único",
+      "description": "identity.code (ex.: B79) único no empreendimento.",
+      "dataDomainId": "LOT_IDENTITY",
+      "scope": "DATASET",
+      "dimension": "UNIQUENESS",
+      "severity": "BLOCKING",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "UNIQUE",
+      "thresholdConfig": {
+        "fieldKey": "identity.code"
+      },
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-TEN-001",
+      "code": "DQ-TEN-001",
+      "name": "Empreendimento do lote presente e no escopo",
+      "description": "tenant/development ID present: identity.developmentId igual ao empreendimento do lote/batch.",
+      "dataDomainId": "LOT_IDENTITY",
+      "scope": "ENTITY",
+      "dimension": "REFERENTIAL_INTEGRITY",
+      "severity": "BLOCKING",
+      "executionMode": "ON_WRITE",
+      "evaluatorRef": "TENANT_SCOPE",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-TEN-002",
+      "code": "DQ-TEN-002",
+      "name": "Sem referência entre organizações",
+      "description": "cross-tenant reference forbidden: o empreendimento do registro pertence à organização do batch.",
+      "dataDomainId": "LOT_IDENTITY",
+      "scope": "RELATIONSHIP",
+      "dimension": "REFERENTIAL_INTEGRITY",
+      "severity": "BLOCKING",
+      "executionMode": "ON_WRITE",
+      "evaluatorRef": "CROSS_TENANT",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-AVAIL-001",
+      "code": "DQ-AVAIL-001",
+      "name": "Status de disponibilidade é um valor do enum",
+      "description": "availability enum valid (AvailabilityStatus).",
+      "dataDomainId": "AVAILABILITY",
+      "scope": "FIELD",
+      "dimension": "VALIDITY",
+      "severity": "BLOCKING",
+      "executionMode": "ON_WRITE",
+      "evaluatorRef": "ENUM",
+      "thresholdConfig": {
+        "fieldKey": "availability.status",
+        "enumRef": "AvailabilityStatus"
+      },
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-AVAIL-002",
+      "code": "DQ-AVAIL-002",
+      "name": "Status de disponibilidade conhecido",
+      "description": "known status: UNKNOWN é estado legítimo, mas o domínio não pode ser considerado saudável enquanto houver lotes sem status confirmado.",
+      "dataDomainId": "AVAILABILITY",
+      "scope": "FIELD",
+      "dimension": "COMPLETENESS",
+      "severity": "WARNING",
+      "executionMode": "SCHEDULED",
+      "evaluatorRef": "KNOWN_STATUS",
+      "thresholdConfig": {
+        "fieldKey": "availability.status"
+      },
+      "ownerRef": null,
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "WARNING",
+      "priority": "P1",
+      "cost": "CHEAP",
+      "platformMandatory": false,
+      "dependsOn": [
+        "DQ-AVAIL-001"
+      ]
+    },
+    {
+      "id": "DQ-AVAIL-003",
+      "code": "DQ-AVAIL-003",
+      "name": "Status conhecido tem data e fonte",
+      "description": "source timestamp: status diferente de UNKNOWN exige availability.updatedAt e availability.sourceId.",
+      "dataDomainId": "AVAILABILITY",
+      "scope": "ENTITY",
+      "dimension": "PROVENANCE_COVERAGE",
+      "severity": "ERROR",
+      "executionMode": "ON_WRITE",
+      "evaluatorRef": "AVAILABILITY_SOURCE_TIMESTAMP",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": [
+        "DQ-AVAIL-001"
+      ]
+    },
+    {
+      "id": "DQ-AVAIL-004",
+      "code": "DQ-AVAIL-004",
+      "name": "Disponibilidade atual o bastante para transação",
+      "description": "Availability must be fresher than policy threshold for reservation. Limite = política de frescor (null = não configurado → UNKNOWN → bloqueia a transação).",
+      "dataDomainId": "AVAILABILITY",
+      "scope": "ENTITY",
+      "dimension": "FRESHNESS",
+      "severity": "BLOCKING",
+      "executionMode": "EVENT_DRIVEN",
+      "evaluatorRef": "FRESHNESS",
+      "thresholdConfig": {
+        "use": "TRANSACTION",
+        "freshnessPolicyRef": "FP-AVAILABILITY"
+      },
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": [
+        "DQ-AVAIL-001"
+      ]
+    },
+    {
+      "id": "DQ-AVAIL-005",
+      "code": "DQ-AVAIL-005",
+      "name": "Revisão de disponibilidade não regride",
+      "description": "revision monotonic: a revisão nunca diminui em relação ao snapshot anterior.",
+      "dataDomainId": "AVAILABILITY",
+      "scope": "ENTITY",
+      "dimension": "DOMAIN_COHERENCE",
+      "severity": "BLOCKING",
+      "executionMode": "ON_WRITE",
+      "evaluatorRef": "REVISION_MONOTONIC",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": [
+        "DQ-AVAIL-001"
+      ]
+    },
+    {
+      "id": "DQ-AVAIL-006",
+      "code": "DQ-AVAIL-006",
+      "name": "Sem transição de status impossível",
+      "description": "no impossible transition (máquina de estados de domain/availability.js).",
+      "dataDomainId": "AVAILABILITY",
+      "scope": "ENTITY",
+      "dimension": "DOMAIN_COHERENCE",
+      "severity": "BLOCKING",
+      "executionMode": "ON_WRITE",
+      "evaluatorRef": "AVAILABILITY_TRANSITION",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": [
+        "DQ-AVAIL-001"
+      ]
+    },
+    {
+      "id": "DQ-AVAIL-007",
+      "code": "DQ-AVAIL-007",
+      "name": "Disponibilidade nunca derivada do preço",
+      "description": "Preço ausente não torna o lote indisponível (AVAILABILITY_PRICE_INDEPENDENCE).",
+      "dataDomainId": "AVAILABILITY",
+      "scope": "ENTITY",
+      "dimension": "DOMAIN_COHERENCE",
+      "severity": "BLOCKING",
+      "executionMode": "ON_WRITE",
+      "evaluatorRef": "AVAILABILITY_PRICE_INDEPENDENCE",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-TX-001",
+      "code": "DQ-TX-001",
+      "name": "Lote vendido sem reserva ou proposta ativa",
+      "description": "SOLD lot has no active reservation (reservedUntil/proposalId nulos).",
+      "dataDomainId": "AVAILABILITY",
+      "scope": "ENTITY",
+      "dimension": "CONSISTENCY",
+      "severity": "ERROR",
+      "executionMode": "ON_WRITE",
+      "evaluatorRef": "SOLD_WITHOUT_RESERVATION",
+      "thresholdConfig": {},
+      "ownerRef": null,
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": false,
+      "dependsOn": [
+        "DQ-AVAIL-001"
+      ]
+    },
+    {
+      "id": "DQ-GEO-012",
+      "code": "DQ-GEO-012",
+      "name": "Todo lote tem exatamente uma geometria válida",
+      "description": "Every active lot must have exactly one valid map geometry: polígono com 3+ vértices distintos, coordenadas finitas e área não nula.",
+      "dataDomainId": "GEOMETRY",
+      "scope": "ENTITY",
+      "dimension": "GEOMETRY_INTEGRITY",
+      "severity": "BLOCKING",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "GEOMETRY_VALID",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": [
+        "DQ-LOT-001"
+      ]
+    },
+    {
+      "id": "DQ-GEO-002",
+      "code": "DQ-GEO-002",
+      "name": "Polígono sem autointerseção",
+      "description": "no self intersection (arestas não adjacentes não se cruzam).",
+      "dataDomainId": "GEOMETRY",
+      "scope": "ENTITY",
+      "dimension": "GEOMETRY_INTEGRITY",
+      "severity": "ERROR",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "GEOMETRY_SIMPLE",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "MEDIUM",
+      "platformMandatory": true,
+      "dependsOn": [
+        "DQ-GEO-012"
+      ]
+    },
+    {
+      "id": "DQ-GEO-003",
+      "code": "DQ-GEO-003",
+      "name": "Centróide e limites coerentes com o polígono",
+      "description": "bbox/centroid: centróide dentro dos limites; limites iguais ao envelope do polígono.",
+      "dataDomainId": "GEOMETRY",
+      "scope": "ENTITY",
+      "dimension": "CONSISTENCY",
+      "severity": "ERROR",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "GEOMETRY_BOUNDS",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P1",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": [
+        "DQ-GEO-012"
+      ]
+    },
+    {
+      "id": "DQ-GEO-004",
+      "code": "DQ-GEO-004",
+      "name": "Área oficial presente e positiva (m²)",
+      "description": "geometry.areaM2 em m², maior que zero.",
+      "dataDomainId": "GEOMETRY",
+      "scope": "FIELD",
+      "dimension": "VALIDITY",
+      "severity": "ERROR",
+      "executionMode": "ON_WRITE",
+      "evaluatorRef": "RANGE",
+      "thresholdConfig": {
+        "fieldKey": "geometry.areaM2",
+        "minExclusive": 0,
+        "required": true
+      },
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-PRICE-008",
+      "code": "DQ-PRICE-008",
+      "name": "Entrada de preço referencia lote existente",
+      "description": "Every active published price entry references an existing lot.",
+      "dataDomainId": "PRICING",
+      "scope": "RELATIONSHIP",
+      "dimension": "REFERENTIAL_INTEGRITY",
+      "severity": "BLOCKING",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "PRICE_LOT_REFERENCE",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": [
+        "DQ-LOT-001"
+      ]
+    },
+    {
+      "id": "DQ-PRICE-002",
+      "code": "DQ-PRICE-002",
+      "name": "Sem lote repetido na tabela de preço",
+      "description": "no duplicate lot entries.",
+      "dataDomainId": "PRICING",
+      "scope": "DATASET",
+      "dimension": "UNIQUENESS",
+      "severity": "BLOCKING",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "PRICE_DUPLICATE",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-PRICE-003",
+      "code": "DQ-PRICE-003",
+      "name": "Preço não negativo em BRL",
+      "description": "non-negative + currency BRL (preço nulo é ausência, não zero).",
+      "dataDomainId": "PRICING",
+      "scope": "FIELD",
+      "dimension": "VALIDITY",
+      "severity": "BLOCKING",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "PRICE_VALUE",
+      "thresholdConfig": {
+        "currency": "BRL"
+      },
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-PRICE-004",
+      "code": "DQ-PRICE-004",
+      "name": "Preço da versão de tabela corrente",
+      "description": "price table version required: cada preço cita a versão de tabela corrente.",
+      "dataDomainId": "PRICING",
+      "scope": "FIELD",
+      "dimension": "VERSION_COMPATIBILITY",
+      "severity": "ERROR",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "PRICE_TABLE_VERSION",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P0",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-PRICE-005",
+      "code": "DQ-PRICE-005",
+      "name": "Todo lote tem preço de tabela",
+      "description": "Preço ausente é finding de PRICING apenas (nunca muda a disponibilidade).",
+      "dataDomainId": "PRICING",
+      "scope": "FIELD",
+      "dimension": "COMPLETENESS",
+      "severity": "WARNING",
+      "executionMode": "SCHEDULED",
+      "evaluatorRef": "NOT_NULL",
+      "thresholdConfig": {
+        "fieldKeys": [
+          "commercial.price"
+        ]
+      },
+      "ownerRef": null,
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "WARNING",
+      "priority": "P1",
+      "cost": "CHEAP",
+      "platformMandatory": false,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-ANA-001",
+      "code": "DQ-ANA-001",
+      "name": "Análise da versão corrente",
+      "description": "exact methodology/analysis version: intelligence.analysisVersion igual à versão publicada.",
+      "dataDomainId": "ANALYSIS",
+      "scope": "FIELD",
+      "dimension": "VERSION_COMPATIBILITY",
+      "severity": "ERROR",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "ANALYSIS_VERSION",
+      "thresholdConfig": {},
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P1",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-ANA-002",
+      "code": "DQ-ANA-002",
+      "name": "Scores completos entre 0 e 100",
+      "description": "output complete: os 5 scores presentes e na faixa 0–100.",
+      "dataDomainId": "ANALYSIS",
+      "scope": "ENTITY",
+      "dimension": "VALIDITY",
+      "severity": "ERROR",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "ANALYSIS_SCORES",
+      "thresholdConfig": {
+        "keys": [
+          "housing",
+          "investment",
+          "family",
+          "premium",
+          "overall"
+        ],
+        "min": 0,
+        "max": 100
+      },
+      "ownerRef": "SYSTEM:platform-invariant",
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "ENFORCED",
+      "priority": "P1",
+      "cost": "CHEAP",
+      "platformMandatory": true,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-ANA-003",
+      "code": "DQ-ANA-003",
+      "name": "Confiança da análise presente",
+      "description": "confidence present where required.",
+      "dataDomainId": "ANALYSIS",
+      "scope": "FIELD",
+      "dimension": "COMPLETENESS",
+      "severity": "WARNING",
+      "executionMode": "ON_PUBLISH",
+      "evaluatorRef": "NOT_NULL",
+      "thresholdConfig": {
+        "fieldKeys": [
+          "intelligence.confidence"
+        ]
+      },
+      "ownerRef": null,
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "WARNING",
+      "priority": "P2",
+      "cost": "CHEAP",
+      "platformMandatory": false,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-PROV-001",
+      "code": "DQ-PROV-001",
+      "name": "Campos P0 com fonte declarada",
+      "description": "Field Registry: campos P0 com provenanceRequired precisam de sourceId declarado (ou status UNKNOWN explícito).",
+      "dataDomainId": "LOT_IDENTITY",
+      "scope": "DATASET",
+      "dimension": "PROVENANCE_COVERAGE",
+      "severity": "WARNING",
+      "executionMode": "SCHEDULED",
+      "evaluatorRef": "REGISTRY_PROVENANCE",
+      "thresholdConfig": {
+        "priority": "P0"
+      },
+      "ownerRef": null,
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "WARNING",
+      "priority": "P2",
+      "cost": "CHEAP",
+      "platformMandatory": false,
+      "dependsOn": []
+    },
+    {
+      "id": "DQ-NULL-001",
+      "code": "DQ-NULL-001",
+      "name": "Perfil de nulos dos campos do Field Registry",
+      "description": "Observação: null nem sempre é erro (campo legitimamente ausente). Só registra contagens para baseline.",
+      "dataDomainId": "GEOMETRY",
+      "scope": "DATASET",
+      "dimension": "COMPLETENESS",
+      "severity": "INFO",
+      "executionMode": "SCHEDULED",
+      "evaluatorRef": "NULL_PROFILE",
+      "thresholdConfig": {
+        "priorities": null
+      },
+      "ownerRef": null,
+      "activeFrom": "2026-10-16",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "enforcementMode": "SHADOW",
+      "priority": "P3",
+      "cost": "CHEAP",
+      "platformMandatory": false,
+      "dependsOn": []
+    }
+  ],
+  "ruleSets": [
+    {
+      "id": "RS-PLATFORM-INTEGRITY",
+      "dataDomainId": "LOT_IDENTITY",
+      "version": "1.0.0",
+      "ruleIds": [
+        "DQ-LOT-001",
+        "DQ-LOT-002",
+        "DQ-LOT-004",
+        "DQ-TEN-001",
+        "DQ-TEN-002",
+        "DQ-PROV-001"
+      ],
+      "effectiveFrom": "2026-10-16",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "RS-GEOMETRY",
+      "dataDomainId": "GEOMETRY",
+      "version": "1.0.0",
+      "ruleIds": [
+        "DQ-GEO-012",
+        "DQ-GEO-002",
+        "DQ-GEO-003",
+        "DQ-GEO-004",
+        "DQ-NULL-001"
+      ],
+      "effectiveFrom": "2026-10-16",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "RS-AVAILABILITY",
+      "dataDomainId": "AVAILABILITY",
+      "version": "1.0.0",
+      "ruleIds": [
+        "DQ-AVAIL-001",
+        "DQ-AVAIL-002",
+        "DQ-AVAIL-003",
+        "DQ-AVAIL-005",
+        "DQ-AVAIL-006",
+        "DQ-AVAIL-007",
+        "DQ-TX-001"
+      ],
+      "effectiveFrom": "2026-10-16",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "RS-PRICING",
+      "dataDomainId": "PRICING",
+      "version": "1.0.0",
+      "ruleIds": [
+        "DQ-PRICE-008",
+        "DQ-PRICE-002",
+        "DQ-PRICE-003",
+        "DQ-PRICE-004",
+        "DQ-PRICE-005"
+      ],
+      "effectiveFrom": "2026-10-16",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "RS-ANALYSIS",
+      "dataDomainId": "ANALYSIS",
+      "version": "1.0.0",
+      "ruleIds": [
+        "DQ-ANA-001",
+        "DQ-ANA-002",
+        "DQ-ANA-003"
+      ],
+      "effectiveFrom": "2026-10-16",
+      "status": "ACTIVE"
+    }
+  ],
+  "gates": [
+    {
+      "id": "QG-ONBOARDING-BATCH",
+      "actionCode": "ONBOARDING_BATCH",
+      "description": "Tópico 58: batch de onboarding/ingestão antes de publicar.",
+      "requiredRuleRefs": [
+        "DQ-LOT-001",
+        "DQ-LOT-002",
+        "DQ-LOT-004",
+        "DQ-TEN-001",
+        "DQ-TEN-002",
+        "DQ-AVAIL-001",
+        "DQ-AVAIL-003",
+        "DQ-AVAIL-005",
+        "DQ-AVAIL-006",
+        "DQ-AVAIL-007",
+        "DQ-TX-001",
+        "DQ-GEO-012",
+        "DQ-GEO-002",
+        "DQ-GEO-003",
+        "DQ-GEO-004",
+        "DQ-PRICE-008",
+        "DQ-PRICE-002",
+        "DQ-PRICE-003",
+        "DQ-PRICE-004",
+        "DQ-VOL-001",
+        "DQ-VJ-LOT-003",
+        "DQ-VJ-SCHEMA-001",
+        "DQ-VJ-DIST-001"
+      ],
+      "optionalRuleRefs": [
+        "DQ-AVAIL-002",
+        "DQ-PRICE-005",
+        "DQ-ANA-001",
+        "DQ-ANA-002",
+        "DQ-ANA-003",
+        "DQ-PROV-001",
+        "DQ-NULL-001"
+      ],
+      "allowedWarningCount": null,
+      "allowExceptions": true,
+      "approvalPolicyRef": null
+    },
+    {
+      "id": "QG-DEVELOPMENT-PUBLICATION",
+      "actionCode": "DEVELOPMENT_PUBLICATION",
+      "description": "Antes de DevelopmentPublication.",
+      "requiredRuleRefs": [
+        "DQ-LOT-001",
+        "DQ-LOT-002",
+        "DQ-LOT-004",
+        "DQ-TEN-001",
+        "DQ-TEN-002",
+        "DQ-AVAIL-001",
+        "DQ-AVAIL-003",
+        "DQ-AVAIL-007",
+        "DQ-TX-001",
+        "DQ-GEO-012",
+        "DQ-GEO-002",
+        "DQ-GEO-003",
+        "DQ-GEO-004",
+        "DQ-PRICE-008",
+        "DQ-PRICE-002",
+        "DQ-PRICE-003",
+        "DQ-PRICE-004",
+        "DQ-ANA-001",
+        "DQ-ANA-002",
+        "DQ-VOL-001",
+        "DQ-VJ-LOT-003"
+      ],
+      "optionalRuleRefs": [
+        "DQ-AVAIL-002",
+        "DQ-PRICE-005",
+        "DQ-ANA-003",
+        "DQ-PROV-001",
+        "DQ-NULL-001"
+      ],
+      "allowedWarningCount": null,
+      "allowExceptions": true,
+      "approvalPolicyRef": null
+    },
+    {
+      "id": "QG-PRICE-TABLE-ACTIVATION",
+      "actionCode": "PRICE_TABLE_ACTIVATION",
+      "description": "Antes de ativar uma PriceTable.",
+      "requiredRuleRefs": [
+        "DQ-LOT-001",
+        "DQ-PRICE-008",
+        "DQ-PRICE-002",
+        "DQ-PRICE-003",
+        "DQ-PRICE-004"
+      ],
+      "optionalRuleRefs": [
+        "DQ-PRICE-005"
+      ],
+      "allowedWarningCount": null,
+      "allowExceptions": false,
+      "approvalPolicyRef": null
+    },
+    {
+      "id": "QG-ANALYSIS-ACTIVATION",
+      "actionCode": "ANALYSIS_ACTIVATION",
+      "description": "Antes de ativar uma AnalysisVersion.",
+      "requiredRuleRefs": [
+        "DQ-LOT-001",
+        "DQ-ANA-001",
+        "DQ-ANA-002"
+      ],
+      "optionalRuleRefs": [
+        "DQ-ANA-003"
+      ],
+      "allowedWarningCount": null,
+      "allowExceptions": true,
+      "approvalPolicyRef": null
+    },
+    {
+      "id": "QG-RESERVATION",
+      "actionCode": "RESERVATION",
+      "description": "Antes de reservar: disponibilidade atual para transação.",
+      "requiredRuleRefs": [
+        "DQ-AVAIL-001",
+        "DQ-AVAIL-004",
+        "DQ-TX-001"
+      ],
+      "optionalRuleRefs": [],
+      "allowedWarningCount": null,
+      "allowExceptions": false,
+      "approvalPolicyRef": null
+    },
+    {
+      "id": "QG-PROPOSAL-SUBMIT",
+      "actionCode": "PROPOSAL_SUBMIT",
+      "description": "Antes de enviar proposta: disponibilidade + preço válidos e da versão corrente.",
+      "requiredRuleRefs": [
+        "DQ-AVAIL-001",
+        "DQ-AVAIL-004",
+        "DQ-PRICE-003",
+        "DQ-PRICE-004"
+      ],
+      "optionalRuleRefs": [],
+      "allowedWarningCount": null,
+      "allowExceptions": false,
+      "approvalPolicyRef": null
+    },
+    {
+      "id": "QG-PUBLIC-SHARE",
+      "actionCode": "PUBLIC_SHARE",
+      "description": "Antes de compartilhamento público: projeção do cliente com preço da versão corrente.",
+      "requiredRuleRefs": [
+        "DQ-LOT-001",
+        "DQ-AVAIL-001",
+        "DQ-PRICE-003",
+        "DQ-PRICE-004"
+      ],
+      "optionalRuleRefs": [],
+      "allowedWarningCount": null,
+      "allowExceptions": false,
+      "approvalPolicyRef": null
+    },
+    {
+      "id": "QG-RESTORE-VALIDATION",
+      "actionCode": "RESTORE_VALIDATION",
+      "description": "Tópico 62: restauração só termina quando as verificações críticas de integridade passam.",
+      "requiredRuleRefs": [
+        "DQ-LOT-001",
+        "DQ-LOT-002",
+        "DQ-LOT-004",
+        "DQ-TEN-001",
+        "DQ-TEN-002",
+        "DQ-AVAIL-001",
+        "DQ-AVAIL-003",
+        "DQ-AVAIL-007",
+        "DQ-TX-001",
+        "DQ-GEO-012",
+        "DQ-GEO-002",
+        "DQ-GEO-004",
+        "DQ-PRICE-008",
+        "DQ-PRICE-002",
+        "DQ-PRICE-003",
+        "DQ-PRICE-004",
+        "DQ-ANA-001",
+        "DQ-ANA-002",
+        "DQ-VOL-001",
+        "DQ-VJ-LOT-003"
+      ],
+      "optionalRuleRefs": [
+        "DQ-AVAIL-002",
+        "DQ-PROV-001"
+      ],
+      "allowedWarningCount": null,
+      "allowExceptions": false,
+      "approvalPolicyRef": null
+    },
+    {
+      "id": "QG-MIGRATION-VALIDATION",
+      "actionCode": "MIGRATION_VALIDATION",
+      "description": "Migração legada: contagem + checksum/amostra + integridade referencial + campos críticos (nunca só contagem).",
+      "requiredRuleRefs": [
+        "DQ-LOT-001",
+        "DQ-LOT-002",
+        "DQ-LOT-004",
+        "DQ-TEN-001",
+        "DQ-TEN-002",
+        "DQ-AVAIL-001",
+        "DQ-AVAIL-003",
+        "DQ-AVAIL-007",
+        "DQ-TX-001",
+        "DQ-GEO-012",
+        "DQ-GEO-002",
+        "DQ-GEO-004",
+        "DQ-PRICE-008",
+        "DQ-PRICE-002",
+        "DQ-PRICE-003",
+        "DQ-PRICE-004",
+        "DQ-ANA-001",
+        "DQ-ANA-002",
+        "DQ-VOL-001",
+        "DQ-VJ-LOT-003"
+      ],
+      "optionalRuleRefs": [
+        "DQ-AVAIL-002",
+        "DQ-PROV-001"
+      ],
+      "allowedWarningCount": null,
+      "allowExceptions": false,
+      "approvalPolicyRef": null
+    }
+  ],
+  "incidentSeverityPolicy": {
+    "version": "1.0.0",
+    "status": "PROPOSTA — necessita confirmação",
+    "levels": {
+      "SEV1": "Preço ou disponibilidade errados usados em transação ao vivo.",
+      "SEV2": "Degradação significativa do conjunto de dados afetando recomendações.",
+      "SEV3": "Problema parcial de qualidade com contorno.",
+      "SEV4": "Anomalia menor, não crítica."
+    },
+    "materialSeverities": [
+      "SEV1",
+      "SEV2"
+    ],
+    "postmortemSeverities": [
+      "SEV1",
+      "SEV2"
+    ]
+  },
+  "glossary": [
+    {
+      "term": "Disponível",
+      "code": "AVAILABLE",
+      "definition": "Status comercial confirmado pela fonte de autoridade de disponibilidade. Nunca inferido; UNKNOWN nunca é disponível.",
+      "fieldKeys": [
+        "availability.status"
+      ]
+    },
+    {
+      "term": "Reservado",
+      "code": "RESERVED",
+      "definition": "Lote com reserva ativa registrada pela fonte de autoridade.",
+      "fieldKeys": [
+        "availability.status",
+        "availability.reservedUntil"
+      ]
+    },
+    {
+      "term": "Proposta",
+      "code": "PROPOSAL",
+      "definition": "Lote com proposta em análise; por política padrão não conta como ofertável.",
+      "fieldKeys": [
+        "availability.status"
+      ]
+    },
+    {
+      "term": "Vendido",
+      "code": "SOLD",
+      "definition": "Lote vendido; não reabre por padrão (allowSoldReopen=false).",
+      "fieldKeys": [
+        "availability.status"
+      ]
+    },
+    {
+      "term": "Não confirmado",
+      "code": "UNKNOWN",
+      "definition": "Sem informação da fonte de autoridade. Não é disponível nem indisponível.",
+      "fieldKeys": [
+        "availability.status"
+      ]
+    },
+    {
+      "term": "Aderência (fit)",
+      "code": "FIT",
+      "definition": "Quanto um lote atende ao perfil de um cliente (tópico 15). Não é qualidade do dado.",
+      "fieldKeys": []
+    },
+    {
+      "term": "Confiança",
+      "code": "CONFIDENCE",
+      "definition": "Confiança do dado/estimativa (tópico 34). Confiança não é acurácia.",
+      "fieldKeys": [
+        "intelligence.confidence"
+      ]
+    },
+    {
+      "term": "Tabela de preço",
+      "code": "PRICE_TABLE",
+      "definition": "Versão publicada e imutável de R$/m² e planos. Preço do lote = área × R$/m² da tabela vigente (preço de tabela, nunca promessa de valorização).",
+      "fieldKeys": [
+        "commercial.price",
+        "commercial.pricePerM2",
+        "commercial.priceTableVersion"
+      ]
+    },
+    {
+      "term": "Publicação",
+      "code": "PUBLICATION",
+      "definition": "Conjunto de versões (estática, análise, tabela) liberado para uso, com snapshot de qualidade.",
+      "fieldKeys": []
+    },
+    {
+      "term": "Finding",
+      "code": "FINDING",
+      "definition": "Registro de uma regra de qualidade violada (≠ incidente).",
+      "fieldKeys": []
+    },
+    {
+      "term": "Exceção de qualidade",
+      "code": "QUALITY_EXCEPTION",
+      "definition": "Decisão governada, com motivo, aprovação e expiração obrigatória.",
+      "fieldKeys": []
+    },
+    {
+      "term": "Completude do registro",
+      "code": "RECORD_COMPLETENESS",
+      "definition": "Para clientes: completude do registro, nunca 'qualidade do cliente'.",
+      "fieldKeys": []
+    }
+  ],
+  "recommendationReadinessPolicy": {
+    "version": "1.0.0",
+    "status": "PROPOSTA — necessita confirmação",
+    "domains": {
+      "AVAILABILITY": {
+        "CRITICAL": "BLOCK",
+        "UNKNOWN": "WARN",
+        "DEGRADED": "WARN"
+      },
+      "PRICING": {
+        "CRITICAL": "DEGRADE",
+        "UNKNOWN": "WARN",
+        "DEGRADED": "WARN"
+      },
+      "ANALYSIS": {
+        "CRITICAL": "DEGRADE",
+        "UNKNOWN": "DEGRADE",
+        "DEGRADED": "WARN"
+      }
+    }
+  }
+}

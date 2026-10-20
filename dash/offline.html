@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="theme-color" content="#2d6232">
+<style>
+:root{--bg:#f3f5f0;--surface:#fff;--fg:#1b261d;--fg-2:#4b584d;--brand:#2d6232;--line:#dbe1d4}
+@media (prefers-color-scheme:dark){:root{--bg:#101511;--surface:#171d18;--fg:#eef2ea;--fg-2:#b9c4b9;--brand:#7fb069;--line:#2c372e}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:16px;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:440px;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px}
+h1{font-size:20px;margin:0 0 8px;color:var(--brand)}
+p{margin:0 0 12px;color:var(--fg-2)}
+a{color:var(--brand);font-weight:600}
+</style>
+</head>
+<body>
+<main role="status" aria-live="polite">
+<h1>{{TITLE}}</h1>
+<p>{{BODY}}</p>
+<p>Quando a conexão voltar, <a href="{{HOME}}">abra o aplicativo</a> novamente.</p>
+</main>
+</body>
+</html>

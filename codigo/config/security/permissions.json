@@ -1,0 +1,1575 @@
+{
+  "kind": "permission-registry",
+  "version": "1.0.0",
+  "policyVersion": "iam-2026-10-08.1",
+  "note": "Espelho do registro do backend (GET /api/v1/iam/registry). Global da plataforma: nenhuma organização edita. Chave desconhecida = negada. Novas chaves entram primeiro no backend e depois aqui.",
+  "riskLevels": [
+    "LOW",
+    "MEDIUM",
+    "HIGH",
+    "CRITICAL"
+  ],
+  "scopeTypes": [
+    "GLOBAL",
+    "ORGANIZATION",
+    "DEVELOPMENT"
+  ],
+  "conditions": [
+    "RESOURCE_IN_SCOPE",
+    "USER_ACTIVE",
+    "TENANT_MEMBERSHIP_ACTIVE",
+    "REASON_REQUIRED",
+    "DOMAIN_CAPABILITY_TRUE",
+    "ONLINE_REQUIRED",
+    "ASSURANCE_LEVEL_AT_LEAST"
+  ],
+  "permissions": [
+    {
+      "key": "development.view",
+      "resource": "development",
+      "action": "view",
+      "riskLevel": "LOW",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": true,
+      "onlineRequired": false,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ver o empreendimento (nome, implantação, áreas comuns, fontes, dados pendentes)."
+    },
+    {
+      "key": "lot.view",
+      "resource": "lot",
+      "action": "view",
+      "riskLevel": "LOW",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": true,
+      "onlineRequired": false,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ver mapa, lotes, Quick View e detalhes."
+    },
+    {
+      "key": "lot.price.view",
+      "resource": "lot.price",
+      "action": "view",
+      "riskLevel": "LOW",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": true,
+      "onlineRequired": false,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ver preço de tabela vigente (R$/m² da versão publicada)."
+    },
+    {
+      "key": "lot.price_history.view",
+      "resource": "lot.price_history",
+      "action": "view",
+      "riskLevel": "LOW",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": true,
+      "onlineRequired": false,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ver histórico de preços de tabela (tópico 28; nunca como valorização ou retorno)."
+    },
+    {
+      "key": "lot.availability.view",
+      "resource": "lot.availability",
+      "action": "view",
+      "riskLevel": "LOW",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": true,
+      "onlineRequired": false,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ver status comercial (hoje todos \"sem informação\")."
+    },
+    {
+      "key": "lot.analysis.view",
+      "resource": "lot.analysis",
+      "action": "view",
+      "riskLevel": "LOW",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": true,
+      "onlineRequired": false,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ver análise e modo técnico: scores, classes, versões de metodologia, proveniência."
+    },
+    {
+      "key": "lot.compare",
+      "resource": "lot",
+      "action": "compare",
+      "riskLevel": "LOW",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": true,
+      "onlineRequired": false,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Comparar lotes."
+    },
+    {
+      "key": "lot.simulate",
+      "resource": "lot",
+      "action": "simulate",
+      "riskLevel": "LOW",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": true,
+      "onlineRequired": false,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Simular condições de pagamento sobre o preço de tabela."
+    },
+    {
+      "key": "share.create",
+      "resource": "share",
+      "action": "create",
+      "riskLevel": "LOW",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": true,
+      "onlineRequired": false,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Gerar texto/link de compartilhamento (WhatsApp, cópia). O link nunca leva dados pessoais."
+    },
+    {
+      "key": "customer_profile.manage",
+      "resource": "customer_profile",
+      "action": "manage",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": true,
+      "onlineRequired": false,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Perfil de cliente de trabalho (nome, preferências, lotes). Hoje guardado só no aparelho; nunca enviado."
+    },
+    {
+      "key": "analysis.preview",
+      "resource": "analysis",
+      "action": "preview",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Pré-visualizar recálculo de análise no backend (POST de preview)."
+    },
+    {
+      "key": "availability.write",
+      "resource": "availability",
+      "action": "write",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Alterar status comercial de lote (PATCH /lots/{id}/availability, revisão esperada obrigatória)."
+    },
+    {
+      "key": "price_table.publish",
+      "resource": "price_table",
+      "action": "publish",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": true,
+      "description": "Publicar/ativar uma versão de tabela de preço."
+    },
+    {
+      "key": "admin.audit.view",
+      "resource": "admin.audit",
+      "action": "view",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ler a trilha de auditoria da própria organização."
+    },
+    {
+      "key": "platform.cross_tenant",
+      "resource": "platform",
+      "action": "cross_tenant",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "GLOBAL"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": true,
+      "auditRequired": true,
+      "stepUpFuture": true,
+      "description": "Plataforma: acesso entre organizações. Só principal SYSTEM/operador; nunca concedível a role de organização."
+    },
+    {
+      "key": "provenance.resolveConflict",
+      "resource": "provenance",
+      "action": "resolveConflict",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Resolver conflito de proveniência de um atributo (tópico 33). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.access",
+      "resource": "backoffice",
+      "action": "access",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Entrar no console administrativo (shell separado do painel do corretor). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.inbox.view",
+      "resource": "backoffice.inbox",
+      "action": "view",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver a caixa operacional e as filas de trabalho autorizadas. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.queue.assign",
+      "resource": "backoffice.queue",
+      "action": "assign",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Atribuir itens de trabalho (atribuição não é autorização). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.approval.decide",
+      "resource": "backoffice.approval",
+      "action": "decide",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Decidir aprovações no Approval Center (separação de funções). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.commercial.view",
+      "resource": "backoffice.commercial",
+      "action": "view",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver as filas comerciais (propostas, reservas, closings). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.data.view",
+      "resource": "backoffice.data",
+      "action": "view",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver operações de dados (onboarding, conflitos, qualidade, publicações). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.developments.view",
+      "resource": "backoffice.developments",
+      "action": "view",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver operações de empreendimentos. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.customers.view",
+      "resource": "backoffice.customers",
+      "action": "view",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver a área de clientes do console (projeção por permissão). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.documents.view",
+      "resource": "backoffice.documents",
+      "action": "view",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver operações de documentos. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.privacy.view",
+      "resource": "backoffice.privacy",
+      "action": "view",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver operações de privacidade (titulares, retenção, incidentes). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.access_admin.view",
+      "resource": "backoffice.access_admin",
+      "action": "view",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver usuários, memberships, papéis e sessões. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.access_admin.change",
+      "resource": "backoffice.access_admin",
+      "action": "change",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": true,
+      "description": "Alterar permissões/memberships (diff + step-up). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.session.revoke",
+      "resource": "backoffice.session",
+      "action": "revoke",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Encerrar sessões ativas de um usuário. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.support_session.start",
+      "resource": "backoffice.support_session",
+      "action": "start",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Iniciar sessão de suporte formal, com prazo e auditoria. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.integration.view",
+      "resource": "backoffice.integration",
+      "action": "view",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver saúde das integrações e status de segredos (nunca valores). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.integration.resync",
+      "resource": "backoffice.integration",
+      "action": "resync",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Disparar ressincronização idempotente de integração. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.observability.view",
+      "resource": "backoffice.observability",
+      "action": "view",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver saúde de serviços, jobs e marcadores de release. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.job.retry",
+      "resource": "backoffice.job",
+      "action": "retry",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Repetir job seguro para retry (idempotente). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.job.replay",
+      "resource": "backoffice.job",
+      "action": "replay",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Reprocessar mensagem da DLQ (prévia + análise de idempotência). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.config.view",
+      "resource": "backoffice.config",
+      "action": "view",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver configurações versionadas e diffs. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.config.publish",
+      "resource": "backoffice.config",
+      "action": "publish",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Publicar/restaurar versão de configuração (nunca sobrescreve). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.flag.manage",
+      "resource": "backoffice.flag",
+      "action": "manage",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Alterar feature flags operacionais (dono e sunset obrigatórios). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.emergency.activate",
+      "resource": "backoffice.emergency",
+      "action": "activate",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": true,
+      "description": "Ativar/liberar controle de emergência com escopo e expiração. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.export.create",
+      "resource": "backoffice.export",
+      "action": "create",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Gerar exportação com prévia, motivo, link curto e auditoria. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.audit.export",
+      "resource": "backoffice.audit",
+      "action": "export",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Exportar eventos de auditoria. Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "backoffice.data.repair",
+      "resource": "backoffice.data",
+      "action": "repair",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Executar comando dedicado de reparo/reconstrução (dry-run obrigatório). Tópico 60 (backoffice). Nenhum papel recebe esta permissão até decisão humana."
+    },
+    {
+      "key": "development.location_environment.read",
+      "resource": "development.location_environment",
+      "action": "read",
+      "riskLevel": "LOW",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ver o Entorno (Google Maps em até 8 km): locais no raio e trajeto sob demanda (tópico 63). Somente com coordenada oficial validada."
+    },
+    {
+      "key": "development.location_environment.manage",
+      "resource": "development.location_environment",
+      "action": "manage",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Configurar o Entorno do empreendimento: categorias, raios permitidos (máximo 8 km), rotas e habilitação do Google Maps (tópico 63)."
+    },
+    {
+      "key": "development.location.validate",
+      "resource": "development.location",
+      "action": "validate",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Propor, aprovar e publicar a coordenada oficial do empreendimento (prévia obrigatória; altera todas as distâncias do Entorno) (tópico 63)."
+    },
+    {
+      "key": "proposal.read",
+      "resource": "proposal",
+      "action": "read",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ler propostas, versões e negociação (dados CONFIDENTIAL) (tópico 57)."
+    },
+    {
+      "key": "proposal.create",
+      "resource": "proposal",
+      "action": "create",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Criar proposta (rascunho) a partir de cliente/lote/decisão (tópico 57)."
+    },
+    {
+      "key": "proposal.update_draft",
+      "resource": "proposal",
+      "action": "update_draft",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Editar rascunho de proposta (expectedRevision) (tópico 57)."
+    },
+    {
+      "key": "proposal.submit",
+      "resource": "proposal",
+      "action": "submit",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Emitir/enviar proposta (versão imutável) (tópico 57)."
+    },
+    {
+      "key": "proposal.withdraw",
+      "resource": "proposal",
+      "action": "withdraw",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Registrar retirada de proposta (motivo) (tópico 57)."
+    },
+    {
+      "key": "proposal.review",
+      "resource": "proposal",
+      "action": "review",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Colocar proposta em análise (tópico 57)."
+    },
+    {
+      "key": "proposal.counter",
+      "resource": "proposal",
+      "action": "counter",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Emitir contraproposta (nova versão) (tópico 57)."
+    },
+    {
+      "key": "proposal.accept",
+      "resource": "proposal",
+      "action": "accept",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Registrar aceite de versão exata (tópico 57)."
+    },
+    {
+      "key": "proposal.reject",
+      "resource": "proposal",
+      "action": "reject",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Recusar proposta (motivo) (tópico 57)."
+    },
+    {
+      "key": "reservation.read",
+      "resource": "reservation",
+      "action": "read",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ler reservas e quadro de reservas (tópico 57)."
+    },
+    {
+      "key": "reservation.create",
+      "resource": "reservation",
+      "action": "create",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Criar reserva atômica (expectedAvailabilityRevision + Idempotency-Key) (tópico 57)."
+    },
+    {
+      "key": "reservation.extend",
+      "resource": "reservation",
+      "action": "extend",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Estender reserva (política/aprovação) (tópico 57)."
+    },
+    {
+      "key": "reservation.release",
+      "resource": "reservation",
+      "action": "release",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Liberar reserva (motivo) (tópico 57)."
+    },
+    {
+      "key": "reservation.cancel",
+      "resource": "reservation",
+      "action": "cancel",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Cancelar reserva (administrativo) (tópico 57)."
+    },
+    {
+      "key": "closing.read",
+      "resource": "closing",
+      "action": "read",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ler fechamento, checklist e prontidão (tópico 57)."
+    },
+    {
+      "key": "closing.manage",
+      "resource": "closing",
+      "action": "manage",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Abrir fechamento e registrar documentos recebidos (tópico 57)."
+    },
+    {
+      "key": "closing.validate_documents",
+      "resource": "closing",
+      "action": "validate_documents",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Validar/recusar documentos e registrar confirmação manual (tópico 57)."
+    },
+    {
+      "key": "contract.generate",
+      "resource": "contract",
+      "action": "generate",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Gerar contrato a partir de modelo aprovado (sem cláusulas inferidas) (tópico 57)."
+    },
+    {
+      "key": "contract.issue",
+      "resource": "contract",
+      "action": "issue",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": true,
+      "description": "Emitir versão imutável de contrato (tópico 57)."
+    },
+    {
+      "key": "signature.manage",
+      "resource": "signature",
+      "action": "manage",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Enviar contrato ao provedor de assinatura (tópico 57)."
+    },
+    {
+      "key": "sale.complete",
+      "resource": "sale",
+      "action": "complete",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": true,
+      "description": "Concluir venda (WON + lote SOLD, atômico) (tópico 57)."
+    },
+    {
+      "key": "sale.cancel",
+      "resource": "sale",
+      "action": "cancel",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": true,
+      "description": "Cancelar/registrar perda de negócio (tópico 57)."
+    },
+    {
+      "key": "commercial_approval.request",
+      "resource": "commercial_approval",
+      "action": "request",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Pedir aprovação comercial (desconto, prazo, extensão) (tópico 57)."
+    },
+    {
+      "key": "commercial_approval.decide",
+      "resource": "commercial_approval",
+      "action": "decide",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Decidir aprovação comercial (separação de funções por política) (tópico 57)."
+    },
+    {
+      "key": "data_quality.read",
+      "resource": "data_quality",
+      "action": "read",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ver saúde, findings, regras, contratos e catálogo de qualidade de dados. (tópico 61)"
+    },
+    {
+      "key": "data_quality.manage_findings",
+      "resource": "data_quality",
+      "action": "manage_findings",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Reconhecer, remediar e resolver findings de qualidade (resolução exige evidência e reexecução). (tópico 61)"
+    },
+    {
+      "key": "data_quality.run_checks",
+      "resource": "data_quality",
+      "action": "run_checks",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Executar regras/quality gates de qualidade de dados (job; não altera dados). (tópico 61)"
+    },
+    {
+      "key": "data_quality.manage_rules",
+      "resource": "data_quality",
+      "action": "manage_rules",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Criar/versionar/promover regras de qualidade (SHADOW→WARNING→ENFORCED com dry-run). (tópico 61)"
+    },
+    {
+      "key": "data_quality.create_exception",
+      "resource": "data_quality",
+      "action": "create_exception",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Solicitar exceção temporária (com expiração) a uma regra de qualidade. (tópico 61)"
+    },
+    {
+      "key": "data_quality.approve_exception",
+      "resource": "data_quality",
+      "action": "approve_exception",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Aprovar exceção de qualidade (aprovador ≠ solicitante; política da organização). (tópico 61)"
+    },
+    {
+      "key": "data_quality.manage_incident",
+      "resource": "data_quality",
+      "action": "manage_incident",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Abrir e conduzir incidentes de dados SEV1–SEV4 (RCA, remediação, postmortem). (tópico 61)"
+    },
+    {
+      "key": "data_governance.manage_owner",
+      "resource": "data_governance",
+      "action": "manage_owner",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Atribuir owners/stewards de domínios de dados (necessita confirmação humana). (tópico 61)"
+    },
+    {
+      "key": "data_governance.manage_contract",
+      "resource": "data_governance",
+      "action": "manage_contract",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Versionar contratos de dados e avaliar compatibilidade. (tópico 61)"
+    },
+    {
+      "key": "data_governance.certify",
+      "resource": "data_governance",
+      "action": "certify",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Certificar dataset/versão (validade e critérios por política). (tópico 61)"
+    },
+    {
+      "key": "development_onboarding.read",
+      "resource": "development_onboarding",
+      "action": "read",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": false,
+      "stepUpFuture": false,
+      "description": "Ver casos de onboarding, fontes, lotes de ingestão, qualidade e prévia (área técnica, nunca pública). (tópico 58)"
+    },
+    {
+      "key": "development_onboarding.create",
+      "resource": "development_onboarding",
+      "action": "create",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Criar/cancelar caso de onboarding de empreendimento. (tópico 58)"
+    },
+    {
+      "key": "development_onboarding.upload_source",
+      "resource": "development_onboarding",
+      "action": "upload_source",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Enviar arquivo-fonte imutável (checksum sha256, varredura obrigatória). (tópico 58)"
+    },
+    {
+      "key": "development_onboarding.map_schema",
+      "resource": "development_onboarding",
+      "action": "map_schema",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Confirmar mapeamento de campos e regras de transformação (FieldRegistry). (tópico 58)"
+    },
+    {
+      "key": "development_onboarding.resolve_conflict",
+      "resource": "development_onboarding",
+      "action": "resolve_conflict",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Resolver DataConflict / ReviewItem com motivo auditado. (tópico 58)"
+    },
+    {
+      "key": "development_onboarding.review_geometry",
+      "resource": "development_onboarding",
+      "action": "review_geometry",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Aprovar vínculo geometria↔lote, alinhamento e reparo (nunca altera a fonte). (tópico 58)"
+    },
+    {
+      "key": "development_onboarding.publish",
+      "resource": "development_onboarding",
+      "action": "publish",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Aprovar e ativar publicação candidata (gate de qualidade, separação de funções por política). (tópico 58)"
+    },
+    {
+      "key": "development_onboarding.rollback",
+      "resource": "development_onboarding",
+      "action": "rollback",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION",
+        "DEVELOPMENT"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Reverter ponteiro de publicação para versão anterior (disponibilidade não é revertida). (tópico 58)"
+    },
+    {
+      "key": "privacy.registry.view",
+      "resource": "privacy.registry",
+      "action": "view",
+      "riskLevel": "MEDIUM",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": false,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Ver registros de privacidade, maturidade, métricas e auditoria (encarregado/admin). (tópico 59)"
+    },
+    {
+      "key": "privacy.request.manage",
+      "resource": "privacy.request",
+      "action": "manage",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Registrar e conduzir solicitações do titular, verificação de identidade e bloqueio de tratamento. (tópico 59)"
+    },
+    {
+      "key": "privacy.consent.manage",
+      "resource": "privacy.consent",
+      "action": "manage",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Registrar/revogar consentimento e supressões de contato. (tópico 59)"
+    },
+    {
+      "key": "privacy.legal_hold.manage",
+      "resource": "privacy.legal_hold",
+      "action": "manage",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Criar e liberar legal hold. (tópico 59)"
+    },
+    {
+      "key": "privacy.retention.execute",
+      "resource": "privacy.retention",
+      "action": "execute",
+      "riskLevel": "CRITICAL",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Executar jobs de retenção e exclusão (dry-run e aprovação obrigatórios). (tópico 59)"
+    },
+    {
+      "key": "customer.export_bulk",
+      "resource": "customer",
+      "action": "export_bulk",
+      "riskLevel": "HIGH",
+      "scopeTypes": [
+        "ORGANIZATION"
+      ],
+      "anonymousAllowed": false,
+      "onlineRequired": true,
+      "reasonRequired": true,
+      "systemOnly": false,
+      "auditRequired": true,
+      "stepUpFuture": false,
+      "description": "Exportar dados de clientes em lote (sempre auditado; nenhum papel recebe por padrão). (tópico 59)"
+    }
+  ]
+}

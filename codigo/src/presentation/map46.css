@@ -1,0 +1,3 @@
+/* topic 46: a render that recolours many lots at once (layer switch, filter) skips the per-lot fill transition,
+   so the browser does not run hundreds of simultaneous transitions; small changes (selection) keep it. */
+svg#map.bulk .lot{transition:none}

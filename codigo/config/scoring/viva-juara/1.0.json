@@ -1,0 +1,1160 @@
+{
+ "kind": "scoring-methodology",
+ "schemaVersion": "1.0",
+ "methodologyId": "viva-juara-analysis",
+ "methodologyVersion": "1.0.0",
+ "developmentId": "viva-juara",
+ "status": "PUBLISHED",
+ "createdAt": "2026-10-06T00:00:00.000Z",
+ "publishedAt": "2026-10-06T00:00:00.000Z",
+ "changeReason": "Extração 1:1 da análise de 2026-10-06 (analysis.py). Nenhuma fórmula, peso ou limite foi alterado.",
+ "rounding": {
+  "score": "HALF_EVEN",
+  "note": "NONE",
+  "displayNoteDecimals": 1
+ },
+ "metrics": {
+  "rearSequence": {
+   "ignore": [
+    "outro"
+   ],
+   "perimeterTokens": [
+    "fora",
+    "perimetro"
+   ],
+   "greenVegetationShareMin": 0.2
+  },
+  "shape": {
+   "trapezoidWidthDiffMin": 0.15,
+   "trapezoidRectMin": 0.75,
+   "irregularRectMax": 0.85,
+   "squareDepthRatio": [
+    0.85,
+    1.18
+   ]
+  },
+  "traffic": {
+   "field": "mobility.vehiclesPassingEstimate",
+   "levels": [
+    {
+     "level": "VERY_HIGH",
+     "gte": 150
+    },
+    {
+     "level": "HIGH",
+     "gte": 70
+    },
+    {
+     "level": "MEDIUM",
+     "gte": 25
+    },
+    {
+     "level": "LOW",
+     "gte": 6
+    },
+    {
+     "level": "VERY_LOW",
+     "gte": null
+    }
+   ]
+  },
+  "streetHierarchy": [
+   {
+    "value": "LOCAL_QUIET",
+    "lt": 6
+   },
+   {
+    "value": "LOCAL",
+    "lt": 25
+   },
+   {
+    "value": "SECONDARY",
+    "lt": 70
+   },
+   {
+    "value": "MAIN",
+    "lt": null
+   }
+  ],
+  "gateProximity": {
+   "field": "mobility.routeDistanceToGateM",
+   "levels": [
+    {
+     "value": "VERY_CLOSE",
+     "lt": 200
+    },
+    {
+     "value": "CLOSE",
+     "lt": 400
+    },
+    {
+     "value": "INTERMEDIATE",
+     "lt": 650
+    },
+    {
+     "value": "FAR",
+     "lt": null
+    }
+   ]
+  },
+  "solar": {
+   "sideWindowDeg": 60,
+   "northSunWindowDeg": 67.5,
+   "eastWindowDeg": 67.5,
+   "strongAfternoonBearing": 285,
+   "strongAfternoonWindowDeg": 35
+  }
+ },
+ "criteria": [
+  {
+   "id": "lowTraffic",
+   "fieldKey": "intelligence.notes.lowTraffic",
+   "label": "Baixo fluxo",
+   "version": "1.0",
+   "requires": [
+    "mobility.estimatedTraffic"
+   ],
+   "steps": [
+    {
+     "op": "ENUM_MAPPING",
+     "input": "mobility.estimatedTraffic",
+     "map": {
+      "VERY_LOW": 10,
+      "LOW": 8,
+      "MEDIUM": 6,
+      "HIGH": 4,
+      "VERY_HIGH": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "quiet",
+   "fieldKey": "environmental.quietScore",
+   "label": "Silêncio",
+   "version": "1.0",
+   "direction": "HIGHER_IS_BETTER",
+   "requires": [
+    "location.distanceToExternalRoadM",
+    "location.distanceToGateLinearM",
+    "location.distanceToClubLinearM",
+    "location.distanceToPlaygroundM",
+    "location.distanceToSquareM",
+    "location.distanceToParkingM",
+    "location.distanceToTechnicalAreaM",
+    "mobility.estimatedTraffic"
+   ],
+   "steps": [
+    {
+     "op": "FIXED_SCALE",
+     "value": 10
+    },
+    {
+     "op": "THRESHOLD",
+     "input": "location.distanceToExternalRoadM",
+     "bands": [
+      {
+       "lt": 50,
+       "delta": -4
+      },
+      {
+       "lt": 100,
+       "delta": -3
+      },
+      {
+       "lt": 150,
+       "delta": -2
+      },
+      {
+       "lt": 250,
+       "delta": -1
+      }
+     ],
+     "reason": "NOISE_SOURCE_AVENUE"
+    },
+    {
+     "op": "THRESHOLD",
+     "input": "location.distanceToGateLinearM",
+     "bands": [
+      {
+       "lt": 60,
+       "delta": -2
+      },
+      {
+       "lt": 120,
+       "delta": -1
+      }
+     ],
+     "reason": "NOISE_SOURCE_GATE"
+    },
+    {
+     "op": "THRESHOLD",
+     "input": "location.distanceToClubLinearM",
+     "bands": [
+      {
+       "lt": 50,
+       "delta": -2
+      },
+      {
+       "lt": 100,
+       "delta": -1
+      }
+     ],
+     "reason": "NOISE_SOURCE_CLUB"
+    },
+    {
+     "op": "THRESHOLD",
+     "input": "location.distanceToPlaygroundM",
+     "bands": [
+      {
+       "lt": 25,
+       "delta": -1.5
+      },
+      {
+       "lt": 50,
+       "delta": -0.7
+      }
+     ],
+     "reason": "NOISE_SOURCE_PLAYGROUND"
+    },
+    {
+     "op": "THRESHOLD",
+     "input": "location.distanceToSquareM",
+     "bands": [
+      {
+       "lt": 25,
+       "delta": -1
+      },
+      {
+       "lt": 50,
+       "delta": -0.5
+      }
+     ],
+     "reason": "NOISE_SOURCE_SQUARE"
+    },
+    {
+     "op": "THRESHOLD",
+     "input": "location.distanceToParkingM",
+     "bands": [
+      {
+       "lt": 60,
+       "delta": -0.7
+      }
+     ],
+     "reason": "NOISE_SOURCE_PARKING"
+    },
+    {
+     "op": "THRESHOLD",
+     "input": "location.distanceToTechnicalAreaM",
+     "bands": [
+      {
+       "lt": 30,
+       "delta": -1
+      }
+     ],
+     "reason": "NOISE_SOURCE_TECHNICAL_AREA"
+    },
+    {
+     "op": "ENUM_DELTA",
+     "input": "mobility.estimatedTraffic",
+     "map": {
+      "VERY_HIGH": -2.5,
+      "HIGH": -1.5,
+      "MEDIUM": -0.7
+     },
+     "reason": "NOISE_SOURCE_STREET_FLOW"
+    },
+    {
+     "op": "CAP",
+     "min": 0,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "id": "privacy",
+   "fieldKey": "environmental.privacyScore",
+   "label": "Privacidade",
+   "version": "1.0",
+   "requires": [
+    "surroundings.rearClass",
+    "geometry.isCorner",
+    "geometry.hasTwoFronts",
+    "mobility.estimatedTraffic",
+    "location.distanceToSquareM",
+    "location.distanceToPlaygroundM",
+    "location.distanceToGateLinearM"
+   ],
+   "steps": [
+    {
+     "op": "FIXED_SCALE",
+     "value": 6
+    },
+    {
+     "op": "ENUM_DELTA",
+     "input": "surroundings.rearClass",
+     "map": {
+      "GREEN_EXTERNAL": 3,
+      "CONDO_GREEN": 3,
+      "PERIMETER": 2,
+      "COMMON_AREA": 1
+     },
+     "reason": "REAR_NEIGHBOR"
+    },
+    {
+     "op": "BOOLEAN_DELTA",
+     "input": "geometry.isCorner",
+     "whenTrue": -2,
+     "reason": "CORNER"
+    },
+    {
+     "op": "BOOLEAN_DELTA",
+     "input": "geometry.hasTwoFronts",
+     "whenTrue": -1.5,
+     "reason": "TWO_FRONTS"
+    },
+    {
+     "op": "ENUM_DELTA",
+     "input": "mobility.estimatedTraffic",
+     "map": {
+      "VERY_HIGH": -2,
+      "HIGH": -1.5,
+      "MEDIUM": -0.7
+     },
+     "reason": "STREET_FLOW"
+    },
+    {
+     "op": "THRESHOLD",
+     "inputMinOf": [
+      "location.distanceToSquareM",
+      "location.distanceToPlaygroundM"
+     ],
+     "bands": [
+      {
+       "lt": 30,
+       "delta": -1
+      }
+     ],
+     "reason": "NEAR_SQUARE_OR_PLAYGROUND"
+    },
+    {
+     "op": "THRESHOLD",
+     "input": "location.distanceToGateLinearM",
+     "bands": [
+      {
+       "lt": 80,
+       "delta": -1
+      }
+     ],
+     "reason": "NEAR_GATE"
+    },
+    {
+     "op": "LOT_ADJUSTMENT",
+     "reason": "MANUAL_ADJUSTMENT"
+    },
+    {
+     "op": "CAP",
+     "min": 0,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "id": "solar",
+   "fieldKey": "environmental.solarScore",
+   "label": "Sol",
+   "version": "1.0",
+   "requires": [
+    "environmental.frontBearingDeg"
+   ],
+   "steps": [
+    {
+     "op": "COSINE_ORIENTATION",
+     "input": "environmental.rearBearingDeg",
+     "targetDeg": 20,
+     "base": 3,
+     "amplitude": 7
+    }
+   ]
+  },
+  {
+   "id": "view",
+   "fieldKey": "environmental.viewScore",
+   "label": "Vista",
+   "version": "1.0",
+   "requires": [
+    "surroundings.viewDetail",
+    "location.distanceToSquareM",
+    "location.distanceToClubLinearM"
+   ],
+   "steps": [
+    {
+     "op": "ENUM_MAPPING",
+     "input": "surroundings.viewBase",
+     "map": {
+      "CONDO_PARK": 8.5,
+      "FOREST_EXTERNAL": 8,
+      "OPEN_EXTERNAL": 6,
+      "STREET_BOTH_SIDES": 4.5,
+      "INTERNAL": 4.5
+     }
+    },
+    {
+     "op": "THRESHOLD_IF_BELOW",
+     "inputMinOf": [
+      "location.distanceToSquareM",
+      "location.distanceToClubLinearM"
+     ],
+     "lt": 40,
+     "currentBelow": 6,
+     "delta": 0.5,
+     "reason": "FRONT_NEAR_SQUARE_OR_CLUB"
+    }
+   ]
+  },
+  {
+   "id": "geometry",
+   "fieldKey": "geometry.usableGeometryScore",
+   "label": "Geometria",
+   "version": "1.0",
+   "requires": [
+    "geometry.shapeClass",
+    "geometry.frontWidthM",
+    "geometry.depthM"
+   ],
+   "steps": [
+    {
+     "op": "ENUM_MAPPING",
+     "input": "geometry.shapeClass",
+     "map": {
+      "RECTANGULAR": 8.5,
+      "SQUARE": 8.5,
+      "TRAPEZOIDAL": 7,
+      "IRREGULAR": 5.5,
+      "CORNER": 7.5
+     }
+    },
+    {
+     "op": "PIECEWISE",
+     "input": "geometry.frontWidthM",
+     "pieces": [
+      {
+       "lt": 10,
+       "delta": -1.5
+      },
+      {
+       "gte": 12,
+       "delta": 0.5
+      }
+     ],
+     "reason": "FRONT_WIDTH"
+    },
+    {
+     "op": "THRESHOLD_ABOVE",
+     "input": "geometry.depthToFrontRatio",
+     "gt": 3.2,
+     "delta": -1,
+     "reason": "DEEP_NARROW"
+    },
+    {
+     "op": "CAP",
+     "min": 0,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "id": "gate",
+   "fieldKey": "intelligence.notes.gate",
+   "label": "Portaria",
+   "version": "1.0",
+   "requires": [
+    "mobility.routeDistanceToGateM"
+   ],
+   "steps": [
+    {
+     "op": "LINEAR",
+     "input": "mobility.routeDistanceToGateM",
+     "from": 10,
+     "drop": 7,
+     "start": 150,
+     "span": 850
+    },
+    {
+     "op": "CAP",
+     "min": 3,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "id": "leisure",
+   "fieldKey": "intelligence.notes.leisure",
+   "label": "Lazer",
+   "version": "1.0",
+   "requires": [
+    "mobility.routeDistanceToLeisureM",
+    "location.distanceToPlaygroundM"
+   ],
+   "steps": [
+    {
+     "op": "LINEAR",
+     "input": "mobility.routeDistanceToLeisureM",
+     "from": 10,
+     "drop": 7,
+     "start": 150,
+     "span": 850
+    },
+    {
+     "op": "CAP",
+     "min": 3,
+     "max": 10
+    },
+    {
+     "op": "THRESHOLD",
+     "input": "location.distanceToPlaygroundM",
+     "bands": [
+      {
+       "lt": 120,
+       "delta": 1
+      }
+     ],
+     "reason": "NEAR_PLAYGROUND"
+    },
+    {
+     "op": "CAP",
+     "min": 0,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "id": "liquidity",
+   "fieldKey": "intelligence.notes.liquidity",
+   "label": "Liquidez",
+   "version": "1.0",
+   "requires": [
+    "geometry.areaM2",
+    "solar",
+    "privacy",
+    "quiet",
+    "geometry"
+   ],
+   "steps": [
+    {
+     "op": "PIECEWISE_VALUE",
+     "input": "geometry.areaM2",
+     "missing": 6.5,
+     "pieces": [
+      {
+       "lte": 300,
+       "value": 8
+      },
+      {
+       "lte": 400,
+       "value": 7
+      },
+      {
+       "lte": 500,
+       "value": 6
+      },
+      {
+       "lte": null,
+       "value": 5
+      }
+     ]
+    },
+    {
+     "op": "WEIGHTED_DEVIATIONS",
+     "terms": [
+      {
+       "input": "solar",
+       "center": 6.5,
+       "weight": 0.25
+      },
+      {
+       "input": "privacy",
+       "center": 6,
+       "weight": 0.2
+      },
+      {
+       "input": "quiet",
+       "center": 7,
+       "weight": 0.2
+      },
+      {
+       "input": "geometry",
+       "center": 7.5,
+       "weight": 0.2
+      }
+     ]
+    },
+    {
+     "op": "CAP",
+     "min": 0,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "id": "relativeValue",
+   "fieldKey": "intelligence.notes.relativeValue",
+   "label": "Valor relativo",
+   "version": "1.0",
+   "requires": [
+    "view",
+    "privacy",
+    "quiet",
+    "solar",
+    "geometry.areaM2"
+   ],
+   "steps": [
+    {
+     "op": "MEAN",
+     "inputs": [
+      "view",
+      "privacy",
+      "quiet",
+      "solar"
+     ]
+    },
+    {
+     "op": "THRESHOLD_ABOVE",
+     "input": "geometry.areaM2",
+     "gte": 400,
+     "delta": 0.5,
+     "addZeroOtherwise": true,
+     "reason": "LARGE_AREA"
+    },
+    {
+     "op": "CAP",
+     "min": 0,
+     "max": 10
+    }
+   ]
+  },
+  {
+   "id": "priceQuality",
+   "fieldKey": "intelligence.notes.priceQuality",
+   "label": "Custo-benefício",
+   "version": "1.0",
+   "requires": [
+    "quiet",
+    "privacy",
+    "solar",
+    "lowTraffic",
+    "view",
+    "geometry"
+   ],
+   "note": "O preço por m² é igual para todos os lotes: a nota mede atributos entregues pelo mesmo R$/m².",
+   "steps": [
+    {
+     "op": "WEIGHTED_SUM",
+     "terms": [
+      {
+       "input": "quiet",
+       "weight": 0.25
+      },
+      {
+       "input": "privacy",
+       "weight": 0.2
+      },
+      {
+       "input": "solar",
+       "weight": 0.2
+      },
+      {
+       "input": "lowTraffic",
+       "weight": 0.15
+      },
+      {
+       "input": "view",
+       "weight": 0.1
+      },
+      {
+       "input": "geometry",
+       "weight": 0.1
+      }
+     ]
+    },
+    {
+     "op": "CAP",
+     "min": 0,
+     "max": 10
+    }
+   ]
+  }
+ ],
+ "levels": {
+  "environmental.noiseLevel": {
+   "from": "quiet",
+   "levels": [
+    {
+     "value": "VERY_LOW",
+     "gte": 8.5
+    },
+    {
+     "value": "LOW",
+     "gte": 7
+    },
+    {
+     "value": "MEDIUM",
+     "gte": 5
+    },
+    {
+     "value": "HIGH",
+     "gte": 3
+    },
+    {
+     "value": "VERY_HIGH",
+     "gte": null
+    }
+   ]
+  },
+  "environmental.privacyLevel": {
+   "from": "privacy",
+   "levels": [
+    {
+     "value": "VERY_HIGH",
+     "gte": 9
+    },
+    {
+     "value": "HIGH",
+     "gte": 7
+    },
+    {
+     "value": "MEDIUM",
+     "gte": 5
+    },
+    {
+     "value": "LOW",
+     "gte": 3
+    },
+    {
+     "value": "VERY_LOW",
+     "gte": null
+    }
+   ]
+  },
+  "intelligence.liquidity": {
+   "from": "liquidity",
+   "levels": [
+    {
+     "value": "VERY_HIGH",
+     "gte": 8.5
+    },
+    {
+     "value": "HIGH",
+     "gte": 7
+    },
+    {
+     "value": "MEDIUM",
+     "gte": 5.5
+    },
+    {
+     "value": "LOW",
+     "gte": 4
+    },
+    {
+     "value": "VERY_LOW",
+     "gte": null
+    }
+   ]
+  },
+  "geometry.usableGeometryClass": {
+   "from": "geometry",
+   "levels": [
+    {
+     "value": "GOOD",
+     "gte": 8
+    },
+    {
+     "value": "MEDIUM",
+     "gte": 6
+    },
+    {
+     "value": "LOW",
+     "gte": null
+    }
+   ]
+  }
+ },
+ "lotAdjustments": [
+  {
+   "lotCode": "N8",
+   "criterion": "privacy",
+   "delta": -1,
+   "reason": "Ajuste manual da análise de 2026-10-06 (lote junto à servidão projetada). O motivo de B67 e B68 não terem o mesmo ajuste não foi registrado: necessita confirmação."
+  },
+  {
+   "lotCode": "N11",
+   "criterion": "privacy",
+   "delta": -1,
+   "reason": "Idem N8."
+  },
+  {
+   "lotCode": "N12",
+   "criterion": "privacy",
+   "delta": -1,
+   "reason": "Idem N8."
+  }
+ ],
+ "scores": [
+  {
+   "id": "housing",
+   "fieldKey": "intelligence.scores.housing",
+   "label": "Moradia",
+   "aggregation": "WEIGHTED_SUM",
+   "scale": 10,
+   "rounding": "HALF_EVEN",
+   "missingPolicy": "BLOCK_SCORE",
+   "minCoverage": 1,
+   "criteria": [
+    {
+     "criterion": "quiet",
+     "weight": 0.25
+    },
+    {
+     "criterion": "privacy",
+     "weight": 0.2
+    },
+    {
+     "criterion": "solar",
+     "weight": 0.2
+    },
+    {
+     "criterion": "lowTraffic",
+     "weight": 0.15
+    },
+    {
+     "criterion": "view",
+     "weight": 0.1
+    },
+    {
+     "criterion": "geometry",
+     "weight": 0.1
+    }
+   ]
+  },
+  {
+   "id": "investment",
+   "fieldKey": "intelligence.scores.investment",
+   "label": "Investimento",
+   "aggregation": "WEIGHTED_SUM",
+   "scale": 10,
+   "rounding": "HALF_EVEN",
+   "missingPolicy": "BLOCK_SCORE",
+   "minCoverage": 1,
+   "criteria": [
+    {
+     "criterion": "liquidity",
+     "weight": 0.35
+    },
+    {
+     "criterion": "relativeValue",
+     "weight": 0.25
+    },
+    {
+     "criterion": "priceQuality",
+     "weight": 0.25
+    },
+    {
+     "criterion": "geometry",
+     "weight": 0.15
+    }
+   ]
+  },
+  {
+   "id": "family",
+   "fieldKey": "intelligence.scores.family",
+   "label": "Família",
+   "aggregation": "WEIGHTED_SUM",
+   "scale": 10,
+   "rounding": "HALF_EVEN",
+   "missingPolicy": "BLOCK_SCORE",
+   "minCoverage": 1,
+   "criteria": [
+    {
+     "criterion": "leisure",
+     "weight": 0.3
+    },
+    {
+     "criterion": "lowTraffic",
+     "weight": 0.25
+    },
+    {
+     "criterion": "gate",
+     "weight": 0.15
+    },
+    {
+     "criterion": "solar",
+     "weight": 0.15
+    },
+    {
+     "criterion": "quiet",
+     "weight": 0.15
+    }
+   ]
+  },
+  {
+   "id": "premium",
+   "fieldKey": "intelligence.scores.premium",
+   "label": "Premium",
+   "aggregation": "WEIGHTED_SUM",
+   "scale": 10,
+   "rounding": "HALF_EVEN",
+   "missingPolicy": "BLOCK_SCORE",
+   "minCoverage": 1,
+   "criteria": [
+    {
+     "criterion": "privacy",
+     "weight": 0.3
+    },
+    {
+     "criterion": "view",
+     "weight": 0.25
+    },
+    {
+     "criterion": "quiet",
+     "weight": 0.25
+    },
+    {
+     "criterion": "solar",
+     "weight": 0.1
+    },
+    {
+     "criterion": "geometry",
+     "weight": 0.1
+    }
+   ]
+  }
+ ],
+ "overall": {
+  "id": "overall",
+  "fieldKey": "intelligence.scores.overall",
+  "label": "Geral",
+  "aggregation": "WEIGHTED_SUM",
+  "rounding": "HALF_EVEN",
+  "components": [
+   {
+    "score": "housing",
+    "weight": 0.35
+   },
+   {
+    "score": "premium",
+    "weight": 0.25
+   },
+   {
+    "score": "investment",
+    "weight": 0.25
+   },
+   {
+    "score": "family",
+    "weight": 0.15
+   }
+  ]
+ },
+ "classification": {
+  "method": "PERCENTILE_BANDS",
+  "basis": "overallUnrounded",
+  "order": "DESC",
+  "tieBreaker": "LOT_ORDER",
+  "bands": [
+   {
+    "class": "A_PLUS",
+    "below": 0.05
+   },
+   {
+    "class": "A",
+    "below": 0.25
+   },
+   {
+    "class": "B",
+    "below": 0.65
+   },
+   {
+    "class": "C",
+    "below": 0.9
+   },
+   {
+    "class": "D",
+    "below": null
+   }
+  ]
+ },
+ "ranking": {
+  "method": "COMPETITION",
+  "order": "DESC",
+  "basis": "roundedScore",
+  "ties": "SAME_POSITION",
+  "scores": {
+   "HOUSING": "housing",
+   "INVESTMENT": "investment",
+   "FAMILY": "family",
+   "PREMIUM": "premium",
+   "OVERALL": "overall"
+  }
+ },
+ "confidence": {
+  "rule": "MEASUREMENT_CONFIDENCE",
+  "map": {
+   "HIGH": "MEDIUM",
+   "MEDIUM": "MEDIUM",
+   "LOW": "LOW"
+  },
+  "note": "A análise usa MÉDIA sempre que a medição não é baixa; nenhum lote tem medição baixa hoje."
+ },
+ "profiles": {
+  "secondWithin": 0.3,
+  "items": [
+   {
+    "id": "QUIET_LIVING",
+    "terms": [
+     {
+      "input": "quiet",
+      "weight": 0.45
+     },
+     {
+      "input": "privacy",
+      "weight": 0.35
+     },
+     {
+      "input": "lowTraffic",
+      "weight": 0.2
+     }
+    ]
+   },
+   {
+    "id": "FAMILY",
+    "fromScore": "family",
+    "divide": 10
+   },
+   {
+    "id": "HIGH_END",
+    "fromScore": "premium",
+    "divide": 10
+   },
+   {
+    "id": "INVESTOR",
+    "fromScore": "investment",
+    "divide": 10
+   },
+   {
+    "id": "ELDERLY_MOBILITY",
+    "terms": [
+     {
+      "input": "gate",
+      "weight": 0.6
+     },
+     {
+      "input": "lowTraffic",
+      "weight": 0.2
+     },
+     {
+      "input": "geometry",
+      "weight": 0.2
+     }
+    ],
+    "offset": -0.5
+   },
+   {
+    "id": "NATURE",
+    "terms": [
+     {
+      "input": "view",
+      "weight": 0.6
+     },
+     {
+      "inputBoolean": "surroundings.hasGreenRear",
+      "ifTrue": 10,
+      "ifFalse": 3,
+      "weight": 0.4
+     }
+    ]
+   }
+  ]
+ },
+ "alerts": [
+  {
+   "type": "NOISE",
+   "when": {
+    "criterion": "quiet",
+    "lt": 5
+   }
+  },
+  {
+   "type": "PRIVACY",
+   "when": {
+    "criterion": "privacy",
+    "lt": 4
+   }
+  },
+  {
+   "type": "AFTERNOON_SUN",
+   "when": {
+    "field": "environmental.strongAfternoonSun",
+    "eq": true
+   }
+  },
+  {
+   "type": "TECHNICAL_AREA",
+   "when": {
+    "field": "location.distanceToTechnicalAreaM",
+    "lt": 40
+   }
+  },
+  {
+   "type": "EASEMENT",
+   "when": {
+    "field": "construction.adjacentToProjectedEasement",
+    "eq": true
+   }
+  },
+  {
+   "type": "AVENUE",
+   "when": {
+    "field": "location.distanceToExternalRoadM",
+    "lte": 100
+   }
+  },
+  {
+   "type": "TRAFFIC",
+   "when": {
+    "field": "mobility.estimatedTraffic",
+    "in": [
+     "HIGH",
+     "VERY_HIGH"
+    ]
+   }
+  },
+  {
+   "type": "GEOMETRY",
+   "when": {
+    "any": [
+     {
+      "criterion": "geometry",
+      "lt": 6
+     },
+     {
+      "field": "geometry.frontWidthM",
+      "lt": 9
+     }
+    ]
+   }
+  },
+  {
+   "type": "BUILDING_RESTRICTION",
+   "when": {
+    "field": "surroundings.rearClass",
+    "eq": "GREEN_EXTERNAL"
+   }
+  },
+  {
+   "type": "MISSING_AREA",
+   "when": {
+    "field": "geometry.areaM2",
+    "isNull": true
+   }
+  }
+ ]
+}

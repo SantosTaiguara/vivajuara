@@ -1,0 +1,116 @@
+{
+ "kind": "recommendation-policy",
+ "id": "viva-juara-recommendation",
+ "version": "1.0.0",
+ "developmentId": "viva-juara",
+ "status": "PUBLISHED",
+ "changeReason": "Primeira política: só lote com disponibilidade confirmada é recomendado; status desconhecido vai para revisão; nenhuma restrição é relaxada automaticamente.",
+ "allowedAvailabilityStatuses": [
+  "AVAILABLE"
+ ],
+ "proposalFollowsAvailabilityPolicy": true,
+ "unknownAvailabilityPolicy": "REVIEW_REQUIRED",
+ "staleCommercialPolicy": "REVIEW_REQUIRED",
+ "offlinePolicy": "COMMERCIAL_CONFIRMATION_REQUIRED",
+ "defaultOnUnknown": "REVIEW_REQUIRED",
+ "minFitCoverage": 0.5,
+ "minFitConfidence": 0.5,
+ "minimumFitScore": 50,
+ "strongMatchFitScore": 70,
+ "primaryTierSize": 3,
+ "shortlistSize": 10,
+ "reviewLimit": 25,
+ "rankingStrategy": "FIT_COVERAGE_CONFIDENCE",
+ "tieBreakers": [
+  "fitScore",
+  "coverage",
+  "confidence",
+  "lotId"
+ ],
+ "reviewBucketEnabled": true,
+ "exclusionSummaryEnabled": true,
+ "constraints": {
+  "budgetMax": {
+   "metricKey": "commercial.price",
+   "operator": "LTE",
+   "onUnknown": "REVIEW_REQUIRED",
+   "failCode": "PRICE_ABOVE_MAX",
+   "unknownCode": "UNKNOWN_PRICE",
+   "commercial": true,
+   "label": "Preço até"
+  },
+  "areaMin": {
+   "metricKey": "geometry.areaM2",
+   "operator": "GTE",
+   "onUnknown": "EXCLUDE",
+   "failCode": "AREA_BELOW_MIN",
+   "unknownCode": "UNKNOWN_AREA",
+   "label": "Área mínima"
+  },
+  "areaMax": {
+   "metricKey": "geometry.areaM2",
+   "operator": "LTE",
+   "onUnknown": "EXCLUDE",
+   "failCode": "AREA_ABOVE_MAX",
+   "unknownCode": "UNKNOWN_AREA",
+   "label": "Área máxima"
+  },
+  "noCorner": {
+   "metricKey": "geometry.isCorner",
+   "operator": "IS_FALSE",
+   "onUnknown": "REVIEW_REQUIRED",
+   "failCode": "CORNER_LOT",
+   "unknownCode": "UNKNOWN_CORNER",
+   "label": "Sem esquina"
+  },
+  "greenRear": {
+   "metricKey": "surroundings.hasGreenRear",
+   "operator": "IS_TRUE",
+   "onUnknown": "REVIEW_REQUIRED",
+   "failCode": "REQUIRED_FEATURE_MISSING",
+   "unknownCode": "UNKNOWN_REAR",
+   "label": "Mata ou parque nos fundos"
+  },
+  "blocks": {
+   "metricKey": "identity.blockId",
+   "operator": "IN",
+   "onUnknown": "EXCLUDE",
+   "failCode": "BLOCK_NOT_ACCEPTED",
+   "unknownCode": "UNKNOWN_BLOCK",
+   "label": "Quadras aceitas"
+  },
+  "maxNoise": {
+   "metricKey": "environmental.noiseLevel",
+   "operator": "IN",
+   "onUnknown": "REVIEW_REQUIRED",
+   "failCode": "NOISE_ABOVE_LIMIT",
+   "unknownCode": "UNKNOWN_NOISE",
+   "label": "Ruído no máximo"
+  },
+  "maxGateRoute": {
+   "metricKey": "mobility.routeDistanceToGateM",
+   "operator": "LTE",
+   "onUnknown": "REVIEW_REQUIRED",
+   "failCode": "DISTANCE_ABOVE_MAX",
+   "unknownCode": "UNKNOWN_DISTANCE",
+   "label": "Portaria a no máximo"
+  }
+ },
+ "explanation": {
+  "version": "1.0.0",
+  "maxPositiveFactors": 3,
+  "maxNegativeFactors": 2,
+  "minContribution": 1,
+  "equivalenceEpsilon": 0.5,
+  "clientLevels": [
+   "L0",
+   "L1"
+  ],
+  "brokerLevels": [
+   "L0",
+   "L1",
+   "L2",
+   "L3"
+  ]
+ }
+}

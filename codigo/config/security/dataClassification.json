@@ -1,0 +1,125 @@
+{
+ "kind": "security-data-classification",
+ "version": "1.0.0",
+ "levels": [
+  "PUBLIC",
+  "INTERNAL",
+  "CONFIDENTIAL",
+  "RESTRICTED",
+  "SECRET"
+ ],
+ "documentMapping": {
+  "note": "Classificação documental do tópico 32 → classificação de segurança (mapeamento, não duplicação)",
+  "PUBLIC": "PUBLIC",
+  "INTERNAL": "INTERNAL",
+  "CONFIDENTIAL": "CONFIDENTIAL",
+  "RESTRICTED": "RESTRICTED"
+ },
+ "items": [
+  {
+   "type": "MarketingImage",
+   "classification": "PUBLIC",
+   "storage": "CDN/SW cache"
+  },
+  {
+   "type": "LotGeometry",
+   "classification": "PUBLIC",
+   "storage": "lots.json, IndexedDB"
+  },
+  {
+   "type": "PriceTablePublished",
+   "classification": "PUBLIC",
+   "storage": "commercial.json (preço de tabela)"
+  },
+  {
+   "type": "AvailabilityStatus",
+   "classification": "INTERNAL",
+   "storage": "API / IndexedDB (cópia STALE)"
+  },
+  {
+   "type": "AnalysisInput",
+   "classification": "INTERNAL",
+   "storage": "analysis-input.json"
+  },
+  {
+   "type": "DevelopmentConfig",
+   "classification": "INTERNAL",
+   "storage": "bundle"
+  },
+  {
+   "type": "UiPreferences",
+   "classification": "INTERNAL",
+   "storage": "localStorage"
+  },
+  {
+   "type": "DeviceId",
+   "classification": "INTERNAL",
+   "storage": "localStorage (pseudônimo, não é identidade)"
+  },
+  {
+   "type": "Favorites",
+   "classification": "INTERNAL",
+   "storage": "IndexedDB (ids de lote)"
+  },
+  {
+   "type": "CustomerSummary",
+   "classification": "CONFIDENTIAL",
+   "storage": "memória (+ nome em localStorage: exceção D50-1)"
+  },
+  {
+   "type": "CustomerProfile",
+   "classification": "CONFIDENTIAL",
+   "storage": "memória"
+  },
+  {
+   "type": "CustomerContact",
+   "classification": "RESTRICTED",
+   "storage": "servidor (futuro); nunca no cliente sem customer.sensitive.read"
+  },
+  {
+   "type": "CustomerDocument",
+   "classification": "RESTRICTED",
+   "storage": "servidor + signed URL"
+  },
+  {
+   "type": "JourneyNote",
+   "classification": "RESTRICTED",
+   "storage": "memória"
+  },
+  {
+   "type": "ShareGrant",
+   "classification": "CONFIDENTIAL",
+   "storage": "servidor (hash)"
+  },
+  {
+   "type": "AuditEvent",
+   "classification": "RESTRICTED",
+   "storage": "servidor append-only"
+  },
+  {
+   "type": "SecurityEvent",
+   "classification": "RESTRICTED",
+   "storage": "servidor; buffer local de diagnóstico"
+  },
+  {
+   "type": "AnalyticsEvent",
+   "classification": "INTERNAL",
+   "storage": "memória/outbox local"
+  },
+  {
+   "type": "ApiSecret",
+   "classification": "SECRET",
+   "storage": "secret manager (env do servidor)"
+  },
+  {
+   "type": "ShareTokenPepper",
+   "classification": "SECRET",
+   "storage": "secret manager"
+  },
+  {
+   "type": "DatabaseCredential",
+   "classification": "SECRET",
+   "storage": "secret manager"
+  }
+ ]
+}

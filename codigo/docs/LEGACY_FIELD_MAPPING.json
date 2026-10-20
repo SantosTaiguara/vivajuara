@@ -1,0 +1,3388 @@
+{
+ "kind": "legacy-field-mapping",
+ "generatedAt": "2026-10-07",
+ "generatedFrom": [
+  "plat/src/data/legacyAdapter.js",
+  "plat/src/domain/model.js",
+  "plat/src/domain/availability.js",
+  "dash/lots.json"
+ ],
+ "developmentId": "viva-juara",
+ "schemaVersion": "1.0",
+ "legacyRecords": 498,
+ "totals": {
+  "legacyTopLevelFields": 63,
+  "legacyNoteSubfields": 14,
+  "mapped": 72,
+  "notMapped": 4,
+  "containers": [
+   "nt"
+  ]
+ },
+ "normalization": {
+  "warnings": 0,
+  "unmappedReportedByNormalizer": [],
+  "measurementVariants": 35,
+  "lotsValid": 498,
+  "lotsRejected": 0
+ },
+ "constantsNotFromLegacy": [
+  {
+   "fieldKey": "identity.developmentId",
+   "value": "viva-juara",
+   "origin": "contexto do empreendimento (config/developments.js)"
+  },
+  {
+   "fieldKey": "surroundings.frontNeighborType",
+   "value": "STREET",
+   "origin": "constante no normalizador: a frente é definida pela rua de acesso"
+  },
+  {
+   "fieldKey": "environmental.northReference",
+   "value": "OFFICIAL_PLAN_NORTH_UP",
+   "origin": "constante: norte da planta oficial"
+  },
+  {
+   "fieldKey": "construction.regulationStatus",
+   "value": "UNAVAILABLE",
+   "origin": "constante: regulamento construtivo não recebido"
+  },
+  {
+   "fieldKey": "intelligence.analysisVersion",
+   "value": "2026-10-06",
+   "origin": "DevelopmentConfig.analysisVersion"
+  },
+  {
+   "fieldKey": "intelligence.rankings",
+   "value": "(calculado)",
+   "origin": "App.rules.rankings sobre o conjunto de lotes (deriveDatasetIntelligence)"
+  },
+  {
+   "fieldKey": "intelligence.highlights",
+   "value": "(calculado)",
+   "origin": "App.rules.highlights a partir de campos canônicos"
+  },
+  {
+   "fieldKey": "commercial.*",
+   "value": "(calculado)",
+   "origin": "CommercialRepository.commercialFor(área, tabela vigente); não vem do lots.json"
+  },
+  {
+   "fieldKey": "metadata.schemaVersion",
+   "value": "1.0",
+   "origin": "App.domain.SCHEMA_VERSION"
+  }
+ ],
+ "mapping": [
+  {
+   "legacyField": "id",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "identity.code",
+   "canonicalTargets": [
+    {
+     "fieldKey": "identity.code",
+     "domain": "IDENTITY",
+     "type": "string",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CONFIRMED",
+      "sourceId": "official-plan-v1",
+      "method": "official",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "String(id).toUpperCase(). Código curto usado em links, busca e chaves de rotas.",
+   "mapped": true
+  },
+  {
+   "legacyField": "q",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "identity.blockId",
+   "canonicalTargets": [
+    {
+     "fieldKey": "identity.blockId",
+     "domain": "IDENTITY",
+     "type": "string",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CONFIRMED",
+      "sourceId": "official-plan-v1",
+      "method": "official",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "identity.displayCode",
+     "domain": "IDENTITY",
+     "type": "string",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": null,
+      "method": "derived",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "String(q).toUpperCase(). displayCode = `Q${quadra} L${número}`.",
+   "observedValues": {
+    "B": 88,
+    "D": 36,
+    "E": 34,
+    "M": 32,
+    "H": 28,
+    "J": 28,
+    "I": 27,
+    "C": 26,
+    "N": 26,
+    "Q": 25,
+    "G": 24,
+    "P": 24,
+    "F": 22,
+    "L": 21,
+    "K": 19,
+    "R": 16,
+    "A": 11,
+    "O": 11
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "n",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "identity.lotNumber",
+   "canonicalTargets": [
+    {
+     "fieldKey": "identity.lotNumber",
+     "domain": "IDENTITY",
+     "type": "number",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CONFIRMED",
+      "sourceId": "official-plan-v1",
+      "method": "official",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "identity.displayCode",
+     "domain": "IDENTITY",
+     "type": "string",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": null,
+      "method": "derived",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER). A LotFactory exige inteiro > 0.",
+   "mapped": true
+  },
+  {
+   "legacyField": "a",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "geometry.areaM2",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.areaM2",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": "m²",
+     "defaultProvenance": {
+      "status": "CONFIRMED",
+      "sourceId": "official-plan-v1",
+      "method": "official",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER). Área ≤ 0 vira null com aviso INVALID_AREA. Também é a base do preço calculado (commercial.price = área × preço por m², em CommercialRepository).",
+   "mapped": true
+  },
+  {
+   "legacyField": "lat",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "location.latitude",
+   "canonicalTargets": [
+    {
+     "fieldKey": "location.latitude",
+     "domain": "LOCATION",
+     "type": "number",
+     "unit": "graus",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "lon",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "location.longitude",
+   "canonicalTargets": [
+    {
+     "fieldKey": "location.longitude",
+     "domain": "LOCATION",
+     "type": "number",
+     "unit": "graus",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "p",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "array": 498
+   },
+   "declaredTarget": "geometry.polygon",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.polygon",
+     "domain": "GEOMETRY",
+     "type": "geometry",
+     "unit": "unidade do mapa",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "official-plan-v1",
+      "method": "vectorized",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "geometry.centroid",
+     "domain": "GEOMETRY",
+     "type": "geometry",
+     "unit": "unidade do mapa",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "official-plan-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "geometry.bounds",
+     "domain": "GEOMETRY",
+     "type": "geometry",
+     "unit": "unidade do mapa",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "official-plan-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Mantidos só os vértices [x, y] numéricos. Com 3 ou mais vértices, polygonStats() calcula o centroide de área (2 casas decimais) e o retângulo envolvente.",
+   "mapped": true
+  },
+  {
+   "legacyField": "c",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "array": 498
+   },
+   "declaredTarget": null,
+   "canonicalTargets": [],
+   "transformation": "Não copiado. Era a média dos vértices; substituído por geometry.centroid (centroide de área calculado de p).",
+   "mapped": false
+  },
+  {
+   "legacyField": "wf",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "geometry.frontBoxWidthM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.frontBoxWidthM",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "plan-geometry-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "geometry.frontM",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "plan-geometry-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER). Também é o valor de geometry.frontM quando fr está ausente.",
+   "mapped": true
+  },
+  {
+   "legacyField": "wb",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "geometry.rearM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.rearM",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "plan-geometry-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "dp",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "geometry.averageDepthM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.averageDepthM",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "plan-geometry-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "forma",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "geometry.shape",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.shape",
+     "domain": "GEOMETRY",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "plan-geometry-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     },
+     "perLotProvenance": {
+      "UNKNOWN|null|null|UNKNOWN": 54
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.shape. \"Esquina\" e \"Esquina (frente para duas ruas)\" viram UNKNOWN (o texto antigo falava da posição, não do formato) e recebem proveniência UNKNOWN por lote.",
+   "valueMap": {
+    "Retangular": "RECTANGULAR",
+    "Quadrado": "SQUARE",
+    "Trapezoidal": "TRAPEZOIDAL",
+    "Irregular": "IRREGULAR",
+    "Esquina": "UNKNOWN",
+    "Retangular (frente para duas ruas)": "RECTANGULAR",
+    "Esquina (frente para duas ruas)": "UNKNOWN"
+   },
+   "valueMapName": "App.legacy.MAP.shape",
+   "observedValues": {
+    "Retangular": 373,
+    "Esquina": 53,
+    "Trapezoidal": 49,
+    "Irregular": 14,
+    "Retangular (frente para duas ruas)": 7,
+    "Esquina (frente para duas ruas)": 1,
+    "Quadrado": 1
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "pos",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "location.blockPosition",
+   "canonicalTargets": [
+    {
+     "fieldKey": "location.blockPosition",
+     "domain": "LOCATION",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "geometry.isCorner",
+     "domain": "GEOMETRY",
+     "type": "boolean",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "geometry.cornerType",
+     "domain": "GEOMETRY",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     },
+     "perLotProvenance": {
+      "UNKNOWN|null|null|UNKNOWN": 54
+     }
+    },
+    {
+     "fieldKey": "geometry.frontCount",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.pos. isCorner = (CORNER). cornerType = UNKNOWN para esquinas (tipo não classificado) e NONE para os demais. frontCount = 1 se INTERNAL, 2 se CORNER ou DOUBLE_FRONT.",
+   "valueMap": {
+    "Interno": "INTERNAL",
+    "Esquina": "CORNER",
+    "Frente para duas ruas": "DOUBLE_FRONT"
+   },
+   "valueMapName": "App.legacy.MAP.pos",
+   "observedValues": {
+    "Interno": 437,
+    "Esquina": 54,
+    "Frente para duas ruas": 7
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "efic",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "geometry.usableGeometryClass",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.usableGeometryClass",
+     "domain": "GEOMETRY",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.efic.",
+   "valueMap": {
+    "Boa": "GOOD",
+    "Média": "MEDIUM",
+    "Baixa": "LOW"
+   },
+   "valueMapName": "App.legacy.MAP.efic",
+   "observedValues": {
+    "Boa": 383,
+    "Média": 110,
+    "Baixa": 5
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "mconf",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "geometry.measurementConfidence",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.measurementConfidence",
+     "domain": "GEOMETRY",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "plan-geometry-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.conf.",
+   "valueMap": {
+    "Alta": "HIGH",
+    "Média": "MEDIUM",
+    "Baixa": "LOW"
+   },
+   "valueMapName": "App.legacy.MAP.conf",
+   "observedValues": {
+    "Alta": 498
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "az",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "environmental.frontBearingDeg",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.frontBearingDeg",
+     "domain": "ENVIRONMENTAL",
+     "type": "number",
+     "unit": "graus",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "fs",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "environmental.orientationFront",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.orientationFront",
+     "domain": "ENVIRONMENTAL",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.dir (abreviações em português: L → E, SO → SW, O → W, NO → NW).",
+   "valueMap": {
+    "N": "N",
+    "NE": "NE",
+    "L": "E",
+    "SE": "SE",
+    "S": "S",
+    "SO": "SW",
+    "O": "W",
+    "NO": "NW"
+   },
+   "valueMapName": "App.legacy.MAP.dir",
+   "observedValues": {
+    "NE": 118,
+    "SO": 116,
+    "N": 67,
+    "O": 55,
+    "S": 52,
+    "L": 47,
+    "SE": 24,
+    "NO": 19
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "bs",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "environmental.orientationRear",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.orientationRear",
+     "domain": "ENVIRONMENTAL",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.dir.",
+   "valueMap": {
+    "N": "N",
+    "NE": "NE",
+    "L": "E",
+    "SE": "SE",
+    "S": "S",
+    "SO": "SW",
+    "O": "W",
+    "NO": "NW"
+   },
+   "valueMapName": "App.legacy.MAP.dir",
+   "observedValues": {
+    "SO": 118,
+    "NE": 116,
+    "S": 67,
+    "L": 55,
+    "N": 52,
+    "O": 47,
+    "NO": 24,
+    "SE": 19
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "lat_s",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "environmental.orientationLeft",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.orientationLeft",
+     "domain": "ENVIRONMENTAL",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "environmental.orientationRight",
+     "domain": "ENVIRONMENTAL",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Texto \"X / Y\" separado em \"/\": 1º valor → orientationLeft, 2º → orientationRight, cada um pelo mapa MAP.dir.",
+   "valueMap": {
+    "N": "N",
+    "NE": "NE",
+    "L": "E",
+    "SE": "SE",
+    "S": "S",
+    "SO": "SW",
+    "O": "W",
+    "NO": "NW"
+   },
+   "valueMapName": "App.legacy.MAP.dir",
+   "observedValues": {
+    "SE / NO": 118,
+    "NO / SE": 116,
+    "L / O": 67,
+    "N / S": 55,
+    "O / L": 52,
+    "S / N": 47,
+    "SO / NE": 24,
+    "NE / SO": 19
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "manha",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "environmental.morningSun",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.morningSun",
+     "domain": "ENVIRONMENTAL",
+     "type": "array",
+     "unit": "enum",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "solar-model-v1",
+      "method": "astronomical",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Lista separada por vírgula, cada item pelo mapa MAP.sunSide (frente/fundos/lateral → FRONT/BACK/SIDE).",
+   "valueMap": {
+    "frente": "FRONT",
+    "fundos": "BACK",
+    "lateral": "SIDE"
+   },
+   "valueMapName": "App.legacy.MAP.sunSide",
+   "observedValues": {
+    "lateral": 139,
+    "fundos, lateral": 103,
+    "frente, lateral": 101,
+    "fundos": 79,
+    "frente": 76
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "tarde",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "environmental.afternoonSun",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.afternoonSun",
+     "domain": "ENVIRONMENTAL",
+     "type": "array",
+     "unit": "enum",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "solar-model-v1",
+      "method": "astronomical",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Lista separada por vírgula, mapa MAP.sunSide.",
+   "valueMap": {
+    "frente": "FRONT",
+    "fundos": "BACK",
+    "lateral": "SIDE"
+   },
+   "valueMapName": "App.legacy.MAP.sunSide",
+   "observedValues": {
+    "lateral": 139,
+    "frente, lateral": 103,
+    "fundos, lateral": 101,
+    "frente": 79,
+    "fundos": 76
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "lazer",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "environmental.northSunSide",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.northSunSide",
+     "domain": "ENVIRONMENTAL",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "solar-model-v1",
+      "method": "astronomical",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.northSun (frase completa → BACK/FRONT/SIDE).",
+   "valueMap": {
+    "Fundos (recebem sol do norte: bom para piscina e área de lazer)": "BACK",
+    "Frente/recuo frontal recebe o sol do norte; nos fundos a piscina tende a ter mais sombra": "FRONT",
+    "Lateral voltada para o norte, conforme projeto": "SIDE"
+   },
+   "valueMapName": "App.legacy.MAP.northSun",
+   "observedValues": {
+    "Frente/recuo frontal recebe o sol do norte; nos fundos a piscina tende a ter mais sombra": 204,
+    "Fundos (recebem sol do norte: bom para piscina e área de lazer)": 192,
+    "Lateral voltada para o norte, conforme projeto": 102
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "quartos",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "environmental.eastSide",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.eastSide",
+     "domain": "ENVIRONMENTAL",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "solar-model-v1",
+      "method": "astronomical",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.eastSide (frase completa → BACK/FRONT/SIDE).",
+   "valueMap": {
+    "Lado leste (sol da manhã): fundos": "BACK",
+    "Lado leste (sol da manhã): frente": "FRONT",
+    "Lado leste (sol da manhã): lateral leste": "SIDE"
+   },
+   "valueMapName": "App.legacy.MAP.eastSide",
+   "observedValues": {
+    "Lado leste (sol da manhã): fundos": 190,
+    "Lado leste (sol da manhã): frente": 189,
+    "Lado leste (sol da manhã): lateral leste": 119
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "fundo",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "surroundings.rearNeighborType",
+   "canonicalTargets": [
+    {
+     "fieldKey": "surroundings.rearNeighborType",
+     "domain": "SURROUNDINGS",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     },
+     "perLotProvenance": {
+      "CALCULATED|aerial-v1|visual-interpretation|LOW": 141,
+      "CALCULATED|kmz-v1|geospatial|MEDIUM": 352,
+      "UNKNOWN|null|null|UNKNOWN": 5
+     }
+    },
+    {
+     "fieldKey": "surroundings.hasRearNeighbor",
+     "domain": "SURROUNDINGS",
+     "type": "boolean",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     },
+     "perLotProvenance": {
+      "CALCULATED|aerial-v1|visual-interpretation|LOW": 141,
+      "CALCULATED|kmz-v1|geospatial|MEDIUM": 352,
+      "UNKNOWN|null|null|UNKNOWN": 5
+     }
+    },
+    {
+     "fieldKey": "location.perimeterPosition",
+     "domain": "LOCATION",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "rule",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.rear → [NeighborType, fonte, encosta no perímetro]. hasRearNeighbor = (LOT). perimeterPosition = REAR se a frase indica fora do perímetro; senão SIDE se vzE ou vzD = \"Limite do condomínio\"; senão NONE. Gera proveniência por lote para rearNeighborType, hasGreenRear e hasRearNeighbor (aerial-v1 → visual-interpretation, confiança LOW; kmz-v1 → geospatial, MEDIUM; \"Não foi possível determinar\" → UNKNOWN).",
+   "valueMap": {
+    "Outro lote": [
+     "LOT",
+     "kmz-v1",
+     false
+    ],
+    "Fora do perímetro: área externa aberta (imagem aérea)": [
+     "EXTERNAL_PROPERTY",
+     "aerial-v1",
+     true
+    ],
+    "Fora do perímetro: mata/vegetação densa (imagem aérea)": [
+     "EXTERNAL_GREEN",
+     "aerial-v1",
+     true
+    ],
+    "Parque florestal / área verde do condomínio (KMZ)": [
+     "GREEN_AREA",
+     "kmz-v1",
+     false
+    ],
+    "Rua (lote com frente para duas ruas)": [
+     "STREET",
+     "kmz-v1",
+     false
+    ],
+    "Não foi possível determinar": [
+     "UNKNOWN",
+     null,
+     false
+    ]
+   },
+   "valueMapName": "App.legacy.MAP.rear",
+   "observedValues": {
+    "Outro lote": 314,
+    "Fora do perímetro: área externa aberta (imagem aérea)": 88,
+    "Fora do perímetro: mata/vegetação densa (imagem aérea)": 53,
+    "Parque florestal / área verde do condomínio (KMZ)": 30,
+    "Rua (lote com frente para duas ruas)": 8,
+    "Não foi possível determinar": 5
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "fech",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "surroundings.rearCondition",
+   "canonicalTargets": [
+    {
+     "fieldKey": "surroundings.rearCondition",
+     "domain": "SURROUNDINGS",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "TO_CONFIRM",
+      "sourceId": "launch-event-v1",
+      "method": "declared",
+      "confidence": "LOW",
+      "dynamicType": "STATIC"
+     },
+     "perLotProvenance": {
+      "TO_CONFIRM|launch-event-v1|declared|LOW": 143,
+      "CALCULATED|kmz-v1|geospatial|MEDIUM": 325,
+      "UNKNOWN|null|null|UNKNOWN": 30
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.closure → [RearCondition, DataStatus, fonte]. Divisa com lote = CALCULATED (kmz-v1); muro e gradil = TO_CONFIRM (launch-event-v1, \"necessita confirmação\"); \"Não informado\" = UNKNOWN. Proveniência gravada por lote.",
+   "valueMap": {
+    "Divisa com outro lote (não é perímetro)": [
+     "LOT_BOUNDARY",
+     "CALCULATED",
+     "kmz-v1"
+    ],
+    "Muro (conforme evento de lançamento) – necessita confirmação": [
+     "WALL",
+     "TO_CONFIRM",
+     "launch-event-v1"
+    ],
+    "Gradil (lotes com APP/mata atrás, conforme evento de lançamento) – necessita confirmação": [
+     "FENCE",
+     "TO_CONFIRM",
+     "launch-event-v1"
+    ],
+    "Não informado – necessita confirmação": [
+     "UNKNOWN",
+     "UNKNOWN",
+     null
+    ]
+   },
+   "valueMapName": "App.legacy.MAP.closure",
+   "observedValues": {
+    "Divisa com outro lote (não é perímetro)": 325,
+    "Muro (conforme evento de lançamento) – necessita confirmação": 90,
+    "Gradil (lotes com APP/mata atrás, conforme evento de lançamento) – necessita confirmação": 53,
+    "Não informado – necessita confirmação": 30
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "mata",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "surroundings.hasGreenRear",
+   "canonicalTargets": [
+    {
+     "fieldKey": "surroundings.hasGreenRear",
+     "domain": "SURROUNDINGS",
+     "type": "boolean",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     },
+     "perLotProvenance": {
+      "CALCULATED|aerial-v1|visual-interpretation|LOW": 141,
+      "CALCULATED|kmz-v1|geospatial|MEDIUM": 352,
+      "UNKNOWN|null|null|UNKNOWN": 5
+     }
+    }
+   ],
+   "transformation": "\"Sim\" → true, \"Não\" → false; outro valor → null com aviso UNKNOWN_ENUM.",
+   "observedValues": {
+    "Não": 415,
+    "Sim": 83
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "vista",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "surroundings.viewType",
+   "canonicalTargets": [
+    {
+     "fieldKey": "surroundings.viewType",
+     "domain": "SURROUNDINGS",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    },
+    {
+     "fieldKey": "surroundings.viewPermanence",
+     "domain": "SURROUNDINGS",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "LOW",
+      "dynamicType": "VERSIONED"
+     }
+    },
+    {
+     "fieldKey": "surroundings.viewDetail",
+     "domain": "SURROUNDINGS",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.view → [ViewType, ViewPermanence, ViewDetail]: a frase antiga misturava tipo e permanência da vista; o texto original é preservado em viewDetail.",
+   "valueMap": {
+    "Vista interna (lotes vizinhos)": [
+     "INTERNAL",
+     "UNKNOWN",
+     "INTERNAL"
+    ],
+    "Vista interna (lotes vizinhos); frente próxima a praça/clube": [
+     "INTERNAL",
+     "UNKNOWN",
+     "INTERNAL_NEAR_SQUARE"
+    ],
+    "Vista aberta para área externa (pode ser ocupada no futuro)": [
+     "OPEN",
+     "NOT_GUARANTEED",
+     "OPEN_EXTERNAL"
+    ],
+    "Vista para mata fora do perímetro (atual; permanência não confirmada)": [
+     "GREEN",
+     "NOT_GUARANTEED",
+     "FOREST_EXTERNAL"
+    ],
+    "Vista para parque florestal do condomínio (atual; manutenção como área verde a confirmar)": [
+     "GREEN",
+     "LIKELY",
+     "CONDO_PARK"
+    ],
+    "Vista para rua nos dois lados": [
+     "URBAN",
+     "UNKNOWN",
+     "STREET_BOTH_SIDES"
+    ]
+   },
+   "valueMapName": "App.legacy.MAP.view",
+   "observedValues": {
+    "Vista interna (lotes vizinhos)": 300,
+    "Vista aberta para área externa (pode ser ocupada no futuro)": 90,
+    "Vista para mata fora do perímetro (atual; permanência não confirmada)": 53,
+    "Vista para parque florestal do condomínio (atual; manutenção como área verde a confirmar)": 30,
+    "Vista interna (lotes vizinhos); frente próxima a praça/clube": 19,
+    "Vista para rua nos dois lados": 6
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "dport",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "location.distanceToGateLinearM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "location.distanceToGateLinearM",
+     "domain": "LOCATION",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "rport",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "mobility.routeDistanceToGateM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "mobility.routeDistanceToGateM",
+     "domain": "MOBILITY",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "routing",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "mobility.nearMainAccess",
+     "domain": "MOBILITY",
+     "type": "boolean",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "analysis-v1",
+      "method": "rule",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER). nearMainAccess = rport < 200.",
+   "mapped": true
+  },
+  {
+   "legacyField": "portc",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "mobility.gateProximity",
+   "canonicalTargets": [
+    {
+     "fieldKey": "mobility.gateProximity",
+     "domain": "MOBILITY",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "analysis-v1",
+      "method": "rule",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.gate.",
+   "valueMap": {
+    "Muito próximo": "VERY_CLOSE",
+    "Próximo": "CLOSE",
+    "Intermediário": "INTERMEDIATE",
+    "Distante": "FAR"
+   },
+   "valueMapName": "App.legacy.MAP.gate",
+   "observedValues": {
+    "Intermediário": 177,
+    "Próximo": 148,
+    "Distante": 114,
+    "Muito próximo": 59
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "dclube",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "location.distanceToClubLinearM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "location.distanceToClubLinearM",
+     "domain": "LOCATION",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "rclube",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "mobility.routeDistanceToLeisureM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "mobility.routeDistanceToLeisureM",
+     "domain": "MOBILITY",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "routing",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "dplay",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "location.distanceToPlaygroundM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "location.distanceToPlaygroundM",
+     "domain": "LOCATION",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "dpraca",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "location.distanceToSquareM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "location.distanceToSquareM",
+     "domain": "LOCATION",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "deeeb",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "location.distanceToTechnicalAreaM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "location.distanceToTechnicalAreaM",
+     "domain": "LOCATION",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "surroundings.sewageStationNearby",
+     "domain": "SURROUNDINGS",
+     "type": "boolean",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "rule",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER). sewageStationNearby = deeeb < 40.",
+   "mapped": true
+  },
+  {
+   "legacyField": "dav",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "location.distanceToExternalRoadM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "location.distanceToExternalRoadM",
+     "domain": "LOCATION",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "flow",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "mobility.vehiclesPassingEstimate",
+   "canonicalTargets": [
+    {
+     "fieldKey": "mobility.vehiclesPassingEstimate",
+     "domain": "MOBILITY",
+     "type": "number",
+     "unit": "lotes",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "routing",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "fc",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "mobility.estimatedTraffic",
+   "canonicalTargets": [
+    {
+     "fieldKey": "mobility.estimatedTraffic",
+     "domain": "MOBILITY",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "routing",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.level (masculino e feminino).",
+   "valueMap": {
+    "Muito baixo": "VERY_LOW",
+    "Muito baixa": "VERY_LOW",
+    "Baixo": "LOW",
+    "Baixa": "LOW",
+    "Médio": "MEDIUM",
+    "Média": "MEDIUM",
+    "Alto": "HIGH",
+    "Alta": "HIGH",
+    "Muito alto": "VERY_HIGH",
+    "Muito alta": "VERY_HIGH"
+   },
+   "valueMapName": "App.legacy.MAP.level",
+   "observedValues": {
+    "Médio": 163,
+    "Baixo": 117,
+    "Alto": 98,
+    "Muito baixo": 66,
+    "Muito alto": 54
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "via",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "mobility.streetHierarchy",
+   "canonicalTargets": [
+    {
+     "fieldKey": "mobility.streetHierarchy",
+     "domain": "MOBILITY",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "routing",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.road. \"Local (poucos veículos de passagem)\" → LOCAL_QUIET (extensão do enum).",
+   "valueMap": {
+    "Principal (acesso de muitos lotes à portaria/clube)": "MAIN",
+    "Secundária (passagem de outros moradores)": "SECONDARY",
+    "Local": "LOCAL",
+    "Local (poucos veículos de passagem)": "LOCAL_QUIET",
+    "Final de rua sem saída (balão de retorno)": "CUL_DE_SAC"
+   },
+   "valueMapName": "App.legacy.MAP.road",
+   "observedValues": {
+    "Secundária (passagem de outros moradores)": 163,
+    "Principal (acesso de muitos lotes à portaria/clube)": 152,
+    "Local": 117,
+    "Local (poucos veículos de passagem)": 63,
+    "Final de rua sem saída (balão de retorno)": 3
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "fontes",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "environmental.noiseSources",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.noiseSources",
+     "domain": "ENVIRONMENTAL",
+     "type": "array",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Texto separado por \";\", cada item \"nome (N m)\" → { type, detail, distanceM, relevance } pelo mapa MAP.noise. \"Nenhuma fonte relevante identificada\" → lista vazia.",
+   "valueMap": {
+    "Av. Porto Dourado": [
+     "EXTERNAL_ROAD",
+     "AVENUE",
+     null
+    ],
+    "fluxo médio na rua": [
+     "INTERNAL_ROAD",
+     "STREET_FLOW",
+     "MEDIUM"
+    ],
+    "fluxo alto na rua": [
+     "INTERNAL_ROAD",
+     "STREET_FLOW",
+     "HIGH"
+    ],
+    "fluxo muito alto na rua": [
+     "INTERNAL_ROAD",
+     "STREET_FLOW",
+     "VERY_HIGH"
+    ],
+    "praça": [
+     "LEISURE",
+     "SQUARE",
+     null
+    ],
+    "playground": [
+     "LEISURE",
+     "PLAYGROUND",
+     null
+    ],
+    "clube": [
+     "LEISURE",
+     "CLUB",
+     null
+    ],
+    "portaria": [
+     "GATE",
+     "GATE",
+     null
+    ],
+    "EEEB": [
+     "TECHNICAL_AREA",
+     "PUMP_STATION",
+     null
+    ],
+    "estacionamento": [
+     "PARKING",
+     "PARKING",
+     null
+    ]
+   },
+   "valueMapName": "App.legacy.MAP.noise",
+   "mapped": true
+  },
+  {
+   "legacyField": "ruido",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "environmental.noiseLevel",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.noiseLevel",
+     "domain": "ENVIRONMENTAL",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.level.",
+   "valueMap": {
+    "Muito baixo": "VERY_LOW",
+    "Muito baixa": "VERY_LOW",
+    "Baixo": "LOW",
+    "Baixa": "LOW",
+    "Médio": "MEDIUM",
+    "Média": "MEDIUM",
+    "Alto": "HIGH",
+    "Alta": "HIGH",
+    "Muito alto": "VERY_HIGH",
+    "Muito alta": "VERY_HIGH"
+   },
+   "valueMapName": "App.legacy.MAP.level",
+   "observedValues": {
+    "Muito baixo": 276,
+    "Baixo": 132,
+    "Médio": 61,
+    "Alto": 25,
+    "Muito alto": 4
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "priv",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "environmental.privacyLevel",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.privacyLevel",
+     "domain": "ENVIRONMENTAL",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.level.",
+   "valueMap": {
+    "Muito baixo": "VERY_LOW",
+    "Muito baixa": "VERY_LOW",
+    "Baixo": "LOW",
+    "Baixa": "LOW",
+    "Médio": "MEDIUM",
+    "Média": "MEDIUM",
+    "Alto": "HIGH",
+    "Alta": "HIGH",
+    "Muito alto": "VERY_HIGH",
+    "Muito alta": "VERY_HIGH"
+   },
+   "valueMapName": "App.legacy.MAP.level",
+   "observedValues": {
+    "Média": 197,
+    "Baixa": 151,
+    "Alta": 81,
+    "Muito alta": 52,
+    "Muito baixa": 17
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "liq",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "intelligence.liquidity",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.liquidity",
+     "domain": "INTELLIGENCE",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.level.",
+   "valueMap": {
+    "Muito baixo": "VERY_LOW",
+    "Muito baixa": "VERY_LOW",
+    "Baixo": "LOW",
+    "Baixa": "LOW",
+    "Médio": "MEDIUM",
+    "Média": "MEDIUM",
+    "Alto": "HIGH",
+    "Alta": "HIGH",
+    "Muito alto": "VERY_HIGH",
+    "Muito alta": "VERY_HIGH"
+   },
+   "valueMapName": "App.legacy.MAP.level",
+   "observedValues": {
+    "Alta": 257,
+    "Muito alta": 150,
+    "Média": 77,
+    "Baixa": 13,
+    "Muito baixa": 1
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "nt",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "object": 498
+   },
+   "declaredTarget": "intelligence.notes",
+   "canonicalTargets": [],
+   "transformation": "Objeto de notas 0–10. Cada subchave é roteada pelo NOTE_KEYS (ver linhas nt.*). Nota fora de 0–10 vira null com aviso INVALID_SCORE.",
+   "mapped": "container"
+  },
+  {
+   "legacyField": "sm",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "intelligence.scores.housing",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.scores.housing",
+     "domain": "INTELLIGENCE",
+     "type": "number",
+     "unit": "score 0–100",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "score(): número 0–100; ausente → null com aviso MISSING_OPTIONAL_FIELD; fora da faixa → null com INVALID_SCORE.",
+   "mapped": true
+  },
+  {
+   "legacyField": "si",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "intelligence.scores.investment",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.scores.investment",
+     "domain": "INTELLIGENCE",
+     "type": "number",
+     "unit": "score 0–100",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "score() 0–100.",
+   "mapped": true
+  },
+  {
+   "legacyField": "sf",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "intelligence.scores.family",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.scores.family",
+     "domain": "INTELLIGENCE",
+     "type": "number",
+     "unit": "score 0–100",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "score() 0–100.",
+   "mapped": true
+  },
+  {
+   "legacyField": "sp",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "intelligence.scores.premium",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.scores.premium",
+     "domain": "INTELLIGENCE",
+     "type": "number",
+     "unit": "score 0–100",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "score() 0–100.",
+   "mapped": true
+  },
+  {
+   "legacyField": "sg",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "intelligence.scores.overall",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.scores.overall",
+     "domain": "INTELLIGENCE",
+     "type": "number",
+     "unit": "score 0–100",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "score() 0–100.",
+   "mapped": true
+  },
+  {
+   "legacyField": "cl",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "intelligence.class",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.class",
+     "domain": "INTELLIGENCE",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.cls (\"A+\" → A_PLUS); ausente ou desconhecido → UNKNOWN.",
+   "valueMap": {
+    "A+": "A_PLUS",
+    "A": "A",
+    "B": "B",
+    "C": "C",
+    "D": "D"
+   },
+   "valueMapName": "App.legacy.MAP.cls",
+   "observedValues": {
+    "B": 199,
+    "C": 125,
+    "A": 100,
+    "D": 49,
+    "A+": 25
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "conf",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "intelligence.confidence",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.confidence",
+     "domain": "PROVENANCE",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.conf.",
+   "valueMap": {
+    "Alta": "HIGH",
+    "Média": "MEDIUM",
+    "Baixa": "LOW"
+   },
+   "valueMapName": "App.legacy.MAP.conf",
+   "observedValues": {
+    "Média": 498
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "perfil",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "intelligence.idealProfiles",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.idealProfiles",
+     "domain": "INTELLIGENCE",
+     "type": "array",
+     "unit": "enum",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Texto separado por \" / \", reconstruindo \"Idosos / mobilidade\" (que contém o próprio separador); cada nome pelo mapa MAP.profile.",
+   "valueMap": {
+    "Moradia e tranquilidade": "QUIET_LIVING",
+    "Idosos / mobilidade": "ELDERLY_MOBILITY",
+    "Investidor": "INVESTOR",
+    "Família com crianças": "FAMILY",
+    "Cliente que valoriza natureza": "NATURE",
+    "Alto padrão": "HIGH_END"
+   },
+   "valueMapName": "App.legacy.MAP.profile",
+   "observedValues": {
+    "Moradia e tranquilidade": 103,
+    "Idosos / mobilidade": 99,
+    "Investidor": 57,
+    "Investidor / Família com crianças": 31,
+    "Idosos / mobilidade / Investidor": 24,
+    "Família com crianças / Investidor": 24,
+    "Idosos / mobilidade / Família com crianças": 23,
+    "Família com crianças": 21,
+    "Moradia e tranquilidade / Investidor": 18,
+    "Investidor / Moradia e tranquilidade": 12,
+    "Família com crianças / Idosos / mobilidade": 11,
+    "Cliente que valoriza natureza": 11,
+    "Moradia e tranquilidade / Família com crianças": 11,
+    "Moradia e tranquilidade / Cliente que valoriza natureza": 9,
+    "Cliente que valoriza natureza / Alto padrão": 7,
+    "Investidor / Idosos / mobilidade": 7,
+    "Família com crianças / Moradia e tranquilidade": 7,
+    "Investidor / Cliente que valoriza natureza": 7,
+    "Cliente que valoriza natureza / Investidor": 6,
+    "Moradia e tranquilidade / Idosos / mobilidade": 4,
+    "Idosos / mobilidade / Moradia e tranquilidade": 3,
+    "Moradia e tranquilidade / Alto padrão": 1,
+    "Família com crianças / Cliente que valoriza natureza": 1,
+    "Cliente que valoriza natureza / Moradia e tranquilidade": 1
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "al",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "array": 498
+   },
+   "declaredTarget": "intelligence.alerts",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.alerts",
+     "domain": "INTELLIGENCE",
+     "type": "array",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "analysis-v1",
+      "method": "rules",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    },
+    {
+     "fieldKey": "construction.easements",
+     "domain": "CONSTRUCTION",
+     "type": "array",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CONFIRMED",
+      "sourceId": "official-plan-v1",
+      "method": "official",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "construction.nonBuildableRearToConfirm",
+     "domain": "CONSTRUCTION",
+     "type": "boolean",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "TO_CONFIRM",
+      "sourceId": "launch-event-v1",
+      "method": "declared",
+      "confidence": "LOW",
+      "dynamicType": "VERSIONED"
+     },
+     "perLotProvenance": {
+      "CALCULATED|analysis-v1|rule|MEDIUM": 445
+     }
+    }
+   ],
+   "transformation": "Cada texto no formato `ATENÇÃO — TÍTULO: mensagem` vira { id, type, severity, title, message, fieldKey, sourceId }: tipo pelo mapa MAP.alert, severidade, campo de origem e fonte por App.rules.ALERTS; ordenado por severidade. Alertas SERVIDÃO → construction.easements (PROJECTED_EASEMENT, official-plan-v1). Existência de RESTRIÇÃO CONSTRUTIVA → nonBuildableRearToConfirm = true; sem ela, false com proveniência CALCULATED (regra da análise).",
+   "valueMap": {
+    "TRÁFEGO": "TRAFFIC",
+    "SOL DA TARDE": "AFTERNOON_SUN",
+    "RESTRIÇÃO CONSTRUTIVA": "BUILDING_RESTRICTION",
+    "PRIVACIDADE": "PRIVACY",
+    "AVENIDA": "AVENUE",
+    "RUÍDO": "NOISE",
+    "ÁREA TÉCNICA": "TECHNICAL_AREA",
+    "GEOMETRIA": "GEOMETRY",
+    "SERVIDÃO": "EASEMENT"
+   },
+   "valueMapName": "App.legacy.MAP.alert",
+   "mapped": true
+  },
+  {
+   "legacyField": "sideE",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "geometry.leftDepthM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.leftDepthM",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "plan-geometry-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "sideD",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "geometry.rightDepthM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.rightDepthM",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "plan-geometry-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "edgeF",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "geometry.frontEdgesM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.frontEdgesM",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "plan-geometry-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "edgeB",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "geometry.rearEdgesM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.rearEdgesM",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "plan-geometry-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "dpark",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "location.distanceToGreenAreaM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "location.distanceToGreenAreaM",
+     "domain": "LOCATION",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER).",
+   "mapped": true
+  },
+  {
+   "legacyField": "vzE",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "surroundings.leftNeighborType",
+   "canonicalTargets": [
+    {
+     "fieldKey": "surroundings.leftNeighborType",
+     "domain": "SURROUNDINGS",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "location.perimeterPosition",
+     "domain": "LOCATION",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "rule",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.side. \"Limite do condomínio\" contribui para perimeterPosition = SIDE.",
+   "valueMap": {
+    "Outro lote": "LOT",
+    "Rua": "STREET",
+    "Área comum": "COMMON_AREA",
+    "Parque florestal / área verde": "GREEN_AREA",
+    "Limite do condomínio": "CONDO_BOUNDARY",
+    "Não determinado": "UNKNOWN"
+   },
+   "valueMapName": "App.legacy.MAP.side",
+   "observedValues": {
+    "Outro lote": 464,
+    "Rua": 22,
+    "Área comum": 4,
+    "Limite do condomínio": 4,
+    "Parque florestal / área verde": 4
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "vzD",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "surroundings.rightNeighborType",
+   "canonicalTargets": [
+    {
+     "fieldKey": "surroundings.rightNeighborType",
+     "domain": "SURROUNDINGS",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "geospatial",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     }
+    },
+    {
+     "fieldKey": "location.perimeterPosition",
+     "domain": "LOCATION",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "kmz-v1",
+      "method": "rule",
+      "confidence": "MEDIUM",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Mapa MAP.side.",
+   "valueMap": {
+    "Outro lote": "LOT",
+    "Rua": "STREET",
+    "Área comum": "COMMON_AREA",
+    "Parque florestal / área verde": "GREEN_AREA",
+    "Limite do condomínio": "CONDO_BOUNDARY",
+    "Não determinado": "UNKNOWN"
+   },
+   "valueMapName": "App.legacy.MAP.side",
+   "observedValues": {
+    "Outro lote": 464,
+    "Rua": 21,
+    "Limite do condomínio": 8,
+    "Parque florestal / área verde": 3,
+    "Área comum": 2
+   },
+   "mapped": true
+  },
+  {
+   "legacyField": "did",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "string": 498
+   },
+   "declaredTarget": "identity.id",
+   "canonicalTargets": [
+    {
+     "fieldKey": "identity.id",
+     "domain": "IDENTITY",
+     "type": "string",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": null,
+      "method": "id-rule",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Copiado como texto. Se ausente, montado como `${dev.code}-Q${quadra}-L${número com 4 dígitos}`. Validado pelo padrão ^[A-Z0-9]+-Q[A-Z0-9]+-L\\d{4}$ na LotFactory.",
+   "mapped": true
+  },
+  {
+   "legacyField": "st",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "null": 498
+   },
+   "declaredTarget": "availability.status",
+   "canonicalTargets": [
+    {
+     "fieldKey": "availability.status",
+     "domain": "AVAILABILITY",
+     "type": "enum",
+     "unit": null,
+     "defaultProvenance": {
+      "status": "UNKNOWN",
+      "sourceId": null,
+      "method": null,
+      "confidence": null,
+      "dynamicType": "DYNAMIC"
+     }
+    }
+   ],
+   "transformation": "normalizeAvailability() (domain/availability.js): código normalizado (maiúsculas, sem acento) pelo mapa LEGACY_CODES; flags isSold/isReserved/isBlocked consideradas; código desconhecido → UNKNOWN com aviso; sinais divergentes → UNKNOWN com aviso CONFLICTED_SOURCE. Nunca vira AVAILABLE por ausência.",
+   "mapped": true
+  },
+  {
+   "legacyField": "fr",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "geometry.frontM",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.frontM",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": "m",
+     "defaultProvenance": {
+      "status": "CALCULATED",
+      "sourceId": "plan-geometry-v1",
+      "method": "geometric",
+      "confidence": "HIGH",
+      "dynamicType": "STATIC"
+     }
+    }
+   ],
+   "transformation": "Número (num(): aceita número ou texto com vírgula decimal; inválido vira null com aviso INVALID_NUMBER). Quando |fr − wf| > 0,5 m, a diferença é registrada como variante de medição (measurementVariants), não escondida.",
+   "mapped": true
+  },
+  {
+   "legacyField": "nt.priv",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "environmental.privacyScore",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.privacyScore",
+     "domain": "ENVIRONMENTAL",
+     "type": "number",
+     "unit": "score 0–10",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Nota 0–10 copiada como número (fora de 0–10 → null com INVALID_SCORE).",
+   "mapped": true
+  },
+  {
+   "legacyField": "nt.sil",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "environmental.quietScore",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.quietScore",
+     "domain": "ENVIRONMENTAL",
+     "type": "number",
+     "unit": "score 0–10",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Nota 0–10 copiada como número (fora de 0–10 → null com INVALID_SCORE).",
+   "mapped": true
+  },
+  {
+   "legacyField": "nt.sol",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "environmental.solarScore",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.solarScore",
+     "domain": "ENVIRONMENTAL",
+     "type": "number",
+     "unit": "score 0–10",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Nota 0–10 copiada como número (fora de 0–10 → null com INVALID_SCORE).",
+   "mapped": true
+  },
+  {
+   "legacyField": "nt.vent",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "null": 498
+   },
+   "declaredTarget": "environmental.ventilation",
+   "canonicalTargets": [],
+   "transformation": "Ignorada (ALWAYS_NULL_NOTES): environmental.ventilation não é uma nota 0–10. O campo canônico fica null; um valor não nulo geraria o aviso LEGACY_FIELD_USED.",
+   "mapped": false
+  },
+  {
+   "legacyField": "nt.vista",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "environmental.viewScore",
+   "canonicalTargets": [
+    {
+     "fieldKey": "environmental.viewScore",
+     "domain": "ENVIRONMENTAL",
+     "type": "number",
+     "unit": "score 0–10",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Nota 0–10 copiada como número (fora de 0–10 → null com INVALID_SCORE).",
+   "mapped": true
+  },
+  {
+   "legacyField": "nt.topo",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "null": 498
+   },
+   "declaredTarget": "construction.topography",
+   "canonicalTargets": [],
+   "transformation": "Ignorada (ALWAYS_NULL_NOTES): construction.topography não é uma nota 0–10. O campo canônico fica null; um valor não nulo geraria o aviso LEGACY_FIELD_USED.",
+   "mapped": false
+  },
+  {
+   "legacyField": "nt.geo",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "geometry.usableGeometryScore",
+   "canonicalTargets": [
+    {
+     "fieldKey": "geometry.usableGeometryScore",
+     "domain": "GEOMETRY",
+     "type": "number",
+     "unit": "score 0–10",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Nota 0–10 copiada como número (fora de 0–10 → null com INVALID_SCORE).",
+   "mapped": true
+  },
+  {
+   "legacyField": "nt.port",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "intelligence.notes.gate",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.notes.gate",
+     "domain": "INTELLIGENCE",
+     "type": "number",
+     "unit": "score 0–10",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Nota 0–10 copiada como número (fora de 0–10 → null com INVALID_SCORE).",
+   "mapped": true
+  },
+  {
+   "legacyField": "nt.laz",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "intelligence.notes.leisure",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.notes.leisure",
+     "domain": "INTELLIGENCE",
+     "type": "number",
+     "unit": "score 0–10",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Nota 0–10 copiada como número (fora de 0–10 → null com INVALID_SCORE).",
+   "mapped": true
+  },
+  {
+   "legacyField": "nt.flux",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "intelligence.notes.lowTraffic",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.notes.lowTraffic",
+     "domain": "INTELLIGENCE",
+     "type": "number",
+     "unit": "score 0–10",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Nota 0–10 copiada como número (fora de 0–10 → null com INVALID_SCORE).",
+   "mapped": true
+  },
+  {
+   "legacyField": "nt.pc",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "null": 498
+   },
+   "declaredTarget": "construction.constructivePotential",
+   "canonicalTargets": [],
+   "transformation": "Ignorada (ALWAYS_NULL_NOTES): construction.constructivePotential não é uma nota 0–10. O campo canônico fica null; um valor não nulo geraria o aviso LEGACY_FIELD_USED.",
+   "mapped": false
+  },
+  {
+   "legacyField": "nt.liq",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "intelligence.notes.liquidity",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.notes.liquidity",
+     "domain": "INTELLIGENCE",
+     "type": "number",
+     "unit": "score 0–10",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Nota 0–10 copiada como número (fora de 0–10 → null com INVALID_SCORE).",
+   "mapped": true
+  },
+  {
+   "legacyField": "nt.val",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "intelligence.notes.relativeValue",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.notes.relativeValue",
+     "domain": "INTELLIGENCE",
+     "type": "number",
+     "unit": "score 0–10",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Nota 0–10 copiada como número (fora de 0–10 → null com INVALID_SCORE).",
+   "mapped": true
+  },
+  {
+   "legacyField": "nt.pq",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "number": 498
+   },
+   "declaredTarget": "intelligence.notes.priceQuality",
+   "canonicalTargets": [
+    {
+     "fieldKey": "intelligence.notes.priceQuality",
+     "domain": "INTELLIGENCE",
+     "type": "number",
+     "unit": "score 0–10",
+     "defaultProvenance": {
+      "status": "ESTIMATED",
+      "sourceId": "analysis-v1",
+      "method": "analytical-model",
+      "confidence": "MEDIUM",
+      "dynamicType": "VERSIONED"
+     }
+    }
+   ],
+   "transformation": "Nota 0–10 copiada como número (fora de 0–10 → null com INVALID_SCORE).",
+   "mapped": true
+  }
+ ],
+ "registryCrossCheck": [
+  {
+   "fieldKey": "environmental.ventilation",
+   "registryLegacy": "nt.vent (sempre nulo)",
+   "note": "Esperado: nota sempre nula, ignorada de propósito (ALWAYS_NULL_NOTES); o campo canônico fica null."
+  },
+  {
+   "fieldKey": "construction.topography",
+   "registryLegacy": "nt.topo (sempre nulo)",
+   "note": "Esperado: nota sempre nula, ignorada de propósito (ALWAYS_NULL_NOTES); o campo canônico fica null."
+  },
+  {
+   "fieldKey": "construction.constructivePotential",
+   "registryLegacy": "nt.pc (sempre nulo)",
+   "note": "Esperado: nota sempre nula, ignorada de propósito (ALWAYS_NULL_NOTES); o campo canônico fica null."
+  }
+ ],
+ "conflictingFields": {
+  "description": "Variantes de medição da frente: fr (frente usada) difere de wf (largura na frente) em mais de 0,5 m. A regra aplicada é a do normalizador; as alternativas ficam registradas.",
+  "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente",
+  "count": 35,
+  "items": [
+   {
+    "lotId": "VJ-QB-L0065",
+    "code": "B65",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10.1,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 11.9
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10.1
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QB-L0066",
+    "code": "B66",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10.1,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 13.2
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10.1
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QB-L0067",
+    "code": "B67",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10.1,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.3
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10.1
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QB-L0068",
+    "code": "B68",
+    "fieldKey": "geometry.frontM",
+    "canonical": 9.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 14.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 9.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QB-L0069",
+    "code": "B69",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 11.9
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QB-L0083",
+    "code": "B83",
+    "fieldKey": "geometry.frontM",
+    "canonical": 11.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.5
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 11.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QB-L0085",
+    "code": "B85",
+    "fieldKey": "geometry.frontM",
+    "canonical": 12,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 12
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QB-L0086",
+    "code": "B86",
+    "fieldKey": "geometry.frontM",
+    "canonical": 11.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.5
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 11.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QG-L0016",
+    "code": "G16",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 10.8
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QG-L0017",
+    "code": "G17",
+    "fieldKey": "geometry.frontM",
+    "canonical": 9.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 10.8
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 9.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QG-L0018",
+    "code": "G18",
+    "fieldKey": "geometry.frontM",
+    "canonical": 9.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 10.8
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 9.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QG-L0019",
+    "code": "G19",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 10.8
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QI-L0004",
+    "code": "I4",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 10.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QI-L0007",
+    "code": "I7",
+    "fieldKey": "geometry.frontM",
+    "canonical": 9.8,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 10.5
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 9.8
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QI-L0010",
+    "code": "I10",
+    "fieldKey": "geometry.frontM",
+    "canonical": 9.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 10.5
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 9.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QI-L0021",
+    "code": "I21",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 10.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QI-L0022",
+    "code": "I22",
+    "fieldKey": "geometry.frontM",
+    "canonical": 9.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 10.7
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 9.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QI-L0023",
+    "code": "I23",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 10.9
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QI-L0024",
+    "code": "I24",
+    "fieldKey": "geometry.frontM",
+    "canonical": 9.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 11.1
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 9.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QI-L0025",
+    "code": "I25",
+    "fieldKey": "geometry.frontM",
+    "canonical": 9.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 11
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 9.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QK-L0013",
+    "code": "K13",
+    "fieldKey": "geometry.frontM",
+    "canonical": 12,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 12
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QK-L0014",
+    "code": "K14",
+    "fieldKey": "geometry.frontM",
+    "canonical": 11.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 11.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QK-L0015",
+    "code": "K15",
+    "fieldKey": "geometry.frontM",
+    "canonical": 12,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 12
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QK-L0016",
+    "code": "K16",
+    "fieldKey": "geometry.frontM",
+    "canonical": 12,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 12
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QK-L0017",
+    "code": "K17",
+    "fieldKey": "geometry.frontM",
+    "canonical": 12,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 12
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QK-L0018",
+    "code": "K18",
+    "fieldKey": "geometry.frontM",
+    "canonical": 11.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 11.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QL-L0015",
+    "code": "L15",
+    "fieldKey": "geometry.frontM",
+    "canonical": 11.8,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.5
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 11.8
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QO-L0007",
+    "code": "O7",
+    "fieldKey": "geometry.frontM",
+    "canonical": 12.7,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 14.1
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 12.7
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QO-L0008",
+    "code": "O8",
+    "fieldKey": "geometry.frontM",
+    "canonical": 12.7,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 14.1
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 12.7
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QO-L0009",
+    "code": "O9",
+    "fieldKey": "geometry.frontM",
+    "canonical": 12.8,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 14
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 12.8
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QQ-L0021",
+    "code": "Q21",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 11.8
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QQ-L0022",
+    "code": "Q22",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QQ-L0023",
+    "code": "Q23",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10.1,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.7
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10.1
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QQ-L0024",
+    "code": "Q24",
+    "fieldKey": "geometry.frontM",
+    "canonical": 10,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.6
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 10
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   },
+   {
+    "lotId": "VJ-QQ-L0025",
+    "code": "Q25",
+    "fieldKey": "geometry.frontM",
+    "canonical": 9.9,
+    "alternatives": [
+     {
+      "fieldKey": "geometry.frontBoxWidthM",
+      "value": 12.2
+     },
+     {
+      "fieldKey": "geometry.frontEdgesM",
+      "value": 9.9
+     }
+    ],
+    "rule": "frente = soma das arestas de frente nos lotes em leque, senão a largura na frente"
+   }
+  ]
+ }
+}

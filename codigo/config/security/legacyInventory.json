@@ -1,0 +1,136 @@
+{
+ "kind": "legacy-security-inventory",
+ "version": "1.0.0",
+ "generatedAt": "2026-10-12",
+ "note": "LegacySecurityInventory (§348–349) — auditoria real do painel construído e de plat/src + plat/backend.",
+ "items": [
+  {
+   "location": "src/presentation/panels.js:93-94,103-108,152-153 (value=\"${f.areaMin}\" etc.)",
+   "category": "XSS",
+   "description": "10 filtros numéricos + 2 exigências interpolados sem esc() em atributo value; valor vem do estado restaurado do localStorage → XSS armazenado confirmado (E2E: os vetores executaram)",
+   "severity": "HIGH",
+   "migrationAction": "HARDEN",
+   "notes": "patch P1 (esc) para o integrador; scrubRestoredState() + hook em store.restore já neutralizam; CSP com hash também bloqueia"
+  },
+  {
+   "location": "src/presentation/panels.js:382 (value=\"${so.hour}\")",
+   "category": "XSS",
+   "description": "hora do estudo solar restaurada do localStorage sem tipo/esc",
+   "severity": "HIGH",
+   "migrationAction": "HARDEN",
+   "notes": "patch P1; scrub tipa solar.hour"
+  },
+  {
+   "location": "src/state/store.js sanitize()",
+   "category": "XSS",
+   "description": "valores de filtros restaurados não eram tipados (só a chave era validada)",
+   "severity": "MEDIUM",
+   "migrationAction": "HARDEN",
+   "notes": "hook aditivo para App.securityHardening.scrubRestoredState"
+  },
+  {
+   "location": "localStorage ws:<dev>:state prefs.customers[].name",
+   "category": "OTHER",
+   "description": "nome de cliente (PII) persistido no aparelho",
+   "severity": "MEDIUM",
+   "migrationAction": "REVIEW",
+   "notes": "decisão D50-1 (já aberta no tópico 39)"
+  },
+  {
+   "location": "dash/index.html <link fonts.googleapis.com>",
+   "category": "DEPENDENCY",
+   "description": "único terceiro carregado pelo painel (IP/UA do visitante para o Google)",
+   "severity": "LOW",
+   "migrationAction": "REVIEW",
+   "notes": "D50-3: auto-hospedar fontes"
+  },
+  {
+   "location": "dash/index.html (sem CSP)",
+   "category": "OTHER",
+   "description": "painel publicado sem Content-Security-Policy",
+   "severity": "MEDIUM",
+   "migrationAction": "HARDEN",
+   "notes": "política com hash validada sem violações; precisa de header no host (scripts/securityHeaders.js gera _headers)"
+  },
+  {
+   "location": "backend/src/shared/http/middleware.js clientIp()",
+   "category": "API",
+   "description": "com TRUST_PROXY=true usa o 1º X-Forwarded-For (controlado pelo cliente) → rate limit contornável",
+   "severity": "MEDIUM",
+   "migrationAction": "HARDEN",
+   "notes": "patch B1"
+  },
+  {
+   "location": "backend/src/shared/http/middleware.js createRateLimiter",
+   "category": "API",
+   "description": "apenas limite global por IP; sem políticas por categoria (login/share/export)",
+   "severity": "MEDIUM",
+   "migrationAction": "HARDEN",
+   "notes": "patch B2 + config/security/rateLimits.json"
+  },
+  {
+   "location": "backend/src/shared/logging/logger.js",
+   "category": "LOGGING",
+   "description": "sem redação central: depende do chamador; erro 500 loga err.message (mensagens do pg podem conter valores)",
+   "severity": "LOW",
+   "migrationAction": "HARDEN",
+   "notes": "patch B3 (redactRecord)"
+  },
+  {
+   "location": "backend/src/shared/http/middleware.js applyCors",
+   "category": "CORS",
+   "description": "'*' aceito fora de produção (sem credentials); produção falha no startup",
+   "severity": "LOW",
+   "migrationAction": "KEEP",
+   "notes": "auth por Bearer (não cookie): CSRF não se aplica hoje"
+  },
+  {
+   "location": "backend/src/modules/iam/authentication.js",
+   "category": "AUTH",
+   "description": "ADMIN_API_TOKEN e dev tokens: 256 bits, sha256 + timingSafeEqual; dev tokens recusados em produção",
+   "severity": "LOW",
+   "migrationAction": "KEEP",
+   "notes": "IdP real pendente (D50-4)"
+  },
+  {
+   "location": "backend/src/modules/*/*.repository.js",
+   "category": "API",
+   "description": "SQL sempre parametrizado; filtros/ordenação por allow-list; LISTEN com constante",
+   "severity": "LOW",
+   "migrationAction": "KEEP",
+   "notes": "nenhuma concatenação de entrada do usuário"
+  },
+  {
+   "location": "src/sw.template.js",
+   "category": "PWA",
+   "description": "SW não cacheia outras origens, /api/, Authorization, no-store, respostas não-OK/opacas; message só SKIP_WAITING",
+   "severity": "LOW",
+   "migrationAction": "KEEP",
+   "notes": "tópico 49 mantém"
+  },
+  {
+   "location": "src/deeplink/linkStateCodec.js",
+   "category": "XSS",
+   "description": "hash/URL: valores com marcação/script rejeitados (SCRIPT/PII); filtros revalidados pelo registro",
+   "severity": "LOW",
+   "migrationAction": "KEEP",
+   "notes": "fuzz E2E com 7 hashes maliciosos: nenhum executou"
+  },
+  {
+   "location": "src/presentation/app.js:200 vj-device-id",
+   "category": "OTHER",
+   "description": "id pseudônimo de aparelho em localStorage (não é identidade nem autorização)",
+   "severity": "LOW",
+   "migrationAction": "KEEP",
+   "notes": "pseudônimo ainda é dado pessoal (§107)"
+  },
+  {
+   "location": "src/security/authorization.js",
+   "category": "AUTHORIZATION",
+   "description": "frontend não é fronteira; deny by default; localStorage/URL nunca dão permissão",
+   "severity": "LOW",
+   "migrationAction": "KEEP",
+   "notes": "tópicos 30/31"
+  }
+ ]
+}

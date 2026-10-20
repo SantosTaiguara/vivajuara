@@ -1,0 +1,58 @@
+{
+  "version": "1.0.0",
+  "note": "Política de observabilidade (tópico 51). Local-first: logs, erros, métricas e traces ficam na memória desta aba, com limite. Nada sai do aparelho; todo destino remoto está desligado até as decisões O1-O3. Observabilidade não é Product Analytics (tópicos 44/45), nem Audit, nem SecurityEvent (tópico 50).",
+  "service": "web-panel",
+  "environments": {
+    "rules": [
+      { "hostPattern": "^(localhost|127\\.0\\.0\\.1|0\\.0\\.0\\.0|\\[::1\\])$", "environment": "development" },
+      { "hostPattern": "(^|[.-])(staging|homolog|hml)([.-]|$)", "environment": "staging" }
+    ],
+    "default": "production"
+  },
+  "logLevels": {
+    "order": ["DEBUG", "INFO", "WARN", "ERROR", "FATAL"],
+    "minLevel": { "development": "DEBUG", "staging": "INFO", "production": "INFO" },
+    "infoSampleRate": { "development": 1, "staging": 1, "production": 1 },
+    "consoleOutput": { "development": true, "staging": false, "production": false }
+  },
+  "redaction": {
+    "blockedKeys": ["authorization", "cookie", "setcookie", "password", "senha", "passcode", "pin", "token", "accesstoken", "refreshtoken", "idtoken", "sharetoken", "csrf", "csrftoken", "xsrf", "secret", "clientsecret", "apikey", "privatekey", "signature", "signedurl", "body", "requestbody", "responsebody", "documentbody", "content", "notes", "note", "notebody", "message_body", "messagebody", "cpf", "rg", "cnpj", "email", "phone", "telefone", "whatsapp", "address", "endereco", "name", "nome", "fullname", "displayname", "customername", "customer", "customerprofile", "budget", "income", "renda", "query", "rawquery", "searchquery", "url", "href", "fulluri", "referrer"],
+    "blockedKeyFragments": ["token", "password", "senha", "secret", "cookie", "authorization", "cpf", "email", "phone", "telefone", "whatsapp", "signedurl", "apikey", "note", "body"],
+    "maskedKeys": ["customerid", "userid", "principalid", "actoruserid", "shareid", "grantid", "sessionid"],
+    "idKeysExemptFromSecretDetector": ["requestid", "correlationid", "traceid", "spanid", "parentspanid", "errorid", "fingerprint", "supportcode", "buildid", "eventid", "jobid", "staticdataversion", "analysisversion", "pricetableversion", "availabilityrevision", "swversion", "geometryversion", "versionref"],
+    "maxStringLength": 300,
+    "maxMessageLength": 200,
+    "maxObjectDepth": 4,
+    "maxArrayLength": 20,
+    "maxStackFrames": 8,
+    "valueDetectors": ["EMAIL", "PHONE_BR", "CPF", "CNPJ", "BEARER", "JWT", "TOKEN_URL", "LONG_SECRET"]
+  },
+  "buffers": { "logs": 300, "errorGroups": 100, "spans": 200, "changeEvents": 50, "histogramReservoir": 200 },
+  "errors": { "dedupeWindowMs": 60000, "maxCapturesPerMinute": 60, "maxCauseDepth": 5, "ignoredMessagePatterns": ["^ResizeObserver loop", "^Script error\\.?$"] },
+  "sampling": {
+    "local": { "defaultRate": 1, "errorRate": 1, "highRiskOperationRate": 1 },
+    "backendContract": { "defaultRate": 0.1, "errorRate": 1, "highRiskOperationRate": 0.5 },
+    "highRiskSpans": ["price.publish", "availability.mutate", "share.access", "offline.sync"],
+    "maxSpanDurationMs": 300000
+  },
+  "metrics": { "maxSeriesPerMetric": 50, "minSamplesForPercentiles": 5, "minSamplesForSlo": 20 },
+  "diagnosticOverride": { "maxDurationMs": 3600000, "requireReason": true, "requireApprovedBy": true },
+  "propagation": { "sameOriginOnly": true, "approvedOrigins": [], "headers": ["traceparent", "x-request-id", "x-correlation-id"] },
+  "sinks": {
+    "LOCAL": { "enabled": true, "note": "ring buffer em memória desta aba; some ao fechar" },
+    "CONSOLE": { "enabled": "byEnvironment", "note": "só em development (logLevels.consoleOutput), sempre já redigido" },
+    "REMOTE": { "enabled": false, "endpoint": null, "protocol": "OTLP/HTTP JSON", "decision": "O1", "note": "desligado: nenhum provedor, nenhum endpoint, nenhum SDK carregado" }
+  },
+  "costBudget": { "maxDailyLogBytes": null, "defaultTraceSampleRate": 0.1, "maxMetricLabelCardinality": 50, "logRetentionDays": null, "traceRetentionDays": null, "note": "valores de servidor dependem da decisão O1/O4; no aparelho a retenção é a sessão da aba" },
+  "retention": { "local": "SESSION_MEMORY", "debug": "curta (a definir)", "application": "moderada (a definir)", "security": "conforme política de segurança (tópico 50)", "audit": "conforme política de auditoria" },
+  "decisions": [
+    { "id": "O1", "title": "Destino remoto de telemetria (logs, erros, traces)", "current": "Desligado. Contrato OTLP documentado; nenhum provedor (Sentry, Datadog, Grafana…) escolhido, nenhum SDK carregado.", "needs": "Escolher provedor/coletor OpenTelemetry, região (residência de dados), acesso com SSO/MFA/RBAC e ligar o destino." },
+    { "id": "O2", "title": "Source maps", "current": "Não gerados nem publicados (painel é um arquivo único). Stack fica só no aparelho.", "needs": "Decidir upload privado de source maps junto com O1." },
+    { "id": "O3", "title": "Real User Monitoring (Web Vitals reais)", "current": "Medidos só no aparelho, sem envio.", "needs": "Aprovar envio agregado (routeCode, deviceClass, sem URL) e base legal." },
+    { "id": "O4", "title": "Retenção e orçamento de custo", "current": "Somente memória da aba.", "needs": "Definir GB/dia de logs, retenção por severidade e taxa de amostragem de traces no servidor." },
+    { "id": "O5", "title": "Metas de SLO", "current": "Propostas, marcadas 'necessita confirmação'; sem baseline real não há meta definitiva.", "needs": "Medir baseline (≥ 4 semanas) e aprovar metas com o negócio." },
+    { "id": "O6", "title": "Donos e plantão dos alertas", "current": "Donos lógicos (frontend-mapa, backend-api…), sem pessoa nem canal.", "needs": "Nomear responsáveis, canal e escalonamento; alertas HIGH/CRITICAL só ligam com dono." },
+    { "id": "O7", "title": "Limites de atualidade dos dados", "current": "Sem limite esperado para o feed de disponibilidade e a tabela de preço; os 498 lotes estão 'não confirmado'.", "needs": "Definir de quanto em quanto tempo disponibilidade e preço devem ser atualizados para alertar ausência de atualização." },
+    { "id": "O8", "title": "Permissão da visão 'Saúde da plataforma'", "current": "Usa o modo Técnico (mode.technical), como 'Métricas locais'.", "needs": "Criar ops.diagnostics.read (suporte) separada de security.logs.read se a visão for além do aparelho." }
+  ]
+}

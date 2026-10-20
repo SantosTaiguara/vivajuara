@@ -1,0 +1,189 @@
+{
+ "kind": "role-templates",
+ "version": "1.0.0",
+ "note": "Templates iniciais (espelho do backend). Role é resumo; a autorização usa sempre permission + scope. As concessões reais por pessoa são decisão humana.",
+ "roles": [
+  {
+   "code": "PUBLIC_VISITOR",
+   "principalTypes": [
+    "ANONYMOUS"
+   ],
+   "label": "Visitante / apresentação",
+   "description": "Contexto sem login: exatamente o que o painel estático faz hoje, só em empreendimentos públicos.",
+   "grants": [
+    "development.view",
+    "lot.view",
+    "lot.price.view",
+    "lot.price_history.view",
+    "lot.availability.view",
+    "lot.analysis.view",
+    "lot.compare",
+    "lot.simulate",
+    "share.create",
+    "customer_profile.manage"
+   ]
+  },
+  {
+   "code": "VIEWER",
+   "principalTypes": [
+    "USER"
+   ],
+   "label": "Leitor",
+   "description": "Somente leitura.",
+   "grants": [
+    "development.view",
+    "lot.view",
+    "lot.price.view",
+    "lot.price_history.view",
+    "lot.availability.view",
+    "lot.analysis.view",
+    "lot.compare"
+   ]
+  },
+  {
+   "code": "BROKER",
+   "principalTypes": [
+    "USER"
+   ],
+   "label": "Corretor",
+   "description": "Consulta, compara, simula e compartilha; não publica preço nem altera status.",
+   "grants": [
+    "development.view",
+    "lot.view",
+    "lot.price.view",
+    "lot.price_history.view",
+    "lot.availability.view",
+    "lot.analysis.view",
+    "lot.compare",
+    "lot.simulate",
+    "share.create",
+    "customer_profile.manage"
+   ]
+  },
+  {
+   "code": "MARKETING",
+   "principalTypes": [
+    "USER"
+   ],
+   "label": "Marketing",
+   "description": "Leitura e compartilhamento; sem perfil de cliente nem escrita.",
+   "grants": [
+    "development.view",
+    "lot.view",
+    "lot.price.view",
+    "lot.price_history.view",
+    "lot.availability.view",
+    "lot.analysis.view",
+    "lot.compare",
+    "share.create"
+   ]
+  },
+  {
+   "code": "ANALYST",
+   "principalTypes": [
+    "USER"
+   ],
+   "label": "Analista",
+   "description": "Leitura técnica e preview de análise; sem escrita comercial.",
+   "grants": [
+    "development.view",
+    "lot.view",
+    "lot.price.view",
+    "lot.price_history.view",
+    "lot.availability.view",
+    "lot.analysis.view",
+    "lot.compare",
+    "lot.simulate",
+    "analysis.preview"
+   ]
+  },
+  {
+   "code": "INVENTORY_MANAGER",
+   "principalTypes": [
+    "USER"
+   ],
+   "label": "Gestor de estoque",
+   "description": "Altera disponibilidade; não altera preços.",
+   "grants": [
+    "development.view",
+    "lot.view",
+    "lot.price.view",
+    "lot.price_history.view",
+    "lot.availability.view",
+    "lot.analysis.view",
+    "lot.compare",
+    "lot.simulate",
+    "share.create",
+    "customer_profile.manage",
+    "availability.write"
+   ]
+  },
+  {
+   "code": "PRICING_MANAGER",
+   "principalTypes": [
+    "USER"
+   ],
+   "label": "Gestor de preços",
+   "description": "Publica tabelas; não altera disponibilidade.",
+   "grants": [
+    "development.view",
+    "lot.view",
+    "lot.price.view",
+    "lot.price_history.view",
+    "lot.availability.view",
+    "lot.analysis.view",
+    "lot.compare",
+    "lot.simulate",
+    "share.create",
+    "customer_profile.manage",
+    "price_table.publish"
+   ]
+  },
+  {
+   "code": "COMMERCIAL_MANAGER",
+   "principalTypes": [
+    "USER"
+   ],
+   "label": "Gestor comercial",
+   "description": "Corretor + disponibilidade + auditoria.",
+   "grants": [
+    "development.view",
+    "lot.view",
+    "lot.price.view",
+    "lot.price_history.view",
+    "lot.availability.view",
+    "lot.analysis.view",
+    "lot.compare",
+    "lot.simulate",
+    "share.create",
+    "customer_profile.manage",
+    "availability.write",
+    "admin.audit.view"
+   ]
+  },
+  {
+   "code": "OWNER_ADMIN",
+   "principalTypes": [
+    "USER"
+   ],
+   "label": "Administrador da organização",
+   "description": "Todas as permissões da organização; não é superadmin da plataforma.",
+   "grants": [
+    "development.view",
+    "lot.view",
+    "lot.price.view",
+    "lot.price_history.view",
+    "lot.availability.view",
+    "lot.analysis.view",
+    "lot.compare",
+    "lot.simulate",
+    "share.create",
+    "customer_profile.manage",
+    "analysis.preview",
+    "availability.write",
+    "price_table.publish",
+    "admin.audit.view"
+   ]
+  }
+ ]
+}

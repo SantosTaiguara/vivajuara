@@ -1,0 +1,68 @@
+/* surroundings.css — topic 63, "Mapa de Lotes | Entorno". Tokens of styles.css only (light + dark); 44px touch targets.
+   Desktop: map + side panel; phone: map, chips, then the list as a bottom section (the list is the accessible interface). */
+.envtabs{display:flex;gap:4px;border-bottom:1px solid var(--line)}
+.envtab{min-height:44px;padding:0 14px;border:0;border-bottom:2px solid transparent;background:none;color:var(--fg-2);font:inherit;font-weight:600;cursor:pointer}
+.envtab.on{color:var(--fg);border-bottom-color:var(--brand)}
+.envp{display:flex;flex-direction:column;gap:10px;min-width:0}
+.envp h3{margin:0;font-size:15px}
+.envmsg{margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.envlay{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,340px);gap:12px}
+.envmap{min-height:420px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.envside{display:flex;flex-direction:column;gap:10px;min-width:0}
+.envchip{min-height:44px;padding:0 12px;margin:0 6px 6px 0;border:1px solid var(--line);border-radius:22px;background:var(--surface);color:var(--fg);font:inherit;cursor:pointer}
+.envchip.on{border-color:var(--brand);font-weight:700}
+.envchip.on::before{content:"✓ "}
+.envlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.envplb{width:100%;min-height:44px;display:grid;grid-template-columns:28px 1fr;gap:2px 8px;text-align:left;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg);font:inherit;cursor:pointer}
+.envpl.on .envplb{border-color:var(--brand);border-width:2px}
+.envgl{grid-row:span 3;font-weight:800;text-align:center}
+.envnm{font-weight:600}
+.envd,.envr{font-size:12.5px;color:var(--fg-2)}
+.envdet{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface)}
+.envdet h4{margin:0}
+.envdet dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:8px 0}
+.envdet dt{color:var(--fg-3)}
+.envdet dd{margin:0;font-weight:600}
+.envdet .lbtn{display:inline-flex;align-items:center;min-height:44px;margin-right:8px}
+@media (max-width:760px){.envlay{grid-template-columns:1fr}.envmap{min-height:300px}.envcats{display:flex;overflow-x:auto;padding-bottom:2px}.envcats .envchip{flex:0 0 auto}}
+/* round 7 (2026-10-19): Entorno with a keyless OpenStreetMap base map (entornoView.js + slippyMap.js). The tiles stay as they
+   are in both themes; only the chrome uses the panel tokens. Separate surface over the lot map: #map is never touched. */
+.envview{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;background:var(--bg);min-width:0}
+html[data-rp="sheet"] .envview{bottom:var(--sheet-h-now,92px)}
+.envbar{position:absolute;top:10px;left:10px;z-index:3}
+.envvp{position:relative;flex:1 1 auto;min-height:180px;overflow:hidden;background:#e8e6e1;touch-action:none;cursor:grab;outline-offset:-3px;user-select:none;-webkit-user-select:none}
+.envvp.dragging{cursor:grabbing}
+.smpane{position:absolute;left:0;top:0;will-change:transform}
+.smtiles,.smpane .envsvg,.envplanimg{position:absolute;left:0;top:0}
+.smtile{position:absolute;width:256px;height:256px;max-width:none;opacity:0;transition:opacity .15s;pointer-events:none;user-select:none}
+.smtile.ok{opacity:1}
+.envplanimg{transform-origin:0 0;max-width:none;pointer-events:none;user-select:none;mix-blend-mode:multiply} /* the plan's white paper lets the base map show through */
+.envsvg{overflow:visible;pointer-events:none}
+.envrings path{fill:none;stroke:#1f5f8b;stroke-width:2;stroke-dasharray:7 5;opacity:.9}
+.envrings text{font:700 13px/1 system-ui,sans-serif;fill:#123b57;stroke:#fff;stroke-width:3.5px;paint-order:stroke}
+.envgate circle{fill:#c2410c;stroke:#fff;stroke-width:2.5}
+.envgate circle.in{fill:#fff;stroke:none}
+.envgate text{font:700 13px/1 system-ui,sans-serif;fill:#7c2d12;stroke:#fff;stroke-width:3.5px;paint-order:stroke}
+.envlots path{fill:transparent;stroke:#2d6232;stroke-width:1;stroke-opacity:.55;pointer-events:all;cursor:pointer}
+.envlots path:hover{fill:rgba(45,98,50,.22);stroke-opacity:1}
+.envctl{position:absolute;right:10px;top:10px;z-index:3;display:flex;flex-direction:column;gap:6px}
+.envplan{position:absolute;left:10px;bottom:30px;z-index:3;display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:2px 8px 2px 2px}
+.envplan .mbtn{border:0}
+.envplan .mbtn[aria-pressed=true]{color:var(--brand);font-weight:700}
+.envop input{width:96px;accent-color:var(--brand);vertical-align:middle}
+.envattr{position:absolute;right:0;bottom:0;z-index:3;margin:0;padding:2px 6px;font-size:11px;background:rgba(255,255,255,.85);color:#333;border-top-left-radius:6px}
+.envattr a{color:#1a4f7a}
+.envfail{position:absolute;left:50%;top:56px;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:4px;max-width:calc(100% - 32px);padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg);text-align:center;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.envfail[hidden]{display:none}
+.envfail span{color:var(--fg-2);font-size:12.5px}
+.envcard{flex:none;display:flex;flex-direction:column;gap:6px;padding:10px 16px;border-top:1px solid var(--line);background:var(--surface);color:var(--fg);min-width:0}
+.envch{display:flex;align-items:baseline;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.envct{margin:0;min-width:0}
+.envbtns{display:flex;gap:8px;flex-wrap:wrap}
+.envbtns .btn{text-decoration:none;display:inline-flex;align-items:center}
+.envmore p{margin:0 0 4px}
+.envnote{color:var(--fg-2)}
+.envlg{display:inline-block;width:14px;height:14px;margin-right:6px;vertical-align:-2px;border:2px dashed #1f5f8b;border-radius:50%}
+.envinfo{flex:none}
+.envseg button{white-space:nowrap}
+@media (max-width:760px){.envcard{padding:8px 12px}.envop input{width:72px}.envbar{top:8px;left:8px}.envctl{right:8px;top:8px}}

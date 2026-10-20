@@ -1,0 +1,31 @@
+{
+  "kind": "privacy-third-parties",
+  "version": "0.1.0",
+  "status": "DRAFT",
+  "note": "Tópico 59. Fornecedores, transferências internacionais, compartilhamentos e políticas de integração encontrados no código. Regiões de hospedagem NÃO verificadas (lista vazia = desconhecida, nunca 'Brasil'). Papéis (operador/controlador) e mecanismos de transferência (Res. CD/ANPD nº 19/2024) ficam null até avaliação jurídica. Não é parecer jurídico.",
+  "vendors": [
+    { "id": "V_GOOGLE_OIDC", "name": "Google (login OIDC)", "services": ["Login com Google (backend/src/modules/auth)"], "processingRole": null, "dataCategories": ["AUTHENTICATION", "IDENTITY"], "processingPurposes": ["SECURITY"], "hostingRegions": [], "subprocessorPolicyRef": null, "agreementRef": null, "securityAssessmentRef": null, "transferMechanismRefs": [], "status": "PENDING_REVIEW", "evidence": "backend/src/modules/auth/google.oidc.js; client ID ainda não criado" },
+    { "id": "V_GOOGLE_FONTS", "name": "Google Fonts", "services": ["CSS e arquivos de fonte do painel (fonts.googleapis.com, fonts.gstatic.com)"], "processingRole": null, "dataCategories": ["DEVICE_TECHNICAL"], "processingPurposes": [], "hostingRegions": [], "subprocessorPolicyRef": null, "agreementRef": null, "securityAssessmentRef": null, "transferMechanismRefs": [], "status": "PENDING_REVIEW", "evidence": "config/security/browserPolicy.json thirdParty: IP e User-Agent do visitante; decisão D50-3 (auto-hospedar)" },
+    { "id": "V_ARTIFACT_HOST", "name": "Host de artefatos do claude.ai (painel publicado)", "services": ["Hospedagem do painel estático"], "processingRole": null, "dataCategories": ["DEVICE_TECHNICAL"], "processingPurposes": ["SECURITY"], "hostingRegions": [], "subprocessorPolicyRef": null, "agreementRef": null, "securityAssessmentRef": null, "transferMechanismRefs": [], "status": "PENDING_REVIEW", "evidence": "docs/OFFLINE_CACHE_ARCHITECTURE.md (host de artefatos do claude.ai); o painel não envia dado de cliente ao host" },
+    { "id": "V_WHATSAPP", "name": "WhatsApp (link wa.me aberto pelo corretor)", "services": ["Abrir conversa com texto pronto"], "processingRole": null, "dataCategories": ["IDENTITY"], "processingPurposes": ["CUSTOMER_RELATIONSHIP"], "hostingRegions": [], "subprocessorPolicyRef": null, "agreementRef": null, "securityAssessmentRef": null, "transferMechanismRefs": [], "status": "PENDING_REVIEW", "evidence": "src/services/share.js whatsappUrl: o nome opcional do cliente vai no texto da URL" },
+    { "id": "V_DB_HOSTING", "name": "Hospedagem do Postgres e da API (a definir)", "services": ["Banco e API do backend"], "processingRole": null, "dataCategories": ["AUTHENTICATION", "IDENTITY"], "processingPurposes": ["SECURITY"], "hostingRegions": [], "subprocessorPolicyRef": null, "agreementRef": null, "securityAssessmentRef": null, "transferMechanismRefs": [], "status": "PENDING_REVIEW", "evidence": "backend/ (provedor não escolhido)" },
+    { "id": "V_CRM_EXTERNAL", "name": "CRM externo (ex.: Kenlo) — não integrado", "services": [], "processingRole": null, "dataCategories": [], "processingPurposes": [], "hostingRegions": [], "subprocessorPolicyRef": null, "agreementRef": null, "securityAssessmentRef": null, "transferMechanismRefs": [], "status": "PENDING_REVIEW", "evidence": "nenhuma integração no código; política de campos vazia (nenhum campo sai)" }
+  ],
+  "internationalTransfers": [
+    { "id": "TR_GOOGLE_OIDC", "organizationId": "org_house7", "processingActivityId": "PA_GOOGLE_LOGIN", "exporterRef": null, "importerRef": "V_GOOGLE_OIDC", "destinationCountryOrOrganization": null, "dataCategoryIds": ["AUTHENTICATION", "IDENTITY"], "purposeIds": ["SECURITY"], "mechanism": null, "mechanismEvidenceRef": null, "effectiveFrom": null, "reviewAt": null, "status": "UNDER_REVIEW" },
+    { "id": "TR_GOOGLE_FONTS", "organizationId": "org_house7", "processingActivityId": "PA_PUBLIC_PANEL_HOSTING", "exporterRef": null, "importerRef": "V_GOOGLE_FONTS", "destinationCountryOrOrganization": null, "dataCategoryIds": ["DEVICE_TECHNICAL"], "purposeIds": [], "mechanism": null, "mechanismEvidenceRef": null, "effectiveFrom": null, "reviewAt": null, "status": "UNDER_REVIEW" },
+    { "id": "TR_ARTIFACT_HOST", "organizationId": "org_house7", "processingActivityId": "PA_PUBLIC_PANEL_HOSTING", "exporterRef": null, "importerRef": "V_ARTIFACT_HOST", "destinationCountryOrOrganization": null, "dataCategoryIds": ["DEVICE_TECHNICAL"], "purposeIds": ["SECURITY"], "mechanism": null, "mechanismEvidenceRef": null, "effectiveFrom": null, "reviewAt": null, "status": "UNDER_REVIEW" },
+    { "id": "TR_WHATSAPP", "organizationId": "org_house7", "processingActivityId": "PA_SHARE_WHATSAPP_TEXT", "exporterRef": null, "importerRef": "V_WHATSAPP", "destinationCountryOrOrganization": null, "dataCategoryIds": ["IDENTITY"], "purposeIds": ["CUSTOMER_RELATIONSHIP"], "mechanism": null, "mechanismEvidenceRef": null, "effectiveFrom": null, "reviewAt": null, "status": "UNDER_REVIEW" }
+  ],
+  "transferMechanisms": ["ADEQUACY", "STANDARD_CONTRACTUAL_CLAUSES", "SPECIFIC_CONTRACTUAL_CLAUSES", "GLOBAL_CORPORATE_RULES", "SPECIFIC_CONSENT", "OTHER_LGPD_ART33_MECHANISM"],
+  "dataSharingArrangements": [],
+  "integrationPolicies": [
+    { "integrationId": "V_CRM_EXTERNAL", "allowedDataFields": [], "purposes": [], "prohibitedFields": ["customer.cpf", "customer.notes", "legacyCustomer.profile.constraints.budget"], "direction": "OUTBOUND", "status": "NECESSITA_CONFIRMACAO" }
+  ],
+  "transactionDisclosurePolicies": [
+    { "phase": "PROPOSAL", "recipientRef": null, "allowedFields": [], "purposeId": "PROPOSAL_PREPARATION", "agreementRef": null, "status": "NECESSITA_CONFIRMACAO" },
+    { "phase": "RESERVATION", "recipientRef": null, "allowedFields": [], "purposeId": "RESERVATION_PROCESS", "agreementRef": null, "status": "NECESSITA_CONFIRMACAO" },
+    { "phase": "CLOSING", "recipientRef": null, "allowedFields": [], "purposeId": "CONTRACT_PREPARATION", "agreementRef": null, "status": "NECESSITA_CONFIRMACAO" }
+  ],
+  "rightsRequestRouting": []
+}

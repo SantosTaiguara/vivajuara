@@ -1,0 +1,244 @@
+{
+ "kind": "cache-manifest",
+ "developmentId": "viva-juara",
+ "schemaVersion": "1.0",
+ "appVersion": "f69165437f",
+ "staticVersion": "2026-10-06.1",
+ "analysisVersion": "2026-10-06",
+ "priceTableVersion": "2026-10-06",
+ "commercialRevision": 1,
+ "availabilityRevision": null,
+ "availabilityPath": null,
+ "checksums": {
+  "static": "563a5f06",
+  "analysis": "98319c8d"
+ },
+ "lotCount": 498,
+ "assets": [
+  {
+   "path": "logo.png",
+   "checksum": "787910a94f9b",
+   "bytes": 15109,
+   "priority": "P0",
+   "strategy": "precache",
+   "kind": "image"
+  },
+  {
+   "path": "planta.webp",
+   "checksum": "d8ca4c2809be",
+   "bytes": 1263324,
+   "priority": "P0",
+   "strategy": "cache-on-first-use",
+   "kind": "image"
+  },
+  {
+   "path": "lots.json",
+   "checksum": "f837574dd681",
+   "bytes": 726569,
+   "priority": "P0",
+   "strategy": "indexeddb",
+   "kind": "data"
+  },
+  {
+   "path": "commercial.json",
+   "checksum": "271506ebc8c2",
+   "bytes": 1482,
+   "priority": "P1",
+   "strategy": "network-first",
+   "kind": "data"
+  },
+  {
+   "path": "routes.json",
+   "checksum": "98277f1c448c",
+   "bytes": 254568,
+   "priority": "P1",
+   "strategy": "memory",
+   "kind": "data"
+  },
+  {
+   "path": "aerea.webp",
+   "checksum": "41fbe43e1154",
+   "bytes": 381144,
+   "priority": "P2",
+   "strategy": "lazy",
+   "kind": "image"
+  },
+  {
+   "path": "img_list.json",
+   "checksum": "74aec77613be",
+   "bytes": 840,
+   "priority": "P3",
+   "strategy": "memory",
+   "kind": "data"
+  },
+  {
+   "path": "analysis-input.json",
+   "checksum": "f57a4083e9f9",
+   "bytes": 508456,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "data"
+  },
+  {
+   "path": "img/01.webp",
+   "checksum": "54ee314119b0",
+   "bytes": 75622,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/02.webp",
+   "checksum": "bd0612f98435",
+   "bytes": 173234,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/03.webp",
+   "checksum": "12836cbb2454",
+   "bytes": 38614,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/04.webp",
+   "checksum": "1a1e592decf8",
+   "bytes": 189336,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/05.webp",
+   "checksum": "60ee626d6658",
+   "bytes": 201814,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/06.webp",
+   "checksum": "53de42f364f2",
+   "bytes": 56166,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/07.webp",
+   "checksum": "12fc5e68d89c",
+   "bytes": 108716,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/08.webp",
+   "checksum": "f9983fad1ecd",
+   "bytes": 86910,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/09.webp",
+   "checksum": "a9c9acc1c8e6",
+   "bytes": 68922,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/10.webp",
+   "checksum": "dfc858c3e3f7",
+   "bytes": 68800,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/11.webp",
+   "checksum": "3561532f8dec",
+   "bytes": 72626,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/13.webp",
+   "checksum": "173c623a9106",
+   "bytes": 184212,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/14.webp",
+   "checksum": "96f1faf878e7",
+   "bytes": 158156,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/15.webp",
+   "checksum": "aa7623d330e4",
+   "bytes": 137340,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/16.webp",
+   "checksum": "513fa280a29e",
+   "bytes": 56260,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/17.webp",
+   "checksum": "dbc4ce19e733",
+   "bytes": 177922,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/18.webp",
+   "checksum": "2deff5ee697d",
+   "bytes": 123334,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/19.webp",
+   "checksum": "e181402b5d8c",
+   "bytes": 226578,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/20.webp",
+   "checksum": "44417be18ffd",
+   "bytes": 153712,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  },
+  {
+   "path": "img/21.webp",
+   "checksum": "4ae653df6455",
+   "bytes": 114812,
+   "priority": "P3",
+   "strategy": "on-demand",
+   "kind": "image"
+  }
+ ],
+ "generatedAt": "2026-10-19T17:36:25.933Z"
+}

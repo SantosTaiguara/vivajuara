@@ -1,0 +1,42 @@
+{
+ "kind": "analysis-versioning",
+ "schemaVersion": "1.0",
+ "organizationId": "house7",
+ "developmentId": "viva-juara",
+ "definitions": [
+  {
+   "id": "analysis-def:viva-juara:LOT_INTELLIGENCE_BASE",
+   "code": "LOT_INTELLIGENCE_BASE",
+   "scope": "DEVELOPMENT",
+   "titleKey": "AnalysisDefinition.LOT_INTELLIGENCE_BASE",
+   "descriptionKey": "Scores, notas, níveis, classes, rankings, destaques, perfis e alertas legados da análise do lote",
+   "moduleGraphRef": "intelligence-engine-pipeline",
+   "defaultPublicationPolicyRef": "analysis-publication:default",
+   "supportedEntityTypes": ["LOT"],
+   "status": "ACTIVE",
+   "version": "1.0",
+   "dependencyDomains": ["STATIC_DATA_VERSION", "MEASUREMENT_INPUT", "SCORING_METHODOLOGY", "ENGINE_BUILD"],
+   "notDependentOn": ["PRICE_TABLE_VERSION", "AVAILABILITY_REVISION", "COMMERCIAL_FRESHNESS", "CUSTOMER_CONTEXT"],
+   "outputSchemaVersion": "lot-analysis-result/1.0",
+   "outputs": ["notes", "scores", "overallRaw", "class", "rankings", "levels", "highlights", "profileSignals", "alerts", "confidence", "status"]
+  }
+ ],
+ "publicationPolicies": [
+  {
+   "id": "analysis-publication:default",
+   "version": "1.0",
+   "requireValidationPass": true,
+   "maxCriticalErrors": 0,
+   "maxEntityErrors": 0,
+   "maxPartialEntities": 0,
+   "requireParityForMigration": true,
+   "requireImpactReview": true,
+   "allowPartialPublication": false,
+   "requiredApprovals": 0,
+   "allowAutomaticPublication": false
+  }
+ ],
+ "numericPrecisionProfiles": [
+  { "id": "exact", "absoluteTolerance": 0, "note": "Saídas publicadas são comparadas exatamente (scores inteiros, notas sem arredondamento, classes e rankings)." }
+ ]
+}

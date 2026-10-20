@@ -1,0 +1,85 @@
+{
+  "kind": "provenance-config",
+  "schemaVersion": "1.0",
+  "developmentId": "viva-juara",
+  "organizationId": "org_house7",
+  "version": "1.0.0",
+  "note": "Política de proveniência por atributo (Tópico 33). Não altera valores, scores, classes ou metodologia. Métodos legados sem versão rastreável NÃO são registrados aqui: os campos que dependem deles migram como LEGACY_DECLARED.",
+  "methods": [
+    { "methodId": "plan_geometry_measurement", "methodVersion": "1", "methodType": "GEOSPATIAL", "legacySourceId": "plan-geometry-v1", "legacyMethods": ["geometric"], "descriptionKey": "Medidas sobre os polígonos vetorizados da planta (cerca de 0,3 m)", "implementationRef": "analysis-pipeline@2026-10-06" },
+    { "methodId": "plan_vectorization", "methodVersion": "1", "methodType": "TRANSFORMATION", "legacySourceId": "official-plan-v1", "legacyMethods": ["vectorized", "geometric"], "descriptionKey": "Vetorização dos contornos dos lotes do PDF da planta", "implementationRef": "analysis-pipeline@2026-10-06" },
+    { "methodId": "analysis_model", "methodVersion": "2026-10-06", "methodType": "ESTIMATION", "legacySourceId": "analysis-v1", "legacyMethods": ["analytical-model", "routing"], "descriptionKey": "Modelo comparativo de análise (estimativa)" },
+    { "methodId": "analysis_rules", "methodVersion": "2026-10-06", "methodType": "CLASSIFICATION", "legacySourceId": "analysis-v1", "legacyMethods": ["rule", "rules"], "descriptionKey": "Regras da análise (alertas, destaques, proximidade)" },
+    { "methodId": "analysis_ranking", "methodVersion": "2026-10-06", "methodType": "SCORING", "legacySourceId": "analysis-v1", "legacyMethods": ["ranking"], "descriptionKey": "Posição nos rankings a partir dos scores" },
+    { "methodId": "solar_orientation", "methodVersion": "1", "methodType": "ESTIMATION", "legacySourceId": "solar-model-v1", "legacyMethods": ["astronomical"], "descriptionKey": "Cálculo astronômico para Serra/ES; não considera sombras" },
+    { "methodId": "lot_price_per_m2_times_area", "methodVersion": "1", "methodType": "FORMULA", "legacySourceId": "price-table-v1", "legacyMethods": ["price-table"], "formula": "price = areaM2 × pricePerM2", "verifiable": true, "descriptionKey": "Preço de tabela = área × R$/m² da tabela" },
+    { "methodId": "down_payment_percent_of_price", "methodVersion": "1", "methodType": "FORMULA", "legacySourceId": "price-table-v1", "legacyMethods": ["price-table"], "formula": "downPaymentDefaultValue = price × downPaymentDefaultPercent / 100", "verifiable": true, "descriptionKey": "Entrada padrão = percentual × preço de tabela" },
+    { "methodId": "lot_id_rule", "methodVersion": "1.0", "methodType": "TRANSFORMATION", "legacyMethods": ["id-rule"], "descriptionKey": "VJ-Q<quadra>-L<0000> (schema 1.0)" },
+    { "methodId": "lot_display_code_rule", "methodVersion": "1.0", "methodType": "TRANSFORMATION", "legacyMethods": ["derived"], "descriptionKey": "Código de exibição a partir de quadra e lote (schema 1.0)" },
+    { "methodId": "availability_revision_sequence", "methodVersion": "1", "methodType": "TRANSFORMATION", "legacyMethods": ["sequence"], "descriptionKey": "Contador de revisões do estado comercial" },
+    { "methodId": "availability_freshness_policy", "methodVersion": "policy", "methodType": "CLASSIFICATION", "legacyMethods": ["freshness-policy"], "descriptionKey": "Política de atualidade da disponibilidade (versão = App.availability.POLICY_VERSION)" },
+    { "methodId": "br_decimal_to_number", "methodVersion": "1.0.0", "methodType": "NORMALIZATION", "descriptionKey": "Número no formato brasileiro (1.234,56) para decimal" },
+    { "methodId": "area_string_to_decimal", "methodVersion": "1", "methodType": "NORMALIZATION", "descriptionKey": "Texto de área (\"250,00 m²\") para m² decimal" }
+  ],
+  "unversionedLegacyMethods": {
+    "note": "Métodos citados no registro de campos sem versão rastreável: não viram MethodRef (seria inventar versão).",
+    "items": [
+      { "legacySourceId": "kmz-v1", "methods": ["geospatial", "rule", "routing"] },
+      { "legacySourceId": "aerial-v1", "methods": ["visual-interpretation"] }
+    ]
+  },
+  "notAvailableReasons": {
+    "note": "Motivo do null por campo, extraído das pendências declaradas em developments.js. Campo nulo sem entrada aqui recebe UNKNOWN_REASON e fica em revisão (não se inventa motivo).",
+    "fields": {
+      "location.streetId": { "reason": "NOT_PROVIDED_BY_SOURCE", "basis": "A planta traz apenas ruas projetadas." },
+      "location.streetName": { "reason": "NOT_PROVIDED_BY_SOURCE", "basis": "A planta traz apenas ruas projetadas." },
+      "environmental.ventilation": { "reason": "SOURCE_UNAVAILABLE", "basis": "Não há dados de vento para o local." },
+      "construction.topography": { "reason": "SOURCE_NOT_INGESTED", "basis": "Falta o levantamento planialtimétrico." },
+      "construction.slopePercent": { "reason": "SOURCE_NOT_INGESTED", "basis": "Falta o levantamento planialtimétrico." },
+      "construction.drainage": { "reason": "SOURCE_NOT_INGESTED", "basis": "Falta o projeto de drenagem." },
+      "construction.frontSetbackM": { "reason": "SOURCE_NOT_INGESTED", "basis": "Depende do regulamento construtivo." },
+      "construction.rearSetbackM": { "reason": "SOURCE_NOT_INGESTED", "basis": "Depende do regulamento construtivo." },
+      "construction.sideSetbackM": { "reason": "SOURCE_NOT_INGESTED", "basis": "Depende do regulamento construtivo." },
+      "construction.occupationRate": { "reason": "SOURCE_NOT_INGESTED", "basis": "Depende do regulamento construtivo." },
+      "construction.permeabilityRate": { "reason": "SOURCE_NOT_INGESTED", "basis": "Depende do regulamento construtivo." },
+      "construction.buildingCoefficient": { "reason": "SOURCE_NOT_INGESTED", "basis": "Depende do regulamento construtivo." },
+      "construction.maxFloors": { "reason": "SOURCE_NOT_INGESTED", "basis": "Depende do regulamento construtivo." },
+      "construction.constructivePotential": { "reason": "SOURCE_NOT_INGESTED", "basis": "Depende do regulamento construtivo." },
+      "availability.status": { "reason": "SOURCE_NOT_INGESTED", "basis": "Sem espelho de vendas: todos os lotes ficam \"sem informação\"." },
+      "availability.updatedAt": { "reason": "SOURCE_NOT_INGESTED", "basis": "Sem espelho de vendas." },
+      "availability.reason": { "reason": "SOURCE_NOT_INGESTED", "basis": "Sem espelho de vendas." },
+      "availability.notes": { "reason": "SOURCE_NOT_INGESTED", "basis": "Sem espelho de vendas." },
+      "availability.reservedUntil": { "reason": "SOURCE_NOT_INGESTED", "basis": "Sem espelho de vendas." },
+      "availability.sourceId": { "reason": "SOURCE_NOT_INGESTED", "basis": "Sem espelho de vendas." },
+      "availability.proposalId": { "reason": "SOURCE_NOT_INGESTED", "basis": "Sem espelho de vendas." },
+      "commercial.validFrom": { "reason": "NOT_PROVIDED_BY_SOURCE", "basis": "A tabela informada não traz vigência." },
+      "commercial.validUntil": { "reason": "NOT_PROVIDED_BY_SOURCE", "basis": "A tabela informada não traz vigência." }
+    }
+  },
+  "resolutionPolicies": {
+    "default": "NO_AUTO_RESOLUTION",
+    "byDomain": {},
+    "byField": {}
+  },
+  "fieldPolicies": {
+    "note": "Sobreposições pontuais da política derivada do FieldRegistry (App.model).",
+    "geometry.areaM2": { "allowedKinds": ["DIRECT_SOURCE", "NORMALIZED_SOURCE", "MANUAL_ASSERTION", "LEGACY_DECLARED", "NOT_AVAILABLE"], "requiresEvidenceRef": true, "allowManualAssertion": true, "allowOverride": false },
+    "commercial.price": { "allowedKinds": ["CALCULATED", "DIRECT_SOURCE", "NOT_AVAILABLE"], "requiresMethodForDerived": true, "allowManualAssertion": false },
+    "commercial.pricePerM2": { "allowedKinds": ["DIRECT_SOURCE", "NORMALIZED_SOURCE", "NOT_AVAILABLE"], "allowManualAssertion": false }
+  },
+  "legacyMapping": {
+    "note": "Como cada rótulo legado do FieldRegistry vira proveniência estruturada (detalhes em docs/PROVENANCE_LEGACY_MIGRATION_REPORT.md).",
+    "CONFIRMED+official": "LEGACY_DECLARED / UNRESOLVED (candidato: documento da planta, vínculo REQUIRES_REVIEW)",
+    "CONFIRMED+declared": "LEGACY_DECLARED / UNRESOLVED (gravação do evento não disponível)",
+    "TO_CONFIRM": "LEGACY_DECLARED / UNRESOLVED, currentness REVIEW_REQUIRED",
+    "CALCULATED+método versionado": "CALCULATED / PARTIAL com MethodRef e dependências",
+    "CALCULATED+método sem versão": "LEGACY_DECLARED / PARTIAL",
+    "ESTIMATED": "ESTIMATED / PARTIAL com MethodRef (nunca vira calculado)",
+    "intelligence.*": "ANALYSIS_DERIVED / PARTIAL com AnalysisEvidenceRef",
+    "CONFIRMED+config|inventory": "DIRECT_SOURCE / VERIFIED com CONFIG_VERSION",
+    "UNKNOWN (null)": "NOT_AVAILABLE com motivo configurado; sem motivo → UNKNOWN_REASON + REVIEW_REQUIRED",
+    "NOT_APPLICABLE": "NOT_AVAILABLE / NOT_APPLICABLE",
+    "commercial.*": "Pricing adapter (PriceTableVersion): DIRECT_SOURCE / PARTIAL (arquivo da tabela não recebido)",
+    "availability.*": "Availability adapter: NOT_AVAILABLE / SOURCE_NOT_INGESTED"
+  }
+}

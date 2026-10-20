@@ -1,0 +1,580 @@
+{
+  "kind": "dq-policy",
+  "scope": "ORGANIZATION",
+  "organizationId": "org_house7",
+  "version": "1.0.0",
+  "policyVersion": "dq-org_house7-2026-10-16.1",
+  "note": "Nenhum owner, steward, meta de SLO, prazo de exceção ou janela de certificação foi definido por humano: todos ficam null com status NECESSITA_CONFIRMACAO e o código recusa (ou mostra 'não configurado') quando null.",
+  "ownership": [
+    {
+      "dataDomainId": "DEVELOPMENT",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    },
+    {
+      "dataDomainId": "LOT_IDENTITY",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    },
+    {
+      "dataDomainId": "GEOMETRY",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    },
+    {
+      "dataDomainId": "PRICING",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    },
+    {
+      "dataDomainId": "AVAILABILITY",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    },
+    {
+      "dataDomainId": "DOCUMENTS",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    },
+    {
+      "dataDomainId": "ANALYSIS",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    },
+    {
+      "dataDomainId": "CUSTOMER",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    },
+    {
+      "dataDomainId": "JOURNEY",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    },
+    {
+      "dataDomainId": "COMMERCIAL_TRANSACTION",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    },
+    {
+      "dataDomainId": "PRIVACY",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    },
+    {
+      "dataDomainId": "INTEGRATION_REFERENCE",
+      "owner": null,
+      "ownerStatus": "NECESSITA_CONFIRMACAO",
+      "steward": null,
+      "stewardStatus": "NECESSITA_CONFIRMACAO",
+      "technicalOwner": null,
+      "technicalOwnerStatus": "NECESSITA_CONFIRMACAO",
+      "effectiveFrom": null
+    }
+  ],
+  "raci": [
+    {
+      "dataDomainId": "ANALYSIS",
+      "activityCode": "RULE_CHANGE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "ANALYSIS",
+      "activityCode": "SOURCE_CHANGE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "ANALYSIS",
+      "activityCode": "PUBLICATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "ANALYSIS",
+      "activityCode": "QUALITY_EXCEPTION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "ANALYSIS",
+      "activityCode": "INCIDENT_RESPONSE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "ANALYSIS",
+      "activityCode": "RECONCILIATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "ANALYSIS",
+      "activityCode": "DATA_REPAIR",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "ANALYSIS",
+      "activityCode": "CERTIFICATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "AVAILABILITY",
+      "activityCode": "RULE_CHANGE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "AVAILABILITY",
+      "activityCode": "SOURCE_CHANGE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "AVAILABILITY",
+      "activityCode": "PUBLICATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "AVAILABILITY",
+      "activityCode": "QUALITY_EXCEPTION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "AVAILABILITY",
+      "activityCode": "INCIDENT_RESPONSE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "AVAILABILITY",
+      "activityCode": "RECONCILIATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "AVAILABILITY",
+      "activityCode": "DATA_REPAIR",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "AVAILABILITY",
+      "activityCode": "CERTIFICATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "GEOMETRY",
+      "activityCode": "RULE_CHANGE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "GEOMETRY",
+      "activityCode": "SOURCE_CHANGE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "GEOMETRY",
+      "activityCode": "PUBLICATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "GEOMETRY",
+      "activityCode": "QUALITY_EXCEPTION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "GEOMETRY",
+      "activityCode": "INCIDENT_RESPONSE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "GEOMETRY",
+      "activityCode": "RECONCILIATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "GEOMETRY",
+      "activityCode": "DATA_REPAIR",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "GEOMETRY",
+      "activityCode": "CERTIFICATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "LOT_IDENTITY",
+      "activityCode": "RULE_CHANGE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "LOT_IDENTITY",
+      "activityCode": "SOURCE_CHANGE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "LOT_IDENTITY",
+      "activityCode": "PUBLICATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "LOT_IDENTITY",
+      "activityCode": "QUALITY_EXCEPTION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "LOT_IDENTITY",
+      "activityCode": "INCIDENT_RESPONSE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "LOT_IDENTITY",
+      "activityCode": "RECONCILIATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "LOT_IDENTITY",
+      "activityCode": "DATA_REPAIR",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "LOT_IDENTITY",
+      "activityCode": "CERTIFICATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "PRICING",
+      "activityCode": "RULE_CHANGE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "PRICING",
+      "activityCode": "SOURCE_CHANGE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "PRICING",
+      "activityCode": "PUBLICATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "PRICING",
+      "activityCode": "QUALITY_EXCEPTION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "PRICING",
+      "activityCode": "INCIDENT_RESPONSE",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "PRICING",
+      "activityCode": "RECONCILIATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "PRICING",
+      "activityCode": "DATA_REPAIR",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "dataDomainId": "PRICING",
+      "activityCode": "CERTIFICATION",
+      "responsibleRefs": [],
+      "accountableRef": null,
+      "consultedRefs": [],
+      "informedRefs": [],
+      "status": "NECESSITA_CONFIRMACAO"
+    }
+  ],
+  "exceptionPolicies": [
+    {
+      "ruleId": "*",
+      "exceptionAllowed": false,
+      "maxDuration": null,
+      "requiredApprovalPermission": "data_quality.approve_exception",
+      "status": "NECESSITA_CONFIRMACAO",
+      "note": "Padrão: nenhuma exceção até a organização definir quais regras aceitam exceção e por quanto tempo."
+    }
+  ],
+  "slos": [
+    {
+      "id": "SLO-LOT-ID-UNIQUENESS",
+      "dataDomainId": "LOT_IDENTITY",
+      "metricCode": "lot_id_uniqueness_rate",
+      "target": null,
+      "comparator": "GTE",
+      "evaluationWindow": null,
+      "criticality": "CRITICAL",
+      "breachPolicyRef": null,
+      "version": "1.0.0",
+      "targetStatus": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "id": "SLO-GEOMETRY-VALID",
+      "dataDomainId": "GEOMETRY",
+      "metricCode": "published_lots_valid_geometry_rate",
+      "target": null,
+      "comparator": "GTE",
+      "evaluationWindow": null,
+      "criticality": "HIGH",
+      "breachPolicyRef": null,
+      "version": "1.0.0",
+      "targetStatus": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "id": "SLO-AVAILABILITY-FRESHNESS",
+      "dataDomainId": "AVAILABILITY",
+      "metricCode": "availability_known_and_fresh_rate",
+      "target": null,
+      "comparator": "GTE",
+      "evaluationWindow": null,
+      "criticality": "CRITICAL",
+      "breachPolicyRef": null,
+      "version": "1.0.0",
+      "targetStatus": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "id": "SLO-PRICING-COVERAGE",
+      "dataDomainId": "PRICING",
+      "metricCode": "lots_with_current_price_rate",
+      "target": null,
+      "comparator": "GTE",
+      "evaluationWindow": null,
+      "criticality": "CRITICAL",
+      "breachPolicyRef": null,
+      "version": "1.0.0",
+      "targetStatus": "NECESSITA_CONFIRMACAO"
+    },
+    {
+      "id": "SLO-ANALYSIS-CURRENT",
+      "dataDomainId": "ANALYSIS",
+      "metricCode": "lots_with_current_analysis_rate",
+      "target": null,
+      "comparator": "GTE",
+      "evaluationWindow": null,
+      "criticality": "MEDIUM",
+      "breachPolicyRef": null,
+      "version": "1.0.0",
+      "targetStatus": "NECESSITA_CONFIRMACAO"
+    }
+  ],
+  "alertPolicies": [
+    {
+      "ruleOrSLORef": "*",
+      "notifyOn": "PERSISTENT_FAILURE",
+      "suppressionWindow": null,
+      "escalationPolicyRef": null,
+      "status": "NECESSITA_CONFIRMACAO",
+      "note": "Envio de alertas desligado: nenhum canal ou responsável definido."
+    }
+  ],
+  "certificationPolicy": {
+    "defaultValidity": null,
+    "dynamicDomainValidity": null,
+    "status": "NECESSITA_CONFIRMACAO",
+    "requiredPermission": "data_governance.certify"
+  }
+}

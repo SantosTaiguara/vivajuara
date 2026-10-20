@@ -1,0 +1,54 @@
+{
+ "kind": "customer-policy",
+ "version": "1.0.0",
+ "schemaVersion": "customer-profile/1",
+ "note": "Tópico 39. Política padrão do domínio Customer por organização. Prazos de retenção e base legal NÃO são definidos aqui: são decisão do jurídico/privacidade da organização (retentionPolicyRef = null até lá).",
+ "organizations": {
+  "org_house7": {
+   "creationPolicy": { "minimumFields": ["displayName"], "requireContactPoint": false, "duplicateCheckRequired": true, "allowCreateWithDuplicateWarning": true },
+   "duplicatePolicy": { "mode": "SUGGEST_ONLY", "nameSimilarityThreshold": 0.8, "crossTenant": false },
+   "offlinePolicy": { "allowSummaryCache": false, "allowContactCache": false, "allowProfileCache": false, "allowNotesCache": false, "maxCacheAgeSeconds": null },
+   "retentionPolicyRef": null,
+   "defaultPhoneCountry": "BR",
+   "dataClassificationDefault": "STANDARD_PII",
+   "fieldAuthorityPolicies": []
+  }
+ },
+ "defaults": {
+  "creationPolicy": { "minimumFields": ["displayName"], "requireContactPoint": false, "duplicateCheckRequired": true, "allowCreateWithDuplicateWarning": true },
+  "duplicatePolicy": { "mode": "SUGGEST_ONLY", "nameSimilarityThreshold": 0.8, "crossTenant": false },
+  "offlinePolicy": { "allowSummaryCache": false, "allowContactCache": false, "allowProfileCache": false, "allowNotesCache": false, "maxCacheAgeSeconds": null },
+  "retentionPolicyRef": null,
+  "defaultPhoneCountry": "BR",
+  "dataClassificationDefault": "STANDARD_PII",
+  "fieldAuthorityPolicies": []
+ },
+ "objectiveLabels": { "LIVE": "Morar", "INVEST": "Investir", "LIVE_OR_INVEST": "Morar ou investir", "UNDECIDED": "Ainda não decidiu" },
+ "completeness": {
+  "note": "Completude = quanto do perfil necessário está preenchido. Não é confiança. Não é exigida para atender o cliente.",
+  "items": [
+   { "key": "objective", "label": "Objetivo" },
+   { "key": "budget", "label": "Orçamento" },
+   { "key": "preferences", "label": "Ao menos uma preferência explícita" },
+   { "key": "hardConstraintsReviewed", "label": "Exigências eliminatórias revisadas" }
+  ]
+ },
+ "profileBuilderGroups": [
+  { "id": "objective", "label": "Objetivo", "fields": [] },
+  { "id": "budget", "label": "Orçamento", "fields": ["budget"] },
+  { "id": "size", "label": "Tamanho do lote", "fields": ["area", "areaRange"] },
+  { "id": "solar", "label": "Sol", "fields": ["solar"] },
+  { "id": "noise", "label": "Ruído", "fields": ["quiet", "lowTraffic"] },
+  { "id": "privacy", "label": "Privacidade", "fields": ["privacy"] },
+  { "id": "leisure", "label": "Proximidade do lazer", "fields": ["leisure"] },
+  { "id": "gate", "label": "Proximidade da entrada", "fields": ["gate"] },
+  { "id": "green", "label": "Área verde", "fields": ["green", "view"] },
+  { "id": "investment", "label": "Investimento", "fields": ["investment", "priceQuality"] },
+  { "id": "other", "label": "Outras preferências explícitas", "fields": ["geometry", "housing", "family", "premium", "noCorner"] }
+ ],
+ "permissionCatalog": {
+  "note": "Chaves do domínio Customer usadas por App.customer (contrato p/ backend). Ainda NÃO estão em config/security/permissions.json: enquanto não forem registradas, toda checagem delas nega (deny by default). No modo estático (aparelho) vale apenas customer_profile.manage, sem contatos.",
+  "keys": ["customer.read", "customer.readAssigned", "customer.create", "customer.update", "customer.archive", "customer.assign", "customer.profile.read", "customer.profile.update", "customer.contact.read", "customer.contact.update", "customer.merge", "customer.duplicate.review", "customer.privacy.read", "customer.privacy.manage", "customer.externalRef.manage"],
+  "localDeviceKey": "customer_profile.manage"
+ }
+}

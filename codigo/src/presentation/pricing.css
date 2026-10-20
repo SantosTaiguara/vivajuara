@@ -1,0 +1,36 @@
+/* pricing.css — topics 28/29: independent status and price blocks, price history (step chart + accessible table). Uses styles.css tokens. */
+.pv-commercial{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:699px){.pv-commercial{grid-template-columns:1fr}}
+.pv-block{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.pv-h{margin:0 0 4px;font-size:12px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.04em}
+.pv-value{margin:0;font-family:var(--ff-display);font-size:18px;font-weight:600;color:var(--fg)}
+.pv-badge{display:inline-flex;align-items:center;gap:6px;margin:0;font-weight:600;color:var(--fg)}
+.pv-dot{width:10px;height:10px;border-radius:50%;background:var(--c-nd);flex:none;border:2px solid var(--surface)}
+.av-available .pv-dot{background:var(--c-conf)} .av-reserved .pv-dot{background:var(--c-est)} .av-proposal .pv-dot{background:var(--c-calc)}
+.av-sold .pv-dot,.av-blocked .pv-dot,.av-unavailable .pv-dot{background:var(--fg-3)} .av-unknown .pv-dot{background:transparent;border-color:var(--c-nd);border-style:dashed}
+.av-stale .pv-dot{outline:2px dashed var(--c-est);outline-offset:1px}
+.pv-meta{margin:2px 0 0;font-size:12px;color:var(--fg-2)}
+.pv-tech{margin:2px 0 0;font-size:11px;color:var(--fg-3);font-family:ui-monospace,monospace}
+.pv-warn{margin:6px 0 0;padding:6px 8px;border-radius:8px;font-size:12px;background:var(--warn-bg);color:var(--warn-fg);border:1px solid var(--warn-line)}
+.pv-qv-change{margin:2px 0 0;font-size:12px;color:var(--fg-2)} .pv-k{color:var(--fg-3)}
+.pv-history{display:flex;flex-direction:column;gap:8px}
+.pv-title{margin:0;font-family:var(--ff-display);font-size:15px}
+.pv-period{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--fg-2)}
+.pv-period select{min-height:36px;border:1px solid var(--line-2);border-radius:8px;background:var(--surface);padding:0 8px}
+@media (pointer:coarse){.pv-period select{min-height:44px}}
+.pv-summary{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin:0}
+@media (max-width:699px){.pv-summary{grid-template-columns:1fr}}
+.pv-row{min-width:0} .pv-row dt{font-size:11px;color:var(--fg-3)} .pv-row dd{margin:0;font-weight:600}
+.pv-row dd[data-status="UNKNOWN"]{font-weight:400;color:var(--fg-2);font-size:12px}
+.pv-chart{display:block;max-width:100%;height:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.pv-step{stroke:var(--fg-2);stroke-width:2;stroke-linejoin:miter}
+.pv-pt{fill:var(--surface);stroke:var(--fg);stroke-width:2}
+.pv-gap{stroke:var(--c-nd);stroke-width:2;stroke-dasharray:4 3}
+.pv-mark{font-size:10px;fill:var(--fg-2)} .pv-ann{font-size:10px;fill:var(--fg-3)}
+.pv-table{width:100%;border-collapse:collapse;font-size:12px}
+.pv-table caption{text-align:left;font-weight:600;color:var(--fg-2);padding-bottom:4px}
+.pv-table th,.pv-table td{text-align:left;padding:4px 6px;border-bottom:1px solid var(--line)}
+.pv-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pv-disclaimer{margin:0;font-size:11px;color:var(--fg-3)}
+.pv-techbox{font-size:11px;color:var(--fg-3)} .pv-techbox summary{cursor:pointer;min-height:32px;display:flex;align-items:center}
+@media (pointer:coarse){.pv-techbox summary{min-height:44px}}

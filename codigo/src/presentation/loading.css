@@ -1,0 +1,11 @@
+/* loading.css — topic 47: local, progressive loading states (skeletons reserve space; no full-screen spinner for secondary loads). */
+.ldsk{display:grid;gap:8px;padding:4px 0;min-height:var(--ldsk-h,auto)}
+.ldsk .ldl{display:block;height:12px;border-radius:6px;background:linear-gradient(90deg,var(--surface-2),var(--surface-3),var(--surface-2));background-size:200% 100%;animation:ldsk 1.4s ease-in-out infinite}
+.ldsk .ldl.w60{width:60%}.ldsk .ldl.w80{width:80%}.ldsk .ldl.w40{width:40%}
+.ldsk .ldl.big{height:22px;width:50%}
+.ldsk-img{aspect-ratio:var(--ldsk-ar,4/3);border-radius:8px;background:var(--surface-2)}
+.ldst{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--fg-2)}
+.ldst.err{color:var(--warn-fg)}
+.ldpend{opacity:.75}
+@keyframes ldsk{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media (prefers-reduced-motion: reduce){.ldsk .ldl{animation:none}}

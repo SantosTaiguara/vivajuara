@@ -1,0 +1,5 @@
+# CONFIGURATION_CENTER — Central de configurações
+
+> Tópico 60. Código: `src/backoffice/*`, `src/config/backoffice/backofficeConfig.js`, `backend/src/modules/backoffice/*`, migração `014_backoffice_admin`. Testes: `tests/backoffice.test.js`, `backend/tests/backoffice.test.js`. Valores de política ainda não decididos ficam `null` ("necessita confirmação") e o código recusa enquanto isso.
+
+`proposeConfigChange` exige categoria conhecida, schema de validação (sem schema = não publica), e gera diff obrigatório com valores sensíveis mascarados. Estados: DRAFT → REVIEW → APPROVED → PUBLISHED → ROLLED_BACK (ou REJECTED). Quem pediu não aprova. Versão publicada é imutável (`PUBLISHED_VERSION_IMMUTABLE`). Reversão cria nova versão com o conteúdo antigo. Revisão por tipo: Field Registry = análise de impacto, Layer = prévia no mapa, Scoring = shadow test, Privacidade = revisão jurídica, Workflow = revisão de negócio. No servidor: `config.publish`/`config.rollback` com tabelas `admin_config_versions` / `admin_config_current`.

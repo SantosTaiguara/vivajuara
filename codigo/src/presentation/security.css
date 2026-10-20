@@ -1,0 +1,23 @@
+/* security.css — access-control UI (topics 30/31): context chip, denied state, session banner, guarded controls. */
+.sec-chip{position:relative;display:inline-block;font-size:12px;color:var(--fg-2)}
+.sec-chip>summary{list-style:none;display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;max-width:260px}
+.sec-chip>summary::-webkit-details-marker{display:none}
+.sec-chip>summary:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sec-lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sec-dot{width:8px;height:8px;border-radius:50%;background:var(--c-nd);flex:none}
+.sec-chip.auth .sec-dot{background:var(--brand)}
+.sec-pop{position:absolute;right:0;top:calc(100% + 6px);z-index:40;width:min(300px,calc(100vw - 32px));padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg);box-shadow:0 8px 24px rgba(0,0,0,.14)}
+.sec-pop dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:0}
+.sec-pop dt{color:var(--fg-3)}
+.sec-pop dd{margin:0;overflow-wrap:anywhere}
+.sec-note{margin:10px 0 0;font-size:11px;color:var(--fg-3)}
+.sec-warn,.sec-banner{background:var(--warn-bg);color:var(--warn-fg);border:1px solid var(--warn-line);border-radius:8px}
+.sec-warn{margin:8px 0 0;padding:6px 8px}
+.sec-banner{padding:8px 12px;margin:8px 0;font-size:13px}
+.sec-banner p{margin:0}.sec-banner p+p{margin-top:4px}
+.sec-denied{padding:16px;border:1px dashed var(--line-2);border-radius:10px;background:var(--surface-2);color:var(--fg-2);text-align:center}
+.sec-denied p{margin:0}.sec-denied p+p{margin-top:6px}
+.sec-denied-t{font-weight:700;color:var(--fg)}
+[aria-disabled="true"][data-denied]{opacity:.55;cursor:not-allowed}
+.sec-why{display:block;margin-top:4px;font-size:11px;color:var(--fg-3)}
+@media (pointer:coarse){ .sec-chip>summary{min-height:44px} }

@@ -1,0 +1,482 @@
+{
+ "kind": "threat-model",
+ "version": "1.0.0",
+ "framework": "STRIDE",
+ "requiredFlows": [
+  "login",
+  "tenant_switch",
+  "customer_data",
+  "documents",
+  "share",
+  "pricing_publication",
+  "availability_mutation",
+  "offline_packs",
+  "service_worker",
+  "upload_import",
+  "admin_operations",
+  "webhooks_integrations",
+  "browser_rendering"
+ ],
+ "assets": [
+  {
+   "assetId": "A-USER",
+   "assetType": "USER_ACCOUNT",
+   "classification": "CONFIDENTIAL",
+   "businessImpact": "HIGH"
+  },
+  {
+   "assetId": "A-CUSTOMER",
+   "assetType": "CUSTOMER_DATA",
+   "classification": "RESTRICTED",
+   "businessImpact": "CRITICAL"
+  },
+  {
+   "assetId": "A-LOT",
+   "assetType": "LOT_DATA",
+   "classification": "PUBLIC",
+   "businessImpact": "MEDIUM"
+  },
+  {
+   "assetId": "A-PRICING",
+   "assetType": "PRICING",
+   "classification": "INTERNAL",
+   "businessImpact": "CRITICAL"
+  },
+  {
+   "assetId": "A-AVAIL",
+   "assetType": "AVAILABILITY",
+   "classification": "INTERNAL",
+   "businessImpact": "CRITICAL"
+  },
+  {
+   "assetId": "A-DOC",
+   "assetType": "DOCUMENT",
+   "classification": "RESTRICTED",
+   "businessImpact": "HIGH"
+  },
+  {
+   "assetId": "A-SHARE",
+   "assetType": "SHARE_LINK",
+   "classification": "CONFIDENTIAL",
+   "businessImpact": "HIGH"
+  },
+  {
+   "assetId": "A-API",
+   "assetType": "API",
+   "classification": "INTERNAL",
+   "businessImpact": "HIGH"
+  },
+  {
+   "assetId": "A-OFFLINE",
+   "assetType": "OFFLINE_PACK",
+   "classification": "INTERNAL",
+   "businessImpact": "MEDIUM"
+  },
+  {
+   "assetId": "A-SW",
+   "assetType": "SERVICE_WORKER",
+   "classification": "INTERNAL",
+   "businessImpact": "HIGH"
+  },
+  {
+   "assetId": "A-SECRET",
+   "assetType": "SECRET",
+   "classification": "SECRET",
+   "businessImpact": "CRITICAL"
+  },
+  {
+   "assetId": "A-AUDIT",
+   "assetType": "AUDIT_LOG",
+   "classification": "RESTRICTED",
+   "businessImpact": "HIGH"
+  },
+  {
+   "assetId": "A-ANALYTICS",
+   "assetType": "ANALYTICS_DATA",
+   "classification": "INTERNAL",
+   "businessImpact": "MEDIUM"
+  }
+ ],
+ "threats": [
+  {
+   "threatId": "T-01",
+   "assetId": "A-USER",
+   "flows": [
+    "login"
+   ],
+   "category": "Spoofing",
+   "description": "Força bruta / credential stuffing no login ou em token de API",
+   "attackSurface": "POST /auth/*, Authorization: Bearer",
+   "prerequisites": [
+    "endpoint público"
+   ],
+   "impact": "tomada de conta",
+   "likelihood": "MEDIUM",
+   "severity": "HIGH",
+   "mitigations": [
+    "IdP padrão (OIDC) — D50-4",
+    "rate limit auth.login (5/min por IP+conta)",
+    "tokens de 256 bits comparados em tempo constante",
+    "MFA para OWNER_ADMIN e ações críticas",
+    "mensagem genérica 'Credenciais inválidas'"
+   ],
+   "residualRisk": "sem IdP real ainda: só ADMIN_API_TOKEN e dev tokens (bloqueados em produção)"
+  },
+  {
+   "threatId": "T-02",
+   "assetId": "A-CUSTOMER",
+   "flows": [
+    "tenant_switch",
+    "customer_data"
+   ],
+   "category": "Information Disclosure",
+   "description": "BOLA/IDOR: usuário da Org A pede recurso da Org B trocando o id",
+   "attackSurface": "GET /api/v1/... com ids previsíveis; X-Organization-Id",
+   "prerequisites": [
+    "conta válida em qualquer org"
+   ],
+   "impact": "vazamento entre tenants",
+   "likelihood": "MEDIUM",
+   "severity": "CRITICAL",
+   "mitigations": [
+    "tenancy.guard no backend antes do handler (deny by default)",
+    "X-Organization-Id é seletor, nunca autoridade (membership revalidada)",
+    "repositórios recebem tenantContext",
+    "testes cross-tenant (security.test.js, tenancy.test.js)"
+   ],
+   "residualRisk": "RLS do Postgres não ativada (defesa em profundidade opcional)"
+  },
+  {
+   "threatId": "T-03",
+   "assetId": "A-CUSTOMER",
+   "flows": [
+    "customer_data",
+    "browser_rendering"
+   ],
+   "category": "Tampering",
+   "description": "XSS armazenado: nome/nota de cliente, título de documento, termo de busca, valores restaurados do localStorage renderizados via innerHTML",
+   "attackSurface": "templates das views (innerHTML)",
+   "prerequisites": [
+    "gravar valor no storage/dado exibido"
+   ],
+   "impact": "execução de script na origem do painel",
+   "likelihood": "MEDIUM",
+   "severity": "HIGH",
+   "mitigations": [
+    "esc() em todo template (App.securityHardening.escapeHtml)",
+    "scrubRestoredState() tipa o estado restaurado",
+    "CSP sem 'unsafe-inline' para scripts (hash) — testada sem violações",
+    "fuzz de renderização em security50.test.js"
+   ],
+   "residualRisk": "11 campos sem esc() em panels.js até o patch P1 ser aplicado (mitigado pelo scrub)"
+  },
+  {
+   "threatId": "T-04",
+   "assetId": "A-SHARE",
+   "flows": [
+    "share"
+   ],
+   "category": "Information Disclosure",
+   "description": "Vazamento/força bruta de ShareToken (logs, analytics, Referer, cache)",
+   "attackSurface": "/s/<token>",
+   "prerequisites": [
+    "link compartilhado"
+   ],
+   "impact": "acesso a projeção client-safe",
+   "likelihood": "MEDIUM",
+   "severity": "HIGH",
+   "mitigations": [
+    "token 256 bits, só HMAC armazenado (share.tokens.js)",
+    "Referrer-Policy no-referrer",
+    "Cache-Control no-store na rota share",
+    "redactText() remove /s/<token> de logs/eventos",
+    "rate limit share.validate"
+   ],
+   "residualRisk": "serviço de share do servidor ainda não implantado"
+  },
+  {
+   "threatId": "T-05",
+   "assetId": "A-SHARE",
+   "flows": [
+    "share"
+   ],
+   "category": "Elevation of Privilege",
+   "description": "Corrida no consumo de link one-time",
+   "attackSurface": "validação de grant",
+   "prerequisites": [
+    "token one-time"
+   ],
+   "impact": "dois acessos",
+   "likelihood": "LOW",
+   "severity": "MEDIUM",
+   "mitigations": [
+    "UPDATE ... WHERE access_count < max RETURNING (atômico)"
+   ],
+   "residualRisk": null
+  },
+  {
+   "threatId": "T-06",
+   "assetId": "A-PRICING",
+   "flows": [
+    "pricing_publication",
+    "admin_operations"
+   ],
+   "category": "Tampering",
+   "description": "Publicação não autorizada ou concorrente de tabela de preço",
+   "attackSurface": "POST price-tables/*/publish",
+   "prerequisites": [
+    "credencial de escrita"
+   ],
+   "impact": "preço errado exibido",
+   "likelihood": "LOW",
+   "severity": "CRITICAL",
+   "mitigations": [
+    "price_table.publish CRITICAL + reasonRequired + onlineRequired",
+    "expectedRevision / versão esperada",
+    "Idempotency-Key com rejeição de payload diferente",
+    "AuditEvent append-only",
+    "step-up (HighRiskActionPolicy PRICING_PUBLISH)"
+   ],
+   "residualRisk": "step-up depende do IdP (D50-4)"
+  },
+  {
+   "threatId": "T-07",
+   "assetId": "A-AVAIL",
+   "flows": [
+    "availability_mutation"
+   ],
+   "category": "Tampering",
+   "description": "Override de disponibilidade sem permissão ou com last-write-wins",
+   "attackSurface": "PATCH availability",
+   "prerequisites": [
+    "credencial de escrita"
+   ],
+   "impact": "lote vendido duas vezes / status falso",
+   "likelihood": "LOW",
+   "severity": "CRITICAL",
+   "mitigations": [
+    "máquina de estados no servidor + availability.write HIGH",
+    "expectedRevision + SELECT ... FOR UPDATE",
+    "motivo obrigatório + audit"
+   ],
+   "residualRisk": null
+  },
+  {
+   "threatId": "T-08",
+   "assetId": "A-DOC",
+   "flows": [
+    "documents",
+    "upload_import"
+   ],
+   "category": "Tampering",
+   "description": "Upload malicioso (polyglot, .pdf.exe, SVG com script, zip bomb, zip slip em KMZ)",
+   "attackSurface": "futuro endpoint de upload/import",
+   "prerequisites": [
+    "permissão de upload"
+   ],
+   "impact": "XSS/RCE/DoS",
+   "likelihood": "MEDIUM",
+   "severity": "HIGH",
+   "mitigations": [
+    "checkUpload(): allow-list, extensão×MIME×magic bytes, extensão dupla",
+    "SVG rejeitado (ou rasterizado)",
+    "checkArchive(): limites de tamanho/razão/entradas/aninhamento, zip slip",
+    "nome só como metadado; caminho gerado por id",
+    "scan de malware (preparado; D50-6)"
+   ],
+   "residualRisk": "sem antivírus enquanto não houver upload real"
+  },
+  {
+   "threatId": "T-09",
+   "assetId": "A-DOC",
+   "flows": [
+    "documents"
+   ],
+   "category": "Information Disclosure",
+   "description": "URL de documento pública/permanente ou path traversal no id",
+   "attackSurface": "download/preview",
+   "prerequisites": [
+    "id do documento"
+   ],
+   "impact": "vazamento de documento restrito",
+   "likelihood": "LOW",
+   "severity": "CRITICAL",
+   "mitigations": [
+    "signed URL curta e escopada",
+    "autorização por classificação/versão a cada download",
+    "ids resolvidos no servidor (nunca caminho do usuário)"
+   ],
+   "residualRisk": null
+  },
+  {
+   "threatId": "T-10",
+   "assetId": "A-OFFLINE",
+   "flows": [
+    "offline_packs"
+   ],
+   "category": "Elevation of Privilege",
+   "description": "Acesso offline após revogação de membership",
+   "attackSurface": "pacote offline / IndexedDB",
+   "prerequisites": [
+    "aparelho com pacote"
+   ],
+   "impact": "dados vistos após revogação",
+   "likelihood": "MEDIUM",
+   "severity": "MEDIUM",
+   "mitigations": [
+    "maxOfflineSessionAge",
+    "revalidação ao reconectar + purge",
+    "dado sensível não persiste por padrão"
+   ],
+   "residualRisk": "janela offline aceita (trade-off formal)"
+  },
+  {
+   "threatId": "T-11",
+   "assetId": "A-SW",
+   "flows": [
+    "service_worker"
+   ],
+   "category": "Information Disclosure",
+   "description": "SW cacheando resposta autenticada/de share ou envenenamento de cache",
+   "attackSurface": "sw.js fetch handler",
+   "prerequisites": [
+    "resposta privada passando pelo SW"
+   ],
+   "impact": "dado de um usuário servido a outro",
+   "likelihood": "LOW",
+   "severity": "HIGH",
+   "mitigations": [
+    "SW ignora outras origens, /api/, Authorization, no-store e respostas não-OK/opacas",
+    "storable() exige type basic + sem no-store/private",
+    "sw.js servido com no-cache"
+   ],
+   "residualRisk": null
+  },
+  {
+   "threatId": "T-12",
+   "assetId": "A-SECRET",
+   "flows": [
+    "admin_operations",
+    "webhooks_integrations"
+   ],
+   "category": "Information Disclosure",
+   "description": "Segredo no repositório, bundle, log ou analytics",
+   "attackSurface": "git, dash/index.html, logs",
+   "prerequisites": [],
+   "impact": "comprometimento total",
+   "likelihood": "LOW",
+   "severity": "CRITICAL",
+   "mitigations": [
+    "scripts/securityScan.js (secret scan) no CI e em security50.test.js",
+    "config sem defaults de segredo; .env no .gitignore",
+    "logger + redactRecord()"
+   ],
+   "residualRisk": null
+  },
+  {
+   "threatId": "T-13",
+   "assetId": "A-API",
+   "flows": [
+    "webhooks_integrations"
+   ],
+   "category": "Spoofing",
+   "description": "Webhook forjado ou reenviado; SSRF por URL externa",
+   "attackSurface": "futuros webhooks/import por URL",
+   "prerequisites": [
+    "endpoint de integração"
+   ],
+   "impact": "mutação falsa / acesso à rede interna",
+   "likelihood": "LOW",
+   "severity": "HIGH",
+   "mitigations": [
+    "assinatura + janela de timestamp + replay (checkWebhook)",
+    "checkOutboundUrl(): https, sem IP privado/metadata, portas, revalidar IP resolvido"
+   ],
+   "residualRisk": "não há webhooks hoje"
+  },
+  {
+   "threatId": "T-14",
+   "assetId": "A-API",
+   "flows": [
+    "admin_operations"
+   ],
+   "category": "Denial of Service",
+   "description": "Abuso de busca/exports/rotas caras; bypass do rate limit via X-Forwarded-For",
+   "attackSurface": "API pública",
+   "prerequisites": [],
+   "impact": "indisponibilidade",
+   "likelihood": "MEDIUM",
+   "severity": "MEDIUM",
+   "mitigations": [
+    "limite por IP (middleware) + políticas por categoria (rateLimits.json)",
+    "limites de corpo/página/ids",
+    "patch B1: usar o IP do proxy confiável (hop count), não o 1º X-Forwarded-For"
+   ],
+   "residualRisk": "limiter em memória (uma instância)"
+  },
+  {
+   "threatId": "T-15",
+   "assetId": "A-AUDIT",
+   "flows": [
+    "admin_operations"
+   ],
+   "category": "Repudiation",
+   "description": "Ação crítica sem rastro ou com rastro alterável",
+   "attackSurface": "audit_events",
+   "prerequisites": [
+    "acesso de escrita"
+   ],
+   "impact": "não-rastreabilidade",
+   "likelihood": "LOW",
+   "severity": "HIGH",
+   "mitigations": [
+    "AuditEvent append-only no servidor para HIGH/CRITICAL",
+    "sem PII/segredo no evento"
+   ],
+   "residualRisk": "tamper-evidence futura"
+  },
+  {
+   "threatId": "T-16",
+   "assetId": "A-ANALYTICS",
+   "flows": [
+    "share",
+    "customer_data"
+   ],
+   "category": "Information Disclosure",
+   "description": "PII/token em eventos de analytics",
+   "attackSurface": "App.analytics.client",
+   "prerequisites": [],
+   "impact": "PII em terceiro",
+   "likelihood": "LOW",
+   "severity": "MEDIUM",
+   "mitigations": [
+    "analytics local-only (tópico 45), privacy filter",
+    "nenhum destino remoto ligado"
+   ],
+   "residualRisk": null
+  },
+  {
+   "threatId": "T-17",
+   "assetId": "A-USER",
+   "flows": [
+    "login",
+    "browser_rendering"
+   ],
+   "category": "Information Disclosure",
+   "description": "Logout + Voltar (BFCache) mostra dado de cliente",
+   "attackSurface": "histórico do navegador",
+   "prerequisites": [
+    "sessão autenticada"
+   ],
+   "impact": "exposição em aparelho compartilhado",
+   "likelihood": "LOW",
+   "severity": "MEDIUM",
+   "mitigations": [
+    "onPageShow(persisted) → revalidar sessão",
+    "dados de cliente só em memória",
+    "Cache-Control no-store em APIs sensíveis"
+   ],
+   "residualRisk": "hoje não há login no painel"
+  }
+ ]
+}

@@ -1,0 +1,1109 @@
+{
+ "schemaVersion": "1.0",
+ "registryVersion": "2026-10-11.1",
+ "developmentId": "viva-juara",
+ "priorities": {
+  "P0": "não pode regredir (bloqueia release)",
+  "P1": "importante (revisão obrigatória)",
+  "P2": "útil",
+  "P3": "opcional/legado (pode ser retirado com aprovação)"
+ },
+ "preservationLevels": [
+  "EXACT_PARITY",
+  "SEMANTIC_PARITY",
+  "UX_CONTINUITY",
+  "PERFORMANCE_PARITY",
+  "DATA_PARITY",
+  "IMPROVE_ONLY"
+ ],
+ "capabilities": [
+  {
+   "capabilityId": "CAP-01-PLANTA",
+   "name": "Planta oficial como referência espacial",
+   "category": "MAP",
+   "priority": "P0",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "Mapa desenha os 498 polígonos sobre planta.webp no espaço de pixels da planta oficial (norte para cima), com ruas, quadras e POIs.",
+   "currentLocation": [
+    "presentation/map.js",
+    "geo/geometry.js",
+    "config/developments.js (map, geo)"
+   ],
+   "targetLocation": "MapRendererAdapter (SVG hoje; Canvas/WebGL só com GeometryParityResult = 0)",
+   "goldenTests": [
+    "golden:map",
+    "golden:lots",
+    "test:geo46.test.js",
+    "test:map.test.js"
+   ],
+   "metrics": [
+    "map.featureCount",
+    "map.renderChecksum",
+    "lots.*.geometry.polygonFingerprint",
+    "t18 TOTAL DIFF"
+   ],
+   "allowedImplementationChanges": [
+    "trocar renderer",
+    "LOD/quantização de render (fonte canônica intacta)",
+    "lazy load da planta"
+   ],
+   "forbiddenRegressions": [
+    "deslocar polígono",
+    "simplificar geometria canônica",
+    "perder alinhamento com a planta"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "REFACTOR_IN_PLACE",
+   "valueReason": "é a referência espacial que o corretor e o cliente reconhecem",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-02-498-LOTES",
+   "name": "498 lotes clicáveis e identificáveis",
+   "category": "MAP",
+   "priority": "P0",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "Cada um dos 498 lotes tem polígono, ID canônico (VJ-Qx-Lnnnn) e código curto (A1…R16) estáveis e é selecionável.",
+   "currentLocation": [
+    "domain/lot.js",
+    "data/legacyAdapter.js",
+    "geo/hitTest.js"
+   ],
+   "targetLocation": "Lot canônico servido por repositório/API (mesmos IDs)",
+   "goldenTests": [
+    "golden:dataset",
+    "golden:map",
+    "test:regression.test.js",
+    "test:geo46.test.js"
+   ],
+   "metrics": [
+    "dataset.lotCount = 498 (fixture)",
+    "dataset.uniqueIds",
+    "map.anchorHitMismatches = []"
+   ],
+   "allowedImplementationChanges": [
+    "origem dos dados (JSON → API)"
+   ],
+   "forbiddenRegressions": [
+    "mudar ID",
+    "perder lote",
+    "lote não clicável"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "identidade de lote é a base de preço, proposta e compartilhamento",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-03-SELECAO",
+   "name": "Seleção direta no mapa → QuickView",
+   "category": "LOT_CONTEXT",
+   "priority": "P0",
+   "preservationLevel": "UX_CONTINUITY",
+   "currentBehavior": "Clique/toque no polígono seleciona o lote (outline) e abre o QuickView no painel/bottom sheet sem trocar de página.",
+   "currentLocation": [
+    "presentation/map.js",
+    "geo/hitTest.js",
+    "quickview/quickview.js",
+    "mobile/sheet.js"
+   ],
+   "targetLocation": "MapSelectionController + QuickView ViewModel",
+   "goldenTests": [
+    "golden:map",
+    "golden:quickview",
+    "test:map.test.js",
+    "test:workspace.test.js"
+   ],
+   "metrics": [
+    "clique → .sel p95 (MAP_PERFORMANCE_BASELINE_REPORT)",
+    "hit p95 < 1 ms"
+   ],
+   "allowedImplementationChanges": [
+    "visual do destaque",
+    "container (painel, sheet)"
+   ],
+   "forbiddenRegressions": [
+    "navegação pesada de página",
+    "seleção perdida ao filtrar"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "ritmo operacional do atendimento",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-04-ZOOM-PAN",
+   "name": "Zoom e pan fluidos",
+   "category": "PERFORMANCE",
+   "priority": "P1",
+   "preservationLevel": "PERFORMANCE_PARITY",
+   "currentBehavior": "Câmera viewBox com zoom/pan/recenter/fit no lote; pan por translate (tópico 46).",
+   "currentLocation": [
+    "geo/camera.js",
+    "presentation/map.js"
+   ],
+   "targetLocation": "MapCamera",
+   "goldenTests": [
+    "test:geo46.test.js"
+   ],
+   "metrics": [
+    "quadros > 33 ms",
+    "long tasks",
+    "p95 troca de camada"
+   ],
+   "allowedImplementationChanges": [
+    "algoritmo de câmera"
+   ],
+   "forbiddenRegressions": [
+    "regressão perceptível de fluidez"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-05-BUSCA",
+   "name": "Busca rápida de lote (quadra, lote, ID, rótulo)",
+   "category": "SEARCH",
+   "priority": "P0",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "SearchService.parse resolve \"A1\", \"QA L1\", \"Q B\", \"Lote 5\" localmente sem roundtrip.",
+   "currentLocation": [
+    "services/finding.js (App.services.search)",
+    "data/repositories.js searchLots"
+   ],
+   "targetLocation": "MapLotIndex local + API opcional",
+   "goldenTests": [
+    "golden:search",
+    "test:domain.test.js"
+   ],
+   "metrics": [
+    "search.* (kind + códigos)"
+   ],
+   "allowedImplementationChanges": [
+    "índice local",
+    "UI do campo"
+   ],
+   "forbiddenRegressions": [
+    "depender de backend para buscar código conhecido",
+    "adivinhar lote em consulta ambígua"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-06-FILTROS",
+   "name": "Filtros comerciais e técnicos (QUICK/ADVANCED/TECHNICAL)",
+   "category": "FILTER",
+   "priority": "P1",
+   "preservationLevel": "IMPROVE_ONLY",
+   "currentBehavior": "FilterRegistry com 28 filtros em 3 níveis; desconhecido nunca casa valor; filtro escurece, não remove; seleção mantida.",
+   "currentLocation": [
+    "filters/filters.js",
+    "services/finding.js"
+   ],
+   "targetLocation": "FilterEngine (cliente) + filtros server-side quando volume exigir",
+   "goldenTests": [
+    "golden:filters",
+    "test:filters.test.js"
+   ],
+   "metrics": [
+    "filters.<cenário>.count / codes"
+   ],
+   "allowedImplementationChanges": [
+    "reorganização visual",
+    "novos filtros"
+   ],
+   "forbiddenRegressions": [
+    "remover filtro existente",
+    "null casar como 0",
+    "UNKNOWN casar como AVAILABLE"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-07-LAYERS",
+   "name": "Camadas temáticas (classe, score, preço, R$/m², sol, ruído, privacidade, verde, tráfego, portaria, lazer, disponibilidade)",
+   "category": "LAYER",
+   "priority": "P1",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "MapLayerRegistry + LayerValueProvider + escala → cor por lote; uma camada temática por vez.",
+   "currentLocation": [
+    "map/layers.js",
+    "services/layers.js"
+   ],
+   "targetLocation": "MapLayerRegistry/ScaleDefinition versionados",
+   "goldenTests": [
+    "golden:layers",
+    "test:map.test.js"
+   ],
+   "metrics": [
+    "layers.<camada>.lotsByColor",
+    "t18 TOTAL DIFF 0"
+   ],
+   "allowedImplementationChanges": [
+    "tokens/acessibilidade com revisão",
+    "novas camadas"
+   ],
+   "forbiddenRegressions": [
+    "mudar cor/limiar junto com renderer",
+    "perder camada existente"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "leitura visual instantânea é valor central",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-08-LEGENDA",
+   "name": "Legenda contextual",
+   "category": "LAYER",
+   "priority": "P1",
+   "preservationLevel": "SEMANTIC_PARITY",
+   "currentBehavior": "LegendEngine deriva itens e contagens do mesmo modelo de render (invariante de cobertura).",
+   "currentLocation": [
+    "map/legend.js"
+   ],
+   "targetLocation": "Smart Legend",
+   "goldenTests": [
+    "golden:layers",
+    "test:map.test.js"
+   ],
+   "metrics": [
+    "layers.<camada>.legend"
+   ],
+   "allowedImplementationChanges": [
+    "layout, interação"
+   ],
+   "forbiddenRegressions": [
+    "legenda divergente da cor do mapa"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-09-QUICKVIEW",
+   "name": "QuickView imediato",
+   "category": "LOT_CONTEXT",
+   "priority": "P0",
+   "preservationLevel": "SEMANTIC_PARITY",
+   "currentBehavior": "Identificação, área, status, preço, R$/m², score/classe, destaques, alertas, fatos com status do dado — por modo (corretor/cliente).",
+   "currentLocation": [
+    "quickview/quickview.js",
+    "presentation/viewmodels.js quickViewVM"
+   ],
+   "targetLocation": "QuickView ViewModel único (desktop, sheet, apresentação)",
+   "goldenTests": [
+    "golden:quickview",
+    "test:map.test.js"
+   ],
+   "metrics": [
+    "quickview.<lote>.<modo>"
+   ],
+   "allowedImplementationChanges": [
+    "ações e layout (tópicos 53/56)"
+   ],
+   "forbiddenRegressions": [
+    "esconder status/preço",
+    "perder alerta crítico/importante",
+    "embelezar estimado"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "responde a 80% das perguntas sem abrir ficha",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-10-FICHA",
+   "name": "Ficha detalhada rica (~70 campos, 138 no Field Registry)",
+   "category": "LOT_CONTEXT",
+   "priority": "P1",
+   "preservationLevel": "DATA_PARITY",
+   "currentBehavior": "detailsVM agrupa campos por domínio do Field Registry em seções; campos indisponíveis aparecem como tal.",
+   "currentLocation": [
+    "presentation/viewmodels.js detailsVM",
+    "domain/model.js"
+   ],
+   "targetLocation": "Lot detail sections + Evidence",
+   "goldenTests": [
+    "golden:dataset",
+    "golden:lots",
+    "test:regression.test.js",
+    "test:domain.test.js"
+   ],
+   "metrics": [
+    "dataset.fieldRegistry.count / fingerprint"
+   ],
+   "allowedImplementationChanges": [
+    "reorganizar seções"
+   ],
+   "forbiddenRegressions": [
+    "campo válido sumir sem justificativa (FieldPreservationReport)"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-11-STATUS-DADO",
+   "name": "Distinção confirmado / calculado / estimado / não disponível",
+   "category": "PROVENANCE",
+   "priority": "P0",
+   "preservationLevel": "SEMANTIC_PARITY",
+   "currentBehavior": "Field Registry + provenance por atributo; rótulos Confirmado/Calculado/Estimado/Não disponível/Requer validação.",
+   "currentLocation": [
+    "domain/model.js",
+    "provenance/*",
+    "datastate/dataState.js",
+    "utils/i18n.js"
+   ],
+   "targetLocation": "AttributeProvenance + DataState",
+   "goldenTests": [
+    "golden:lots",
+    "golden:texts",
+    "golden:quickview",
+    "test:provenance.test.js",
+    "test:datastate.test.js"
+   ],
+   "metrics": [
+    "lots.*.provenanceStatuses",
+    "texts.dataStatus"
+   ],
+   "allowedImplementationChanges": [
+    "apresentação (badge, ícone)"
+   ],
+   "forbiddenRegressions": [
+    "esconder incerteza",
+    "null virar 0",
+    "unknown virar false"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-12-NAO-INVENTAR",
+   "name": "Princípio de não inventar dados",
+   "category": "DATA_QUALITY",
+   "priority": "P0",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "Ausente = \"Não disponível\"/UNKNOWN; nenhuma heurística preenche fonte inexistente.",
+   "currentLocation": [
+    "data/legacyAdapter.js",
+    "datastate/dataState.js",
+    "utils/formatters.js"
+   ],
+   "targetLocation": "NullAndSentinelNormalization (adapters/pipeline)",
+   "goldenTests": [
+    "golden:dataset",
+    "golden:texts",
+    "test:datastate.test.js",
+    "test:regression.test.js"
+   ],
+   "metrics": [
+    "dataset.nullPriceCount",
+    "texts.format.notAvailable"
+   ],
+   "allowedImplementationChanges": [
+    "nenhuma"
+   ],
+   "forbiddenRegressions": [
+    "default inventado",
+    "sentinela virar valor"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-13-SCORES",
+   "name": "Scores, pesos, limiares e classes existentes",
+   "category": "CALCULATION",
+   "priority": "P0",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "IntelligenceEngine reproduz os 45 campos analíticos publicados dos 498 lotes (metodologia 2026-10-06).",
+   "currentLocation": [
+    "intelligence/engine.js",
+    "intelligence/methodology.js",
+    "config/scoring/viva-juara"
+   ],
+   "targetLocation": "Analysis module versionado (methodologyVersion)",
+   "goldenTests": [
+    "golden:lots",
+    "golden:dataset",
+    "test:intelligence.test.js",
+    "test:versioning.test.js"
+   ],
+   "metrics": [
+    "lots.*.intelligence.scores/class",
+    "dataset.classCounts"
+   ],
+   "allowedImplementationChanges": [
+    "onde roda (cliente/worker/backend)"
+   ],
+   "forbiddenRegressions": [
+    "recalibrar durante refactor",
+    "mudar score sem nova methodologyVersion"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "refactor ≠ recalibração",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-14-RANKINGS",
+   "name": "Rankings reproduzíveis",
+   "category": "RECOMMENDATION",
+   "priority": "P1",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "Rankings por tipo (posição/total) publicados por lote e presets legados de \"Melhores para…\".",
+   "currentLocation": [
+    "services/finding.js (App.services.recommendation)",
+    "services/scoring.js"
+   ],
+   "targetLocation": "Explainable ranking sobre o mesmo resultado",
+   "goldenTests": [
+    "golden:lots",
+    "golden:recommendations",
+    "test:recommendation.test.js",
+    "test:explanation.test.js"
+   ],
+   "metrics": [
+    "lots.*.intelligence.rankings",
+    "recommendations.legacyPresets"
+   ],
+   "allowedImplementationChanges": [
+    "explicação adicional"
+   ],
+   "forbiddenRegressions": [
+    "mudar ordem sem versão"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-15-SOLAR",
+   "name": "Análise solar (orientação, sol do norte, intervalos por estação)",
+   "category": "SOLAR",
+   "priority": "P1",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "SolarAnalysisService: declinação + ângulo horário, UTC-3; lado iluminado por estação/hora; camada \"Sol agora\".",
+   "currentLocation": [
+    "services/solar.js",
+    "services/layers.js solarNow"
+   ],
+   "targetLocation": "Contexto do lote (sai do menu principal, não desaparece)",
+   "goldenTests": [
+    "golden:solar",
+    "golden:lots",
+    "test:map.test.js"
+   ],
+   "metrics": [
+    "solar.<lote>.<estação>"
+   ],
+   "allowedImplementationChanges": [
+    "localização na UI (tópico 53)"
+   ],
+   "forbiddenRegressions": [
+    "mudar astronomia/fuso",
+    "sumir da ficha"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-16-FINANCEIRO",
+   "name": "Calculadora financeira (planos, entrada, parcelas, anuais, totais)",
+   "category": "FINANCIAL",
+   "priority": "P0",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "finance.simulate com planos da tabela 2026-10-06 (P144, P144A, I18, I36), entrada %, Price 0,8% a.m.; paridade com index_v1.html.",
+   "currentLocation": [
+    "services/finance.js",
+    "config/developments.js priceTables"
+   ],
+   "targetLocation": "FinancialSimulationService versionado por PriceTableVersion",
+   "goldenTests": [
+    "golden:finance",
+    "test:regression.test.js",
+    "test:pricing.test.js"
+   ],
+   "metrics": [
+    "finance.simulations.* (tolerância 1e-6)"
+   ],
+   "allowedImplementationChanges": [
+    "local de execução",
+    "UI progressiva"
+   ],
+   "forbiddenRegressions": [
+    "delta financeiro não explicado",
+    "promessa de valorização"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-17-COMPARACAO",
+   "name": "Comparação de lotes",
+   "category": "COMPARISON",
+   "priority": "P1",
+   "preservationLevel": "IMPROVE_ONLY",
+   "currentBehavior": "Até 4 lotes; tabela agrupada, linhas de vencedor por critério (não \"melhor lote geral\").",
+   "currentLocation": [
+    "compare/*",
+    "services/comparison.js",
+    "presentation/viewmodels.js comparisonVM"
+   ],
+   "targetLocation": "Comparison domain (sessão, snapshot, avaliação)",
+   "goldenTests": [
+    "golden:comparison",
+    "test:compare.test.js"
+   ],
+   "metrics": [
+    "comparison.<conjunto>.<modo>"
+   ],
+   "allowedImplementationChanges": [
+    "visual",
+    "winner semantics adicionais"
+   ],
+   "forbiddenRegressions": [
+    "perder candidato em navegação",
+    "valor mostrado mudar"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-18-SELECAO-CLIENTE",
+   "name": "Seleção de lotes para cliente (favoritos + contexto)",
+   "category": "CLIENT",
+   "priority": "P1",
+   "preservationLevel": "UX_CONTINUITY",
+   "currentBehavior": "Favoritos formais e contexto de cliente ativo (memória, sem PII persistida).",
+   "currentLocation": [
+    "favorites/favorites.js",
+    "customer/*"
+   ],
+   "targetLocation": "Customer + Favorites (backend com tenant)",
+   "goldenTests": [
+    "test:favorites.test.js",
+    "test:customer.test.js"
+   ],
+   "metrics": [
+    "testes de continuidade de estado"
+   ],
+   "allowedImplementationChanges": [
+    "persistência server-side"
+   ],
+   "forbiddenRegressions": [
+    "contexto do cliente resetar inesperadamente",
+    "PII em URL/log"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-19-WHATSAPP",
+   "name": "Resumo compartilhável / WhatsApp",
+   "category": "SHARE",
+   "priority": "P1",
+   "preservationLevel": "SEMANTIC_PARITY",
+   "currentBehavior": "shareVM monta texto (preço, status honesto, sol, ruído estimado, score no modo corretor) + link wa.me.",
+   "currentLocation": [
+    "presentation/viewmodels.js shareVM",
+    "services/share.js",
+    "share/*"
+   ],
+   "targetLocation": "ShareService + ShareChannel templates",
+   "goldenTests": [
+    "golden:share",
+    "golden:texts",
+    "test:share.test.js"
+   ],
+   "metrics": [
+    "share.<conjunto>.<modo>.text"
+   ],
+   "allowedImplementationChanges": [
+    "template, canal"
+   ],
+   "forbiddenRegressions": [
+    "afirmar \"Disponível\" sem status AVAILABLE fresco",
+    "perder aviso de incerteza"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-20-LOCAL-RAPIDO",
+   "name": "Velocidade de uso local",
+   "category": "PERFORMANCE",
+   "priority": "P0",
+   "preservationLevel": "PERFORMANCE_PARITY",
+   "currentBehavior": "Filtro, camada, seleção e comparação rodam no browser; só autoridade dinâmica vai ao servidor.",
+   "currentLocation": [
+    "state/selectors.js",
+    "filters/filters.js",
+    "map/layers.js"
+   ],
+   "targetLocation": "Backend autoritativo sem roundtrip por interação",
+   "goldenTests": [
+    "test:lazyload.test.js"
+   ],
+   "metrics": [
+    "interativo fast cold ≈2,2 s",
+    "troca de camada p95"
+   ],
+   "allowedImplementationChanges": [
+    "onde vivem os dados"
+   ],
+   "forbiddenRegressions": [
+    "roundtrip por clique/filtro"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-21-RESILIENCIA",
+   "name": "Resiliência local (cache, offline, último estado conhecido)",
+   "category": "OFFLINE",
+   "priority": "P1",
+   "preservationLevel": "IMPROVE_ONLY",
+   "currentBehavior": "SW + IndexedDB + cache por versão; offline mostra \"último estado conhecido\", nunca \"atual\".",
+   "currentLocation": [
+    "data/offline.js",
+    "cache/*",
+    "sw.template.js"
+   ],
+   "targetLocation": "Offline packs explícitos (tópico 49)",
+   "goldenTests": [
+    "test:offline.test.js",
+    "test:cache.test.js"
+   ],
+   "metrics": [
+    "testes de fallback"
+   ],
+   "allowedImplementationChanges": [
+    "estratégia de cache"
+   ],
+   "forbiddenRegressions": [
+    "stale apresentado como atual"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-22-MAPA-INTELIGENCIA",
+   "name": "Integração mapa ↔ inteligência",
+   "category": "MAP",
+   "priority": "P1",
+   "preservationLevel": "SEMANTIC_PARITY",
+   "currentBehavior": "Mesmo lote liga dados, score, preço, sol, ruído e privacidade no mapa e no QuickView.",
+   "currentLocation": [
+    "map/layers.js",
+    "quickview/quickview.js"
+   ],
+   "targetLocation": "Map consome read models prontos",
+   "goldenTests": [
+    "golden:layers",
+    "golden:quickview",
+    "test:map.test.js"
+   ],
+   "metrics": [
+    "consistência cross-view"
+   ],
+   "allowedImplementationChanges": [
+    "fonte dos read models"
+   ],
+   "forbiddenRegressions": [
+    "valor do mapa ≠ valor do painel"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-23-COR",
+   "name": "Visualização por cor (densidade informativa)",
+   "category": "LAYER",
+   "priority": "P1",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "Paleta verde/terra por classe/score/preço/ruído; cinza neutro para desconhecido.",
+   "currentLocation": [
+    "map/layers.js TOKENS",
+    "services/layers.js"
+   ],
+   "targetLocation": "Tokens de escala com acessibilidade",
+   "goldenTests": [
+    "golden:layers",
+    "test:map.test.js"
+   ],
+   "metrics": [
+    "layers.*.colorCounts"
+   ],
+   "allowedImplementationChanges": [
+    "acessibilidade com revisão humana"
+   ],
+   "forbiddenRegressions": [
+    "mudar paleta e renderer ao mesmo tempo"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-24-SEM-JARGAO",
+   "name": "Uso sem conhecimento técnico",
+   "category": "OTHER",
+   "priority": "P1",
+   "preservationLevel": "UX_CONTINUITY",
+   "currentBehavior": "Rótulos de negócio em pt-BR; jargão técnico só no modo técnico.",
+   "currentLocation": [
+    "utils/i18n.js",
+    "utils/formatters.js",
+    "config/presentation.js"
+   ],
+   "targetLocation": "i18n + projeções por modo",
+   "goldenTests": [
+    "golden:texts",
+    "golden:quickview",
+    "test:compare.test.js"
+   ],
+   "metrics": [
+    "texts.*"
+   ],
+   "allowedImplementationChanges": [
+    "wording com aprovação"
+   ],
+   "forbiddenRegressions": [
+    "vazar termos internos (STALE, snapshot, cache) para o cliente"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-25-AMBIENTE-UNICO",
+   "name": "Um único ambiente para exploração, análise e atendimento",
+   "category": "OTHER",
+   "priority": "P2",
+   "preservationLevel": "UX_CONTINUITY",
+   "currentBehavior": "Mapa como workspace; painéis e overlays sobre o mapa.",
+   "currentLocation": [
+    "presentation/app.js",
+    "layout/workspace.js"
+   ],
+   "targetLocation": "Workspace modular (tópico 53)",
+   "goldenTests": [
+    "test:workspace.test.js"
+   ],
+   "metrics": [
+    "jornadas E2E"
+   ],
+   "allowedImplementationChanges": [
+    "menu compacto"
+   ],
+   "forbiddenRegressions": [
+    "fragmentar em produtos desconectados"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-26-DISPONIBILIDADE",
+   "name": "Disponibilidade honesta (UNKNOWN ≠ AVAILABLE; preço ≠ status)",
+   "category": "DATA_QUALITY",
+   "priority": "P0",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "498 lotes UNKNOWN (\"Status não confirmado\"); nunca ofertável; preço exibido independe do status.",
+   "currentLocation": [
+    "domain/availability.js"
+   ],
+   "targetLocation": "Availability authority no backend",
+   "goldenTests": [
+    "golden:dataset",
+    "golden:filters",
+    "golden:recommendations",
+    "golden:quickview",
+    "test:availability.test.js",
+    "test:availability2.test.js"
+   ],
+   "metrics": [
+    "dataset.availabilityStatusCounts",
+    "filters.status-available.count = 0",
+    "recommendations.engine.*.recommended = 0"
+   ],
+   "allowedImplementationChanges": [
+    "origem do status (espelho de vendas)"
+   ],
+   "forbiddenRegressions": [
+    "UNKNOWN virar AVAILABLE",
+    "status inferido de preço"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-27-PRECO",
+   "name": "Preço de tabela (R$ 1.196/m², tabela 2026-10-06)",
+   "category": "DATA_QUALITY",
+   "priority": "P0",
+   "preservationLevel": "EXACT_PARITY",
+   "currentBehavior": "Preço = área × R$ 1.196/m² da tabela de lançamento 2026-10-06; entrada padrão 12%.",
+   "currentLocation": [
+    "config/developments.js priceTables",
+    "scripts/build-data.js",
+    "pricing/priceHistory.js"
+   ],
+   "targetLocation": "PriceTableVersion publicada imutável",
+   "goldenTests": [
+    "golden:lots",
+    "golden:dataset",
+    "golden:finance",
+    "test:pricing.test.js",
+    "test:regression.test.js"
+   ],
+   "metrics": [
+    "lots.*.commercial.price",
+    "dataset.pricePerM2Values"
+   ],
+   "allowedImplementationChanges": [
+    "nenhuma sem nova versão de tabela"
+   ],
+   "forbiddenRegressions": [
+    "mudar preço sem versão",
+    "prometer valorização"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-28-ALERTAS",
+   "name": "Alertas críticos/importantes visíveis",
+   "category": "LOT_CONTEXT",
+   "priority": "P0",
+   "preservationLevel": "SEMANTIC_PARITY",
+   "currentBehavior": "Alertas (avenida, servidão, área técnica, restrição construtiva…) com severidade; importantes aparecem no modo cliente.",
+   "currentLocation": [
+    "domain/rules.js",
+    "rules/*"
+   ],
+   "targetLocation": "Rule Engine com paridade legada",
+   "goldenTests": [
+    "golden:lots",
+    "golden:quickview",
+    "test:rules.test.js",
+    "test:intelligence.test.js"
+   ],
+   "metrics": [
+    "lots.*.intelligence.alerts",
+    "quickview.*.alerts"
+   ],
+   "allowedImplementationChanges": [
+    "apresentação (card → badge)"
+   ],
+   "forbiddenRegressions": [
+    "alerta crítico sumir",
+    "critério mudar silenciosamente"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  },
+  {
+   "capabilityId": "CAP-29-CLIENT-SAFE",
+   "name": "Modo cliente sem dado técnico/restrito",
+   "category": "SHARE",
+   "priority": "P0",
+   "preservationLevel": "SEMANTIC_PARITY",
+   "currentBehavior": "Projeção client-safe (deny by default) no QuickView, comparação, apresentação e compartilhamento.",
+   "currentLocation": [
+    "config/presentation.js clientSafeFields",
+    "presentationmode/policy.js"
+   ],
+   "targetLocation": "ClientSafeProjectionPolicy server-side",
+   "goldenTests": [
+    "golden:quickview",
+    "golden:comparison",
+    "golden:share",
+    "test:presentationmode.test.js",
+    "test:share.test.js"
+   ],
+   "metrics": [
+    "quickview.*.client",
+    "comparison.*:client"
+   ],
+   "allowedImplementationChanges": [
+    "regras mais restritivas"
+   ],
+   "forbiddenRegressions": [
+    "vazar score/técnico no modo cliente"
+   ],
+   "migrationMode": "NEW_ONLY",
+   "status": "PRESERVED",
+   "legacyClassification": "PRESERVE_BEHAVIOR_REIMPLEMENT",
+   "valueReason": "",
+   "migrationOwner": null,
+   "deprecationTarget": null,
+   "knownLegacyBehaviors": []
+  }
+ ],
+ "parityExceptions": [],
+ "knownLegacyBehaviors": [
+  {
+   "id": "KLB-01",
+   "capabilityId": "CAP-26-DISPONIBILIDADE",
+   "behavior": "Todos os 498 lotes estão UNKNOWN (sem espelho de vendas)",
+   "classification": "INTENDED",
+   "note": "estado real do dado; não é bug"
+  },
+  {
+   "id": "KLB-02",
+   "capabilityId": "CAP-16-FINANCEIRO",
+   "behavior": "Valores sem correção pelo IGP-M (rodapé do resumo)",
+   "classification": "INTENDED",
+   "note": "texto de transparência obrigatório"
+  },
+  {
+   "id": "KLB-03",
+   "capabilityId": "CAP-14-RANKINGS",
+   "behavior": "Empates de relevância ordenados pela ordem do dataset",
+   "classification": "AMBIGUOUS",
+   "note": "determinístico; critério de desempate não documentado pelo negócio"
+  },
+  {
+   "id": "KLB-04",
+   "capabilityId": "CAP-15-SOLAR",
+   "behavior": "Cálculo astronômico sem sombra de vizinhos",
+   "classification": "INTENDED",
+   "note": "nota exibida na camada"
+  },
+  {
+   "id": "KLB-05",
+   "capabilityId": "CAP-11-STATUS-DADO",
+   "behavior": "App.analytics é instalado duas vezes (stub em state/store.js, fachada em analytics/facade.js)",
+   "classification": "BUG",
+   "note": "sem efeito visível; registrado em GAP-ARCH-10"
+  }
+ ]
+}

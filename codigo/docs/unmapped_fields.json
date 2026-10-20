@@ -1,0 +1,328 @@
+{
+ "kind": "unmapped-legacy-fields",
+ "generatedAt": "2026-10-07",
+ "generatedFrom": [
+  "plat/src/data/legacyAdapter.js (LEGACY_KEYS, NOTE_KEYS, ALWAYS_NULL_NOTES)",
+  "dash/lots.json"
+ ],
+ "legacyRecords": 498,
+ "normalizerUnmappedReport": [],
+ "normalizerUnmappedNote": "O normalizador marca como sem mapeamento qualquer chave fora de LEGACY_KEYS (aviso LEGACY_FIELD_UNMAPPED). No dataset atual a lista é vazia: toda chave existente está declarada.",
+ "unmappedLegacyFields": [
+  {
+   "legacyField": "c",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "array": 498
+   },
+   "reason": "Média simples dos vértices do polígono. Substituída por geometry.centroid, calculado como centroide de área a partir de p (polygonStats em data/legacyAdapter.js). LEGACY_KEYS.c = null.",
+   "canonicalFieldAffected": "geometry.centroid",
+   "action": "Nenhuma: descartado de propósito."
+  },
+  {
+   "legacyField": "nt.vent",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "null": 498
+   },
+   "reason": "Subcampo sempre nulo nos 498 registros ({\"null\":498}). O campo canônico environmental.ventilation não é uma nota 0–10, por isso a nota é ignorada (ALWAYS_NULL_NOTES) e o campo canônico fica null com status UNKNOWN.",
+   "canonicalFieldAffected": "environmental.ventilation",
+   "action": "Aguardar dados de vento do local; definir metodologia antes de preencher."
+  },
+  {
+   "legacyField": "nt.topo",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "null": 498
+   },
+   "reason": "Subcampo sempre nulo nos 498 registros ({\"null\":498}). O campo canônico construction.topography não é uma nota 0–10, por isso a nota é ignorada (ALWAYS_NULL_NOTES) e o campo canônico fica null com status UNKNOWN.",
+   "canonicalFieldAffected": "construction.topography",
+   "action": "Aguardar levantamento planialtimétrico."
+  },
+  {
+   "legacyField": "nt.pc",
+   "presentInRecords": 498,
+   "legacyTypes": {
+    "null": 498
+   },
+   "reason": "Subcampo sempre nulo nos 498 registros ({\"null\":498}). O campo canônico construction.constructivePotential não é uma nota 0–10, por isso a nota é ignorada (ALWAYS_NULL_NOTES) e o campo canônico fica null com status UNKNOWN.",
+   "canonicalFieldAffected": "construction.constructivePotential",
+   "action": "Aguardar regulamento construtivo; sem ele não há metodologia."
+  }
+ ],
+ "mappedButAlwaysNull": [
+  {
+   "legacyField": "st",
+   "canonicalTargets": [
+    "availability.status"
+   ],
+   "note": "Mapeado, mas nulo nos 498 registros. Sem espelho de vendas: availability.status = UNKNOWN para todos os lotes."
+  }
+ ],
+ "canonicalFieldsWithoutLegacySource": [
+  {
+   "fieldKey": "identity.developmentName",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "defaultStatus": "CONFIRMED",
+   "virtual": true,
+   "meaning": "Nome comercial; não substitui developmentId"
+  },
+  {
+   "fieldKey": "identity.blockNumber",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "defaultStatus": "NOT_APPLICABLE",
+   "virtual": false,
+   "meaning": "As quadras deste empreendimento são identificadas por letra"
+  },
+  {
+   "fieldKey": "identity.externalCode",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Código oficial da loteadora, se existir"
+  },
+  {
+   "fieldKey": "geometry.perimeterM",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Não calculado: sem metodologia aprovada para o traço da planta"
+  },
+  {
+   "fieldKey": "geometry.irregularityLevel",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Não calculado: sem metodologia própria"
+  },
+  {
+   "fieldKey": "location.streetId",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "A planta só traz ruas projetadas"
+  },
+  {
+   "fieldKey": "location.streetName",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Nome oficial da rua"
+  },
+  {
+   "fieldKey": "location.sector",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Setor do empreendimento, se houver"
+  },
+  {
+   "fieldKey": "location.distanceToAppM",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Não há APP delimitada no material recebido"
+  },
+  {
+   "fieldKey": "location.distanceToMainInternalRoadM",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Não calculado"
+  },
+  {
+   "fieldKey": "surroundings.appNearby",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Mata existente não é classificada automaticamente como APP"
+  },
+  {
+   "fieldKey": "mobility.routeToGate",
+   "domain": "MOBILITY",
+   "dynamicType": "STATIC",
+   "defaultStatus": "CALCULATED",
+   "virtual": true,
+   "meaning": "Traçado da rota; valor pesado carregado sob demanda pelo SpatialRepository"
+  },
+  {
+   "fieldKey": "mobility.routeToLeisure",
+   "domain": "MOBILITY",
+   "dynamicType": "STATIC",
+   "defaultStatus": "CALCULATED",
+   "virtual": true,
+   "meaning": "Traçado da rota; valor pesado carregado sob demanda"
+  },
+  {
+   "fieldKey": "environmental.ventilation",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Sem dados de vento: permanece nulo"
+  },
+  {
+   "fieldKey": "construction.topography",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Falta levantamento planialtimétrico"
+  },
+  {
+   "fieldKey": "construction.slopePercent",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Falta levantamento planialtimétrico"
+  },
+  {
+   "fieldKey": "construction.drainage",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Falta projeto de drenagem"
+  },
+  {
+   "fieldKey": "construction.frontSetbackM",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Depende do regulamento construtivo"
+  },
+  {
+   "fieldKey": "construction.rearSetbackM",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Depende do regulamento construtivo"
+  },
+  {
+   "fieldKey": "construction.sideSetbackM",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Depende do regulamento construtivo"
+  },
+  {
+   "fieldKey": "construction.occupationRate",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Depende do regulamento construtivo"
+  },
+  {
+   "fieldKey": "construction.permeabilityRate",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Depende do regulamento construtivo"
+  },
+  {
+   "fieldKey": "construction.buildingCoefficient",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Depende do regulamento construtivo"
+  },
+  {
+   "fieldKey": "construction.maxFloors",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Depende do regulamento construtivo"
+  },
+  {
+   "fieldKey": "construction.constructivePotential",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Sem regulamento não há metodologia"
+  },
+  {
+   "fieldKey": "availability.updatedAt",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Data e hora (ISO 8601) da última atualização conhecida da situação"
+  },
+  {
+   "fieldKey": "availability.revision",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "defaultStatus": "CALCULATED",
+   "virtual": false,
+   "meaning": "Ordem das atualizações: uma revisão antiga nunca sobrescreve uma nova"
+  },
+  {
+   "fieldKey": "availability.reason",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Motivo de bloqueio ou indisponibilidade, quando informado"
+  },
+  {
+   "fieldKey": "availability.notes",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Nota interna; nunca exibida no modo cliente"
+  },
+  {
+   "fieldKey": "availability.freshness",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "defaultStatus": "CALCULATED",
+   "virtual": false,
+   "meaning": "Indica se a situação foi confirmada recentemente, pode estar desatualizada ou ainda não foi informada"
+  },
+  {
+   "fieldKey": "availability.reservedUntil",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Prazo de reserva"
+  },
+  {
+   "fieldKey": "availability.sourceId",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Fonte que informou a situação comercial"
+  },
+  {
+   "fieldKey": "availability.proposalId",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "defaultStatus": "UNKNOWN",
+   "virtual": false,
+   "meaning": "Referência de proposta"
+  }
+ ]
+}

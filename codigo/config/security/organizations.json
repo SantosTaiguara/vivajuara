@@ -1,0 +1,47 @@
+{
+ "kind": "organization-registry",
+ "version": "1.0.0",
+ "note": "Baseline single-tenant (tópico 31): a operação atual vira uma organização explícita. Espelha o seed do backend; em produção a fonte é GET /api/v1/me.",
+ "organizations": [
+  {
+   "id": "org_house7",
+   "slug": "house-7",
+   "displayName": "House 7 Imóveis",
+   "legalName": null,
+   "kind": "AGENCY",
+   "status": "ACTIVE",
+   "planCode": null,
+   "settings": {
+    "locale": "pt-BR",
+    "timezone": "America/Sao_Paulo",
+    "currency": "BRL",
+    "version": 1
+   },
+   "branding": {
+    "displayName": "House 7 Imóveis",
+    "logoAssetId": null,
+    "primaryBrandToken": null,
+    "version": 1
+   },
+   "domains": []
+  }
+ ],
+ "developments": {
+  "viva-juara": {
+   "organizationId": "org_house7",
+   "visibility": "PUBLIC",
+   "role": "OPERATED_BY_AGENCY"
+  }
+ },
+ "legacyTenantIds": {
+  "house7": "org_house7"
+ },
+ "tenantAccessPolicy": {
+  "requireMembership": true,
+  "allowPlatformAdmin": false,
+  "allowPublicResources": true,
+  "suspendedTenantBehavior": "READ_ONLY",
+  "crossTenantPolicy": "DENY",
+  "version": 1
+ }
+}

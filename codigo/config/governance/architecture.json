@@ -1,0 +1,952 @@
+{
+  "architectureVersion": "1.0",
+  "effectiveFrom": "2026-10-11",
+  "primaryStyle": "MODULAR_MONOLITH",
+  "frontendStyle": "spa-pwa-map-centric (single-file build, global App namespace)",
+  "apiVersion": "v1",
+  "documentRefs": [
+    "docs/ARCHITECTURE.md",
+    "docs/REFERENCE_ARCHITECTURE_V1.md",
+    "docs/MODULE_DEPENDENCY_MATRIX.md",
+    "docs/ARCHITECTURE_FITNESS_FUNCTIONS.md",
+    "docs/ARCHITECTURE_GAP_REPORT.md"
+  ],
+  "layers": {
+    "kernel": {
+      "description": "prelude: cria o objeto global App",
+      "mayDependOn": [],
+      "noDom": false
+    },
+    "config": {
+      "description": "DevelopmentConfig e configuração de apresentação (dados, sem regra)",
+      "mayDependOn": [
+        "kernel",
+        "shared",
+        "domain"
+      ],
+      "noDom": true,
+      "noStorage": true,
+      "noNetwork": true,
+      "mayNameRawFiles": true
+    },
+    "shared": {
+      "description": "primitivas transversais sem regra de negócio (i18n, formatters, integridade)",
+      "mayDependOn": [
+        "kernel",
+        "config"
+      ],
+      "noDom": true,
+      "noStorage": true,
+      "noNetwork": true
+    },
+    "domain": {
+      "description": "modelo e regras puras (sem DOM, storage, rede ou relógio implícito)",
+      "mayDependOn": [
+        "kernel",
+        "config",
+        "shared",
+        "domain"
+      ],
+      "noDom": true,
+      "noStorage": true,
+      "noNetwork": true
+    },
+    "application": {
+      "description": "serviços de aplicação, view models, estado e orquestração",
+      "mayDependOn": [
+        "kernel",
+        "config",
+        "shared",
+        "domain",
+        "application",
+        "infrastructure"
+      ],
+      "noDom": true,
+      "noNetwork": true
+    },
+    "infrastructure": {
+      "description": "acesso a dados, cache, carregamento, rede, storage, telemetria técnica (adaptadores de browser permitidos)",
+      "mayDependOn": [
+        "kernel",
+        "config",
+        "shared",
+        "domain",
+        "infrastructure"
+      ],
+      "noDom": false,
+      "mayNameRawFiles": true
+    },
+    "presentation": {
+      "description": "views (strings HTML) e renderer do mapa",
+      "mayDependOn": [
+        "kernel",
+        "config",
+        "shared",
+        "domain",
+        "application",
+        "infrastructure",
+        "presentation"
+      ],
+      "noStorage": true,
+      "noNetwork": true,
+      "noDomainMutation": true
+    },
+    "composition": {
+      "description": "composition root do browser (presentation/app.js)",
+      "mayDependOn": [
+        "kernel",
+        "config",
+        "shared",
+        "domain",
+        "application",
+        "infrastructure",
+        "presentation",
+        "governance"
+      ],
+      "noDomainMutation": true
+    },
+    "worker": {
+      "description": "service worker (template); somente rede e cache",
+      "mayDependOn": [],
+      "mayNameRawFiles": true
+    },
+    "governance": {
+      "description": "fitness functions e registros de preservação (tempo de teste/build)",
+      "mayDependOn": [
+        "kernel",
+        "config",
+        "shared",
+        "domain",
+        "application",
+        "infrastructure",
+        "presentation"
+      ],
+      "noDom": true,
+      "noStorage": true,
+      "noNetwork": true,
+      "mayNameRawFiles": true
+    }
+  },
+  "cycleExcludedLayers": [
+    "presentation",
+    "composition",
+    "governance",
+    "worker"
+  ],
+  "modules": [
+    {
+      "path": "prelude.js",
+      "context": "kernel",
+      "layer": "kernel"
+    },
+    {
+      "path": "sw.template.js",
+      "context": "pwa",
+      "layer": "worker"
+    },
+    {
+      "path": "config/developments.js",
+      "context": "development",
+      "layer": "config"
+    },
+    {
+      "path": "config/presentation.js",
+      "context": "development",
+      "layer": "config"
+    },
+    {
+      "path": "utils/",
+      "context": "shared",
+      "layer": "shared"
+    },
+    {
+      "path": "documents/integrity.js",
+      "context": "shared",
+      "layer": "shared"
+    },
+    {
+      "path": "domain/enums.js",
+      "context": "lot",
+      "layer": "domain"
+    },
+    {
+      "path": "domain/model.js",
+      "context": "lot",
+      "layer": "domain"
+    },
+    {
+      "path": "domain/lot.js",
+      "context": "lot",
+      "layer": "domain"
+    },
+    {
+      "path": "domain/rules.js",
+      "context": "analysis",
+      "layer": "domain"
+    },
+    {
+      "path": "domain/availability.js",
+      "context": "availability",
+      "layer": "domain"
+    },
+    {
+      "path": "security/permissions.js",
+      "context": "security",
+      "layer": "domain"
+    },
+    {
+      "path": "security/organization.js",
+      "context": "security",
+      "layer": "domain"
+    },
+    {
+      "path": "security/authorization.js",
+      "context": "security",
+      "layer": "application"
+    },
+    {
+      "path": "data/",
+      "context": "data-access",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "data/lifecycle.js",
+      "context": "lot",
+      "layer": "domain"
+    },
+    {
+      "path": "loading/resources.js",
+      "context": "loading",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "loading/planner.js",
+      "context": "loading",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "loading/coordinator.js",
+      "context": "loading",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "loading/loadingView.js",
+      "context": "loading",
+      "layer": "presentation"
+    },
+    {
+      "path": "loading/chunkLoader.js",
+      "context": "loading",
+      "layer": "presentation"
+    },
+    {
+      "path": "cache/",
+      "context": "cache",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "intelligence/math.js",
+      "context": "analysis",
+      "layer": "domain"
+    },
+    {
+      "path": "intelligence/normalization.js",
+      "context": "analysis",
+      "layer": "domain"
+    },
+    {
+      "path": "intelligence/methodology.js",
+      "context": "analysis",
+      "layer": "domain"
+    },
+    {
+      "path": "intelligence/engine.js",
+      "context": "analysis",
+      "layer": "domain"
+    },
+    {
+      "path": "intelligence/textAdapter.js",
+      "context": "analysis",
+      "layer": "domain"
+    },
+    {
+      "path": "intelligence/fit.js",
+      "context": "recommendation",
+      "layer": "domain"
+    },
+    {
+      "path": "intelligence/recommendation.js",
+      "context": "recommendation",
+      "layer": "domain"
+    },
+    {
+      "path": "intelligence/explanation.js",
+      "context": "recommendation",
+      "layer": "domain"
+    },
+    {
+      "path": "intelligence/reasonCodes.js",
+      "context": "recommendation",
+      "layer": "domain"
+    },
+    {
+      "path": "versioning/",
+      "context": "analysis",
+      "layer": "application"
+    },
+    {
+      "path": "filters/",
+      "context": "filters",
+      "layer": "domain"
+    },
+    {
+      "path": "services/finding.js",
+      "context": "filters",
+      "layer": "application"
+    },
+    {
+      "path": "services/scoring.js",
+      "context": "analysis",
+      "layer": "application"
+    },
+    {
+      "path": "services/finance.js",
+      "context": "financial",
+      "layer": "domain"
+    },
+    {
+      "path": "services/solar.js",
+      "context": "solar",
+      "layer": "domain"
+    },
+    {
+      "path": "services/layers.js",
+      "context": "map",
+      "layer": "application"
+    },
+    {
+      "path": "services/comparison.js",
+      "context": "comparison",
+      "layer": "application"
+    },
+    {
+      "path": "services/share.js",
+      "context": "share",
+      "layer": "application"
+    },
+    {
+      "path": "pricing/",
+      "context": "pricing",
+      "layer": "domain"
+    },
+    {
+      "path": "documents/documentDomain.js",
+      "context": "documents",
+      "layer": "domain"
+    },
+    {
+      "path": "documents/documentServices.js",
+      "context": "documents",
+      "layer": "application"
+    },
+    {
+      "path": "provenance/provenanceModel.js",
+      "context": "provenance",
+      "layer": "domain"
+    },
+    {
+      "path": "provenance/provenanceServices.js",
+      "context": "provenance",
+      "layer": "application"
+    },
+    {
+      "path": "provenance/legacyProvenance.js",
+      "context": "provenance",
+      "layer": "application"
+    },
+    {
+      "path": "confidence/confidenceEngine.js",
+      "context": "confidence",
+      "layer": "domain"
+    },
+    {
+      "path": "confidence/confidenceServices.js",
+      "context": "confidence",
+      "layer": "application"
+    },
+    {
+      "path": "datastate/",
+      "context": "data-state",
+      "layer": "domain"
+    },
+    {
+      "path": "compare/",
+      "context": "comparison",
+      "layer": "domain"
+    },
+    {
+      "path": "favorites/",
+      "context": "favorites",
+      "layer": "application"
+    },
+    {
+      "path": "map/",
+      "context": "map",
+      "layer": "domain"
+    },
+    {
+      "path": "geo/geometry.js",
+      "context": "map",
+      "layer": "domain"
+    },
+    {
+      "path": "geo/spatialIndex.js",
+      "context": "map",
+      "layer": "domain"
+    },
+    {
+      "path": "geo/hitTest.js",
+      "context": "map",
+      "layer": "domain"
+    },
+    {
+      "path": "geo/camera.js",
+      "context": "map",
+      "layer": "domain"
+    },
+    {
+      "path": "geo/perf.js",
+      "context": "map",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "geo/repository.js",
+      "context": "map",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "state/",
+      "context": "workspace",
+      "layer": "application"
+    },
+    {
+      "path": "analytics/registry.js",
+      "context": "analytics",
+      "layer": "domain"
+    },
+    {
+      "path": "analytics/privacy.js",
+      "context": "analytics",
+      "layer": "domain"
+    },
+    {
+      "path": "analytics/semantic.js",
+      "context": "analytics",
+      "layer": "domain"
+    },
+    {
+      "path": "analytics/client.js",
+      "context": "analytics",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "analytics/early.js",
+      "context": "analytics",
+      "layer": "application"
+    },
+    {
+      "path": "analytics/facade.js",
+      "context": "analytics",
+      "layer": "application"
+    },
+    {
+      "path": "analytics/metricsView.js",
+      "context": "analytics",
+      "layer": "presentation"
+    },
+    {
+      "path": "layout/",
+      "context": "workspace",
+      "layer": "application"
+    },
+    {
+      "path": "customer/customerDomain.js",
+      "context": "customer",
+      "layer": "domain"
+    },
+    {
+      "path": "customer/customerContext.js",
+      "context": "customer",
+      "layer": "application"
+    },
+    {
+      "path": "customer/customerRepository.js",
+      "context": "customer",
+      "layer": "application"
+    },
+    {
+      "path": "customer/customerView.js",
+      "context": "customer",
+      "layer": "presentation"
+    },
+    {
+      "path": "journey/journeyDomain.js",
+      "context": "journey",
+      "layer": "domain"
+    },
+    {
+      "path": "journey/journeyServices.js",
+      "context": "journey",
+      "layer": "application"
+    },
+    {
+      "path": "quickview/",
+      "context": "quickview",
+      "layer": "application"
+    },
+    {
+      "path": "mobile/",
+      "context": "workspace",
+      "layer": "application"
+    },
+    {
+      "path": "presentation/viewmodels.js",
+      "context": "workspace",
+      "layer": "application"
+    },
+    {
+      "path": "presentation/",
+      "context": "workspace",
+      "layer": "presentation"
+    },
+    {
+      "path": "presentation/app.js",
+      "context": "workspace",
+      "layer": "composition"
+    },
+    {
+      "path": "rules/",
+      "context": "rules",
+      "layer": "domain"
+    },
+    {
+      "path": "rules/legacyAlertMigration.js",
+      "context": "rules",
+      "layer": "application"
+    },
+    {
+      "path": "presentationmode/policy.js",
+      "context": "presentation-mode",
+      "layer": "domain"
+    },
+    {
+      "path": "presentationmode/domain.js",
+      "context": "presentation-mode",
+      "layer": "domain"
+    },
+    {
+      "path": "presentationmode/projection.js",
+      "context": "presentation-mode",
+      "layer": "application"
+    },
+    {
+      "path": "presentationmode/runtime.js",
+      "context": "presentation-mode",
+      "layer": "application"
+    },
+    {
+      "path": "presentationmode/presentationView.js",
+      "context": "presentation-mode",
+      "layer": "presentation"
+    },
+    {
+      "path": "share/shareDomain.js",
+      "context": "share",
+      "layer": "domain"
+    },
+    {
+      "path": "share/shareService.js",
+      "context": "share",
+      "layer": "application"
+    },
+    {
+      "path": "share/sharedShellView.js",
+      "context": "share",
+      "layer": "presentation"
+    },
+    {
+      "path": "deeplink/linkStateCodec.js",
+      "context": "navigation",
+      "layer": "domain"
+    },
+    {
+      "path": "deeplink/linkRestoration.js",
+      "context": "navigation",
+      "layer": "application"
+    },
+    {
+      "path": "decision/decisionDomain.js",
+      "context": "decision",
+      "layer": "domain"
+    },
+    {
+      "path": "decision/decisionServices.js",
+      "context": "decision",
+      "layer": "application"
+    },
+    {
+      "path": "decision/decisionView.js",
+      "context": "decision",
+      "layer": "presentation"
+    },
+    {
+      "path": "navigation/navigationRegistry.js",
+      "context": "navigation",
+      "layer": "domain"
+    },
+    {
+      "path": "navigation/navigationService.js",
+      "context": "navigation",
+      "layer": "application"
+    },
+    {
+      "path": "navigation/menuView.js",
+      "context": "navigation",
+      "layer": "presentation"
+    },
+    {
+      "path": "observability/obsCore.js",
+      "context": "observability",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "observability/obsSignals.js",
+      "context": "observability",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "observability/obsPlatform.js",
+      "context": "observability",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "pwa/",
+      "context": "pwa",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "pwa/pwaView.js",
+      "context": "pwa",
+      "layer": "presentation"
+    },
+    {
+      "path": "security/hardening.js",
+      "context": "security",
+      "layer": "application"
+    },
+    {
+      "path": "governance/",
+      "context": "governance",
+      "layer": "governance"
+    },
+    {
+      "path": "admin/",
+      "context": "admin-shell",
+      "layer": "composition"
+    },
+    {
+      "path": "backoffice/",
+      "context": "backoffice",
+      "layer": "application"
+    },
+    {
+      "path": "backoffice/backofficeView.js",
+      "context": "backoffice",
+      "layer": "presentation"
+    },
+    {
+      "path": "config/backoffice/",
+      "context": "backoffice",
+      "layer": "config"
+    },
+    {
+      "path": "deals/dealsDomain.js",
+      "context": "deals",
+      "layer": "domain"
+    },
+    {
+      "path": "deals/dealsView.js",
+      "context": "deals",
+      "layer": "presentation"
+    },
+    {
+      "path": "config/onboarding/",
+      "context": "onboarding",
+      "layer": "config"
+    },
+    {
+      "path": "onboarding/",
+      "context": "onboarding",
+      "layer": "domain"
+    },
+    {
+      "path": "onboarding/orchestrator.js",
+      "context": "onboarding",
+      "layer": "application"
+    },
+    {
+      "path": "onboarding/onboardingView.js",
+      "context": "onboarding",
+      "layer": "presentation"
+    },
+    {
+      "path": "dataquality/",
+      "context": "data-quality",
+      "layer": "application"
+    },
+    {
+      "path": "dataquality/dqWorkflow.js",
+      "context": "data-quality",
+      "layer": "application"
+    },
+    {
+      "path": "dataquality/dqView.js",
+      "context": "data-quality",
+      "layer": "presentation"
+    },
+    {
+      "path": "privacy/",
+      "context": "privacy",
+      "layer": "domain"
+    },
+    {
+      "path": "privacy/privacyWorkflow.js",
+      "context": "privacy",
+      "layer": "application"
+    },
+    {
+      "path": "privacy/deviceData.js",
+      "context": "privacy",
+      "layer": "application"
+    },
+    {
+      "path": "privacy/privacyView.js",
+      "context": "privacy",
+      "layer": "presentation"
+    },
+    {
+      "path": "config/surroundings/",
+      "context": "surroundings",
+      "layer": "config"
+    },
+    {
+      "path": "surroundings/surroundingsDomain.js",
+      "context": "surroundings",
+      "layer": "domain"
+    },
+    {
+      "path": "surroundings/surroundingsClient.js",
+      "context": "surroundings",
+      "layer": "infrastructure"
+    },
+    {
+      "path": "surroundings/surroundingsView.js",
+      "context": "surroundings",
+      "layer": "presentation"
+    },
+    {
+      "path": "dataquality/dqEngine.js",
+      "context": "data-quality",
+      "layer": "application"
+    },
+    {
+      "path": "onboarding/sourceIntake.js",
+      "context": "onboarding",
+      "layer": "application"
+    },
+    {
+      "path": "privacy/privacyCore.js",
+      "context": "privacy",
+      "layer": "application"
+    },
+    {
+      "path": "onboarding/parsers.js",
+      "context": "onboarding",
+      "layer": "application"
+    }
+  ],
+  "forbiddenContextDependencies": [
+    {
+      "from": "availability",
+      "to": "pricing",
+      "reason": "Preço não define disponibilidade (invariante 2)"
+    },
+    {
+      "from": "availability",
+      "to": "financial",
+      "reason": "Preço/financeiro não define disponibilidade (invariante 2)"
+    },
+    {
+      "from": "pricing",
+      "to": "workspace",
+      "reason": "Pricing → UI proibido"
+    },
+    {
+      "from": "lot",
+      "to": "customer",
+      "reason": "Lot → Customer proibido (Lote não conhece cliente)"
+    },
+    {
+      "from": "lot",
+      "to": "journey",
+      "reason": "Lot → Journey proibido"
+    },
+    {
+      "from": "analysis",
+      "to": "customer",
+      "reason": "Análise do lote é independente de cliente (Fit é separado)"
+    },
+    {
+      "from": "analysis",
+      "to": "recommendation",
+      "reason": "Score/classe não dependem de Fit/Recommendation"
+    },
+    {
+      "from": "pricing",
+      "to": "availability",
+      "reason": "Histórico de preço não depende de status comercial"
+    },
+    {
+      "from": "map",
+      "to": "customer",
+      "reason": "Mapa não calcula regra de cliente (recebe valores prontos)"
+    },
+    {
+      "from": "shared",
+      "to": "lot",
+      "reason": "shared não pode conter regra de negócio"
+    }
+  ],
+  "rules": {
+    "LAYER_DIRECTION": {
+      "severity": "ERROR"
+    },
+    "FORBIDDEN_CONTEXT": {
+      "severity": "ERROR"
+    },
+    "DOMAIN_NO_DOM": {
+      "severity": "ERROR"
+    },
+    "DOMAIN_NO_STORAGE": {
+      "severity": "ERROR"
+    },
+    "NO_NETWORK_OUTSIDE_INFRA": {
+      "severity": "ERROR"
+    },
+    "PRESENTATION_NO_DOMAIN_MUTATION": {
+      "severity": "ERROR"
+    },
+    "RAW_JSON_ONLY_IN_DATA": {
+      "severity": "ERROR"
+    },
+    "NAMESPACE_OWNERSHIP": {
+      "severity": "ERROR"
+    },
+    "UNCLASSIFIED_MODULE": {
+      "severity": "WARNING"
+    },
+    "CONTEXT_CYCLE": {
+      "severity": "WARNING"
+    }
+  },
+  "knownViolations": [
+    {
+      "key": "CONTEXT_CYCLE|analytics ↔ comparison ↔ presentation-mode ↔ quickview ↔ security ↔ share ↔ workspace|ciclo lógico entre contextos: analytics, comparison, presentation-mode, quickview, security, share, workspace",
+      "gapId": "GAP-ARCH-13"
+    },
+    {
+      "key": "CONTEXT_CYCLE|development ↔ lot|ciclo lógico entre contextos: development, lot",
+      "gapId": "GAP-ARCH-14"
+    },
+    {
+      "key": "DOMAIN_NO_DOM|layout/responsiveProfile.js|application usa document.",
+      "gapId": "GAP-ARCH-09"
+    },
+    {
+      "key": "DOMAIN_NO_DOM|layout/responsiveProfile.js|application usa window.innerWidth",
+      "gapId": "GAP-ARCH-09"
+    },
+    {
+      "key": "DOMAIN_NO_DOM|layout/responsiveProfile.js|application usa document.",
+      "gapId": "GAP-ARCH-09"
+    },
+    {
+      "key": "DOMAIN_NO_DOM|layout/responsiveProfile.js|application usa document.",
+      "gapId": "GAP-ARCH-09"
+    },
+    {
+      "key": "LAYER_DIRECTION|analytics/client.js|infrastructure → application (App.authz em security/authorization.js)",
+      "gapId": "GAP-ARCH-07"
+    },
+    {
+      "key": "LAYER_DIRECTION|analytics/facade.js|application → presentation (App.metricsView.viewModel em analytics/metricsView.js)",
+      "gapId": "GAP-ARCH-04"
+    },
+    {
+      "key": "LAYER_DIRECTION|compare/comparisonDomain.js|domain → application (App.services.share em services/share.js)",
+      "gapId": "GAP-ARCH-02"
+    },
+    {
+      "key": "LAYER_DIRECTION|compare/comparisonDomain.js|domain → application (App.analytics em analytics/facade.js)",
+      "gapId": "GAP-ARCH-03"
+    },
+    {
+      "key": "LAYER_DIRECTION|compare/comparisonDomain.js|domain → application (App.services.comparison em services/comparison.js)",
+      "gapId": "GAP-ARCH-02"
+    },
+    {
+      "key": "LAYER_DIRECTION|customer/customerDomain.js|domain → application (App.authz.evaluate em security/authorization.js)",
+      "gapId": "GAP-ARCH-01"
+    },
+    {
+      "key": "LAYER_DIRECTION|data/offline.js|infrastructure → application (App.analytics em analytics/facade.js)",
+      "gapId": "GAP-ARCH-03"
+    },
+    {
+      "key": "LAYER_DIRECTION|data/repositories.js|infrastructure → application (App.services.search em services/finding.js)",
+      "gapId": "GAP-ARCH-06"
+    },
+    {
+      "key": "LAYER_DIRECTION|filters/filters.js|domain → application (App.services.search em services/finding.js)",
+      "gapId": "GAP-ARCH-02"
+    },
+    {
+      "key": "LAYER_DIRECTION|map/layers.js|domain → application (App.services.layers em services/layers.js)",
+      "gapId": "GAP-ARCH-02"
+    },
+    {
+      "key": "LAYER_DIRECTION|presentationmode/domain.js|domain → application (App.presentationMode.projection em presentationmode/projection.js)",
+      "gapId": "GAP-ARCH-08"
+    },
+    {
+      "key": "LAYER_DIRECTION|presentationmode/domain.js|domain → application (App.authz em security/authorization.js)",
+      "gapId": "GAP-ARCH-01"
+    },
+    {
+      "key": "LAYER_DIRECTION|pricing/priceHistory.js|domain → infrastructure (App.repos.DevelopmentRepository em data/repositories.js)",
+      "gapId": "GAP-ARCH-05"
+    },
+    {
+      "key": "LAYER_DIRECTION|share/shareDomain.js|domain → application (App.authz em security/authorization.js)",
+      "gapId": "GAP-ARCH-01"
+    },
+    {
+      "key": "RAW_JSON_ONLY_IN_DATA|domain/availability.js|nomeia lots.json fora da camada de dados",
+      "gapId": "GAP-ARCH-12"
+    },
+    {
+      "key": "RAW_JSON_ONLY_IN_DATA|presentation/app.js|nomeia analysis-input.json fora da camada de dados",
+      "gapId": "GAP-ARCH-11"
+    }
+  ]
+}

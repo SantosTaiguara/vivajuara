@@ -1,0 +1,468 @@
+{
+  "kind": "feature-permission-matrix",
+  "version": "1.0.0",
+  "note": "FeaturePermissionMatrix / ActionPermissionMatrix / RoutePermissionMatrix. Toda ação nova do painel (data-act) precisa entrar em actions ou uiOnlyActions; ação desconhecida é negada.",
+  "features": {
+    "map.view": {
+      "permissions": [
+        "lot.view"
+      ],
+      "deny": "hide",
+      "message": "Mapa indisponível para este acesso."
+    },
+    "development.info": {
+      "permissions": [
+        "development.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação."
+    },
+    "lot.details": {
+      "permissions": [
+        "lot.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação."
+    },
+    "lot.price": {
+      "permissions": [
+        "lot.price.view"
+      ],
+      "deny": "hide",
+      "message": "Preço de tabela não disponível para este acesso."
+    },
+    "lot.priceHistory": {
+      "permissions": [
+        "lot.price_history.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação."
+    },
+    "lot.availability": {
+      "permissions": [
+        "lot.availability.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação."
+    },
+    "lot.analysis": {
+      "permissions": [
+        "lot.analysis.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação."
+    },
+    "lot.compare": {
+      "permissions": [
+        "lot.compare"
+      ],
+      "deny": "disable",
+      "message": "Você não possui permissão para comparar lotes."
+    },
+    "lot.favorite": {
+      "permissions": [
+        "lot.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação.",
+      "deviceLocal": true
+    },
+    "lot.simulation": {
+      "permissions": [
+        "lot.simulate",
+        "lot.price.view"
+      ],
+      "deny": "disable",
+      "message": "Você não possui permissão para simular condições."
+    },
+    "recommendation": {
+      "permissions": [
+        "lot.view",
+        "lot.analysis.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação."
+    },
+    "mode.broker": {
+      "permissions": [
+        "lot.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação.",
+      "uiMode": "broker"
+    },
+    "mode.client": {
+      "permissions": [
+        "lot.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação.",
+      "uiMode": "client"
+    },
+    "mode.technical": {
+      "permissions": [
+        "lot.analysis.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação.",
+      "uiMode": "technical"
+    },
+    "mode.presentation": {
+      "permissions": [
+        "lot.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação.",
+      "uiMode": "presentation"
+    },
+    "share.lots": {
+      "permissions": [
+        "share.create"
+      ],
+      "deny": "disable",
+      "message": "Você não possui permissão para compartilhar."
+    },
+    "share.customer": {
+      "permissions": [
+        "share.create",
+        "customer_profile.manage"
+      ],
+      "deny": "disable",
+      "message": "Você não possui permissão para compartilhar a seleção do cliente."
+    },
+    "customer.profile": {
+      "permissions": [
+        "customer_profile.manage"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação.",
+      "deviceLocal": true
+    },
+    "data.refresh": {
+      "permissions": [
+        "development.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação."
+    },
+    "availability.edit": {
+      "permissions": [
+        "availability.write"
+      ],
+      "deny": "disable",
+      "message": "Alterar disponibilidade exige permissão e conexão com o servidor.",
+      "online": true
+    },
+    "pricing.publish": {
+      "permissions": [
+        "price_table.publish"
+      ],
+      "deny": "hide",
+      "message": "Publicar tabela indisponível. Você não possui permissão.",
+      "online": true
+    },
+    "analysis.preview": {
+      "permissions": [
+        "analysis.preview"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação.",
+      "online": true
+    },
+    "audit.view": {
+      "permissions": [
+        "admin.audit.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação.",
+      "online": true
+    },
+    "favorite.collections": {
+      "permissions": [
+        "lot.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação."
+    },
+    "provenance.resolve": {
+      "permissions": [
+        "provenance.resolveConflict"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação."
+    },
+    "offline.pack.manage": {
+      "permissions": [
+        "lot.view"
+      ],
+      "deny": "hide",
+      "message": "Você não possui permissão para esta ação."
+    },
+    "backoffice.console": {
+      "permissions": [
+        "backoffice.access"
+      ],
+      "deny": "hide",
+      "message": "Console administrativo disponível apenas para operadores autorizados."
+    },
+    "deals.panel": {
+      "permissions": [
+        "proposal.read"
+      ],
+      "deny": "hide",
+      "message": "Propostas e reservas disponíveis apenas para usuários autorizados."
+    },
+    "location.environment": {
+      "permissions": [
+        "development.location_environment.read"
+      ],
+      "deny": "hide",
+      "message": "Entorno indisponível para este acesso."
+    },
+    "development_onboarding.publish": {
+      "permissions": [
+        "development_onboarding.publish"
+      ],
+      "deny": "hide",
+      "message": "Publicação de onboarding exige permissão específica."
+    }
+  },
+  "actions": {
+    "view": {
+      "variantKey": "v",
+      "variants": {
+        "map": "map.view",
+        "compare": "lot.compare",
+        "development": "development.info",
+        "clients": "customer.profile"
+      },
+      "default": "map.view"
+    },
+    "mode": {
+      "variantKey": "mode",
+      "variants": {
+        "broker": "mode.broker",
+        "client": "mode.client",
+        "technical": "mode.technical"
+      },
+      "default": null
+    },
+    "present": "mode.presentation",
+    "panel": {
+      "variantKey": "p",
+      "variants": {
+        "simulation": "lot.simulation"
+      },
+      "default": "lot.details"
+    },
+    "primary": {
+      "variantKey": "a",
+      "variants": {
+        "SIMULATE": "lot.simulation"
+      },
+      "default": "lot.details"
+    },
+    "openFind": "map.view",
+    "closeFind": "map.view",
+    "clearAll": "map.view",
+    "fchip": "map.view",
+    "incUnknown": "map.view",
+    "flevel": "map.view",
+    "fmToggle": "map.view",
+    "status": "map.view",
+    "legendItem": "map.view",
+    "legendFilter": "map.view",
+    "overlay": "map.view",
+    "layersReset": "map.view",
+    "layers": "map.view",
+    "legendToggle": "map.view",
+    "bg": "map.view",
+    "goLot": "lot.details",
+    "closeLot": "lot.details",
+    "sec": "lot.details",
+    "secJump": "lot.details",
+    "prov": "lot.details",
+    "backLot": "lot.details",
+    "sugg": "lot.details",
+    "lightbox": "lot.details",
+    "route": "lot.details",
+    "copyId": "lot.details",
+    "preset": "recommendation",
+    "clearPrefs": "recommendation",
+    "recScope": "recommendation",
+    "recShowReview": "recommendation",
+    "explain": "recommendation",
+    "clearProfile": "customer.profile",
+    "filtersToConstraints": "customer.profile",
+    "custPick": "customer.profile",
+    "custDel": "customer.profile",
+    "custAddLot": "customer.profile",
+    "custRemoveLot": "customer.profile",
+    "custCompare": "customer.profile",
+    "custAdd": "customer.profile",
+    "techExplain": "mode.technical",
+    "fav": "lot.favorite",
+    "cmp": "lot.compare",
+    "cmpRemove": "lot.compare",
+    "cmpClear": "lot.compare",
+    "cmpMove": "lot.compare",
+    "cmpProfile": "lot.compare",
+    "share": "share.lots",
+    "shareCmp": "share.lots",
+    "copyText": "share.lots",
+    "copyLink": "share.lots",
+    "shareCust": "share.customer",
+    "simExpand": "lot.simulation",
+    "season": "lot.analysis",
+    "hourPreset": "lot.analysis",
+    "play": "lot.analysis",
+    "refresh": "data.refresh",
+    "cmpBarToggle": "lot.compare",
+    "custClear": "customer.profile",
+    "favCtx": "lot.favorite",
+    "favCollAdd": "favorite.collections",
+    "favCollNew": "favorite.collections",
+    "jnyOpen": "customer.profile",
+    "jnyMove": "customer.profile",
+    "jnyNextDone": "customer.profile",
+    "jnyTouch": "customer.profile",
+    "jnyOption": "customer.profile",
+    "pmPrev": "mode.presentation",
+    "pmNext": "mode.presentation",
+    "pmStep": "mode.presentation",
+    "pmLot": "mode.presentation",
+    "pmMap": "mode.presentation",
+    "pmFeedback": "mode.presentation",
+    "pmComplete": "mode.presentation",
+    "pmEnd": "mode.presentation",
+    "shareCopy": "share.lots",
+    "shareNative": "share.lots",
+    "shareWhatsapp": "share.lots",
+    "shareEmail": "share.lots",
+    "shareQr": "share.lots",
+    "shareRevoke": "share.lots",
+    "shareSuspend": "share.lots",
+    "shareResume": "share.lots",
+    "shareRotate": "share.lots",
+    "doc-preview": "development.info",
+    "doc-download": "development.info",
+    "prov-open": "mode.technical",
+    "prov-history": "mode.technical",
+    "conf-open": "mode.technical",
+    "prov-resolve": "provenance.resolve",
+    "pmStart": "mode.presentation",
+    "pmGo": "mode.presentation",
+    "pmResume": "mode.presentation",
+    "analyticsRefresh": "mode.technical",
+    "analyticsRange": "mode.technical",
+    "analyticsClear": "mode.technical",
+    "loadRetry": "map.view",
+    "decShortlist": "customer.profile",
+    "decFavCust": "lot.favorite",
+    "decCompareShortlist": "lot.compare",
+    "decPresent": "mode.presentation",
+    "decRefresh": "recommendation",
+    "nav": {
+      "variantKey": "ws",
+      "variants": {
+        "MAP": "map.view",
+        "FIND": "map.view",
+        "COMPARE": "lot.compare",
+        "CUSTOMERS": "customer.profile",
+        "DEVELOPMENT": "development.info"
+      },
+      "default": "map.view"
+    },
+    "obsRefresh": "mode.technical",
+    "obsCopyDiagnostic": "mode.technical",
+    "obsClear": "mode.technical",
+    "pwaPackPrepare": "offline.pack.manage",
+    "pwaPackRefresh": "offline.pack.manage",
+    "pwaPackRemove": "offline.pack.manage",
+    "pwaPackCancel": "offline.pack.manage",
+    "pwaConflictDiscard": "offline.pack.manage",
+    "boOpen": "backoffice.console",
+    "boExitSupport": "backoffice.console",
+    "boNav": "backoffice.console",
+    "boOpenItem": "backoffice.console",
+    "boRefresh": "backoffice.console",
+    "boAction": "backoffice.console",
+    "boPreview": "backoffice.console",
+    "boCancel": "backoffice.console",
+    "boConfirm": "backoffice.console",
+    "dealOpenProposal": "deals.panel",
+    "dealOpenReservation": "deals.panel",
+    "dealOpenClosing": "deals.panel",
+    "dealRefresh": "deals.panel",
+    "envPlace": "location.environment",
+    "envRoute": "location.environment",
+    "envOpenMaps": "location.environment",
+    "onboarding-publish": "development_onboarding.publish"
+  },
+  "uiOnlyActions": {
+    "zoomIn": "Controle de interface, sem dado de servidor.",
+    "zoomOut": "Controle de interface, sem dado de servidor.",
+    "fit": "Controle de interface, sem dado de servidor.",
+    "full": "Controle de interface, sem dado de servidor.",
+    "closePop": "Controle de interface, sem dado de servidor.",
+    "closeModal": "Controle de interface, sem dado de servidor.",
+    "sheetUp": "Controle de interface, sem dado de servidor.",
+    "sheetDown": "Controle de interface, sem dado de servidor.",
+    "appUpdate": "Controle de interface, sem dado de servidor.",
+    "reload": "Controle de interface, sem dado de servidor.",
+    "clearLocal": "Apaga apenas a cópia local deste aparelho.",
+    "clearLocalGo": "Apaga apenas a cópia local deste aparelho.",
+    "retryRegion": "Controle de interface, sem dado de servidor.",
+    "toggleRight": "Controle de interface, sem dado de servidor.",
+    "shortcutHelp": "Controle de interface, sem dado de servidor.",
+    "custTab": "Troca de aba na ficha do cliente, sem dado de servidor.",
+    "sharedFeedback": "Página pública compartilhada: autorizada pela sessão do link no servidor, não pelas permissões do painel.",
+    "sharedPasscode": "Página pública compartilhada: autorizada pela sessão do link no servidor, não pelas permissões do painel.",
+    "sharedConfirm": "Página pública compartilhada: autorizada pela sessão do link no servidor, não pelas permissões do painel.",
+    "sharedPrint": "Página pública compartilhada: autorizada pela sessão do link no servidor, não pelas permissões do painel.",
+    "sharedContact": "Página pública compartilhada: autorizada pela sessão do link no servidor, não pelas permissões do painel.",
+    "decMode": "Troca de modo de visualização da decisão, sem dado de servidor.",
+    "pwaUpdateNow": "Controle do aplicativo instalável/offline, sem dado de servidor.",
+    "pwaUpdateLater": "Controle do aplicativo instalável/offline, sem dado de servidor.",
+    "pwaReload": "Controle do aplicativo instalável/offline, sem dado de servidor.",
+    "pwaInstall": "Controle do aplicativo instalável/offline, sem dado de servidor.",
+    "pwaInstallDismiss": "Controle do aplicativo instalável/offline, sem dado de servidor.",
+    "pwaCheckUpdate": "Controle do aplicativo instalável/offline, sem dado de servidor.",
+    "pwaOpenStorage": "Controle do aplicativo instalável/offline, sem dado de servidor.",
+    "pwaSyncRetry": "Controle do aplicativo instalável/offline, sem dado de servidor.",
+    "authLogin": "Login com Google (fase W3): navegação para GET {apiBaseUrl}/auth/google/start; a identidade e as permissões vêm do servidor (GET /me), nunca do cliente. Só aparece com backend configurado.",
+    "authLogout": "Sair (fase W3): POST {apiBaseUrl}/auth/logout com X-CSRF-Token; o contexto volta ao visitante público. Só aparece com backend configurado.",
+    "envTab": "Troca Mapa de Lotes | Entorno (visível para todos desde a rodada 7). O mapa do Entorno usa só dados públicos (planta, KMZ, coordenada oficial); locais do Google continuam em location.environment.",
+    "privacyExport": "Central de privacidade do aparelho: exporta ou apaga apenas dados locais deste navegador, sem servidor.",
+    "privacyEraseLocal": "Central de privacidade do aparelho: exporta ou apaga apenas dados locais deste navegador, sem servidor.",
+    "privacyEraseConfirm": "Central de privacidade do aparelho: exporta ou apaga apenas dados locais deste navegador, sem servidor.",
+    "envZoomIn": "Controle do mapa do Entorno (OpenStreetMap, sem chave), sem dado de servidor.",
+    "envZoomOut": "Controle do mapa do Entorno (OpenStreetMap, sem chave), sem dado de servidor.",
+    "envRecenter": "Controle do mapa do Entorno (OpenStreetMap, sem chave), sem dado de servidor.",
+    "envPlan": "Controle do mapa do Entorno (OpenStreetMap, sem chave), sem dado de servidor.",
+    "envInfo": "Controle do mapa do Entorno (OpenStreetMap, sem chave), sem dado de servidor.",
+    "envRetryTiles": "Controle do mapa do Entorno (OpenStreetMap, sem chave), sem dado de servidor."
+  },
+  "routes": {
+    "map": "map.view",
+    "compare": "lot.compare",
+    "development": "development.info",
+    "admin/availability": "availability.edit",
+    "admin/pricing": "pricing.publish",
+    "admin/analysis": "analysis.preview",
+    "admin/audit": "audit.view",
+    "clients": "customer.profile"
+  },
+  "detailSections": {
+    "summary": "lot.details",
+    "geometry": "lot.details",
+    "location": "lot.details",
+    "surroundings": "lot.details",
+    "mobility": "lot.details",
+    "comfort": "lot.analysis",
+    "construction": "lot.details",
+    "commercial": "lot.price",
+    "intelligence": "lot.analysis",
+    "sources": "lot.details"
+  }
+}

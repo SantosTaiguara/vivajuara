@@ -1,0 +1,112 @@
+/* topic 53 — compact navigation (navigation/menuView.js). Everything is scoped to .hd.cnav / html[data-nav], so this file is
+   inert until shell.html carries the new header. Tokens first (§203): no per-component magic numbers below. */
+.hd.cnav{--ni-h:38px;--ni-icon:18px;--ni-gap:2px;--ni-radius:8px;--ni-pad:8px 10px;--ni-font:13px;--ni-active-bg:var(--brand-soft);--ni-active-fg:var(--brand);--ni-indicator:2px;
+  --ni-badge-h:18px;--bnav-icon:22px;--bnav-font:11px;--more-w:280px}
+html[data-nav]{--bnav-h:58px;--rail-w:84px}
+.hd.cnav .brand{border:0;background:none;padding:0;margin:0;cursor:pointer;flex:none;border-radius:8px;display:inline-flex;align-items:center}
+.hd.cnav .pnav{margin-left:6px;display:block}
+.hd.cnav .dev{flex:none}
+html[data-layout="desktop"] .hd.cnav .ni{padding:8px 9px}
+.hd.cnav .pnav[hidden]{display:none!important}
+.hd.cnav .pnl{display:flex;gap:var(--ni-gap);list-style:none;margin:0;padding:0}
+.hd.cnav .pnl li{display:flex}
+.hd.cnav .pnl li[hidden]{display:none}
+.hd.cnav .ni{display:inline-flex;align-items:center;gap:6px;border:0;background:none;padding:var(--ni-pad);border-radius:var(--ni-radius);font:inherit;font-size:var(--ni-font);font-weight:600;color:var(--fg-2);
+  white-space:nowrap;min-height:var(--ni-h);position:relative;cursor:pointer;letter-spacing:.01em;transition:background-color .12s ease,color .12s ease}
+.hd.cnav .ni .nico{width:var(--ni-icon);height:var(--ni-icon);flex:none;display:none}
+.hd.cnav .ni:hover{background:var(--surface-2);color:var(--fg)}
+/* active: background + bar + weight — never colour alone (§59) */
+.hd.cnav .ni[aria-current=page]{background:var(--ni-active-bg);color:var(--ni-active-fg);font-weight:700}
+.hd.cnav .ni[aria-current=page]::after{content:"";position:absolute;left:10px;right:10px;bottom:3px;height:var(--ni-indicator);border-radius:2px;background:currentColor}
+/* Encontrar open next to the map (docked profiles): a dot, not aria-current */
+.hd.cnav .ni[data-open]::before{content:"";position:absolute;top:6px;right:5px;width:6px;height:6px;border-radius:50%;background:var(--leaf)}
+.hd.cnav .ni[aria-disabled=true]{opacity:.55;cursor:not-allowed}
+.hd.cnav .ni[aria-disabled=true]:hover{background:none;color:var(--fg-2)}
+.hd.cnav .ni .cnt{display:inline-block;min-width:var(--ni-badge-h);padding:0 5px;border-radius:9px;background:var(--cmp);color:#fff;font-size:11px;line-height:var(--ni-badge-h);text-align:center;margin-left:2px}
+.hd.cnav .ni .cnt[hidden]{display:none}
+.hd.cnav .ni .cnt[data-status=BLOCKED]{background:var(--c-chk)}
+.hd.cnav .nshort{display:none}
+.hd.cnav .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:-1px;padding:0;border:0}
+@media (min-width:1600px){ html[data-layout="desktop"] .hd.cnav .ni .nico{display:block} }
+html[data-layout^="tablet-"] .hd.cnav .nml{display:none}
+html[data-layout^="tablet-"] .hd.cnav .ni{min-height:44px}
+
+/* header tools: wrappers vanish in the inline row, become labelled rows in the overflow panel */
+.hd.cnav .hdr>.ntool{display:contents}
+.hd.cnav .ntool[hidden]{display:none!important}
+.hd.cnav:not([data-customer="1"]) .ntool[data-when-active]{display:none!important}
+.hd.cnav .ncap{display:none}
+.hd.cnav .nmore{position:relative;flex:none}
+.hd.cnav .nmore[hidden]{display:none}
+.hd.cnav .nmorebtn{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 10px;font:inherit;font-size:12.5px;font-weight:600;color:var(--fg-2);min-height:34px;cursor:pointer}
+.hd.cnav .nmorebtn .nico{display:block;width:18px;height:18px}
+.hd.cnav .nmorebtn[aria-expanded=true]{background:var(--brand-soft);color:var(--brand);border-color:var(--brand)}
+.hd.cnav .nmorepanel{position:absolute;right:0;top:calc(100% + 6px);z-index:60;width:var(--more-w);max-width:calc(100vw - 24px);max-height:min(70vh,520px);overflow:auto;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.18);padding:12px;display:flex;flex-direction:column;gap:12px}
+.hd.cnav .nmorepanel[hidden]{display:none}
+.hd.cnav .nmorepanel>.ntool{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.hd.cnav .nmorepanel .ncap{display:block;font-size:11px;font-weight:700;color:var(--fg-3);text-transform:uppercase;letter-spacing:.04em}
+.hd.cnav .nmorepanel .secctx{display:block!important;max-width:100%}
+.hd.cnav .nmorepanel .presbtn:not([hidden]){display:inline-flex!important}
+.hd.cnav .nmorepanel .seg .mtech:not([hidden]){display:inline-block!important}
+.hd.cnav .nmorepanel .syncind:not([hidden]){display:inline-block!important}
+.hd.cnav .nmorepanel .ntool[data-tool=sync]:has(.syncind[hidden]){display:none!important}
+.hd.cnav .nmorepanel .btn,.hd.cnav .nmorepanel .seg button,.hd.cnav .nmorepanel .lbtn{min-height:40px}
+
+/* ---------- BOTTOM_NAV (MOBILE, TABLET_PORTRAIT, TABLET_COMPACT): map ↓ sheet ↓ bottom nav, with insets (§74–79) */
+html[data-nav=bottom] .ws{padding-bottom:calc(var(--bnav-h,58px) + env(safe-area-inset-bottom,0px))}
+html[data-nav=bottom] .ws.pres{padding-bottom:0}
+html[data-nav=bottom] .right{padding-bottom:0}
+html[data-nav=bottom] .hd.cnav .pnav{position:fixed;left:0;right:0;bottom:0;z-index:35;margin:0;order:initial;flex:none;max-width:none;overflow:visible;background:var(--surface);
+  border-top:1px solid var(--line);padding:3px 4px calc(3px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 14px rgba(0,0,0,.07);height:calc(var(--bnav-h) + env(safe-area-inset-bottom,0px))}
+html[data-nav=bottom] .hd.cnav .pnl{justify-content:space-around;height:100%}
+html[data-nav=bottom] .hd.cnav .pnl li{flex:1 1 0;min-width:0}
+html[data-nav=bottom] .hd.cnav .ni{flex:1;min-width:0;flex-direction:column;justify-content:center;gap:2px;padding:4px 2px;min-height:48px;font-size:var(--bnav-font);line-height:1.15;white-space:nowrap}
+html[data-nav=bottom] .hd.cnav .ni .nico{display:block;width:var(--bnav-icon);height:var(--bnav-icon)}
+html[data-nav=bottom] .hd.cnav .ni .nl{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+html[data-nav=bottom] .hd.cnav .ni .cnt{position:absolute;top:2px;left:calc(50% + 6px);margin:0;font-size:10.5px;line-height:16px;min-width:16px;padding:0 4px}
+html[data-nav=bottom] .hd.cnav .ni[aria-current=page]{background:none}
+html[data-nav=bottom] .hd.cnav .ni[aria-current=page] .nico{background:var(--ni-active-bg);border-radius:10px;box-sizing:content-box;padding:2px 10px;margin:-2px 0}
+html[data-nav=bottom] .hd.cnav .ni[aria-current=page]::after{top:0;bottom:auto;left:28%;right:28%;height:3px}
+html[data-nav=bottom] .hd.cnav .ni[data-open]::before{top:4px;right:calc(50% - 18px)}
+html[data-nav=bottom] .hd.cnav .hdr{margin-left:auto}
+html[data-nav=bottom] .hd.cnav[data-customer="1"] .cust{display:inline-block;max-width:32vw}
+@media (max-width:419px){
+  html[data-nav=bottom] .hd.cnav .nfull{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  html[data-nav=bottom] .hd.cnav .nshort{display:inline}
+  html[data-nav=bottom] .hd.cnav .nml{display:none}
+}
+@media (max-width:379px){ html[data-nav=bottom] .hd.cnav[data-customer="1"] .brand{display:none} html[data-nav=bottom] .hd.cnav{--bnav-font:10.5px} html[data-nav=bottom] .hd.cnav .ni{padding:4px 0;letter-spacing:0} }
+/* the minimized sheet and the comparison FAB sit above the bottom nav (the body already ends at the nav) */
+html[data-nav=bottom] .toast{bottom:calc(var(--bnav-h) + 76px + env(safe-area-inset-bottom,0px))}
+
+/* ---------- TOP_NAV (TABLET_LANDSCAPE, TABLET_LARGE, DESKTOP): the row of today, plus Encontrar */
+html[data-nav=top] .hd.cnav .pnav{flex:none}
+html[data-layout^="tablet-"][data-nav=top] .hd.cnav .ni{padding:8px 8px}
+
+/* ---------- LEFT_RAIL (implemented, off by config: density.railEnabled=false) */
+html[data-nav=rail] .ws{padding-left:var(--rail-w,84px)}
+html[data-nav=rail] .hd.cnav .pnav{position:fixed;left:0;top:0;bottom:0;width:var(--rail-w);z-index:35;margin:0;background:var(--surface);border-right:1px solid var(--line);padding:calc(var(--hd) + 8px) 6px 8px}
+html[data-nav=rail] .hd.cnav .pnl{flex-direction:column;gap:4px}
+html[data-nav=rail] .hd.cnav .ni{flex-direction:column;width:100%;gap:3px;padding:8px 2px;font-size:11px;white-space:normal;text-align:center}
+html[data-nav=rail] .hd.cnav .ni .nico{display:block;width:22px;height:22px}
+html[data-nav=rail] .hd.cnav .ni[aria-current=page]::after{left:0;right:auto;top:8px;bottom:8px;width:3px;height:auto}
+html[data-nav=rail] .hd.cnav .nfull{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+html[data-nav=rail] .hd.cnav .nshort{display:inline}
+
+@media (prefers-reduced-motion: reduce){ .hd.cnav .ni{transition:none} }
+@media (forced-colors: active){ .hd.cnav .ni[aria-current=page]{outline:2px solid CanvasText} }
+
+/* W3 login: account control (rendered only when a backend is configured; the static visitor panel never has .nacct) */
+.hd.cnav .nacct{display:flex;align-items:center;gap:6px;min-width:0}
+.hd.cnav .hdr>.nacct{display:flex;position:relative}
+/* inline (desktop): the login notice floats under the button so it never widens the header row */
+.hd.cnav .hdr>.nacct .nacct-msg{position:absolute;top:calc(100% + 6px);right:0;z-index:30;width:max-content;max-width:min(32ch,80vw);padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.hd.cnav .nacct .nacct-in{white-space:nowrap}
+.hd.cnav .nacct .nacct-g{flex:none}
+.hd.cnav .nacct .nacct-name{font-weight:700;font-size:13px;color:var(--fg);max-width:12ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hd.cnav .nacct .nacct-name[data-limited]{color:var(--fg-2)}
+.hd.cnav .nacct .nacct-msg{font-size:12px;color:var(--fg-2);max-width:26ch}
+.hd.cnav .nacct[data-compact] .nacct-in>span,.hd.cnav .nacct[data-compact] .nacct-name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hd.cnav .nmorepanel>.nacct{flex-direction:row;flex-wrap:wrap;align-items:center}
+.hd.cnav .nmorepanel .nacct .btn{min-height:40px}

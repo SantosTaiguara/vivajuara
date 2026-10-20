@@ -1,0 +1,64 @@
+{
+ "kind": "decision-policy",
+ "id": "viva-juara-decision",
+ "version": "1.0.0",
+ "developmentId": "viva-juara",
+ "status": "PUBLISHED",
+ "changeReason": "Tópico 56: primeira política da decisão comercial orientada ao cliente. Orquestra Fit (14), Recomendação (15) e Explicação (16) sem alterar nenhum cálculo. Valores de política (tamanhos, limiares) são padrões operacionais e podem ser revistos pelo negócio.",
+ "objectiveMap": {
+  "ui": { "housing": "HOUSING", "investment": "INVESTMENT", "family": "HOUSING", "premium": "UNDECIDED" },
+  "customer": { "LIVE": "HOUSING", "INVEST": "INVESTMENT", "LIVE_OR_INVEST": "UNDECIDED", "UNDECIDED": "UNDECIDED" },
+  "note": "Preset 'premium' não diz se o cliente quer morar ou investir: vira UNDECIDED (nunca adivinhar). 'family' é preset de moradia."
+ },
+ "objectiveLabels": { "HOUSING": "Moradia", "INVESTMENT": "Investimento", "UNDECIDED": "Objetivo ainda não definido" },
+ "shortlistPolicy": {
+  "defaultSize": 3,
+  "maxSize": 5,
+  "allowBrokerReorder": true,
+  "allowCustomerSelection": true,
+  "requireReasonForManualOverride": true,
+  "includeReviewWhenNoEligible": true,
+  "reviewCategoriesAllowedInSuggestion": ["AVAILABILITY"],
+  "note": "Enquanto nenhum lote tiver disponibilidade confirmada, a shortlist sugerida pode usar candidatos em revisão SOMENTE por disponibilidade, sempre rotulados 'sujeito a confirmação'."
+ },
+ "workspaceModes": {
+  "DISCOVER": { "candidates": 10, "label": "Descobrir" },
+  "SHORTLIST": { "candidates": 5, "label": "Selecionar" },
+  "COMPARE": { "candidates": 4, "label": "Comparar" },
+  "DECIDE": { "candidates": 3, "label": "Decidir" }
+ },
+ "diversityPolicy": { "enabled": false, "diversityDimensions": ["identity.blockId"], "maxNearDuplicateCandidates": 2, "preserveTopRankedCandidate": true },
+ "explanation": { "maxReasons": 3, "maxTradeoffs": 2, "brokerLevels": ["L1", "L2"], "clientLevels": ["L0", "L1"] },
+ "readiness": { "minProfileCompleteness": 0.5, "note": "Sem fórmula de multiplicação: cada eixo é avaliado e mostrado separadamente." },
+ "refreshPolicy": { "onProfileChange": "REQUIRED", "onAvailabilityChange": "SUGGEST", "onPriceChange": "SUGGEST", "onAnalysisChange": "SUGGEST", "onMethodologyChange": "REQUIRED" },
+ "overrideReasonCodes": ["CUSTOMER_REQUESTED", "BROKER_LOCAL_KNOWLEDGE", "COMMERCIAL_NEGOTIATION", "VISIT_CONTEXT", "SPECIAL_CONDITION", "OTHER"],
+ "overrideReasonLabels": { "CUSTOMER_REQUESTED": "Pedido do cliente", "BROKER_LOCAL_KNOWLEDGE": "Conhecimento local do corretor", "COMMERCIAL_NEGOTIATION": "Negociação comercial", "VISIT_CONTEXT": "Contexto da visita", "SPECIAL_CONDITION": "Condição especial", "OTHER": "Outro (descrever)" },
+ "feedbackSuggestion": { "threshold": 2, "note": "Sugestão de preferência a partir de feedback: só com o critério marcado pelo corretor e após N ocorrências; nunca aplicada sem confirmação." },
+ "actionPolicy": {
+  "COMPARE": { "automation": "SUGGEST_ONLY", "requiredPermission": "lot.compare" },
+  "SIMULATE": { "automation": "SUGGEST_ONLY" },
+  "CONFIRM_BUDGET": { "automation": "SUGGEST_ONLY" },
+  "CONFIRM_PREFERENCE": { "automation": "SUGGEST_ONLY" },
+  "SCHEDULE_VISIT": { "automation": "USER_CONFIRMATION_REQUIRED" },
+  "REQUEST_STATUS_CONFIRMATION": { "automation": "USER_CONFIRMATION_REQUIRED" },
+  "PREPARE_PRESENTATION": { "automation": "USER_CONFIRMATION_REQUIRED", "requiredPermission": "presentation.create" },
+  "SHARE_SHORTLIST": { "automation": "USER_CONFIRMATION_REQUIRED", "requiredPermission": "decision.share", "requiresOnline": true },
+  "FOLLOW_UP": { "automation": "USER_CONFIRMATION_REQUIRED" },
+  "RESERVE": { "automation": "USER_CONFIRMATION_REQUIRED", "requiresOnline": true, "note": "Reserva/proposta não pertencem ao domínio de decisão; nunca automáticas." }
+ },
+ "clientSafe": { "showBudgetRange": false, "showOutOfConstraintNote": true, "showFitScore": false },
+ "permissions": {
+  "keys": ["decision.read", "decision.create", "decision.update", "decision.override", "decision.share"],
+  "localDevice": ["decision.read", "decision.create", "decision.update", "decision.override"],
+  "note": "Modo sem login (aparelho): leitura, criação, edição e curadoria locais, em memória. Compartilhar exige servidor (negado). Chaves ainda não registradas em security/permissions.json."
+ },
+ "security": { "classification": "CONFIDENTIAL", "notesClassification": "RESTRICTED", "persistOffline": false },
+ "criteria": {
+  "categoryByPrefix": { "commercial": "BUDGET", "geometry": "GEOMETRY", "location": "LOCATION", "mobility": "LOCATION", "environmental": "ENVIRONMENT", "surroundings": "LIFESTYLE", "identity": "LOCATION", "availability": "COMMERCIAL", "intelligence.scores": "LIFESTYLE", "intelligence.notes": "LIFESTYLE" },
+  "overrides": { "investment": { "category": "INVESTMENT" }, "priceQuality": { "category": "INVESTMENT" }, "housing": { "clientSafe": false }, "family": { "clientSafe": false }, "premium": { "clientSafe": false } },
+  "displayOnly": [
+   { "id": "pricePerM2", "fieldKey": "commercial.pricePerM2", "label": "Preço por m² (tabela)", "category": "INVESTMENT", "valueType": "MONEY" },
+   { "id": "availability", "fieldKey": "availability.status", "label": "Situação comercial", "category": "COMMERCIAL", "valueType": "ENUM" }
+  ]
+ }
+}

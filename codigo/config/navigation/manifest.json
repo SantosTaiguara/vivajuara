@@ -1,0 +1,826 @@
+{
+ "kind": "NavigationManifest",
+ "version": "nav-2026-10-11.1",
+ "updatedAt": "2026-10-11",
+ "note": "Tópico 53. Metadado de configuração estática (não é artefato de negócio; remote-config não é obrigatório). Rótulos via messageKey; routeCode estável e independente do idioma. Feature flag não é autorização: a visibilidade vem de App.authz (features.json).",
+ "featureFlags": {
+  "compact_navigation_v1": true
+ },
+ "messages": {
+  "nav.map": "Mapa",
+  "nav.find": "Encontrar",
+  "nav.compare": "Comparar",
+  "nav.customers": "Clientes",
+  "nav.development": "Empreendimento",
+  "nav.development.short": "Empreend.",
+  "nav.label": "Navegação principal",
+  "nav.more": "Mais",
+  "nav.more.aria": "Mais opções: modo de exibição, apresentação, acesso e ajuda",
+  "nav.compare.badge": "{n} lotes na comparação",
+  "nav.find.open": "Painel Encontrar aberto",
+  "nav.offline.onlineRequired": "Requer conexão. Volte a ficar on-line para abrir.",
+  "nav.offline.lastKnown": "Sem conexão: mostrando as informações da última sincronização.",
+  "nav.offline.readOnly": "Sem conexão: somente leitura.",
+  "nav.denied": "Você não possui permissão para abrir esta área.",
+  "nav.empty.compare": "Selecione de 2 a 4 lotes no mapa para comparar.",
+  "nav.empty.find": "Selecione um cliente para personalizar, ou busque por objetivo.",
+  "nav.empty.customers": "Nenhum cliente neste aparelho. Cadastre um atendimento para começar.",
+  "nav.empty.development.analysis": "Análise ainda não publicada.",
+  "ws.map.search": "Pesquisar",
+  "ws.map.filters": "Filtros",
+  "ws.map.layers": "Camadas",
+  "ws.map.recommended": "Recomendados",
+  "ws.find.profile": "Cliente/perfil",
+  "ws.find.constraints": "Exigências",
+  "ws.find.preferences": "Preferências",
+  "ws.find.recommendations": "Recomendações",
+  "ws.compare.session": "Lotes",
+  "ws.compare.matrix": "Matriz",
+  "ws.compare.criteria": "Critérios",
+  "ws.compare.simulation": "Simulação",
+  "ws.compare.presentation": "Apresentação",
+  "ws.customers.summary": "Resumo",
+  "ws.customers.journey": "Jornada",
+  "ws.customers.profile": "Perfil",
+  "ws.customers.favorites": "Favoritos",
+  "ws.customers.comparisons": "Comparações",
+  "ws.customers.recommendations": "Recomendações",
+  "ws.development.overview": "Visão geral",
+  "ws.development.documents": "Documentos",
+  "ws.development.rules": "Regras",
+  "ws.development.commercial": "Comercial",
+  "ws.development.data": "Dados e sincronização",
+  "ws.development.analyses": "Análises",
+  "ws.development.availability": "Disponibilidade",
+  "ws.development.pricing": "Preços",
+  "ws.development.audit": "Auditoria",
+  "ctx.details": "Detalhes",
+  "ctx.compare": "Comparar",
+  "ctx.simulate": "Simular",
+  "ctx.primary": "Ação principal",
+  "ctx.favorite": "Favoritar",
+  "ctx.share": "Compartilhar",
+  "ctx.solar": "Sol no lote",
+  "ctx.routeGate": "Rota à portaria",
+  "ctx.routeLeisure": "Rota ao clube",
+  "ctx.explain": "Por que esta posição?",
+  "ctx.copyId": "Copiar ID técnico",
+  "ctx.provenance": "Origem dos dados",
+  "hdr.brand": "Ir para o mapa",
+  "hdr.development": "Empreendimento",
+  "hdr.search": "Buscar lote ou quadra",
+  "hdr.sync": "Estado da sincronização",
+  "hdr.customer": "Cliente em atendimento",
+  "hdr.customerClear": "Encerrar o atendimento deste cliente (o cadastro continua salvo)",
+  "hdr.access": "Organização e acesso",
+  "hdr.mode": "Modo de exibição",
+  "hdr.present": "Apresentar",
+  "hdr.shortcuts": "Atalhos de teclado",
+  "sc.goMap": "Ir para o Mapa",
+  "sc.goFind": "Ir para Encontrar",
+  "sc.goCompare": "Ir para Comparar",
+  "sc.goCustomers": "Ir para Clientes",
+  "sc.goDevelopment": "Ir para Empreendimento"
+ },
+ "primaryItems": [
+  {
+   "id": "MAP",
+   "labelKey": "nav.map",
+   "iconId": "map",
+   "routeCode": "MAP",
+   "order": 1,
+   "feature": "map.view",
+   "mobilePlacement": "BOTTOM_NAV",
+   "desktopPlacement": "TOP_NAV",
+   "enabled": true,
+   "isDefault": true,
+   "view": "map",
+   "offline": "FULL",
+   "offlineWithoutPack": "ONLINE_REQUIRED"
+  },
+  {
+   "id": "FIND",
+   "labelKey": "nav.find",
+   "iconId": "find",
+   "routeCode": "FIND",
+   "order": 2,
+   "feature": "map.view",
+   "mobilePlacement": "BOTTOM_NAV",
+   "desktopPlacement": "TOP_NAV",
+   "enabled": true,
+   "view": "map",
+   "panel": "find",
+   "offline": "FULL",
+   "emptyStateKey": "nav.empty.find"
+  },
+  {
+   "id": "COMPARE",
+   "labelKey": "nav.compare",
+   "iconId": "compare",
+   "routeCode": "COMPARE",
+   "order": 3,
+   "feature": "lot.compare",
+   "badgeProviderId": "comparisonCandidates",
+   "mobilePlacement": "BOTTOM_NAV",
+   "desktopPlacement": "TOP_NAV",
+   "enabled": true,
+   "view": "compare",
+   "offline": "FULL",
+   "emptyStateKey": "nav.empty.compare"
+  },
+  {
+   "id": "CUSTOMERS",
+   "labelKey": "nav.customers",
+   "iconId": "users",
+   "routeCode": "CUSTOMERS",
+   "order": 4,
+   "feature": "customer.profile",
+   "mobilePlacement": "BOTTOM_NAV",
+   "desktopPlacement": "TOP_NAV",
+   "enabled": true,
+   "view": "clients",
+   "offline": "ONLINE_REQUIRED",
+   "offlineWhenDeviceLocal": "FULL",
+   "emptyStateKey": "nav.empty.customers"
+  },
+  {
+   "id": "DEVELOPMENT",
+   "labelKey": "nav.development",
+   "shortLabelKey": "nav.development.short",
+   "iconId": "building",
+   "routeCode": "DEVELOPMENT",
+   "order": 5,
+   "feature": "development.info",
+   "mobilePlacement": "BOTTOM_NAV",
+   "desktopPlacement": "TOP_NAV",
+   "enabled": true,
+   "view": "development",
+   "offline": "LAST_KNOWN"
+  }
+ ],
+ "workspaces": [
+  {
+   "workspaceId": "MAP",
+   "sections": [
+    {
+     "id": "search",
+     "labelKey": "ws.map.search",
+     "order": 1,
+     "handler": "focusSearch"
+    },
+    {
+     "id": "filters",
+     "labelKey": "ws.map.filters",
+     "order": 2,
+     "handler": "openFind"
+    },
+    {
+     "id": "layers",
+     "labelKey": "ws.map.layers",
+     "order": 3,
+     "handler": "layers"
+    },
+    {
+     "id": "recommended",
+     "labelKey": "ws.map.recommended",
+     "order": 4,
+     "handler": "overlay"
+    }
+   ]
+  },
+  {
+   "workspaceId": "FIND",
+   "sections": [
+    {
+     "id": "profile",
+     "labelKey": "ws.find.profile",
+     "order": 1
+    },
+    {
+     "id": "constraints",
+     "labelKey": "ws.find.constraints",
+     "order": 2
+    },
+    {
+     "id": "preferences",
+     "labelKey": "ws.find.preferences",
+     "order": 3
+    },
+    {
+     "id": "recommendations",
+     "labelKey": "ws.find.recommendations",
+     "order": 4
+    }
+   ]
+  },
+  {
+   "workspaceId": "COMPARE",
+   "sections": [
+    {
+     "id": "session",
+     "labelKey": "ws.compare.session",
+     "order": 1
+    },
+    {
+     "id": "matrix",
+     "labelKey": "ws.compare.matrix",
+     "order": 2
+    },
+    {
+     "id": "criteria",
+     "labelKey": "ws.compare.criteria",
+     "order": 3
+    },
+    {
+     "id": "simulation",
+     "labelKey": "ws.compare.simulation",
+     "order": 4
+    },
+    {
+     "id": "presentation",
+     "labelKey": "ws.compare.presentation",
+     "order": 5,
+     "capability": "mode.presentation"
+    }
+   ]
+  },
+  {
+   "workspaceId": "CUSTOMERS",
+   "sections": [
+    {
+     "id": "summary",
+     "labelKey": "ws.customers.summary",
+     "order": 1,
+     "handler": "custTab"
+    },
+    {
+     "id": "journey",
+     "labelKey": "ws.customers.journey",
+     "order": 2,
+     "handler": "custTab"
+    },
+    {
+     "id": "profile",
+     "labelKey": "ws.customers.profile",
+     "order": 3,
+     "handler": "custTab"
+    },
+    {
+     "id": "favorites",
+     "labelKey": "ws.customers.favorites",
+     "order": 4,
+     "handler": "custTab"
+    },
+    {
+     "id": "comparisons",
+     "labelKey": "ws.customers.comparisons",
+     "order": 5,
+     "handler": "custTab"
+    },
+    {
+     "id": "recommendations",
+     "labelKey": "ws.customers.recommendations",
+     "order": 6,
+     "handler": "custTab"
+    }
+   ]
+  },
+  {
+   "workspaceId": "DEVELOPMENT",
+   "sections": [
+    {
+     "id": "overview",
+     "labelKey": "ws.development.overview",
+     "order": 1
+    },
+    {
+     "id": "documents",
+     "labelKey": "ws.development.documents",
+     "order": 2
+    },
+    {
+     "id": "rules",
+     "labelKey": "ws.development.rules",
+     "order": 3
+    },
+    {
+     "id": "commercial",
+     "labelKey": "ws.development.commercial",
+     "order": 4
+    },
+    {
+     "id": "data",
+     "labelKey": "ws.development.data",
+     "order": 5
+    },
+    {
+     "id": "analyses",
+     "labelKey": "ws.development.analyses",
+     "order": 6,
+     "feature": "analysis.preview",
+     "admin": true,
+     "emptyStateKey": "nav.empty.development.analysis"
+    },
+    {
+     "id": "availability",
+     "labelKey": "ws.development.availability",
+     "order": 7,
+     "feature": "availability.edit",
+     "admin": true,
+     "online": true
+    },
+    {
+     "id": "pricing",
+     "labelKey": "ws.development.pricing",
+     "order": 8,
+     "feature": "pricing.publish",
+     "admin": true,
+     "online": true
+    },
+    {
+     "id": "audit",
+     "labelKey": "ws.development.audit",
+     "order": 9,
+     "feature": "audit.view",
+     "admin": true,
+     "online": true
+    }
+   ]
+  }
+ ],
+ "contextualActions": [
+  {
+   "id": "primary",
+   "labelKey": "ctx.primary",
+   "iconId": "calc",
+   "priority": "PRIMARY",
+   "handlerId": "primary",
+   "availableModes": [
+    "broker",
+    "client",
+    "technical",
+    "presentation"
+   ]
+  },
+  {
+   "id": "details",
+   "labelKey": "ctx.details",
+   "iconId": "list",
+   "priority": "PRIMARY",
+   "handlerId": "panel",
+   "availableModes": [
+    "broker",
+    "client",
+    "technical"
+   ]
+  },
+  {
+   "id": "compare",
+   "labelKey": "ctx.compare",
+   "iconId": "cmp",
+   "priority": "PRIMARY",
+   "handlerId": "cmp",
+   "availableModes": [
+    "broker",
+    "client",
+    "technical"
+   ]
+  },
+  {
+   "id": "simulate",
+   "labelKey": "ctx.simulate",
+   "iconId": "calc",
+   "priority": "PRIMARY",
+   "handlerId": "panel",
+   "availableModes": [
+    "broker",
+    "client",
+    "technical"
+   ]
+  },
+  {
+   "id": "favorite",
+   "labelKey": "ctx.favorite",
+   "iconId": "heart",
+   "priority": "SECONDARY",
+   "handlerId": "fav",
+   "availableModes": [
+    "broker",
+    "client",
+    "technical"
+   ]
+  },
+  {
+   "id": "share",
+   "labelKey": "ctx.share",
+   "iconId": "share",
+   "priority": "SECONDARY",
+   "handlerId": "share",
+   "availableModes": [
+    "broker",
+    "client",
+    "technical",
+    "presentation"
+   ]
+  },
+  {
+   "id": "solar",
+   "labelKey": "ctx.solar",
+   "iconId": "sun",
+   "priority": "SECONDARY",
+   "handlerId": "panel",
+   "availableModes": [
+    "broker",
+    "client",
+    "technical"
+   ]
+  },
+  {
+   "id": "routeGate",
+   "labelKey": "ctx.routeGate",
+   "iconId": "route",
+   "priority": "OVERFLOW",
+   "handlerId": "route",
+   "availableModes": [
+    "broker",
+    "client",
+    "technical"
+   ]
+  },
+  {
+   "id": "routeLeisure",
+   "labelKey": "ctx.routeLeisure",
+   "iconId": "route",
+   "priority": "OVERFLOW",
+   "handlerId": "route",
+   "availableModes": [
+    "broker",
+    "client",
+    "technical"
+   ]
+  },
+  {
+   "id": "explain",
+   "labelKey": "ctx.explain",
+   "iconId": "info",
+   "priority": "OVERFLOW",
+   "handlerId": "explain",
+   "availableModes": [
+    "broker",
+    "technical"
+   ]
+  },
+  {
+   "id": "copyId",
+   "labelKey": "ctx.copyId",
+   "iconId": "copy",
+   "priority": "OVERFLOW",
+   "handlerId": "copyId",
+   "availableModes": [
+    "technical"
+   ]
+  },
+  {
+   "id": "provenance",
+   "labelKey": "ctx.provenance",
+   "iconId": "info",
+   "priority": "OVERFLOW",
+   "handlerId": "prov-open",
+   "availableModes": [
+    "technical"
+   ]
+  }
+ ],
+ "headerTools": [
+  {
+   "id": "brand",
+   "labelKey": "hdr.brand",
+   "controls": [
+    {
+     "act": "nav",
+     "variant": "MAP"
+    }
+   ],
+   "placement": {
+    "MOBILE": "INLINE",
+    "TABLET_COMPACT": "INLINE",
+    "TABLET_PORTRAIT": "INLINE",
+    "TABLET_LANDSCAPE": "INLINE",
+    "TABLET_LARGE": "INLINE",
+    "DESKTOP": "INLINE"
+   }
+  },
+  {
+   "id": "development",
+   "labelKey": "hdr.development",
+   "controls": [
+    {
+     "elementId": "devSel"
+    }
+   ],
+   "placement": {
+    "MOBILE": "INLINE",
+    "TABLET_COMPACT": "INLINE",
+    "TABLET_PORTRAIT": "INLINE",
+    "TABLET_LANDSCAPE": "INLINE",
+    "TABLET_LARGE": "INLINE",
+    "DESKTOP": "INLINE"
+   }
+  },
+  {
+   "id": "search",
+   "labelKey": "hdr.search",
+   "controls": [
+    {
+     "elementId": "q"
+    }
+   ],
+   "placement": {
+    "MOBILE": "INLINE",
+    "TABLET_COMPACT": "INLINE",
+    "TABLET_PORTRAIT": "INLINE",
+    "TABLET_LANDSCAPE": "INLINE",
+    "TABLET_LARGE": "INLINE",
+    "DESKTOP": "INLINE"
+   }
+  },
+  {
+   "id": "access",
+   "labelKey": "hdr.access",
+   "controls": [
+    {
+     "elementId": "secChip"
+    }
+   ],
+   "placement": {
+    "MOBILE": "OVERFLOW",
+    "TABLET_COMPACT": "OVERFLOW",
+    "TABLET_PORTRAIT": "OVERFLOW",
+    "TABLET_LANDSCAPE": "OVERFLOW",
+    "TABLET_LARGE": "OVERFLOW",
+    "DESKTOP": "OVERFLOW"
+   }
+  },
+  {
+   "id": "sync",
+   "labelKey": "hdr.sync",
+   "controls": [
+    {
+     "act": "view",
+     "variant": "development",
+     "elementId": "syncInd",
+     "conditional": true
+    }
+   ],
+   "placement": {
+    "MOBILE": "OVERFLOW",
+    "TABLET_COMPACT": "OVERFLOW",
+    "TABLET_PORTRAIT": "INLINE",
+    "TABLET_LANDSCAPE": "OVERFLOW",
+    "TABLET_LARGE": "INLINE",
+    "DESKTOP": "INLINE"
+   },
+   "fallbackItem": "DEVELOPMENT"
+  },
+  {
+   "id": "customer",
+   "labelKey": "hdr.customer",
+   "controls": [
+    {
+     "act": "view",
+     "variant": "clients",
+     "elementId": "custBtn"
+    },
+    {
+     "act": "custClear",
+     "elementId": "custClr"
+    }
+   ],
+   "placement": {
+    "MOBILE": "INLINE_WHEN_ACTIVE",
+    "TABLET_COMPACT": "INLINE_WHEN_ACTIVE",
+    "TABLET_PORTRAIT": "INLINE_WHEN_ACTIVE",
+    "TABLET_LANDSCAPE": "INLINE_WHEN_ACTIVE",
+    "TABLET_LARGE": "INLINE_WHEN_ACTIVE",
+    "DESKTOP": "INLINE_WHEN_ACTIVE"
+   },
+   "fallbackItem": "CUSTOMERS"
+  },
+  {
+   "id": "mode",
+   "labelKey": "hdr.mode",
+   "controls": [
+    {
+     "act": "mode",
+     "variant": "broker"
+    },
+    {
+     "act": "mode",
+     "variant": "client"
+    },
+    {
+     "act": "mode",
+     "variant": "technical"
+    }
+   ],
+   "placement": {
+    "MOBILE": "OVERFLOW",
+    "TABLET_COMPACT": "INLINE",
+    "TABLET_PORTRAIT": "INLINE",
+    "TABLET_LANDSCAPE": "INLINE",
+    "TABLET_LARGE": "INLINE",
+    "DESKTOP": "INLINE"
+   }
+  },
+  {
+   "id": "present",
+   "labelKey": "hdr.present",
+   "controls": [
+    {
+     "act": "present"
+    }
+   ],
+   "placement": {
+    "MOBILE": "OVERFLOW",
+    "TABLET_COMPACT": "OVERFLOW",
+    "TABLET_PORTRAIT": "INLINE",
+    "TABLET_LANDSCAPE": "INLINE",
+    "TABLET_LARGE": "INLINE",
+    "DESKTOP": "INLINE"
+   }
+  },
+  {
+   "id": "shortcuts",
+   "labelKey": "hdr.shortcuts",
+   "controls": [
+    {
+     "act": "shortcutHelp"
+    }
+   ],
+   "placement": {
+    "MOBILE": "NONE",
+    "TABLET_COMPACT": "OVERFLOW",
+    "TABLET_PORTRAIT": "OVERFLOW",
+    "TABLET_LANDSCAPE": "OVERFLOW",
+    "TABLET_LARGE": "OVERFLOW",
+    "DESKTOP": "OVERFLOW"
+   }
+  }
+ ],
+ "placement": {
+  "MOBILE": {
+   "primaryPlacement": "BOTTOM_NAV",
+   "showLabels": true
+  },
+  "TABLET_COMPACT": {
+   "primaryPlacement": "BOTTOM_NAV",
+   "showLabels": true
+  },
+  "TABLET_PORTRAIT": {
+   "primaryPlacement": "BOTTOM_NAV",
+   "showLabels": true
+  },
+  "TABLET_LANDSCAPE": {
+   "primaryPlacement": "TOP_NAV",
+   "showLabels": true
+  },
+  "TABLET_LARGE": {
+   "primaryPlacement": "TOP_NAV",
+   "showLabels": true
+  },
+  "DESKTOP": {
+   "primaryPlacement": "TOP_NAV",
+   "showLabels": true
+  }
+ },
+ "density": {
+  "desktopMode": "LABELLED_RAIL",
+  "tabletLandscapeMode": "COMPACT_RAIL",
+  "mobileMode": "BOTTOM_NAV",
+  "showWorkspaceLabels": true,
+  "allowRailCollapse": false,
+  "railEnabled": false,
+  "railNote": "LEFT_RAIL está implementado no resolver e no CSS, mas fica desligado (railEnabled=false) até a decisão humana: a largura do workspace (layout/workspace.js) ainda não desconta o trilho."
+ },
+ "modePolicies": {
+  "BROKER": {
+   "primaryNav": "FULL"
+  },
+  "TECHNICAL": {
+   "primaryNav": "FULL"
+  },
+  "CLIENT": {
+   "primaryNav": "FULL",
+   "hiddenItems": []
+  },
+  "PRESENTATION": {
+   "primaryNav": "NONE"
+  },
+  "SHARED": {
+   "primaryNav": "NONE"
+  }
+ },
+ "preservation": {
+  "default": {
+   "preserveDevelopment": true,
+   "preserveSelectedLot": true,
+   "preserveCustomer": true,
+   "preserveComparison": true,
+   "preserveFilters": true,
+   "preserveMapLayer": true,
+   "preserveMapCamera": true
+  },
+  "developmentSwitch": {
+   "preserveDevelopment": false,
+   "preserveSelectedLot": false,
+   "preserveCustomer": true,
+   "preserveComparison": false,
+   "preserveFilters": false,
+   "preserveMapLayer": false,
+   "preserveMapCamera": false
+  },
+  "tenantSwitch": {
+   "preserveDevelopment": false,
+   "preserveSelectedLot": false,
+   "preserveCustomer": false,
+   "preserveComparison": false,
+   "preserveFilters": false,
+   "preserveMapLayer": false,
+   "preserveMapCamera": false
+  }
+ },
+ "shortcuts": [
+  {
+   "id": "goMap",
+   "keys": [
+    "g",
+    "m"
+   ],
+   "altKeys": [
+    "g",
+    "1"
+   ],
+   "actionId": "NAVIGATE_TO_MAP",
+   "target": "MAP",
+   "scope": "GLOBAL",
+   "descriptionKey": "sc.goMap",
+   "enabledByDefault": true
+  },
+  {
+   "id": "goFind",
+   "keys": [
+    "g",
+    "e"
+   ],
+   "altKeys": [
+    "g",
+    "2"
+   ],
+   "actionId": "NAVIGATE_TO_FIND",
+   "target": "FIND",
+   "scope": "GLOBAL",
+   "descriptionKey": "sc.goFind",
+   "enabledByDefault": true
+  },
+  {
+   "id": "goCompare",
+   "keys": [
+    "g",
+    "3"
+   ],
+   "actionId": "NAVIGATE_TO_COMPARE",
+   "target": "COMPARE",
+   "scope": "GLOBAL",
+   "descriptionKey": "sc.goCompare",
+   "enabledByDefault": true
+  },
+  {
+   "id": "goCustomers",
+   "keys": [
+    "g",
+    "c"
+   ],
+   "altKeys": [
+    "g",
+    "4"
+   ],
+   "actionId": "NAVIGATE_TO_CUSTOMER",
+   "target": "CUSTOMERS",
+   "scope": "GLOBAL",
+   "descriptionKey": "sc.goCustomers",
+   "enabledByDefault": true
+  },
+  {
+   "id": "goDevelopment",
+   "keys": [
+    "g",
+    "5"
+   ],
+   "actionId": "NAVIGATE_TO_DEVELOPMENT",
+   "target": "DEVELOPMENT",
+   "scope": "GLOBAL",
+   "descriptionKey": "sc.goDevelopment",
+   "enabledByDefault": true
+  }
+ ]
+}

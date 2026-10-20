@@ -1,0 +1,28 @@
+/* topic 49 — PWA / offline UI (pwa/pwaView.js). Uses the shell tokens only; works in light and dark. */
+.pwa-conn{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);background:var(--surface-2);color:var(--fg-2);white-space:nowrap}
+.pwa-conn .dot{width:8px;height:8px;border-radius:50%;background:var(--c-nd)}
+.pwa-conn[data-state=DEGRADED] .dot{background:var(--c-est)}
+.pwa-conn[data-state=OFFLINE] .dot{background:var(--c-chk)}
+.pwa-conn[data-state=SYNCING] .dot{background:var(--c-calc)}
+.pwa-banner{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 10px;padding:6px 16px;font-size:13px;border-bottom:1px solid var(--line);background:var(--brand-soft);color:var(--fg);text-align:center}
+.pwa-banner.warn{background:var(--warn-bg);color:var(--warn-fg);border-color:var(--warn-line)}
+.pwa-banner .lbtn.primary,.pwa-card .lbtn.primary{font-weight:700}
+.pwa-card{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface);margin:10px 0}
+.pwa-card h4{margin:0 0 4px;font-size:15px}
+.pwa-card .muted{color:var(--fg-3)}
+.pwa-actions{display:flex;gap:8px;align-items:center;margin:8px 0}
+.pwa-check{display:flex;gap:6px;align-items:center;font-size:13px;margin:6px 0}
+.pwa-state{margin:0 0 6px;font-weight:600;color:var(--brand)}
+.pwa-card[data-state=PARTIAL] .pwa-state,.pwa-card[data-state=ERROR] .pwa-state,.pwa-card[data-state=UPDATE_REQUIRED] .pwa-state{color:var(--c-chk)}
+.pwa-dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:0;font-size:13px}
+.pwa-dl dt{color:var(--fg-3)} .pwa-dl dd{margin:0}
+.pwa-warn{background:var(--warn-bg);color:var(--warn-fg);border:1px solid var(--warn-line);border-radius:8px;padding:6px 10px;font-size:13px;margin:6px 0}
+.pwa-note{font-size:13px;color:var(--fg-2);margin:6px 0}
+.pwa-empty{max-width:420px;margin:24px auto;padding:16px;text-align:center;border:1px dashed var(--line-2);border-radius:12px;background:var(--surface)}
+.pwa-tablewrap{overflow-x:auto;max-width:100%}
+.pwa-table{width:100%;border-collapse:collapse;font-size:13px}
+.pwa-table th,.pwa-table td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.pwa-table td .lbtn{margin-right:6px}
+.pwa-fresh{margin:4px 0;padding-left:18px;font-size:12px;color:var(--warn-fg)}
+.pwa-queue{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:13px}
+@media (max-width:480px){.pwa-banner{font-size:12px;padding:5px 10px}.pwa-table{font-size:12px}}

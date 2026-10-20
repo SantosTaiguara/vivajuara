@@ -1,0 +1,2609 @@
+{
+ "kind": "field-lifecycle-report",
+ "generatedAt": "2026-10-07",
+ "generatedFrom": [
+  "plat/src/domain/model.js (dynamicType)",
+  "plat/src/data/lifecycle.js (layerOf, impactOf, VERSION_KEY)",
+  "plat/src/config/developments.js"
+ ],
+ "schemaVersion": "1.0",
+ "totals": {
+  "fields": 138,
+  "STATIC": 78,
+  "VERSIONED": 41,
+  "DYNAMIC": 19,
+  "storedFields": 135,
+  "virtualFields": 3,
+  "byLayer": {
+   "static": 74,
+   "analysis": 41,
+   "commercial": 10,
+   "availability": 9
+  },
+  "hybridFields": 4
+ },
+ "versions": {
+  "static": {
+   "key": "staticDataVersion",
+   "current": "2026-10-06.1",
+   "from": "DevelopmentConfig.staticDataVersion (manifest.staticVersion quando publicado)"
+  },
+  "analysis": {
+   "key": "analysisVersion",
+   "current": "2026-10-06",
+   "from": "DevelopmentConfig.analysisVersion (manifest.analysisVersion)"
+  },
+  "commercial": {
+   "key": "priceTableVersion",
+   "current": "2026-10-06",
+   "from": "priceTables[].version + revision do commercial.json"
+  },
+  "availability": {
+   "key": "revision",
+   "current": 0,
+   "from": "revisão do espelho de vendas (0 = sem espelho)"
+  }
+ },
+ "freshnessRules": {
+  "static": "Válido até a versão mudar (staticDataVersion). Sem limite de tempo.",
+  "analysis": "Válido até a versão mudar (analysisVersion). Sem limite de tempo.",
+  "commercial": "FRESH só quando a fonte oficial confirmou nesta sessão (source REMOTE, stale = false). Cópia salva (CACHE) ou tabela embutida (BUNDLED) = STALE. validUntil vencido ou commercialExpireAfterMs excedido = EXPIRED. Limites de tempo = null (decisão de negócio pendente).",
+  "availability": "Snapshot sem updatedAt = UNKNOWN. Lote com status UNKNOWN tem freshness UNKNOWN. Demais regras iguais às do comercial. Hoje: revisão 0, sem updatedAt → UNKNOWN para os 498 lotes."
+ },
+ "freshnessPolicyDefaults": {
+  "staticMaxAgeMs": null,
+  "analysisMaxAgeMs": null,
+  "commercialMaxAgeMs": null,
+  "availabilityMaxAgeMs": null,
+  "commercialExpireAfterMs": null,
+  "availabilityExpireAfterMs": null
+ },
+ "freshnessPolicyViaJuara": {
+  "commercialMaxAgeMs": null,
+  "availabilityMaxAgeMs": null,
+  "commercialExpireAfterMs": null,
+  "availabilityExpireAfterMs": null
+ },
+ "hybridFields": [
+  {
+   "key": "mobility.gateProximity",
+   "dynamicType": "VERSIONED",
+   "dependsOn": [
+    {
+     "fieldKey": "mobility.routeDistanceToGateM",
+     "dynamicType": "STATIC"
+    }
+   ]
+  },
+  {
+   "key": "mobility.nearMainAccess",
+   "dynamicType": "VERSIONED",
+   "dependsOn": [
+    {
+     "fieldKey": "mobility.routeDistanceToGateM",
+     "dynamicType": "STATIC"
+    }
+   ]
+  },
+  {
+   "key": "commercial.price",
+   "dynamicType": "DYNAMIC",
+   "dependsOn": [
+    {
+     "fieldKey": "geometry.areaM2",
+     "dynamicType": "STATIC"
+    }
+   ]
+  },
+  {
+   "key": "intelligence.notes.gate",
+   "dynamicType": "VERSIONED",
+   "dependsOn": [
+    {
+     "fieldKey": "mobility.routeDistanceToGateM",
+     "dynamicType": "STATIC"
+    }
+   ]
+  }
+ ],
+ "fields": [
+  {
+   "key": "identity.id",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "identity.code",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "official-plan-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "identity.developmentId",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "identity.developmentName",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "layer": null,
+   "virtual": true,
+   "versionKey": null,
+   "defaultStatus": "CONFIRMED",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "identity.blockId",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "official-plan-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "identity.displayCode"
+   ],
+   "consumers": []
+  },
+  {
+   "key": "identity.blockNumber",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "NOT_APPLICABLE",
+   "sourceId": "official-plan-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "identity.lotNumber",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "official-plan-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "identity.displayCode"
+   ],
+   "consumers": []
+  },
+  {
+   "key": "identity.displayCode",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": null,
+   "dependsOn": [
+    "identity.blockId",
+    "identity.lotNumber"
+   ],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "identity.externalCode",
+   "domain": "IDENTITY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "geometry.areaM2",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "official-plan-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "commercial.price",
+    "commercial.downPaymentDefaultValue"
+   ],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.frontM",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "plan-geometry-v1",
+   "dependsOn": [
+    "geometry.frontBoxWidthM",
+    "geometry.frontEdgesM"
+   ],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.rearM",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "plan-geometry-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.leftDepthM",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "plan-geometry-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.rightDepthM",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "plan-geometry-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.averageDepthM",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "plan-geometry-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.perimeterM",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.shape",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "plan-geometry-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.isCorner",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.cornerType",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.frontCount",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.irregularityLevel",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.usableGeometryScore",
+   "domain": "GEOMETRY",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.usableGeometryClass",
+   "domain": "GEOMETRY",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.measurementConfidence",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "plan-geometry-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.frontBoxWidthM",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "plan-geometry-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "geometry.frontM"
+   ],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.frontEdgesM",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "plan-geometry-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "geometry.frontM"
+   ],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.rearEdgesM",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "plan-geometry-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.polygon",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "official-plan-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "geometry.centroid",
+    "geometry.bounds"
+   ],
+   "consumers": [
+    "contorno no mapa",
+    "centroide e limites",
+    "medidas no zoom próximo",
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.centroid",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "official-plan-v1",
+   "dependsOn": [
+    "geometry.polygon"
+   ],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "geometry.bounds",
+   "domain": "GEOMETRY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "official-plan-v1",
+   "dependsOn": [
+    "geometry.polygon"
+   ],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (geometria)",
+    "filtros de área",
+    "comparação"
+   ]
+  },
+  {
+   "key": "location.streetId",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.streetName",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.blockPosition",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.perimeterPosition",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [
+    "surroundings.rearNeighborType",
+    "surroundings.leftNeighborType",
+    "surroundings.rightNeighborType"
+   ],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.sector",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.latitude",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.longitude",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.distanceToGateLinearM",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.distanceToClubLinearM",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.distanceToGreenAreaM",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.distanceToPlaygroundM",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.distanceToSquareM",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.distanceToExternalRoadM",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.distanceToTechnicalAreaM",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "surroundings.sewageStationNearby"
+   ],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.distanceToAppM",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "location.distanceToMainInternalRoadM",
+   "domain": "LOCATION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "ficha (localização)",
+    "busca no mapa"
+   ]
+  },
+  {
+   "key": "surroundings.frontNeighborType",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "surroundings.rearNeighborType",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "location.perimeterPosition",
+    "surroundings.hasRearNeighbor"
+   ],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "surroundings.leftNeighborType",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "location.perimeterPosition"
+   ],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "surroundings.rightNeighborType",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "location.perimeterPosition"
+   ],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "surroundings.rearCondition",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "TO_CONFIRM",
+   "sourceId": "launch-event-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "surroundings.hasRearNeighbor",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [
+    "surroundings.rearNeighborType"
+   ],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "surroundings.hasGreenRear",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "surroundings.appNearby",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "surroundings.sewageStationNearby",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [
+    "location.distanceToTechnicalAreaM"
+   ],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "surroundings.viewType",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "surroundings.viewPermanence",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "surroundings.viewDetail",
+   "domain": "SURROUNDINGS",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Mata",
+    "ficha (vizinhança)"
+   ]
+  },
+  {
+   "key": "mobility.streetHierarchy",
+   "domain": "MOBILITY",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Trânsito e distâncias",
+    "ficha (mobilidade)"
+   ]
+  },
+  {
+   "key": "mobility.estimatedTraffic",
+   "domain": "MOBILITY",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Trânsito e distâncias",
+    "ficha (mobilidade)"
+   ]
+  },
+  {
+   "key": "mobility.vehiclesPassingEstimate",
+   "domain": "MOBILITY",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "intelligence.notes.lowTraffic"
+   ],
+   "consumers": [
+    "camada Trânsito e distâncias",
+    "ficha (mobilidade)"
+   ]
+  },
+  {
+   "key": "mobility.routeDistanceToGateM",
+   "domain": "MOBILITY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "mobility.gateProximity",
+    "mobility.nearMainAccess",
+    "intelligence.notes.gate"
+   ],
+   "consumers": [
+    "camada Trânsito e distâncias",
+    "ficha (mobilidade)"
+   ]
+  },
+  {
+   "key": "mobility.routeDistanceToLeisureM",
+   "domain": "MOBILITY",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Trânsito e distâncias",
+    "ficha (mobilidade)"
+   ]
+  },
+  {
+   "key": "mobility.gateProximity",
+   "domain": "MOBILITY",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [
+    "mobility.routeDistanceToGateM"
+   ],
+   "crossLayerDependsOn": [
+    {
+     "fieldKey": "mobility.routeDistanceToGateM",
+     "dynamicType": "STATIC"
+    }
+   ],
+   "dependents": [],
+   "consumers": [
+    "camada Trânsito e distâncias",
+    "ficha (mobilidade)"
+   ]
+  },
+  {
+   "key": "mobility.nearMainAccess",
+   "domain": "MOBILITY",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [
+    "mobility.routeDistanceToGateM"
+   ],
+   "crossLayerDependsOn": [
+    {
+     "fieldKey": "mobility.routeDistanceToGateM",
+     "dynamicType": "STATIC"
+    }
+   ],
+   "dependents": [],
+   "consumers": [
+    "camada Trânsito e distâncias",
+    "ficha (mobilidade)"
+   ]
+  },
+  {
+   "key": "mobility.routeToGate",
+   "domain": "MOBILITY",
+   "dynamicType": "STATIC",
+   "layer": null,
+   "virtual": true,
+   "versionKey": null,
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Trânsito e distâncias",
+    "ficha (mobilidade)"
+   ]
+  },
+  {
+   "key": "mobility.routeToLeisure",
+   "domain": "MOBILITY",
+   "dynamicType": "STATIC",
+   "layer": null,
+   "virtual": true,
+   "versionKey": null,
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Trânsito e distâncias",
+    "ficha (mobilidade)"
+   ]
+  },
+  {
+   "key": "environmental.orientationFront",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.orientationRear",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.orientationLeft",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.orientationRight",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.frontBearingDeg",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "kmz-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.northReference",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "official-plan-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.morningSun",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "solar-model-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.afternoonSun",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "solar-model-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.northSunSide",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "solar-model-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.eastSide",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "solar-model-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.solarScore",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.noiseLevel",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Ruído",
+    "alertas de ruído"
+   ]
+  },
+  {
+   "key": "environmental.quietScore",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.noiseSources",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Ruído",
+    "alertas de ruído"
+   ]
+  },
+  {
+   "key": "environmental.privacyLevel",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Privacidade"
+   ]
+  },
+  {
+   "key": "environmental.privacyScore",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Privacidade"
+   ]
+  },
+  {
+   "key": "environmental.viewScore",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "environmental.ventilation",
+   "domain": "ENVIRONMENTAL",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "análise solar",
+    "camada Sol",
+    "ficha (conforto)"
+   ]
+  },
+  {
+   "key": "construction.topography",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.slopePercent",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.drainage",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.frontSetbackM",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.rearSetbackM",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.sideSetbackM",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.occupationRate",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.permeabilityRate",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.buildingCoefficient",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.maxFloors",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.easements",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "official-plan-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.nonBuildableRearToConfirm",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "TO_CONFIRM",
+   "sourceId": "launch-event-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.regulationStatus",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "construction.constructivePotential",
+   "domain": "CONSTRUCTION",
+   "dynamicType": "STATIC",
+   "layer": "static",
+   "virtual": false,
+   "versionKey": "staticDataVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "commercial.price",
+   "domain": "COMMERCIAL",
+   "dynamicType": "DYNAMIC",
+   "layer": "commercial",
+   "virtual": false,
+   "versionKey": "priceTableVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "price-table-v1",
+   "dependsOn": [
+    "geometry.areaM2",
+    "commercial.pricePerM2"
+   ],
+   "crossLayerDependsOn": [
+    {
+     "fieldKey": "geometry.areaM2",
+     "dynamicType": "STATIC"
+    }
+   ],
+   "dependents": [
+    "commercial.downPaymentDefaultValue"
+   ],
+   "consumers": [
+    "camada Preço e Preço por m²",
+    "filtros de preço",
+    "simulação financeira",
+    "Quick View",
+    "comparação",
+    "compartilhamento"
+   ]
+  },
+  {
+   "key": "commercial.pricePerM2",
+   "domain": "COMMERCIAL",
+   "dynamicType": "DYNAMIC",
+   "layer": "commercial",
+   "virtual": false,
+   "versionKey": "priceTableVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "price-table-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "commercial.price",
+    "commercial.downPaymentDefaultValue"
+   ],
+   "consumers": [
+    "camada Preço e Preço por m²",
+    "filtros de preço",
+    "simulação financeira",
+    "Quick View",
+    "comparação",
+    "compartilhamento"
+   ]
+  },
+  {
+   "key": "commercial.currency",
+   "domain": "COMMERCIAL",
+   "dynamicType": "DYNAMIC",
+   "layer": "commercial",
+   "virtual": false,
+   "versionKey": "priceTableVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "price-table-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Preço e Preço por m²",
+    "filtros de preço",
+    "simulação financeira",
+    "Quick View",
+    "comparação",
+    "compartilhamento"
+   ]
+  },
+  {
+   "key": "commercial.downPaymentDefaultPercent",
+   "domain": "COMMERCIAL",
+   "dynamicType": "DYNAMIC",
+   "layer": "commercial",
+   "virtual": false,
+   "versionKey": "priceTableVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "launch-event-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "commercial.downPaymentDefaultValue"
+   ],
+   "consumers": [
+    "camada Preço e Preço por m²",
+    "filtros de preço",
+    "simulação financeira",
+    "Quick View",
+    "comparação",
+    "compartilhamento"
+   ]
+  },
+  {
+   "key": "commercial.downPaymentDefaultValue",
+   "domain": "COMMERCIAL",
+   "dynamicType": "DYNAMIC",
+   "layer": "commercial",
+   "virtual": false,
+   "versionKey": "priceTableVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "price-table-v1",
+   "dependsOn": [
+    "commercial.price",
+    "commercial.downPaymentDefaultPercent"
+   ],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Preço e Preço por m²",
+    "filtros de preço",
+    "simulação financeira",
+    "Quick View",
+    "comparação",
+    "compartilhamento"
+   ]
+  },
+  {
+   "key": "commercial.availablePlans",
+   "domain": "COMMERCIAL",
+   "dynamicType": "DYNAMIC",
+   "layer": "commercial",
+   "virtual": false,
+   "versionKey": "priceTableVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "launch-event-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Preço e Preço por m²",
+    "filtros de preço",
+    "simulação financeira",
+    "Quick View",
+    "comparação",
+    "compartilhamento"
+   ]
+  },
+  {
+   "key": "commercial.priceTableId",
+   "domain": "COMMERCIAL",
+   "dynamicType": "DYNAMIC",
+   "layer": "commercial",
+   "virtual": false,
+   "versionKey": "priceTableVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "price-table-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Preço e Preço por m²",
+    "filtros de preço",
+    "simulação financeira",
+    "Quick View",
+    "comparação",
+    "compartilhamento"
+   ]
+  },
+  {
+   "key": "commercial.priceTableVersion",
+   "domain": "COMMERCIAL",
+   "dynamicType": "DYNAMIC",
+   "layer": "commercial",
+   "virtual": false,
+   "versionKey": "priceTableVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "price-table-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Preço e Preço por m²",
+    "filtros de preço",
+    "simulação financeira",
+    "Quick View",
+    "comparação",
+    "compartilhamento"
+   ]
+  },
+  {
+   "key": "commercial.validFrom",
+   "domain": "COMMERCIAL",
+   "dynamicType": "DYNAMIC",
+   "layer": "commercial",
+   "virtual": false,
+   "versionKey": "priceTableVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Preço e Preço por m²",
+    "filtros de preço",
+    "simulação financeira",
+    "Quick View",
+    "comparação",
+    "compartilhamento"
+   ]
+  },
+  {
+   "key": "commercial.validUntil",
+   "domain": "COMMERCIAL",
+   "dynamicType": "DYNAMIC",
+   "layer": "commercial",
+   "virtual": false,
+   "versionKey": "priceTableVersion",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Preço e Preço por m²",
+    "filtros de preço",
+    "simulação financeira",
+    "Quick View",
+    "comparação",
+    "compartilhamento"
+   ]
+  },
+  {
+   "key": "intelligence.analysisVersion",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "CONFIRMED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.scores.housing",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "intelligence.rankings"
+   ],
+   "consumers": [
+    "camada Score",
+    "classe e rankings (nova versão)",
+    "recomendação",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "intelligence.scores.investment",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "intelligence.rankings"
+   ],
+   "consumers": [
+    "camada Score",
+    "classe e rankings (nova versão)",
+    "recomendação",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "intelligence.scores.family",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "intelligence.rankings"
+   ],
+   "consumers": [
+    "camada Score",
+    "classe e rankings (nova versão)",
+    "recomendação",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "intelligence.scores.premium",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [
+    "intelligence.rankings"
+   ],
+   "consumers": [
+    "camada Score",
+    "classe e rankings (nova versão)",
+    "recomendação",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "intelligence.scores.overall",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Score",
+    "classe e rankings (nova versão)",
+    "recomendação",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "intelligence.class",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.notes.leisure",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.notes.gate",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [
+    "mobility.routeDistanceToGateM"
+   ],
+   "crossLayerDependsOn": [
+    {
+     "fieldKey": "mobility.routeDistanceToGateM",
+     "dynamicType": "STATIC"
+    }
+   ],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.notes.lowTraffic",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [
+    "mobility.vehiclesPassingEstimate"
+   ],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.notes.liquidity",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.notes.relativeValue",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.notes.priceQuality",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.liquidity",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.idealProfiles",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.alerts",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.rankings",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [
+    "intelligence.scores.housing",
+    "intelligence.scores.investment",
+    "intelligence.scores.family",
+    "intelligence.scores.premium"
+   ],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.highlights",
+   "domain": "INTELLIGENCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "CALCULATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "intelligence.confidence",
+   "domain": "PROVENANCE",
+   "dynamicType": "VERSIONED",
+   "layer": "analysis",
+   "virtual": false,
+   "versionKey": "analysisVersion",
+   "defaultStatus": "ESTIMATED",
+   "sourceId": "analysis-v1",
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Classe",
+    "alertas e destaques",
+    "ficha (inteligência)"
+   ]
+  },
+  {
+   "key": "metadata.schemaVersion",
+   "domain": "PROVENANCE",
+   "dynamicType": "STATIC",
+   "layer": "metadata",
+   "virtual": false,
+   "versionKey": null,
+   "defaultStatus": "CONFIRMED",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": []
+  },
+  {
+   "key": "availability.status",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "layer": "availability",
+   "virtual": false,
+   "versionKey": "revision",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Disponibilidade",
+    "filtro Somente disponíveis",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "availability.updatedAt",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "layer": "availability",
+   "virtual": false,
+   "versionKey": "revision",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Disponibilidade",
+    "filtro Somente disponíveis",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "availability.revision",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "layer": "availability",
+   "virtual": false,
+   "versionKey": "revision",
+   "defaultStatus": "CALCULATED",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Disponibilidade",
+    "filtro Somente disponíveis",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "availability.reason",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "layer": "availability",
+   "virtual": false,
+   "versionKey": "revision",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Disponibilidade",
+    "filtro Somente disponíveis",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "availability.notes",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "layer": "availability",
+   "virtual": false,
+   "versionKey": "revision",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Disponibilidade",
+    "filtro Somente disponíveis",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "availability.freshness",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "layer": "availability",
+   "virtual": false,
+   "versionKey": "revision",
+   "defaultStatus": "CALCULATED",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Disponibilidade",
+    "filtro Somente disponíveis",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "availability.reservedUntil",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "layer": "availability",
+   "virtual": false,
+   "versionKey": "revision",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Disponibilidade",
+    "filtro Somente disponíveis",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "availability.sourceId",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "layer": "availability",
+   "virtual": false,
+   "versionKey": "revision",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Disponibilidade",
+    "filtro Somente disponíveis",
+    "Quick View",
+    "comparação"
+   ]
+  },
+  {
+   "key": "availability.proposalId",
+   "domain": "AVAILABILITY",
+   "dynamicType": "DYNAMIC",
+   "layer": "availability",
+   "virtual": false,
+   "versionKey": "revision",
+   "defaultStatus": "UNKNOWN",
+   "sourceId": null,
+   "dependsOn": [],
+   "crossLayerDependsOn": [],
+   "dependents": [],
+   "consumers": [
+    "camada Disponibilidade",
+    "filtro Somente disponíveis",
+    "Quick View",
+    "comparação"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+/* analytics.css — topics 44/45 "Métricas locais" (technical mode, development overlay) + topic 47 gallery boxes.
+   styles.css tokens only (light/dark follow them); quality is always written, never colour alone. */
+.amwrap{min-width:0;max-width:100%}
+.am{display:flex;flex-direction:column;gap:10px;min-width:0;max-width:100%}
+.am h3{margin:0}.am h4{margin:8px 0 0;font-size:14px}
+.am-banner{margin:0;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);font-size:13px}
+.am-bar{display:flex;flex-wrap:wrap;gap:6px}
+.am-bar .btn[aria-pressed=true]{background:var(--brand-soft);border-color:var(--brand);color:var(--fg);font-weight:700}
+.am-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:8px}
+.am-card{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface);min-width:0;overflow-wrap:anywhere}
+.am-card[data-quality=BLOCKED]{border-style:dashed}
+.am-k{font-size:12px;color:var(--fg-2);font-weight:600}
+.am-v{font-family:var(--ff-display);font-size:20px;font-weight:700;color:var(--fg)}
+.am-l,.am-i{font-size:12px;color:var(--fg-3)}
+.am-d summary{cursor:pointer;font-size:12px;color:var(--fg-2)}.am-d p{margin:4px 0;font-size:12px}
+.am-t{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:12px}
+.am-t caption{text-align:left;font-weight:600;padding:4px 0;color:var(--fg-2)}
+.am-t th,.am-t td{border-bottom:1px solid var(--line);padding:4px 8px;text-align:left;white-space:nowrap}
+.am-t th[scope=row]{font-weight:500}
+.gal img[height]{height:auto}

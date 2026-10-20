@@ -1,0 +1,124 @@
+{
+  "kind": "ComparisonEvaluationPolicyRegistry",
+  "schemaVersion": "1.0",
+  "developmentId": "viva-juara",
+  "evaluationPolicyVersion": "1.0.0",
+  "changeReason": "Tópico 25: primeira versão. Semântica conservadora: só critérios com direção formal na metodologia vigente (preço de tabela, scores 0–100, notas de silêncio/privacidade, classe A+–D e Fit com cliente) têm destaque sem contexto. Distâncias, área, sol, trânsito, esquina e área verde dependem do perfil do cliente.",
+  "comparisonPolicy": {
+    "minCandidates": 2, "maxCandidates": 4, "requireSameDevelopment": true, "allowSold": true, "allowUnavailable": true,
+    "allowUnknownAvailability": true, "allowStaleCommercial": true, "preserveCandidateOnStatusChange": true,
+    "defaultMetricProfileId": "BROKER_STANDARD", "version": "1.0.0"
+  },
+  "tiePolicies": {
+    "exact": { "type": "EXACT", "version": "1.0.0" },
+    "money": { "type": "ABSOLUTE_TOLERANCE", "absoluteTolerance": 0.01, "version": "1.0.0" },
+    "score100": { "type": "ABSOLUTE_TOLERANCE", "absoluteTolerance": 1, "version": "1.0.0" },
+    "note10": { "type": "ABSOLUTE_TOLERANCE", "absoluteTolerance": 0.1, "version": "1.0.0" },
+    "area": { "type": "RELATIVE_TOLERANCE", "relativeTolerancePct": 1, "version": "1.0.0" },
+    "distance": { "type": "ABSOLUTE_OR_RELATIVE", "absoluteTolerance": 10, "relativeTolerancePct": 3, "version": "1.0.0" },
+    "ordinal": { "type": "EXACT", "enumEqualityRequired": true, "version": "1.0.0" },
+    "target": { "type": "TARGET_DISTANCE", "targetDistanceTolerance": 1, "version": "1.0.0" }
+  },
+  "marginPolicies": {
+    "money": { "minimumRelativeDifferencePct": 2, "resultBelowThreshold": "NO_CLEAR_WINNER", "version": "1.0.0" },
+    "score100": { "minimumAbsoluteDifference": 3, "resultBelowThreshold": "NO_CLEAR_WINNER", "version": "1.0.0" },
+    "note10": { "minimumAbsoluteDifference": 0.5, "resultBelowThreshold": "NO_CLEAR_WINNER", "version": "1.0.0" },
+    "area": { "minimumRelativeDifferencePct": 5, "resultBelowThreshold": "NO_CLEAR_WINNER", "version": "1.0.0" },
+    "distance": { "minimumAbsoluteDifference": 50, "minimumRelativeDifferencePct": 10, "resultBelowThreshold": "NO_CLEAR_WINNER", "version": "1.0.0" },
+    "ordinal": { "minimumOrdinalStep": 1, "resultBelowThreshold": "TIE", "version": "1.0.0" },
+    "target": { "targetDistanceDifference": 10, "resultBelowThreshold": "NO_CLEAR_WINNER", "version": "1.0.0" }
+  },
+  "dataSufficiencyPolicies": {
+    "default": { "minValidCandidates": 2, "requireAllCandidates": false, "requireAllCandidatesFor": ["client", "presentation"], "allowUnknown": false, "allowStale": true, "allowEstimated": true, "allowConflicted": false, "requireSameVersion": true, "version": "1.0.0" },
+    "strict": { "minValidCandidates": 2, "requireAllCandidates": true, "allowUnknown": false, "allowStale": false, "allowEstimated": true, "allowConflicted": false, "requireSameVersion": true, "version": "1.0.0" }
+  },
+  "stalePolicies": {
+    "commercial": { "broker": "ALLOW_WITH_WARNING", "technical": "ALLOW_WITH_WARNING", "client": "SUPPRESS_WINNER", "presentation": "SUPPRESS_WINNER", "expired": "SUPPRESS_WINNER", "version": "1.0.0" },
+    "availability": { "broker": "SUPPRESS_WINNER", "technical": "SUPPRESS_WINNER", "client": "SUPPRESS_WINNER", "presentation": "SUPPRESS_WINNER", "expired": "SUPPRESS_WINNER", "version": "1.0.0" },
+    "none": { "broker": "ALLOW_WITH_WARNING", "technical": "ALLOW_WITH_WARNING", "client": "ALLOW_WITH_WARNING", "presentation": "ALLOW_WITH_WARNING", "expired": "ALLOW_WITH_WARNING", "version": "1.0.0" }
+  },
+  "conflictPolicies": {
+    "default": { "type": "SUPPRESS_METRIC", "version": "1.0.0" }
+  },
+  "confidencePolicies": {
+    "default": { "minimum": { "client": "MEDIUM", "presentation": "MEDIUM", "broker": "LOW", "technical": "LOW" }, "version": "1.0.0" },
+    "estimated": { "minimum": { "client": "MEDIUM", "presentation": "HIGH", "broker": "LOW", "technical": "LOW" }, "version": "1.0.0" }
+  },
+  "criteria": {
+    "price": { "winnerSemantics": "LOWER_IS_PREFERRED", "tiePolicyId": "money", "marginPolicyId": "money", "dataSufficiencyPolicyId": "default", "stalePolicyId": "commercial", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "LOWEST_VALUE", "phrase": "o menor preço de tabela", "caveats": ["PRICE_TABLE_ONLY"], "dedupGroup": "price", "highlight": true },
+    "pricePerM2": { "winnerSemantics": "LOWER_IS_PREFERRED", "tiePolicyId": "money", "marginPolicyId": "money", "dataSufficiencyPolicyId": "default", "stalePolicyId": "commercial", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "LOWEST_VALUE", "phrase": "o menor preço de tabela por m²", "caveats": ["PRICE_TABLE_ONLY"], "dedupGroup": "price", "highlight": true },
+    "status": { "winnerSemantics": "CONTEXTUAL_PREFERENCE", "contextualResolverId": "availability", "tiePolicyId": "ordinal", "marginPolicyId": "ordinal", "dataSufficiencyPolicyId": "default", "stalePolicyId": "availability", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "BOOLEAN_PREFERRED_VALUE", "phrase": "situação disponível para negociação", "caveats": [], "highlight": false },
+    "area": { "winnerSemantics": "CONTEXTUAL_PREFERENCE", "contextualResolverId": "area", "tiePolicyId": "area", "marginPolicyId": "area", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "CONTEXTUAL", "phrase": "a maior área", "phraseTarget": "a área mais próxima da faixa desejada", "caveats": ["PROFILE_DEPENDENT"], "highlight": true },
+    "lotClass": { "winnerSemantics": "ORDERED_ENUM", "orderMap": { "A_PLUS": 5, "A": 4, "B": 3, "C": 2, "D": 1 }, "tiePolicyId": "ordinal", "marginPolicyId": "ordinal", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "HIGHEST_ORDERED_CATEGORY", "phrase": "a classe mais alta", "caveats": ["RELATIVE_CLASS"], "dedupGroup": "analysis", "highlight": true },
+    "primaryScore": { "winnerSemantics": "HIGHER_IS_PREFERRED", "tiePolicyId": "score100", "marginPolicyId": "score100", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "HIGHEST_VALUE", "phrase": "o {label} mais alto", "caveats": ["ANALYSIS_ESTIMATE"], "highlight": true, "validRange": [0, 100] },
+    "housingScore": { "winnerSemantics": "HIGHER_IS_PREFERRED", "tiePolicyId": "score100", "marginPolicyId": "score100", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "HIGHEST_VALUE", "phrase": "o Score Moradia mais alto", "caveats": ["ANALYSIS_ESTIMATE"], "highlight": true, "validRange": [0, 100] },
+    "investmentScore": { "winnerSemantics": "HIGHER_IS_PREFERRED", "tiePolicyId": "score100", "marginPolicyId": "score100", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "HIGHEST_VALUE", "phrase": "o Score Investimento mais alto", "caveats": ["ANALYSIS_ESTIMATE", "NO_APPRECIATION_PROMISE"], "highlight": true, "validRange": [0, 100] },
+    "familyScore": { "winnerSemantics": "HIGHER_IS_PREFERRED", "tiePolicyId": "score100", "marginPolicyId": "score100", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "HIGHEST_VALUE", "phrase": "o Score Família mais alto", "caveats": ["ANALYSIS_ESTIMATE"], "highlight": true, "validRange": [0, 100] },
+    "premiumScore": { "winnerSemantics": "HIGHER_IS_PREFERRED", "tiePolicyId": "score100", "marginPolicyId": "score100", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "HIGHEST_VALUE", "phrase": "o Score Premium mais alto", "caveats": ["ANALYSIS_ESTIMATE"], "highlight": true, "validRange": [0, 100] },
+    "fitScore": { "winnerSemantics": "HIGHER_IS_PREFERRED", "customerContextRequired": true, "tiePolicyId": "score100", "marginPolicyId": "score100", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "HIGHEST_VALUE", "phrase": "a maior compatibilidade com o perfil informado", "caveats": ["PROFILE_DEPENDENT", "NOT_PURCHASE_PROBABILITY"], "highlight": true, "validRange": [0, 100] },
+    "quietScore": { "winnerSemantics": "HIGHER_IS_PREFERRED", "tiePolicyId": "note10", "marginPolicyId": "note10", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "estimated", "explanationTemplateId": "HIGHEST_VALUE", "phrase": "a maior nota de silêncio", "caveats": ["ANALYSIS_ESTIMATE"], "highlight": true, "validRange": [0, 10] },
+    "privacyScore": { "winnerSemantics": "HIGHER_IS_PREFERRED", "tiePolicyId": "note10", "marginPolicyId": "note10", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "estimated", "explanationTemplateId": "HIGHEST_VALUE", "phrase": "a maior nota de privacidade", "caveats": ["ANALYSIS_ESTIMATE"], "highlight": true, "validRange": [0, 10] },
+    "solarScore": { "winnerSemantics": "CONTEXTUAL_PREFERENCE", "contextualResolverId": "solar", "tiePolicyId": "note10", "marginPolicyId": "note10", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "estimated", "explanationTemplateId": "CONTEXTUAL", "phrase": "a maior nota de orientação solar", "caveats": ["ANALYSIS_ESTIMATE", "PROFILE_DEPENDENT"], "highlight": true, "validRange": [0, 10] },
+    "traffic": { "winnerSemantics": "CONTEXTUAL_PREFERENCE", "contextualResolverId": "traffic", "tiePolicyId": "ordinal", "marginPolicyId": "ordinal", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "estimated", "explanationTemplateId": "CONTEXTUAL", "phrase": "o menor trânsito estimado", "caveats": ["ANALYSIS_ESTIMATE", "PROFILE_DEPENDENT"], "highlight": true },
+    "distanceToGate": { "winnerSemantics": "CONTEXTUAL_PREFERENCE", "contextualResolverId": "gate", "tiePolicyId": "distance", "marginPolicyId": "distance", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "CONTEXTUAL", "phrase": "o menor percurso até a portaria", "caveats": ["PROFILE_DEPENDENT"], "highlight": true },
+    "distanceToLeisure": { "winnerSemantics": "CONTEXTUAL_PREFERENCE", "contextualResolverId": "leisure", "tiePolicyId": "distance", "marginPolicyId": "distance", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "CONTEXTUAL", "phrase": "o menor percurso até o clube", "caveats": ["PROFILE_DEPENDENT"], "highlight": true },
+    "distanceToAvenue": { "winnerSemantics": "CONTEXTUAL_PREFERENCE", "contextualResolverId": "avenue", "tiePolicyId": "distance", "marginPolicyId": "distance", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "CONTEXTUAL", "phrase": "a maior distância da Av. Porto Dourado", "caveats": ["PROFILE_DEPENDENT"], "highlight": true },
+    "distanceToGreen": { "winnerSemantics": "CONTEXTUAL_PREFERENCE", "contextualResolverId": "none", "tiePolicyId": "distance", "marginPolicyId": "distance", "dataSufficiencyPolicyId": "default", "explanationTemplateId": "CONTEXTUAL", "phrase": "o parque florestal mais perto", "caveats": ["PROFILE_DEPENDENT"], "highlight": false },
+    "greenRear": { "winnerSemantics": "CONTEXTUAL_PREFERENCE", "contextualResolverId": "green", "tiePolicyId": "ordinal", "marginPolicyId": "ordinal", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "BOOLEAN_PREFERRED_VALUE", "phrase": "mata ou parque nos fundos", "caveats": ["PROFILE_DEPENDENT"], "highlight": true },
+    "isCorner": { "winnerSemantics": "CONTEXTUAL_PREFERENCE", "contextualResolverId": "corner", "tiePolicyId": "ordinal", "marginPolicyId": "ordinal", "dataSufficiencyPolicyId": "default", "stalePolicyId": "none", "conflictPolicyId": "default", "confidencePolicyId": "default", "explanationTemplateId": "BOOLEAN_PREFERRED_VALUE", "phrase": "lote fora de esquina", "caveats": ["PROFILE_DEPENDENT"], "highlight": false },
+    "front": { "winnerSemantics": "CONTEXTUAL_PREFERENCE", "contextualResolverId": "none", "tiePolicyId": "distance", "marginPolicyId": "distance", "dataSufficiencyPolicyId": "default", "explanationTemplateId": "CONTEXTUAL", "phrase": "a maior frente", "caveats": ["PROFILE_DEPENDENT"], "highlight": false },
+    "downPayment": { "winnerSemantics": "NO_WINNER", "note": "Entrada/parcela/fluxo dependem do serviço financeiro canônico (tópico 26, não entregue)." },
+    "alertsCount": { "winnerSemantics": "INFORMATIONAL", "note": "Alertas não viram vantagem (spec 25 §253)." },
+    "noiseLevel": { "winnerSemantics": "INFORMATIONAL", "note": "A comparação acústica usa a Nota de silêncio; o nível é exibido sem destaque para não contar o mesmo critério duas vezes." },
+    "privacyLevel": { "winnerSemantics": "INFORMATIONAL", "note": "A comparação usa a Nota de privacidade." },
+    "rear": { "winnerSemantics": "INFORMATIONAL" }, "depth": { "winnerSemantics": "INFORMATIONAL" },
+    "shape": { "winnerSemantics": "NON_ORDERED" }, "blockPosition": { "winnerSemantics": "NON_ORDERED" }, "rearNeighbor": { "winnerSemantics": "NON_ORDERED" },
+    "streetHierarchy": { "winnerSemantics": "NON_ORDERED" }, "orientationFront": { "winnerSemantics": "NON_ORDERED" }, "northSun": { "winnerSemantics": "NON_ORDERED" },
+    "viewDetail": { "winnerSemantics": "NON_ORDERED" }, "sewageStationNearby": { "winnerSemantics": "INFORMATIONAL" },
+    "topography": { "winnerSemantics": "INFORMATIONAL" }, "slope": { "winnerSemantics": "INFORMATIONAL" }, "constructivePotential": { "winnerSemantics": "INFORMATIONAL" },
+    "easements": { "winnerSemantics": "INFORMATIONAL" }, "priceTableVersion": { "winnerSemantics": "INFORMATIONAL" }, "analysisVersion": { "winnerSemantics": "INFORMATIONAL" },
+    "fitCoverage": { "winnerSemantics": "INFORMATIONAL" }, "fitConfidence": { "winnerSemantics": "INFORMATIONAL" },
+    "availabilityFreshness": { "winnerSemantics": "INFORMATIONAL" }, "commercialFreshness": { "winnerSemantics": "INFORMATIONAL" },
+    "analysisConfidence": { "winnerSemantics": "INFORMATIONAL" }, "conflictsCount": { "winnerSemantics": "INFORMATIONAL" }
+  },
+  "contextualResolvers": {
+    "none": { "rules": [] },
+    "area": { "rules": [
+      { "preferenceKey": "areaRange", "winnerSemantics": "TARGET_RANGE_PREFERRED", "targetFrom": "preferenceRange", "tiePolicyId": "target", "marginPolicyId": "target", "rationaleCode": "CUSTOMER_AREA_RANGE" },
+      { "preferenceKey": "area", "winnerSemantics": "HIGHER_IS_PREFERRED", "rationaleCode": "CUSTOMER_PREFERS_LARGER_AREA" } ] },
+    "availability": { "rules": [
+      { "contextModes": ["CUSTOMER", "RECOMMENDATION"], "winnerSemantics": "BOOLEAN_TRUE_PREFERRED", "valueMap": "offerable", "rationaleCode": "COMMERCIAL_OFFERABLE" } ] },
+    "solar": { "rules": [
+      { "preferenceKey": "solar", "winnerSemantics": "HIGHER_IS_PREFERRED", "rationaleCode": "CUSTOMER_PREFERS_SOLAR" },
+      { "evaluationProfileId": "HOUSING", "winnerSemantics": "HIGHER_IS_PREFERRED", "rationaleCode": "HOUSING_PROFILE_SOLAR" } ] },
+    "traffic": { "rules": [
+      { "preferenceKey": "lowTraffic", "winnerSemantics": "ORDERED_ENUM", "orderMap": { "VERY_LOW": 5, "LOW": 4, "MEDIUM": 3, "HIGH": 2, "VERY_HIGH": 1 }, "rationaleCode": "CUSTOMER_PREFERS_LOW_TRAFFIC" },
+      { "evaluationProfileId": "HOUSING", "winnerSemantics": "ORDERED_ENUM", "orderMap": { "VERY_LOW": 5, "LOW": 4, "MEDIUM": 3, "HIGH": 2, "VERY_HIGH": 1 }, "rationaleCode": "HOUSING_PROFILE_LOW_TRAFFIC" } ] },
+    "gate": { "rules": [
+      { "preferenceKey": "nearGate", "winnerSemantics": "LOWER_IS_PREFERRED", "rationaleCode": "CUSTOMER_PREFERS_NEAR_GATE" },
+      { "preferenceKey": "gate", "winnerSemantics": "LOWER_IS_PREFERRED", "rationaleCode": "CUSTOMER_PREFERS_NEAR_GATE" } ] },
+    "leisure": { "rules": [
+      { "preferenceKey": "leisure", "winnerSemantics": "LOWER_IS_PREFERRED", "rationaleCode": "CUSTOMER_PREFERS_NEAR_LEISURE" } ] },
+    "avenue": { "rules": [
+      { "preferenceKey": "awayFromAvenue", "winnerSemantics": "HIGHER_IS_PREFERRED", "rationaleCode": "CUSTOMER_PREFERS_AWAY_FROM_AVENUE" } ] },
+    "green": { "rules": [
+      { "preferenceKey": "green", "winnerSemantics": "BOOLEAN_TRUE_PREFERRED", "rationaleCode": "CUSTOMER_PREFERS_GREEN_REAR" } ] },
+    "corner": { "rules": [
+      { "preferenceKey": "noCorner", "winnerSemantics": "BOOLEAN_FALSE_PREFERRED", "rationaleCode": "CUSTOMER_AVOIDS_CORNER" } ] }
+  },
+  "evaluationProfiles": {
+    "QUICK": { "mode": "broker", "metricPolicyOverrides": {}, "version": "1.0.0" },
+    "BROKER_STANDARD": { "mode": "broker", "metricPolicyOverrides": {}, "version": "1.0.0" },
+    "CUSTOMER": { "mode": "client", "customerContextRequired": false, "metricPolicyOverrides": {}, "version": "1.0.0" },
+    "TECHNICAL": { "mode": "technical", "metricPolicyOverrides": {}, "version": "1.0.0" },
+    "INVESTMENT": { "mode": "broker", "metricPolicyOverrides": {}, "version": "1.0.0" },
+    "HOUSING": { "mode": "broker", "metricPolicyOverrides": {}, "version": "1.0.0" }
+  },
+  "dependencies": {
+    "price": ["priceTableVersion"], "pricePerM2": ["priceTableVersion"], "downPayment": ["priceTableVersion"], "status": ["availabilityRevision"],
+    "lotClass": ["analysisVersion"], "primaryScore": ["analysisVersion"], "housingScore": ["analysisVersion"], "investmentScore": ["analysisVersion"], "familyScore": ["analysisVersion"], "premiumScore": ["analysisVersion"],
+    "quietScore": ["analysisVersion"], "privacyScore": ["analysisVersion"], "solarScore": ["analysisVersion"], "traffic": ["analysisVersion"],
+    "fitScore": ["customerProfileVersion", "fitMethodologyVersion"], "area": ["staticDataVersion", "customerProfileVersion"], "distanceToGate": ["staticDataVersion", "customerProfileVersion"]
+  },
+  "highlights": { "max": { "broker": 5, "technical": 5, "client": 3, "presentation": 3 } }
+}

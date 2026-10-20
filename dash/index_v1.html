@@ -1,0 +1,486 @@
+<title>Mapa de Lotes Viva Juara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+[hidden]{display:none!important}
+/* Layout: one-screen app. Map fills the left, a lot dossier on the right; stacks on phones. */
+:root{
+  --bg:#f4f6f1; --surface:#ffffff; --surface-2:#eef2e8; --line:#d9dfd2;
+  --fg:#1d2a1f; --fg-2:#4d5b4f; --fg-3:#7a867b;
+  --brand:#2d6232; --leaf:#94ae42; --brand-ink:#ffffff;
+  --sel:#13261a; --focus:#94ae42;
+  --c-conf:#2d6232; --c-calc:#2a78d6; --c-est:#c98500; --c-nd:#9aa39b;
+  --warn-bg:#fff4e0; --warn-fg:#7a4a00; --warn-line:#f0cf8f;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --ff-display:"Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --ff-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121712; --surface:#1a201b; --surface-2:#222a23; --line:#323c33;
+  --fg:#eef2ea; --fg-2:#bcc6bc; --fg-3:#8b968c;
+  --brand:#7fb069; --leaf:#a9c35a; --brand-ink:#0f1a10; --sel:#ffffff; --focus:#a9c35a;
+  --c-conf:#7fb069; --c-calc:#3987e5; --c-est:#e0a21a; --c-nd:#6d776e;
+  --warn-bg:#3a2c12; --warn-fg:#f3cf86; --warn-line:#6b5220;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121712; --surface:#1a201b; --surface-2:#222a23; --line:#323c33;
+  --fg:#eef2ea; --fg-2:#bcc6bc; --fg-3:#8b968c;
+  --brand:#7fb069; --leaf:#a9c35a; --brand-ink:#0f1a10; --sel:#ffffff; --focus:#a9c35a;
+  --c-conf:#7fb069; --c-calc:#3987e5; --c-est:#e0a21a; --c-nd:#6d776e;
+  --warn-bg:#3a2c12; --warn-fg:#f3cf86; --warn-line:#6b5220;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--ff-body);font-size:14px;line-height:1.45;font-variant-numeric:tabular-nums}
+*{box-sizing:border-box}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.app{display:grid;grid-template-rows:auto 1fr;height:100%;padding-inline:16px;padding-block:12px;gap:12px}
+header.top{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{height:40px;width:auto;background:#fff;border-radius:8px;padding:4px 8px}
+.top h1{font-family:var(--ff-display);font-weight:700;font-size:20px;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.top .sub{color:var(--fg-2);font-size:13px}
+.kpis{display:flex;gap:18px;margin-left:auto;flex-wrap:wrap}
+.kpi{display:flex;flex-direction:column}
+.kpi b{font-family:var(--ff-display);font-size:18px}
+.kpi span{font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:12px;min-height:0}
+.mapwrap{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-height:420px;display:flex;flex-direction:column}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px;border-bottom:1px solid var(--line);background:var(--surface)}
+.toolbar label{font-size:12px;color:var(--fg-2);display:flex;align-items:center;gap:6px}
+.toolbar select,.toolbar input[type=search],.toolbar input[type=number]{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+.toolbar input[type=search]{width:110px}
+.toolbar input[type=number]{width:72px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:var(--surface-2);padding:6px 10px;cursor:pointer;font-size:12px}
+.seg button[aria-pressed=true]{background:var(--brand);color:var(--brand-ink)}
+.chk{display:flex;align-items:center;gap:6px;font-size:12px}
+.svgbox{position:relative;flex:1;min-height:0;touch-action:none;cursor:grab;background:#fff}
+.svgbox.drag{cursor:grabbing}
+svg#map{width:100%;height:100%;display:block}
+.lot{stroke:#ffffff;stroke-width:.6;cursor:pointer;transition:fill-opacity .15s}
+.lot.dim{fill-opacity:.12}
+.qa{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}.qa td{padding:3px 0;border-bottom:1px solid var(--line,rgba(127,127,127,.2))}
+.lot:hover{stroke:#13261a;stroke-width:1.4}
+.lot.sel{stroke:#13261a;stroke-width:3;fill-opacity:.95}
+.lot.fav{stroke-dasharray:3 2;stroke:#13261a;stroke-width:1.6}
+.zoom{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
+.zoom button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:18px;line-height:1}
+.legend{position:absolute;left:10px;bottom:10px;background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:12px;max-width:calc(100% - 20px)}
+.legend .t{font-weight:600;margin-bottom:4px}
+.legend .items{display:flex;flex-wrap:wrap;gap:4px 12px}
+.legend .it{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.15)}
+.count{color:var(--fg-3);margin-left:2px}
+.tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.12);white-space:nowrap}
+aside.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid var(--line)}
+.tabs button{flex:1;border:0;background:none;padding:11px 8px;cursor:pointer;font-weight:600;color:var(--fg-2);border-bottom:2px solid transparent}
+.tabs button[aria-selected=true]{color:var(--fg);border-bottom-color:var(--brand)}
+.pane{overflow:auto;padding:16px;display:flex;flex-direction:column;gap:16px;min-height:0;flex:1}
+.lothead{display:flex;align-items:flex-start;gap:12px}
+.lothead h2{font-family:var(--ff-display);margin:0;font-size:28px;line-height:1.05;letter-spacing:-.02em}
+.lothead .meta{color:var(--fg-2);font-size:13px}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border-radius:10px;font-family:var(--ff-display);font-weight:700;font-size:18px;color:#fff;margin-left:auto;flex:none}
+.favbtn{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:7px 10px;cursor:pointer;font-weight:600;font-size:13px}
+.favbtn[aria-pressed=true]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.price{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.price .cell{background:var(--surface-2);border-radius:10px;padding:10px}
+.price .cell span{display:block;font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em}
+.price .cell b{font-family:var(--ff-display);font-size:19px}
+.scores{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.sc{display:flex;flex-direction:column;gap:4px}
+.sc span{font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:.05em}
+.sc b{font-family:var(--ff-display);font-size:20px}
+.bar{height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--brand);border-radius:3px}
+section.blk h3{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-2);margin:0 0 8px;display:flex;align-items:center;gap:8px}
+section.blk h3::after{content:"";flex:1;height:1px;background:var(--line)}
+dl.kv{display:grid;grid-template-columns:minmax(0,44%) minmax(0,1fr);gap:6px 12px;margin:0}
+dl.kv dt{color:var(--fg-2);font-size:13px;display:flex;gap:6px;align-items:baseline}
+dl.kv dd{margin:0;font-weight:500;min-width:0;overflow-wrap:anywhere}
+.dot{width:7px;height:7px;border-radius:50%;flex:none;transform:translateY(-1px)}
+.d-conf{background:var(--c-conf)}.d-calc{background:var(--c-calc)}.d-est{background:var(--c-est)}.d-nd{background:var(--c-nd)}
+.nd{color:var(--fg-3);font-weight:400}
+.srcleg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11px;color:var(--fg-3)}
+.srcleg span{display:inline-flex;align-items:center;gap:5px}
+.alerts{display:flex;flex-direction:column;gap:6px}
+.alert{background:var(--warn-bg);color:var(--warn-fg);border:1px solid var(--warn-line);border-radius:8px;padding:7px 9px;font-size:13px}
+.alert b{display:block;font-size:11px;letter-spacing:.06em}
+.ok{color:var(--fg-2);font-size:13px}
+.notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 14px}
+.note{display:grid;grid-template-columns:minmax(0,1fr) 34px 54px;align-items:center;gap:8px;font-size:13px}
+.note b{text-align:right}
+.pay table{width:100%;border-collapse:collapse;font-size:13px}
+.pay th,.pay td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.pay td.n,.pay th.n{text-align:right}
+.pay .ent{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;font-size:13px}
+.pay input[type=range]{flex:1;min-width:120px;accent-color:var(--brand)}
+.pay input[type=number]{width:64px;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:4px 6px}
+.swatch-line{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.chart{position:relative}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{fill:var(--fg-3);font-size:10px}
+.chart .grid line{stroke:var(--line)}
+.ctip{position:absolute;top:0;pointer-events:none;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.12);white-space:nowrap}
+.small{font-size:12px;color:var(--fg-3)}
+.cmp{overflow-x:auto}
+.cmp table{border-collapse:collapse;font-size:13px;min-width:100%}
+.cmp th,.cmp td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.cmp th:first-child{color:var(--fg-2);font-weight:500;position:sticky;left:0;background:var(--surface)}
+.cmp thead th{font-family:var(--ff-display);font-size:16px}
+.linkbtn{border:0;background:none;color:var(--brand);cursor:pointer;padding:0;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.rk{display:flex;flex-direction:column;gap:4px}
+.rk ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
+.rk li{font-size:13px}
+.rk li .small{margin-left:6px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:600;font-size:13px}
+.btn.primary{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+textarea#resumo{width:100%;min-height:140px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:8px;font:12px/1.5 var(--ff-body);color:var(--fg)}
+.empty{color:var(--fg-2);background:var(--surface-2);border-radius:10px;padding:14px;font-size:13px}
+@media (max-width: 980px){
+  .app{height:auto}
+  .main{grid-template-columns:1fr}
+  .mapwrap{height:70vh}
+  .kpis{margin-left:0}
+}
+@media (max-width: 480px){
+  .scores{grid-template-columns:repeat(2,1fr)}
+  .notes{grid-template-columns:1fr}
+  dl.kv{grid-template-columns:1fr}
+  dl.kv dt{margin-top:4px}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="app">
+  <header class="top">
+    <img class="logo" src="logo.png" alt="Viva Juara">
+    <div>
+      <h1>Mapa de Lotes</h1>
+      <div class="sub">Serra/ES · clique em um lote para ver todos os dados, a análise e os planos de pagamento</div>
+    </div>
+    <div class="kpis" id="kpis"></div>
+  </header>
+  <div class="main">
+    <div class="mapwrap">
+      <div class="toolbar">
+        <label for="colorBy">Colorir por
+          <select id="colorBy">
+            <option value="cl">Classe do lote</option>
+            <option value="sg">Score geral</option>
+            <option value="sm">Score Moradia</option>
+            <option value="si">Score Investimento</option>
+            <option value="sf">Score Família</option>
+            <option value="sp">Score Premium</option>
+            <option value="a">Área (m²)</option>
+            <option value="sol">Sol nos fundos</option>
+            <option value="ruido">Ruído provável</option>
+            <option value="priv">Privacidade</option>
+            <option value="fc">Fluxo de carros</option>
+            <option value="mata">Área verde nos fundos</option>
+          </select>
+        </label>
+        <label for="quadra">Quadra
+          <select id="quadra"><option value="">Todas</option></select>
+        </label>
+        <label for="amin">Área de
+          <input id="amin" type="number" min="250" max="800" step="10" placeholder="250">
+        </label>
+        <label for="amax">até
+          <input id="amax" type="number" min="250" max="800" step="10" placeholder="800">
+        </label>
+        <label class="chk" for="onlyFav"><input id="onlyFav" type="checkbox"> Só a seleção</label>
+        <input id="search" type="search" placeholder="Ir ao lote (B79)" aria-label="Ir ao lote">
+        <div class="seg" role="group" aria-label="Fundo do mapa">
+          <button id="bgPla" aria-pressed="true" title="Planta oficial do projeto urbanístico">Planta oficial</button>
+          <button id="bgAer" aria-pressed="false" title="Ilustração aérea de divulgação (posição aproximada)">Ilustração</button>
+        </div>
+      </div>
+      <div class="svgbox" id="svgbox">
+        <svg id="map" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa dos lotes do Viva Juara">
+          <image id="bgimg" href="planta.webp" x="0" y="0" width="2247" height="1587" preserveAspectRatio="none"></image>
+          <g id="lots"></g>
+        </svg>
+        <div class="zoom">
+          <button id="zin" aria-label="Aproximar">+</button>
+          <button id="zout" aria-label="Afastar">−</button>
+          <button id="zfit" aria-label="Ver tudo" style="font-size:13px">⤢</button>
+        </div>
+        <div class="legend" id="legend"></div>
+        <div class="tip" id="tip" hidden></div>
+      </div>
+    </div>
+    <aside class="panel">
+      <div class="tabs" role="tablist">
+        <button role="tab" id="t-lote" aria-selected="true">Lote</button>
+        <button role="tab" id="t-sel" aria-selected="false">Seleção do cliente</button>
+        <button role="tab" id="t-rk" aria-selected="false">Rankings</button>
+      </div>
+      <div class="pane" id="p-lote"></div>
+      <div class="pane" id="p-sel" hidden></div>
+      <div class="pane" id="p-rk" hidden></div>
+    </aside>
+  </div>
+</div>
+
+<script>
+(function(){
+const PM2 = 299000/250;            // R$/m² (lote de 250 m² = R$ 299.000)
+const I = 0.008, N = 144;          // Tabela Price 0,8% a.m., 144 meses
+const FAC = I/(1-Math.pow(1+I,-N));
+const SHARE = 2383/FAC/(299000*0.88);   // parte do saldo nas mensais (calibrada no exemplo do evento)
+let PVA = 0; for(let k=0;k<11;k++) PVA += Math.pow(1+I,-(11+12*k));
+const SEC = {N:'Norte',NE:'Nordeste',L:'Leste',SE:'Sudeste',S:'Sul',SO:'Sudoeste',O:'Oeste',NO:'Noroeste'};
+const GREEN = ['#86B068','#64994B','#477E38','#2D6232','#1A3F20'];
+const ORANGE = ['#E59A6C','#D27B47','#B9602D','#93451E','#682D11'];
+const CLASS = {'A+':'#2D6232','A':'#64994B','B':'#D8D3BF','C':'#D27B47','D':'#93451E'};
+const brl = v => v==null ? '—' : v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+const brl2 = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2,maximumFractionDigits:2});
+const num = (v,d=0) => v==null ? '—' : v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const $ = id => document.getElementById(id);
+const store = {get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+let LOTS=[], BY={}, sel=null, favs=new Set(store.get('vj-favs',[])), entPct=store.get('vj-ent',12);
+const svg=$('map'), gl=$('lots');
+const VB0={x:120,y:60,w:1940,h:1500};
+let vb={...VB0};
+
+function setVB(){svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`)}
+
+const MODES={
+  cl:{t:'Classe do lote',cats:[['A+','A+ (5% melhores)'],['A','A'],['B','B'],['C','C'],['D','D (exigem atenção)']],key:l=>l.cl,col:c=>CLASS[c]},
+  sg:{t:'Score geral',bins:[[0,60,'abaixo de 60'],[60,70,'60 a 69'],[70,80,'70 a 79'],[80,88,'80 a 87'],[88,101,'88 ou mais']],key:l=>l.sg},
+  sm:{t:'Score Moradia',bins:null,key:l=>l.sm},
+  si:{t:'Score Investimento',bins:null,key:l=>l.si},
+  sf:{t:'Score Família',bins:null,key:l=>l.sf},
+  sp:{t:'Score Premium',bins:null,key:l=>l.sp},
+  a:{t:'Área do lote',bins:[[0,250.01,'250 m²'],[250.01,300.01,'até 300 m²'],[300.01,350,'300 a 349 m²'],[350,450,'350 a 449 m²'],[450,9999,'450 m² ou mais']],key:l=>l.a},
+  sol:{t:'Sol nos fundos (piscina e lazer)',cats:[['norte','Fundos para N, NE ou NO (mais sol)'],['lo','Fundos para leste ou oeste'],['sul','Fundos para S, SE ou SO (mais sombra)']],key:l=>['N','NE','NO'].includes(l.bs)?'norte':['L','O'].includes(l.bs)?'lo':'sul',col:c=>({norte:GREEN[4],lo:GREEN[2],sul:GREEN[0]})[c]},
+  ruido:{t:'Ruído provável (estimativa)',cats:['Muito baixo','Baixo','Médio','Alto','Muito alto'].map(x=>[x,x]),key:l=>l.ruido,ramp:ORANGE},
+  priv:{t:'Privacidade (estimativa)',cats:['Muito baixa','Baixa','Média','Alta','Muito alta'].map(x=>[x,x]),key:l=>l.priv,ramp:GREEN},
+  fc:{t:'Fluxo de carros na rua (estimativa)',cats:['Muito baixo','Baixo','Médio','Alto','Muito alto'].map(x=>[x,x]),key:l=>l.fc,ramp:ORANGE},
+  mata:{t:'Área verde nos fundos',cats:[['Sim','Mata ou parque nos fundos'],['Não','Outro lote ou área aberta']],key:l=>l.mata,col:c=>c==='Sim'?GREEN[3]:'#D8D3BF'}
+};
+['sm','si','sf','sp'].forEach(k=>MODES[k].bins=MODES.sg.bins);
+function colorOf(mode,l){
+  const m=MODES[mode];
+  if(m.bins){const v=m.key(l); if(v==null) return '#cccccc'; const i=m.bins.findIndex(b=>v>=b[0]&&v<b[1]); return GREEN[Math.max(0,i)];}
+  const c=m.key(l);
+  if(m.col) return m.col(c);
+  const i=m.cats.findIndex(x=>x[0]===c); return m.ramp[Math.max(0,i)];
+}
+function legend(mode){
+  const m=MODES[mode]; let items=[];
+  const vis=LOTS.filter(passes);
+  if(m.bins){items=m.bins.map((b,i)=>[GREEN[i],b[2],vis.filter(l=>{const v=m.key(l);return v!=null&&v>=b[0]&&v<b[1]}).length]);}
+  else items=m.cats.map((c,i)=>[m.col?m.col(c[0]):m.ramp[i],c[1],vis.filter(l=>m.key(l)===c[0]).length]);
+  $('legend').innerHTML=`<div class="t">${m.t}</div><div class="items">${items.map(([c,t,n])=>`<span class="it"><i class="sw" style="background:${c}"></i>${t}<span class="count">${n}</span></span>`).join('')}</div>`;
+}
+function passes(l){
+  const q=$('quadra').value, a0=parseFloat($('amin').value), a1=parseFloat($('amax').value);
+  if(q && l.q!==q) return false;
+  if(!isNaN(a0) && (l.a==null||l.a<a0)) return false;
+  if(!isNaN(a1) && (l.a==null||l.a>a1)) return false;
+  if($('onlyFav').checked && !favs.has(l.id)) return false;
+  return true;
+}
+function paint(){
+  const mode=$('colorBy').value;
+  LOTS.forEach(l=>{const el=l.el; el.setAttribute('fill',colorOf(mode,l)); el.setAttribute('fill-opacity',FO);
+    el.classList.toggle('dim',!passes(l)); el.classList.toggle('sel',sel===l.id); el.classList.toggle('fav',favs.has(l.id)&&sel!==l.id);});
+  if(sel){const e=BY[sel].el; e.parentNode.appendChild(e);}
+  legend(mode);
+  store.set('vj-mode',mode);
+}
+
+// ---------- payment
+function plans(l,pct){
+  if(l.a==null) return null;
+  const price=l.a*PM2, ent=price*pct/100, sal=price-ent;
+  const A=sal*FAC, Bm=sal*SHARE*FAC, Ba=sal*(1-SHARE)/PVA;
+  const p18=price*0.90, p36=price*0.95;
+  return {price,ent,sal,
+    list:[
+      {k:'Normal 144x',c:'var(--s1)',desc:'Tabela Price 0,8% a.m. + IGP-M anual',parc:`144 x ${brl2(A)}`,total:ent+A*N,sched:m=>m===0?ent:(m<=N?A:0)},
+      {k:'Normal com anuais',c:'var(--s2)',desc:'1ª anual em novembro do ano seguinte + IGP-M',parc:`144 x ${brl2(Bm)} + 11 anuais de ${brl2(Ba)}`,total:ent+Bm*N+Ba*11,sched:m=>m===0?ent:((m<=N?Bm:0)+((m>=11&&(m-11)%12===0&&(m-11)/12<11)?Ba:0))},
+      {k:'Investidor 18x',c:'var(--s3)',desc:'10% de desconto, sem juros e sem correção',parc:`18 x ${brl2((p18-ent)/18)}`,total:p18,sched:m=>m===0?ent:(m<=18?(p18-ent)/18:0)},
+      {k:'Investidor 36x',c:'var(--s4)',desc:'5% de desconto, sem juros, com IGP-M',parc:`36 x ${brl2((p36-ent)/36)}`,total:p36,sched:m=>m===0?ent:(m<=36?(p36-ent)/36:0)}
+    ]};
+}
+function chart(pl){
+  const W=380,H=170,ml=46,mr=8,mt=8,mb=22;
+  const series=pl.list.map(p=>{let acc=0;const pts=[];for(let m=0;m<=N;m++){acc+=p.sched(m);pts.push(acc)}return {...p,pts}});
+  const ymax=Math.max(...series.map(s=>s.pts[N]));
+  const step=ymax>1e6?250000:ymax>500000?200000:100000; const ytop=Math.ceil(ymax/step)*step;
+  const x=m=>ml+(W-ml-mr)*m/N, y=v=>mt+(H-mt-mb)*(1-v/ytop);
+  let g='<g class="grid">'; for(let v=0;v<=ytop;v+=step){g+=`<line x1="${ml}" x2="${W-mr}" y1="${y(v)}" y2="${y(v)}"/><text x="${ml-6}" y="${y(v)+3}" text-anchor="end">${v>=1e6?num(v/1e6,1)+' mi':num(v/1000)+' mil'}</text>`} g+='</g>';
+  [0,36,72,108,144].forEach(m=>g+=`<text x="${x(m)}" y="${H-6}" text-anchor="middle">${m===0?'ato':m+'º mês'}</text>`);
+  const lines=series.map(s=>`<polyline fill="none" stroke="${s.c}" stroke-width="2" stroke-linejoin="round" points="${s.pts.map((v,m)=>x(m).toFixed(1)+','+y(v).toFixed(1)).join(' ')}"/>`).join('');
+  return {html:`<div class="chart" id="chartbox"><svg viewBox="0 0 ${W} ${H}" aria-label="Total pago acumulado por plano">${g}${lines}<line id="cx" y1="${mt}" y2="${H-mb}" stroke="var(--fg-3)" stroke-dasharray="3 3" visibility="hidden"/></svg><div class="ctip" id="ctip" hidden></div></div>`,series,x,W,ml,mr};
+}
+
+// ---------- panel
+const D=(cls)=>`<i class="dot d-${cls}"></i>`;
+function kv(rows){return `<dl class="kv">${rows.map(([k,v,c])=>`<dt>${D(c)}${k}</dt><dd>${v==null||v===''?'<span class="nd">—</span>':v}</dd>`).join('')}</dl>`}
+function renderLote(){
+  const p=$('p-lote');
+  if(!sel){p.innerHTML='<div class="empty">Clique em um lote no mapa para ver os dados.</div>';return}
+  const l=BY[sel], pl=plans(l,entPct), isFav=favs.has(l.id);
+  const nt=l.nt;
+  const NOTES=[['Privacidade',nt.priv],['Silêncio',nt.sil],['Orientação solar',nt.sol],['Ventilação',null],['Vista',nt.vista],['Topografia',null],['Geometria',nt.geo],['Portaria',nt.port],['Lazer',nt.laz],['Baixo fluxo',nt.flux],['Potencial construtivo',null],['Liquidez',nt.liq],['Valorização relativa',nt.val],['Preço/qualidade',nt.pq]];
+  let payHtml='<div class="empty">A área deste lote não aparece na planta, então não dá para calcular o preço.</div>', ch=null;
+  if(pl){ch=chart(pl);
+    payHtml=`<div class="ent"><label for="entR">Entrada</label><input id="entR" type="range" min="5" max="50" step="1" value="${entPct}"><input id="entN" type="number" min="0" max="100" step="0.5" value="${entPct}" aria-label="Entrada em %">%<b>${brl(pl.ent)}</b></div>
+    <table><thead><tr><th>Plano</th><th>Parcelas</th><th class="n">Total</th></tr></thead><tbody>
+    ${pl.list.map(x=>`<tr><td><span class="swatch-line" style="background:${x.c}"></span><b>${x.k}</b><div class="small">${x.desc}</div></td><td>${x.parc}</td><td class="n">${brl(x.total)}</td></tr>`).join('')}
+    </tbody></table>
+    <div class="small" style="margin:10px 0 4px">Total pago acumulado mês a mês</div>${ch.html}
+    <div class="small">Valores sem a correção pelo IGP-M. A entrada padrão do evento é 12% do preço de tabela; os descontos dos planos de investidor saem do total.</div>`;}
+  p.innerHTML=`
+  <div class="lothead">
+    <div><h2>Quadra ${l.q} · Lote ${l.n}</h2><div class="meta">${l.a?num(l.a,2)+' m²':'Área a confirmar'} · ${l.pos} · ${l.forma}</div></div>
+    <span class="badge" style="background:${CLASS[l.cl]};color:${l.cl==='B'?'#1d2a1f':'#fff'}" title="Classe ${l.cl}">${l.cl}</span>
+  </div>
+  <div class="btnrow"><button class="favbtn" id="favBtn" aria-pressed="${isFav}">${isFav?'✓ Na seleção do cliente':'+ Adicionar à seleção do cliente'}</button></div>
+  <div class="price">
+    <div class="cell"><span>Preço de tabela</span><b>${pl?brl(pl.price):'a confirmar'}</b></div>
+    <div class="cell"><span>Entrada (${num(entPct,1)}%)</span><b>${pl?brl(pl.ent):'—'}</b></div>
+  </div>
+  <div class="scores">${[['Moradia',l.sm],['Investimento',l.si],['Família',l.sf],['Premium',l.sp]].map(([k,v])=>`<div class="sc"><span>${k}</span><b>${v}</b><div class="bar"><i style="width:${v}%"></i></div></div>`).join('')}</div>
+  <div class="small">Perfil ideal: <b style="color:var(--fg)">${l.perfil}</b> · Score geral ${l.sg} · Confiabilidade ${l.conf.toLowerCase()}</div>
+  <div class="srcleg"><span>${D('conf')}Confirmado</span><span>${D('calc')}Calculado</span><span>${D('est')}Estimativa</span><span>${D('nd')}Não disponível</span></div>
+  <section class="blk"><h3>Alertas</h3>${l.al.length?`<div class="alerts">${l.al.map(a=>{const [t,...r]=a.split(':');return `<div class="alert"><b>${t.replace('ATENÇÃO — ','ATENÇÃO · ')}</b>${r.join(':').trim()}</div>`}).join('')}</div>`:'<div class="ok">Nenhum alerta para este lote.</div>'}</section>
+  <section class="blk pay"><h3>Fluxos de pagamento</h3>${payHtml}</section>
+  <section class="blk"><h3>Lote</h3>${kv([
+    ['Área',l.a?num(l.a,2)+' m²':'A confirmar (não aparece na planta)','conf'],
+    ['Frente',num(l.wf,1)+' m','calc'],['Fundos',num(l.wb,1)+' m','calc'],['Profundidade',num(l.dp,1)+' m','calc'],
+    ['Formato',l.forma,'calc'],['Posição',l.pos,'calc'],['Aproveitamento',l.efic,'est'],['Confiabilidade das medidas',l.mconf+' (planta oficial)','calc'],
+    ['Coordenadas',`${l.lat}, ${l.lon}`,'calc']])}</section>
+  <section class="blk"><h3>Sol e orientação</h3>${kv([
+    ['Frente voltada para',`${SEC[l.fs]} (${l.az}°)`,'calc'],['Fundos voltados para',SEC[l.bs],'calc'],['Laterais',l.lat_s.split(' / ').map(s=>SEC[s]).join(' / '),'calc'],
+    ['Sol da manhã em',l.manha,'est'],['Sol da tarde em',l.tarde,'est'],['Piscina e lazer',l.lazer,'est'],['Quartos',l.quartos,'est'],
+    ['Ventilação','<span class="nd">Indeterminada: sem dados de vento</span>','nd']])}</section>
+  <section class="blk"><h3>Vizinhança e vista</h3>${kv([
+    ['Nos fundos',l.fundo,'calc'],['Fechamento dos fundos',l.fech,'nd'],['Área verde nos fundos',l.mata,'calc'],['Vista',l.vista,'est'],['Privacidade',l.priv,'est']])}</section>
+  <section class="blk"><h3>Distâncias</h3>${kv([
+    ['Portaria',`${l.dport} m em linha reta · ${l.rport} m de carro (${l.portc.toLowerCase()})`,'calc'],
+    ['Clube',`${l.dclube} m em linha reta · ${l.rclube} m de carro`,'calc'],
+    ['Playground mais próximo',l.dplay+' m','calc'],['Praça mais próxima',l.dpraca+' m','calc'],
+    ['Estação de esgoto (EEEB)',l.deeeb+' m','calc'],['Av. Porto Dourado',l.dav+' m','calc']])}</section>
+  <section class="blk"><h3>Ruído e trânsito</h3>${kv([
+    ['Tipo de via',l.via,'est'],['Fluxo de carros',`${l.fc} (${l.flow} lotes passam em frente)`,'est'],['Ruído provável',l.ruido,'est'],['Fontes próximas',l.fontes,'est']])}
+    <div class="small" style="margin-top:6px">Estimativa de exposição potencial, não medição em decibéis.</div></section>
+  <section class="blk"><h3>Notas de 0 a 10</h3><div class="notes">${NOTES.map(([k,v])=>`<div class="note"><span>${k}</span><b>${v==null?'<span class="nd">ND</span>':num(v,1)}</b><div class="bar"><i style="width:${v==null?0:v*10}%"></i></div></div>`).join('')}</div></section>
+  <section class="blk"><h3>Mercado e terreno</h3>${kv([
+    ['Liquidez',l.liq,'est'],['Topografia','<span class="nd">Não foi possível determinar: falta levantamento planialtimétrico</span>','nd'],
+    ['Drenagem','<span class="nd">Não disponível: falta projeto de drenagem</span>','nd'],['Potencial construtivo','<span class="nd">Não disponível: falta regulamento construtivo</span>','nd']])}</section>`;
+  $('favBtn').onclick=()=>{toggleFav(l.id)};
+  if(pl){
+    const upd=v=>{v=Math.max(0,Math.min(100,parseFloat(v)||0));entPct=v;store.set('vj-ent',v);renderLote();renderSel()};
+    $('entR').oninput=e=>upd(e.target.value); $('entN').onchange=e=>upd(e.target.value);
+    const box=$('chartbox'), sv=box.querySelector('svg'), tip=$('ctip'), cx=$('cx');
+    sv.addEventListener('pointermove',e=>{const r=sv.getBoundingClientRect(); const px=(e.clientX-r.left)/r.width*ch.W; let m=Math.round((px-ch.ml)/(ch.W-ch.ml-ch.mr)*N); m=Math.max(0,Math.min(N,m));
+      cx.setAttribute('x1',ch.x(m));cx.setAttribute('x2',ch.x(m));cx.setAttribute('visibility','visible');
+      tip.hidden=false; tip.innerHTML=`<b>${m===0?'Ato (entrada)':m+'º mês'}</b><br>`+ch.series.map(s=>`<span class="swatch-line" style="background:${s.c}"></span>${s.k}: ${brl(s.pts[m])}`).join('<br>');
+      const left=(ch.x(m)/ch.W)*r.width; tip.style.left=Math.min(Math.max(0,left-90),r.width-200)+'px'; tip.style.top='-8px'; tip.style.transform='translateY(-100%)';});
+    sv.addEventListener('pointerleave',()=>{tip.hidden=true;cx.setAttribute('visibility','hidden')});
+  }
+}
+function toggleFav(id){favs.has(id)?favs.delete(id):favs.add(id); store.set('vj-favs',[...favs]); paint(); renderLote(); renderSel(); kpis();}
+function renderSel(){
+  const p=$('p-sel'); const ids=[...favs].filter(id=>BY[id]).sort((a,b)=>a[0].localeCompare(b[0])||parseInt(a.slice(1))-parseInt(b.slice(1)));
+  if(!ids.length){p.innerHTML=`<div class="empty">Nenhum lote na seleção ainda. Abra um lote e toque em <b>Adicionar à seleção do cliente</b> para comparar as opções lado a lado. Exemplo: <button class="linkbtn" data-go="O5">O-5</button>, <button class="linkbtn" data-go="B79">B-79</button> e <button class="linkbtn" data-go="L5">L-5</button>.</div>`;bindGo(p);return}
+  const rows=[['Área',l=>l.a?num(l.a,2)+' m²':'a confirmar'],['Preço de tabela',l=>l.a?brl(l.a*PM2):'—'],[`Entrada (${num(entPct,1)}%)`,l=>l.a?brl(l.a*PM2*entPct/100):'—'],
+   ['144x',l=>{const x=plans(l,entPct);return x?brl2(x.sal*FAC):'—'}],['18x investidor',l=>{const x=plans(l,entPct);return x?brl2((x.price*.9-x.ent)/18):'—'}],['36x investidor',l=>{const x=plans(l,entPct);return x?brl2((x.price*.95-x.ent)/36):'—'}],
+   ['Classe',l=>l.cl],['Moradia',l=>l.sm],['Investimento',l=>l.si],['Família',l=>l.sf],['Premium',l=>l.sp],['Frente / fundos para',l=>SEC[l.fs]+' / '+SEC[l.bs]],['Sol da tarde em',l=>l.tarde],
+   ['Nos fundos',l=>l.fundo],['Privacidade',l=>l.priv],['Ruído',l=>l.ruido],['Fluxo',l=>l.fc],['Portaria (carro)',l=>l.rport+' m'],['Clube (carro)',l=>l.rclube+' m'],['Perfil ideal',l=>l.perfil],['Alertas',l=>l.al.length?l.al.map(a=>a.split(':')[0].replace('ATENÇÃO — ','')).join(', '):'nenhum']];
+  const best=(f)=>ids.reduce((a,b)=>f(BY[b])>f(BY[a])?b:a);
+  p.innerHTML=`<div class="small">${ids.length} lote${ids.length>1?'s':''} na seleção. A lista fica salva neste navegador.</div>
+  <div class="cmp"><table><thead><tr><th></th>${ids.map(id=>`<th><button class="linkbtn" data-go="${id}">${id}</button></th>`).join('')}</tr></thead><tbody>
+  ${rows.map(([k,f])=>`<tr><th>${k}</th>${ids.map(id=>`<td>${f(BY[id])}</td>`).join('')}</tr>`).join('')}
+  <tr><th></th>${ids.map(id=>`<td><button class="linkbtn" data-rm="${id}">Remover</button></td>`).join('')}</tr></tbody></table></div>
+  ${ids.length>1?`<section class="blk"><h3>Leitura rápida</h3>${kv([['Melhor para morar',best(l=>l.sm),'est'],['Melhor para investir',best(l=>l.si),'est'],['Melhor para família',best(l=>l.sf),'est'],['Mais premium',best(l=>l.sp),'est'],['Mais silencioso',best(l=>l.nt.sil*10+l.nt.flux),'est'],['Mais privado',best(l=>l.nt.priv),'est']])}</section>`:''}
+  <section class="blk"><h3>Resumo para enviar ao cliente</h3><textarea id="resumo" readonly>${resumo(ids)}</textarea>
+  <div class="btnrow" style="margin-top:8px"><button class="btn primary" id="copy">Copiar resumo</button><button class="btn" id="clear">Limpar seleção</button><span class="small" id="copyMsg"></span></div></section>`;
+  bindGo(p);
+  p.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>toggleFav(b.dataset.rm));
+  $('copy').onclick=()=>{const t=$('resumo').value; const done=()=>$('copyMsg').textContent='Resumo copiado.'; const fail=()=>{$('resumo').select();$('copyMsg').textContent='Texto selecionado: use Ctrl+C.'};
+    try{navigator.clipboard.writeText(t).then(done,fail)}catch(e){fail()}};
+  let armed=false; $('clear').onclick=e=>{if(!armed){armed=true;e.target.textContent='Toque de novo para limpar';setTimeout(()=>{armed=false;if(e.target.isConnected)e.target.textContent='Limpar seleção'},3000);return} favs.clear();store.set('vj-favs',[]);paint();renderLote();renderSel();kpis();};
+}
+function resumo(ids){
+  return 'Viva Juara · lotes selecionados\n\n'+ids.map(id=>{const l=BY[id],x=plans(l,entPct);
+    return `Quadra ${l.q} · Lote ${l.n} (${l.a?num(l.a,2)+' m²':'área a confirmar'})\n`+
+      (x?`Preço de tabela: ${brl(x.price)} · Entrada ${num(entPct,1)}%: ${brl(x.ent)}\n144x de ${brl2(x.sal*FAC)} · 18x de ${brl2((x.price*.9-x.ent)/18)} (-10%) · 36x de ${brl2((x.price*.95-x.ent)/36)} (-5%)\n`:'')+
+      `Frente para ${SEC[l.fs].toLowerCase()}, fundos para ${SEC[l.bs].toLowerCase()} · Nos fundos: ${l.fundo.toLowerCase()}\nPrivacidade ${l.priv.toLowerCase()} · Ruído ${l.ruido.toLowerCase()} · ${l.rport} m da portaria · ${l.rclube} m do clube`}).join('\n\n')+
+    '\n\nValores sem correção pelo IGP-M. Análise de ruído, privacidade e sol é estimativa.';
+}
+function bindGo(root){root.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{select(b.dataset.go,true);tab('lote')})}
+function renderRk(){
+  const L=(t,f,flt,k=10)=>{const ids=LOTS.filter(l=>(!flt||flt(l))).sort((a,b)=>f(b)-f(a)).slice(0,k);
+    return `<div class="rk"><h3 style="font-size:13px;margin:0">${t}</h3><ol>${ids.map(l=>`<li><button class="linkbtn" data-go="${l.id}">${l.id}</button><span class="small">${l.a?num(l.a,0)+' m²':''} · classe ${l.cl}</span></li>`).join('')}</ol></div>`};
+  $('p-rk').innerHTML=`<div class="small">Toque em um lote para abri-lo no mapa.</div>`+
+   L('Melhores para moradia',l=>l.sm)+L('Melhores para investimento',l=>l.si)+L('Melhores para família',l=>l.sf)+L('Lotes premium',l=>l.sp)+
+   L('Mais silenciosos',l=>l.nt.sil*10+l.nt.flux)+L('Maior privacidade',l=>l.nt.priv*10+l.nt.sil)+
+   L('Melhor custo-benefício (até 300 m²)',l=>l.nt.pq,l=>l.a&&l.a<=300)+L('Mais perto do clube, sem ruído alto',l=>-l.rclube,l=>['Muito baixo','Baixo'].includes(l.ruido))+
+   L('Mais perto da portaria, sem ruído alto',l=>-l.rport,l=>['Muito baixo','Baixo','Médio'].includes(l.ruido))+
+   L('Exigem atenção (classe D)',l=>-l.sg,l=>l.cl==='D',15)+`<div class="rk"><h3 style="font-size:13px;margin:0">Quadro de áreas (planta oficial)</h3><table class="qa"><tr><td>Área total da gleba</td><td style="text-align:right;white-space:nowrap">268.390,76 m²</td></tr><tr><td>Lotes residenciais (498)</td><td style="text-align:right;white-space:nowrap">154.096,70 m² · 57,42%</td></tr><tr><td>Áreas condominiais (13)</td><td style="text-align:right;white-space:nowrap">15.029,10 m² · 5,60%</td></tr><tr><td>Parques florestais</td><td style="text-align:right;white-space:nowrap">33.138,11 m² · 12,35%</td></tr><tr><td>Pistas de rolamento</td><td style="text-align:right;white-space:nowrap">33.251,01 m² · 12,39%</td></tr><tr><td>Calçadas e faixa de serviço</td><td style="text-align:right;white-space:nowrap">32.556,74 m² · 12,13%</td></tr><tr><td>AC 6, estação elevatória (EEEB)</td><td style="text-align:right;white-space:nowrap">319,10 m² · 0,12%</td></tr></table><h3 style="font-size:13px;margin:10px 0 0">Áreas comuns</h3><table class="qa"><tr><td>AC 8, clube</td><td style="text-align:right;white-space:nowrap">6.806,33 m²</td></tr><tr><td>AC 12, parque florestal 3</td><td style="text-align:right;white-space:nowrap">21.122,29 m²</td></tr><tr><td>AC 10, parque florestal 2</td><td style="text-align:right;white-space:nowrap">8.367,12 m²</td></tr><tr><td>AC 9, parque florestal 1</td><td style="text-align:right;white-space:nowrap">3.648,70 m²</td></tr><tr><td>AC 7, praça</td><td style="text-align:right;white-space:nowrap">1.915,57 m²</td></tr><tr><td>AC 5, praça</td><td style="text-align:right;white-space:nowrap">1.785,40 m²</td></tr><tr><td>AC 4, praça</td><td style="text-align:right;white-space:nowrap">462,56 m²</td></tr><tr><td>AC 11, playground</td><td style="text-align:right;white-space:nowrap">576,24 m²</td></tr><tr><td>AC 13, playground</td><td style="text-align:right;white-space:nowrap">560,49 m²</td></tr><tr><td>AC 1, estacionamento</td><td style="text-align:right;white-space:nowrap">1.142,06 m²</td></tr><tr><td>AC 2, administração</td><td style="text-align:right;white-space:nowrap">1.043,85 m²</td></tr><tr><td>AC 3, guarita</td><td style="text-align:right;white-space:nowrap">417,50 m²</td></tr></table><div class="small" style="margin-top:6px">Fonte: planta de situação do parcelamento, Condomínio de Lotes Quintas da Lagoa (Serra/ES), conforme LC 5.819/23. A planta prevê ampliação da Av. Porto Dourado, com 3.228,11 m² a serem doados ao município.</div></div>`;
+  bindGo($('p-rk'));
+}
+function tab(t){['lote','sel','rk'].forEach(x=>{$('t-'+x).setAttribute('aria-selected',x===t);$('p-'+x).hidden=x!==t});store.set('vj-tab',t)}
+['lote','sel','rk'].forEach(x=>$('t-'+x).onclick=()=>tab(x));
+function kpis(){
+  const withA=LOTS.filter(l=>l.a);
+  $('kpis').innerHTML=[[LOTS.length,'lotes'],[brl(Math.min(...withA.map(l=>l.a))*PM2),'a partir de'],[brl(PM2)+'/m²','preço de tabela'],[favs.size,'na seleção']].map(([v,t])=>`<div class="kpi"><b>${v}</b><span>${t}</span></div>`).join('');
+}
+function select(id,center){
+  id=(id||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(!BY[id]) return false;
+  sel=id; store.set('vj-sel',id); paint(); renderLote();
+  if(center){const l=BY[id]; const w=Math.min(vb.w,700),h=w*vb.h/vb.w; vb={x:l.c[0]-w/2,y:l.c[1]-h/2,w,h}; setVB();}
+  return true;
+}
+
+// ---------- pan / zoom
+const box=$('svgbox'); const pts=new Map(); let moved=0, pinch0=null;
+function toSvg(cx,cy){const r=svg.getBoundingClientRect(); const s=Math.max(vb.w/r.width,vb.h/r.height); const ox=(r.width*s-vb.w)/2, oy=(r.height*s-vb.h)/2; return {x:vb.x-ox+(cx-r.left)*s,y:vb.y-oy+(cy-r.top)*s,s}}
+function zoomAt(f,cx,cy){const p=toSvg(cx,cy); const nw=Math.max(150,Math.min(VB0.w*1.3,vb.w*f)); const k=nw/vb.w; vb={x:p.x-(p.x-vb.x)*k,y:p.y-(p.y-vb.y)*k,w:nw,h:vb.h*k}; setVB();}
+box.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.deltaY>0?1.15:1/1.15,e.clientX,e.clientY)},{passive:false});
+box.addEventListener('pointerdown',e=>{if(e.target.closest('.zoom,.legend'))return; box.setPointerCapture(e.pointerId); pts.set(e.pointerId,{x:e.clientX,y:e.clientY}); moved=0; if(pts.size===2){const [a,b]=[...pts.values()];pinch0={d:Math.hypot(a.x-b.x,a.y-b.y),w:vb.w}} box.classList.add('drag');});
+box.addEventListener('pointermove',e=>{
+  const l=e.target.closest&&e.target.closest('.lot');
+  const tip=$('tip');
+  if(l&&!pts.size){const d=BY[l.dataset.id]; const r=box.getBoundingClientRect(); tip.hidden=false; tip.innerHTML=`<b>${d.id}</b> · ${d.a?num(d.a,2)+' m²':'área a confirmar'} · ${d.a?brl(d.a*PM2):''} · classe ${d.cl}`; tip.style.left=Math.min(e.clientX-r.left+12,r.width-240)+'px'; tip.style.top=(e.clientY-r.top+14)+'px';} else tip.hidden=true;
+  if(!pts.has(e.pointerId))return;
+  const prev=pts.get(e.pointerId); const cur={x:e.clientX,y:e.clientY}; pts.set(e.pointerId,cur);
+  if(pts.size===2&&pinch0){const [a,b]=[...pts.values()]; const d=Math.hypot(a.x-b.x,a.y-b.y); const target=pinch0.w*pinch0.d/d; zoomAt(target/vb.w,(a.x+b.x)/2,(a.y+b.y)/2); moved+=10; return}
+  const s=toSvg(0,0).s; vb.x-=(cur.x-prev.x)*s; vb.y-=(cur.y-prev.y)*s; moved+=Math.abs(cur.x-prev.x)+Math.abs(cur.y-prev.y); setVB();
+});
+const end=e=>{pts.delete(e.pointerId); if(pts.size<2)pinch0=null; if(!pts.size)box.classList.remove('drag');};
+box.addEventListener('pointerup',e=>{const wasClick=moved<6&&pts.size===1; end(e); if(wasClick){const el=document.elementFromPoint(e.clientX,e.clientY); const l=el&&el.closest&&el.closest('.lot'); if(l){select(l.dataset.id,false);tab('lote')}}});
+box.addEventListener('pointercancel',end);
+box.addEventListener('pointerleave',()=>$('tip').hidden=true);
+$('zin').onclick=()=>{const r=box.getBoundingClientRect();zoomAt(1/1.4,r.left+r.width/2,r.top+r.height/2)};
+$('zout').onclick=()=>{const r=box.getBoundingClientRect();zoomAt(1.4,r.left+r.width/2,r.top+r.height/2)};
+$('zfit').onclick=()=>{vb={...VB0};setVB()};
+['colorBy','quadra','amin','amax','onlyFav'].forEach(id=>$(id).addEventListener('input',paint));
+$('search').addEventListener('keydown',e=>{if(e.key==='Enter'){if(select(e.target.value,true)){tab('lote');e.target.value=''}else{e.target.setCustomValidity('Lote não encontrado');e.target.reportValidity();setTimeout(()=>e.target.setCustomValidity(''),1500)}}});
+let FO='.5';
+function setBg(a){$('bgimg').setAttribute('href',a?'aerea.webp':'planta.webp');FO=a?'.78':'.5';paint&&LOTS.length&&paint();$('bgAer').setAttribute('aria-pressed',a);$('bgPla').setAttribute('aria-pressed',!a);store.set('vj-bg2',a)}
+$('bgAer').onclick=()=>setBg(true); $('bgPla').onclick=()=>setBg(false);
+
+// ---------- boot
+setVB();
+fetch('lots.json').then(r=>r.json()).then(data=>{
+  LOTS=data; const ns='http://www.w3.org/2000/svg'; const frag=document.createDocumentFragment();
+  data.forEach(l=>{BY[l.id]=l; const e=document.createElementNS(ns,'polygon'); e.setAttribute('points',l.p.map(p=>p.join(',')).join(' ')); e.setAttribute('class','lot'); e.dataset.id=l.id; e.setAttribute('tabindex','-1'); l.el=e; frag.appendChild(e);});
+  gl.appendChild(frag);
+  const qs=[...new Set(data.map(l=>l.q))].sort(); $('quadra').innerHTML+=qs.map(q=>`<option value="${q}">${q}</option>`).join('');
+  const m=store.get('vj-mode','cl'); if(MODES[m]) $('colorBy').value=m;
+  setBg(store.get('vj-bg2',false));
+  kpis(); select(store.get('vj-sel','O5'),false)||select('O5',false); renderSel(); renderRk(); tab(store.get('vj-tab','lote'));
+}).catch(()=>{$('p-lote').innerHTML='<div class="empty">Não foi possível carregar os dados dos lotes. Recarregue a página.</div>'});
+})();
+</script>

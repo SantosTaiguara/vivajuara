@@ -1,0 +1,56 @@
+{
+  "kind": "analytics-tracking-policy",
+  "version": "1.0.0",
+  "note": "Política executada pelo código (tópico 45). O código não interpreta a lei: cada valor marcado em 'decisions' precisa de validação humana. Padrão seguro: nada sai do aparelho; todo destino remoto está desligado.",
+  "consent": {
+    "defaultState": "UNKNOWN",
+    "states": ["GRANTED", "DENIED", "UNKNOWN", "NOT_REQUIRED_BY_POLICY"],
+    "localCaptureWhen": ["GRANTED", "UNKNOWN"],
+    "remoteSendWhen": ["GRANTED"],
+    "onRevoke": "PURGE_CONSENT_DEPENDENT",
+    "anonymousId": "SESSION_SCOPED",
+    "identityStitching": false,
+    "decisionRef": "D1"
+  },
+  "session": { "inactivityMinutes": 30, "rotateOn": ["LOGOUT", "USER_SWITCH", "TENANT_SWITCH"] },
+  "clock": { "futureToleranceSeconds": 300, "maxEventAgeSeconds": 604800 },
+  "payload": { "maxEventBytes": 4096, "maxBatchBytes": 65536, "maxStringLength": 120, "maxArrayLength": 20 },
+  "buffer": { "maxLocalEventsPerOrganization": 2000, "maxEventsInMemory": 500, "flushIntervalMs": 15000, "maxBatchSize": 25, "persistOffline": false, "maxOfflineEvents": 1000, "maxOfflineAgeSeconds": 604800, "evictionOrder": ["LOW", "NORMAL", "HIGH", "CRITICAL"], "maxQuarantine": 200, "maxDedupKeys": 5000 },
+  "retry": { "maxAttempts": 5, "initialDelayMs": 1000, "maxDelayMs": 60000, "backoffMultiplier": 2, "jitter": true, "retryOn": ["NETWORK", "429", "5XX"] },
+  "privacy": {
+    "forbiddenKeys": ["phone", "telefone", "celular", "whatsapp", "email", "mail", "cpf", "cnpj", "rg", "fullname", "name", "nome", "firstname", "lastname", "customername", "address", "endereco", "street", "cep", "notes", "note", "nota", "observacao", "messagebody", "message", "mensagem", "documentcontent", "content", "authtoken", "token", "sharetoken", "accesstoken", "refreshtoken", "password", "senha", "passcode", "secret", "apikey", "url", "href", "fullurl", "landingurl", "referrer", "query", "rawquery", "searchterm", "term", "q", "income", "renda", "budget", "budgetmax", "budgetmin", "orcamento", "downpayment", "entrada", "installment", "parcela", "ip", "ipaddress", "useragent", "presenternotes", "price", "preco", "totalprice", "pricem2"],
+    "forbiddenKeyFragments": ["token", "password", "passcode", "senha", "email", "phone", "telefone", "cpf", "secret", "notes"],
+    "reservedContextKeys": ["organizationId", "organization", "tenant", "tenantId", "userId", "user", "actor", "anonymousId", "session", "productSessionId", "eventId", "occurredAt", "capturedAt"],
+    "valueDetectors": ["EMAIL", "PHONE_BR", "CPF", "CNPJ", "URL", "BEARER", "JWT", "LONG_SECRET"],
+    "vendorForbiddenEntityKeys": ["customerId", "journeyId", "userId", "anonymousId", "shareGrantId"],
+    "minimumGroupSize": 5,
+    "suppressSmallBuckets": true,
+    "allowCustomerLevelDrilldown": false,
+    "allowExport": false
+  },
+  "destinations": {
+    "LOCAL_BUFFER": { "enabled": true, "remote": false, "label": "Memória deste aparelho", "consentRequired": false },
+    "FIRST_PARTY_INGESTION": { "enabled": false, "remote": true, "endpoint": "/api/v1/analytics/events", "label": "Servidor próprio (ingestão first-party)", "consentRequired": true, "reason": "Backend de ingestão ainda não existe; decisão D2.", "decisionRef": "D2" },
+    "GOOGLE_ANALYTICS": { "enabled": false, "remote": true, "thirdParty": true, "label": "Google Analytics", "consentRequired": true, "reason": "Terceiro: desligado por padrão; decisão D3.", "decisionRef": "D3",
+      "mappings": { "lot_selected": { "name": "lot_selected", "params": ["selectionSource"] }, "comparison_opened": { "name": "comparison_opened", "params": ["candidateCount"] }, "presentation_completed": { "name": "presentation_completed", "params": ["purpose", "lotCount"] }, "deep_link_restored": { "name": "deep_link_restored", "params": ["routeCode", "restoreStatus"] } } },
+    "META_PIXEL": { "enabled": false, "remote": true, "thirdParty": true, "label": "Meta Pixel", "consentRequired": true, "reason": "Terceiro: desligado por padrão; decisão D3.", "decisionRef": "D3",
+      "mappings": { "presentation_completed": { "name": "PresentationCompleted", "params": ["purpose"] } } },
+    "CUSTOM_WAREHOUSE": { "enabled": false, "remote": true, "label": "Data warehouse futuro", "consentRequired": true, "reason": "Não existe; decisão D2.", "decisionRef": "D2" },
+    "DEBUG": { "enabled": false, "remote": false, "label": "Console de desenvolvimento", "consentRequired": false, "reason": "Só fora de produção, com App.debug ligado." }
+  },
+  "analytics": {
+    "timezoneFallback": "America/Sao_Paulo",
+    "freshness": { "operationalSeconds": 300, "managementSeconds": 3600, "dailySeconds": 86400 },
+    "localSourceFreshnessSeconds": 0
+  },
+  "decisions": [
+    { "id": "D1", "title": "Base legal da captura local sem consentimento explícito", "current": "Eventos de produto sem PII ficam só na memória do aparelho com consentimento UNKNOWN; nada é persistido nem enviado. DENIED apaga e para a captura (telemetria técnica continua local).", "needs": "Jurídico/LGPD validar se a captura local anônima em memória precisa de consentimento, e o texto do aviso." },
+    { "id": "D2", "title": "Ingestão first-party (POST /api/v1/analytics/events)", "current": "Destino desligado; contrato e cliente HTTP prontos, sem servidor.", "needs": "Aprovar backend (tabelas raw/quarentena, retenção, dedupe server-side) e ligar o destino." },
+    { "id": "D3", "title": "Google Analytics / Meta Pixel", "current": "Desligados; só existe o mapeamento central (nenhum SDK carregado, nenhuma chamada gtag/fbq).", "needs": "Decidir se haverá terceiros, com consentimento e sem IDs de cliente/jornada." },
+    { "id": "D4", "title": "Persistência offline (IndexedDB) da fila", "current": "Desligada (persistOffline=false): sem destino remoto não há o que reenviar.", "needs": "Ligar junto com D2." },
+    { "id": "D5", "title": "Identificador anônimo persistente", "current": "Não existe: anonymousId vale só para a sessão de produto (memória).", "needs": "Decidir se um ID first-party persistente é aceitável (e com que consentimento)." },
+    { "id": "D6", "title": "Permissões analytics.*", "current": "A visão 'Métricas locais' usa o modo Técnico (mode.technical).", "needs": "Criar analytics.product.read / analytics.dataQuality.read / analytics.events.debug em permissions.json se o painel for além do aparelho." },
+    { "id": "D7", "title": "Retenção", "current": "Somente memória da aba (some ao fechar).", "needs": "Definir retenção por classe (raw, quarentena, fatos, agregados, logs de destino) quando houver servidor." },
+    { "id": "D8", "title": "Métricas comerciais", "current": "Definidas e testadas com dados de exemplo; no aparelho aparecem como 'não disponível' (precisam dos fatos do servidor).", "needs": "Validar fórmulas (win rate, conversão por etapa, open rate por coorte) com a gestão comercial." }
+  ]
+}
