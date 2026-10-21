@@ -19,6 +19,7 @@ Painel de inteligência comercial dos 498 lotes do Viva Juara (Serra/ES): mapa d
 ```bash
 cd codigo
 node scripts/build.js        # gera dash/index.html, dash/admin.html, dash/chunks/, sw.js e manifestos
+node scripts/hostgator.js     # monta ../hostgator/ com .htaccess para a HostGator (ver docs/COMO_PUBLICAR_HOSTGATOR.md)
 ```
 
 O painel é estático: basta publicar a pasta `dash/` em qualquer hospedagem (inclusive planos compartilhados).
