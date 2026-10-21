@@ -151,6 +151,12 @@
       ringsMeters: [2000, 4000, 6000, 8000], ringKind: 'STRAIGHT_LINE', ringLabel: 'Linha reta',
       boundsRadiusMeters: 8000, boundsMarginMeters: 2000, initialFitRadiusMeters: 2000,
       planOverlay: { enabled: true, defaultOpacity: 0.85, method: 'AFFINE_LOT_CENTROIDS', source: 'planta.webp + lots.json (centróides dos polígonos da planta ↔ latitude/longitude do KMZ)', maxResidualMeters: 5, lotPolygonsMinZoom: 16 },
+      // 2026-10-20: aerial image widened with the developer's illustrated map of the surroundings (owner's request). Same plan frame
+      // (1 px = 1 plan unit, rect below), so the plan → lat/lon affine above positions it. Illustrative: not a photo, not exact geography.
+      aerialOverlay: { enabled: true, asset: 'aerea_ampliada.webp', planRect: { x: -113, y: -327, w: 2321, h: 2321 }, defaultOpacity: 1, label: 'Aérea ilustrativa',
+        badge: 'Entorno ilustrativo — arte da incorporadora, não é foto',
+        note: 'Aérea ilustrativa: dentro do empreendimento, a imagem aérea do painel; fora dele, arte do mapa ilustrado da incorporadora (não é foto nem geografia exata; lagoa e vias em posição aproximada). Registrada à imagem aérea por 1.713 pontos (calculado: erro médio ≈ 1 px).',
+        registration: { method: 'SIFT + similaridade (RANSAC)', inliers: 1713, scale: 1.033, rotationDeg: 0.08, meanResidualPx: 1, date: '2026-10-20' } },
       gate: { label: 'Portaria', ref: 'AC3' },
       externalLinks: { provider: 'GOOGLE_MAPS_URLS', requiresKey: false, sendsUserData: false,
         search: 'https://www.google.com/maps/search/?api=1&query={lat},{lon}', directions: 'https://www.google.com/maps/dir/?api=1&destination={lat},{lon}' },
@@ -158,7 +164,7 @@
         title: 'Entorno',
         nearbyPending: 'Locais próximos (mercados, escolas, farmácias) aparecem quando a chave do Google Maps for configurada.',
         tilesFailed: 'Mapa de fundo indisponível nesta visualização',
-        tilesFailedHint: 'A planta, os círculos e os links do Google Maps continuam funcionando.',
+        tilesFailedHint: 'A planta, a aérea ilustrativa, os círculos e os links do Google Maps continuam funcionando.',
         offline: 'Mapa de fundo indisponível sem conexão.',
         rings: 'Círculos de 2, 4, 6 e 8 km em linha reta a partir da portaria',
         openInMaps: 'Abrir no Google Maps', directions: 'Como chegar',

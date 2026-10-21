@@ -490,8 +490,8 @@
      "id": "rep_vj_aerial_webp",
      "type": "PAGE_IMAGE",
      "assetPath": "aerea.webp",
-     "contentChecksum": "sha256:41fbe43e115469fe6e2b58e8ca26c41fd76f0410a645d38a29549fc25ab8f108",
-     "sizeBytes": 381144,
+     "contentChecksum": "sha256:8d7664eb15520389c69aac90f99e33e4bbbfdf499a826722087909515f636cc4",
+     "sizeBytes": 873334,
      "detectedMediaType": "image/webp",
      "generatorId": "legacy-build",
      "generatorVersion": null,
@@ -2053,6 +2053,12 @@
    "classification": "DERIVED_REPRESENTATION",
    "documentId": "doc_vj_aerial_illustration",
    "note": "representação derivada usada pela interface"
+  },
+  {
+   "path": "aerea_ampliada.webp",
+   "classification": "DERIVED_REPRESENTATION",
+   "documentId": "doc_vj_aerial_illustration",
+   "note": "representação derivada usada pela interface (aerea.webp ampliada com o entorno ilustrado da incorporadora; ilustrativa, não é foto)"
   },
   {
    "path": "img/01.webp",

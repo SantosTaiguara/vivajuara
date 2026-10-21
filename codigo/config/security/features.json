@@ -440,6 +440,7 @@
     "envZoomOut": "Controle do mapa do Entorno (OpenStreetMap, sem chave), sem dado de servidor.",
     "envRecenter": "Controle do mapa do Entorno (OpenStreetMap, sem chave), sem dado de servidor.",
     "envPlan": "Controle do mapa do Entorno (OpenStreetMap, sem chave), sem dado de servidor.",
+    "envAerial": "Sobreposição Aérea ilustrativa no mapa do Entorno (imagem estática do painel, arte da incorporadora), sem dado de servidor.",
     "envInfo": "Controle do mapa do Entorno (OpenStreetMap, sem chave), sem dado de servidor.",
     "envRetryTiles": "Controle do mapa do Entorno (OpenStreetMap, sem chave), sem dado de servidor."
   },

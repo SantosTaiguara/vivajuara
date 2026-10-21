@@ -1,6 +1,20 @@
 # Relatório do tópico 63: Google Maps, Entorno e raio máximo de 8 km
 
-Data: 17/10/2026 (atualizado em 19/10/2026). Status: recursos do Google implementados com a flag `location_intelligence_google_maps` **desligada**. Desde 19/10/2026 o visitante vê a troca "Mapa de Lotes | Entorno", com mapa OpenStreetMap sem chave (seção abaixo).
+Data: 17/10/2026 (atualizado em 20/10/2026). Status: recursos do Google implementados com a flag `location_intelligence_google_maps` **desligada**. Desde 19/10/2026 o visitante vê a troca "Mapa de Lotes | Entorno", com mapa OpenStreetMap sem chave (seção abaixo).
+
+## Imagem aérea ampliada (2026-10-20)
+
+Pedido do proprietário (Edmilson): usar do mapa ilustrado do empreendimento e do entorno **só as partes que a nossa imagem aérea não cobria**, para "dar mais amplitude" à imagem atual.
+
+**Registro (calculado).** A ilustração nova foi registrada sobre a imagem aérea do painel (`aerea.webp`, 2247 × 1587, mesmo referencial em unidades da planta) com 1.713 pontos SIFT coincidentes (inliers) e transformação de similaridade: escala 1,033, rotação 0,08°, resíduo médio ≈ 1 px. Nada dentro do empreendimento foi trocado: onde a imagem antiga tinha conteúdo, ela foi mantida; só as áreas brancas de fora foram preenchidas com a ilustração. A rosa dos ventos da ilustração foi apagada (apontava para o lado errado). Uma faixa de 37 a 39 unidades no extremo leste (x > 2208, fora da ilustração) é um espelho da borda.
+
+**Arquivos.** `aerea.webp` (2247 × 1587, 873.334 bytes; antes 381.144) é a imagem do mesmo recorte, já preenchida. `aerea_ampliada.webp` (2321 × 2321, 1.218.472 bytes) cobre o retângulo da planta x −113…2208, y −327…1994 (1 px = 1 unidade). Os dois entram no `manifest.json` com checksum, então quem já visitou o painel recebe o arquivo novo (`?v=<checksum>` no AssetCache e revisão no Service Worker). O inventário de documentos (`config/documents/viva-juara.json`) foi atualizado (checksum, tamanho e a nova representação derivada).
+
+**Mapa de Lotes.** Nos fundos "Aérea" e "Híbrido" o mapa desenha `aerea_ampliada.webp` no seu retângulo (a câmera já permitia afastar e arrastar além do recorte); a faixa leste que falta é preenchida pelo espelho da mesma imagem (sem download extra). Se a ampliada falhar, o mapa volta para `aerea.webp`. Cores, geometria e câmera dos lotes não mudaram (t18: TOTAL DIFF 0). O pacote offline "Completo" inclui as duas imagens.
+
+**Entorno.** Nova opção **"Aérea ilustrativa"** ao lado de "Planta" (uma de cada vez; tocar na ativa oculta). A imagem é posicionada pela mesma afim planta → latitude/longitude usada para `planta.webp`, composta com o deslocamento do retângulo (−113, −327). Só é baixada quando escolhida, ou automaticamente quando os tiles do OpenStreetMap falham (por exemplo, no visualizador de artefatos), para o mapa continuar mostrando o entorno. O padrão continua "Planta". Nova ação `envAerial` (uiOnly).
+
+**O que é ilustrativo.** Fora do perímetro do empreendimento, a imagem é **arte da incorporadora, não é foto nem geografia exata**: a lagoa, as vias e a vegetação estão em posição aproximada. A interface mostra "Entorno ilustrativo — arte da incorporadora, não é foto" sempre que a aérea ilustrativa está visível, e os detalhes do Entorno repetem o aviso. Distâncias e círculos continuam vindo da coordenada oficial (KMZ), não da ilustração.
 
 ## Mapa do entorno sem chave (2026-10-19)
 

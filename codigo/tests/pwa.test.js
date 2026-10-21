@@ -79,7 +79,7 @@ function runWorker(swSource, { caches = FakeCaches(), net } = {}) {
 // a private build of the PWA files (never touches the shared dash): copy only what the worker and the packs need
 function buildPwaDir(version = 'b1') {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'pwa49-'));
-  for (const f of ['index.html', 'manifest.json', 'commercial.json', 'lots.json', 'analysis-input.json', 'planta.webp', 'aerea.webp', 'logo.png', 'routes.json', 'img_list.json']) if (fs.existsSync(path.join(DATA, f))) fs.copyFileSync(path.join(DATA, f), path.join(dir, f));
+  for (const f of ['index.html', 'manifest.json', 'commercial.json', 'lots.json', 'analysis-input.json', 'planta.webp', 'aerea.webp', 'aerea_ampliada.webp', 'logo.png', 'routes.json', 'img_list.json']) if (fs.existsSync(path.join(DATA, f))) fs.copyFileSync(path.join(DATA, f), path.join(dir, f));
   fs.mkdirSync(path.join(dir, 'img')); for (const f of fs.readdirSync(path.join(DATA, 'img')).slice(0, 3)) fs.copyFileSync(path.join(DATA, 'img', f), path.join(dir, 'img', f));
   const r = require('../scripts/pwaBuild.js').build({ out: dir, version });
   return { dir, ...r, sw: fs.readFileSync(path.join(dir, 'sw.js'), 'utf8') };
@@ -275,7 +275,7 @@ golden('PwaPrepareBasicDevelopmentPack + PwaPrepareStandardDevelopmentPack: exac
   const r = await m.read('analysis-input.json'); assert.ok(Array.isArray(r.data.lots) || r.data.lots, 'readable'); assert.equal(r.checksum, std.record.resources['analysis-input.json'].checksum);
   assert.ok(events.some(e => e[0] === 'offline_pack_prepare_success') && events.some(e => e[0] === 'offline_pack_enabled'));
   assert.ok(events.every(([, d]) => !JSON.stringify(d).includes('http')), 'no URL in telemetry');
-  const full = await m.prepare('FULL_MAP'); assert.equal(full.ok, true); assert.ok(full.record.resources['aerea.webp'] && full.record.resources['img_list.json']);
+  const full = await m.prepare('FULL_MAP'); assert.equal(full.ok, true); assert.ok(full.record.resources['aerea.webp'] && full.record.resources['aerea_ampliada.webp'] && full.record.resources['img_list.json']);
   // only 3 gallery images are published in this test folder: optional extras missing → PARTIAL (usable, never shown as READY, §279)
   assert.equal(full.state, 'PARTIAL'); assert.ok(full.record.skipped.length > 0 && full.record.skipped.every(p => /^img\//.test(p)));
   assert.equal((await m.inspect()).state, 'PARTIAL'); assert.ok((await m.read('analysis-input.json')), 'what is present stays usable');

@@ -8,10 +8,12 @@ App.config = (() => {
     id: 'viva-juara', code: 'VJ', tenantId: TENANT.id,
     name: 'Viva Juara', legalName: 'Condomínio de Lotes Quintas da Lagoa', city: 'Serra/ES', law: 'LC 5.819/23',
     currency: 'BRL', locale: 'pt-BR',
-    assets: { manifest: 'manifest.json', commercial: 'commercial.json', lots: 'lots.json', routes: 'routes.json', images: 'img_list.json', plan: 'planta.webp', aerial: 'aerea.webp', logo: 'logo.png' },
+    assets: { manifest: 'manifest.json', commercial: 'commercial.json', lots: 'lots.json', routes: 'routes.json', images: 'img_list.json', plan: 'planta.webp', aerial: 'aerea.webp', aerialWide: 'aerea_ampliada.webp', logo: 'logo.png' },
     // Map frame (units of the vectorized plan, north up). 1 unit = 0,4846 m (plan 1:1000).
     map: { width: 2247, height: 1587, fit: { x: 120, y: 60, w: 1940, h: 1500 }, metersPerUnit: 0.35278 / 0.72799, northUp: true,
-      defaultLayer: 'availability', defaultBackground: 'plan' },
+      defaultLayer: 'availability', defaultBackground: 'plan',
+      // aerea_ampliada.webp (1 px = 1 unit): aerea.webp widened with the developer's illustrated surroundings (illustrative, not a photo)
+      aerialWideRect: { x: -113, y: -327, w: 2321, h: 2321 } },
     geo: { lat: -20.145, lon: -40.208, utcOffset: -3 },
     shareUrl: 'https://claude.ai/artifact/QMVbEgfCfjxrxnu713phsN',
     // Data source (topic 9): client-only JSON today; the API source is switched on per development once the backend is hosted.

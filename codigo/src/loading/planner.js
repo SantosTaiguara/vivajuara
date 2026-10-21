@@ -65,7 +65,7 @@ App.loading.planner = (() => {
         if (c.manifest && c.manifest.availabilityPath) deferred.push(K('AVAILABILITY_SNAPSHOT', { version: String(c.manifest.availabilityRevision) }));
         const bg = c.backgroundLayer || 'plan';
         if (bg === 'plan' || bg === 'hybrid') deferred.push(K('BASE_MAP_MEDIUM', { version: asset('planta.webp') }));
-        if (bg === 'aerial' || bg === 'hybrid') deferred.push(K('BASE_MAP_HIGH', { version: asset('aerea.webp') }));
+        if (bg === 'aerial' || bg === 'hybrid') deferred.push(K('BASE_MAP_HIGH', { version: asset('aerea_ampliada.webp') || asset('aerea.webp') }));
         deferred.push(K('SERVICE_WORKER'));
         // nothing speculative on boot: aerial, analysis input, routes and gallery wait for intent (Save-Data or not)
         targets.push('SHELL_READY', 'GEOMETRY_READY', 'INTERACTIVE', 'FULLY_ENHANCED');

@@ -28,7 +28,7 @@ App.pwa.pack = (() => {
   const PROFILE_RESOURCES = Object.freeze({
     BASIC: [['lots', 'GEOMETRY_BUNDLE', true], ['plan', 'BASE_MAP_MEDIUM', true]],
     STANDARD: [['commercial', 'PRICING_SNAPSHOT', true], ['analysis-input.json', 'TECHNICAL_ANALYSIS_INPUT', true], ['routes', 'MOBILITY_ROUTES', false]],
-    FULL_MAP: [['aerial', 'BASE_MAP_HIGH', false], ['images', 'GALLERY_INDEX', false], ['@gallery', 'GALLERY_IMAGE', false]]
+    FULL_MAP: [['aerial', 'BASE_MAP_HIGH', false], ['aerialWide', 'BASE_MAP_HIGH', false], ['images', 'GALLERY_INDEX', false], ['@gallery', 'GALLERY_IMAGE', false]]
   });
   const PROFILE_CHAIN = { BASIC: ['BASIC'], STANDARD: ['BASIC', 'STANDARD'], FULL_MAP: ['BASIC', 'STANDARD', 'FULL_MAP'] };
   const PROFILE_LABEL = { BASIC: 'Básico (mapa e lotes)', STANDARD: 'Padrão (mapa, tabela de preço e análise)', FULL_MAP: 'Completo (inclui imagens em alta resolução e galeria)' };
@@ -107,7 +107,7 @@ App.pwa.pack = (() => {
     if (!PROFILE_CHAIN[profile]) throw new PackError('VERSION_UNRESOLVED', 'perfil desconhecido: ' + profile);
     const C = App.cache && App.cache.core, byPath = new Map(manifest.assets.map(a => [a.path, a])), out = [];
     const rows = PROFILE_CHAIN[profile].flatMap(p => PROFILE_RESOURCES[p]);
-    if (o.includeHighRes && profile !== 'FULL_MAP') rows.push(['aerial', 'BASE_MAP_HIGH', false]);
+    if (o.includeHighRes && profile !== 'FULL_MAP') rows.push(['aerial', 'BASE_MAP_HIGH', false], ['aerialWide', 'BASE_MAP_HIGH', false]);
     for (const [ref, type, required] of rows) {
       const paths = ref === '@gallery' ? manifest.assets.filter(a => /^img\//.test(a.path) && a.kind === 'image').map(a => a.path) : [dev.assets[ref] || ref];
       for (const path of paths) {

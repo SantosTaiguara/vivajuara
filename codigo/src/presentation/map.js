@@ -84,13 +84,31 @@ App.MapView = (() => {
     // ---------- background (plan / aerial / hybrid)
     const imgPlan = el('image', { x: 0, y: 0, width: dev.map.width, height: dev.map.height, preserveAspectRatio: 'none', class: 'bgplan' });
     const imgAer = el('image', { x: 0, y: 0, width: dev.map.width, height: dev.map.height, preserveAspectRatio: 'none', class: 'bgaer' });
-    g.bg.append(imgAer, imgPlan);
+    // widened aerial ends at x = WR.x + WR.w (2208) while the frame is 2247 wide: the east strip repeats the image mirrored
+    // (same href, no extra download), as the frame image aerea.webp does; a nested <svg> viewport clips it to the strip
+    const WR0 = dev.map.aerialWideRect, EX = WR0 ? WR0.x + WR0.w : 0, EW = WR0 ? Math.max(0, dev.map.width - EX) : 0;
+    const aerEdge = EW > 0 ? el('svg', { x: EX, y: WR0.y, width: EW, height: WR0.h, viewBox: `${EX} ${WR0.y} ${EW} ${WR0.h}`, overflow: 'hidden', class: 'bgaer-edge', 'aria-hidden': 'true' }) : null;
+    const imgAerE = aerEdge ? el('image', { x: WR0.x, y: WR0.y, width: WR0.w, height: WR0.h, preserveAspectRatio: 'none', transform: `translate(${2 * EX} 0) scale(-1 1)` }) : null;
+    if (aerEdge) { aerEdge.appendChild(imgAerE); aerEdge.style.display = 'none'; }
+    g.bg.append(...[imgAer, aerEdge, imgPlan].filter(Boolean));
     let bgState = { mode: null };
     function setBackground(mode, urls, blend = 0.42) {
       bgState = { mode };
       const fail = what => cb.onBackgroundError && cb.onBackgroundError(what);
-      imgPlan.onerror = () => fail('planta'); imgAer.onerror = () => fail('imagem aérea');
-      if (mode === 'aerial' || mode === 'hybrid') { if (urls.aerial && imgAer.getAttribute('href') !== urls.aerial) imgAer.setAttribute('href', urls.aerial); imgAer.style.display = ''; } else imgAer.style.display = 'none';
+      // widened aerial (dev.map.aerialWideRect, illustrative surroundings) when available; on error fall back once to the frame image
+      const WR = dev.map.aerialWideRect, frameRect = { x: 0, y: 0, w: dev.map.width, h: dev.map.height };
+      const setAer = (href, r) => { const wide = r !== frameRect; if (aerEdge) { aerEdge.style.display = wide && (mode === 'aerial' || mode === 'hybrid') ? '' : 'none'; if (wide && imgAerE.getAttribute('href') !== href) imgAerE.setAttribute('href', href); }
+        if (imgAer.getAttribute('href') === href) return; imgAer.setAttribute('x', r.x); imgAer.setAttribute('y', r.y); imgAer.setAttribute('width', r.w); imgAer.setAttribute('height', r.h); imgAer.setAttribute('href', href); };
+      imgPlan.onerror = () => fail('planta');
+      imgAer.onerror = () => { if (imgAer.dataset.wide === '1' && dev.assets.aerial) { imgAer.dataset.wide = '0'; setAer(urls.aerial || dev.assets.aerial, frameRect); } else fail('imagem aérea'); };
+      if (mode === 'aerial' || mode === 'hybrid') {
+        if (urls.aerialWide && WR && imgAer.dataset.wide !== '0') { imgAer.dataset.wide = '1'; setAer(urls.aerialWide, WR); }
+        else if (urls.aerial) setAer(urls.aerial, frameRect);
+        imgAer.style.display = '';
+        if (aerEdge) aerEdge.style.display = imgAer.dataset.wide === '1' ? '' : 'none';
+      } else { imgAer.style.display = 'none'; if (aerEdge) aerEdge.style.display = 'none'; }
+      // beyond the widened picture (tall phone viewports, zoomed out): the picture's mean edge colour instead of a white band
+      svg.style.background = (mode === 'aerial' || mode === 'hybrid') && WR ? '#566a48' : '';
       if (mode === 'plan' || mode === 'hybrid') { if (urls.plan && imgPlan.getAttribute('href') !== urls.plan) imgPlan.setAttribute('href', urls.plan); imgPlan.style.display = ''; imgPlan.style.opacity = mode === 'hybrid' ? String(blend) : '1'; } else imgPlan.style.display = 'none';
       fillOpacity = mode === 'plan' ? 0.55 : 0.8;
       svg.style.setProperty('--fo', fillOpacity);

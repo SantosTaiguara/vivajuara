@@ -2,7 +2,7 @@
  "kind": "cache-manifest",
  "developmentId": "viva-juara",
  "schemaVersion": "1.0",
- "appVersion": "f69165437f",
+ "appVersion": "41007e37d5",
  "staticVersion": "2026-10-06.1",
  "analysisVersion": "2026-10-06",
  "priceTableVersion": "2026-10-06",
@@ -57,8 +57,16 @@
   },
   {
    "path": "aerea.webp",
-   "checksum": "41fbe43e1154",
-   "bytes": 381144,
+   "checksum": "8d7664eb1552",
+   "bytes": 873334,
+   "priority": "P2",
+   "strategy": "lazy",
+   "kind": "image"
+  },
+  {
+   "path": "aerea_ampliada.webp",
+   "checksum": "945ec7e33de2",
+   "bytes": 1218472,
    "priority": "P2",
    "strategy": "lazy",
    "kind": "image"
@@ -240,5 +248,5 @@
    "kind": "image"
   }
  ],
- "generatedAt": "2026-10-19T17:36:25.933Z"
+ "generatedAt": "2026-10-20T23:19:15.728Z"
 }

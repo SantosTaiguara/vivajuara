@@ -50,6 +50,15 @@ html[data-rp="sheet"] .envview{bottom:var(--sheet-h-now,92px)}
 .envplan .mbtn{border:0}
 .envplan .mbtn[aria-pressed=true]{color:var(--brand);font-weight:700}
 .envop input{width:96px;accent-color:var(--brand);vertical-align:middle}
+/* 2026-10-20: "Aérea ilustrativa" (aerea_ampliada.webp): normal blending (it is an opaque picture), and a visible note that the
+   surroundings are the developer's illustration whenever it is shown */
+.envaerimg{mix-blend-mode:normal}
+.envplan .mbtn{white-space:nowrap}
+.envillus{position:absolute;left:10px;bottom:78px;z-index:3;margin:0;max-width:calc(100% - 20px);padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);font-size:12px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.envillus[hidden]{display:none}
+/* tiles failed and the illustrated aerial took over: the failure note shrinks to one line at the top, the picture stays visible */
+.envview[data-overlay=aerial][data-tiles=FAILED] .envfail{top:52px;left:10px;right:56px;transform:none;max-width:none;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:2px 8px;padding:4px 8px;font-size:12px}
+.envview[data-overlay=aerial][data-tiles=FAILED] .envfail span{display:none}
 .envattr{position:absolute;right:0;bottom:0;z-index:3;margin:0;padding:2px 6px;font-size:11px;background:rgba(255,255,255,.85);color:#333;border-top-left-radius:6px}
 .envattr a{color:#1a4f7a}
 .envfail{position:absolute;left:50%;top:56px;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:4px;max-width:calc(100% - 32px);padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg);text-align:center;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
@@ -65,4 +74,4 @@ html[data-rp="sheet"] .envview{bottom:var(--sheet-h-now,92px)}
 .envlg{display:inline-block;width:14px;height:14px;margin-right:6px;vertical-align:-2px;border:2px dashed #1f5f8b;border-radius:50%}
 .envinfo{flex:none}
 .envseg button{white-space:nowrap}
-@media (max-width:760px){.envcard{padding:8px 12px}.envop input{width:72px}.envbar{top:8px;left:8px}.envctl{right:8px;top:8px}}
+@media (max-width:760px){.envcard{padding:8px 12px}.envop input{width:72px}.envillus{left:8px;bottom:74px;font-size:11.5px}.envbar{top:8px;left:8px}.envctl{right:8px;top:8px}}

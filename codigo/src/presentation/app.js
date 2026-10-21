@@ -141,10 +141,11 @@ App.main = async function main() {
   // ---------- background image through the asset cache (plan P0, aerial lazy)
   const remoteManifest = () => (H.source.lastLoad && H.source.lastLoad.manifest && (H.source.lastLoad.manifest.remote || H.source.lastLoad.manifest)) || null;
   if (H.assets) H.assets.setManifest(remoteManifest());
-  const bgUrls = { plan: null, aerial: null };
+  const bgUrls = { plan: null, aerial: null, aerialWide: null };
   async function applyBackground() {
     const mode = store.get().backgroundLayer;
-    const need = mode === 'plan' ? ['plan'] : mode === 'aerial' ? ['aerial'] : ['plan', 'aerial'];
+    const aer = dev.assets.aerialWide ? 'aerialWide' : 'aerial'; // widened aerial (frame image stays the fallback inside map.setBackground)
+    const need = mode === 'plan' ? ['plan'] : mode === 'aerial' ? [aer] : ['plan', aer];
     for (const k of need) if (!bgUrls[k]) bgUrls[k] = H.assets ? await H.assets.get(dev.assets[k]) : dev.assets[k];
     map.setBackground(mode, bgUrls, store.get().baseMapBlend);
   }
@@ -645,6 +646,7 @@ App.main = async function main() {
       if (!envOn) return;
       if (envCtl) envCtl.destroy();
       envCtl = E.mount(box, { developmentId: devId, lots: repo.lotsSync(), planUrl: bgUrls.plan, planSize: { w: dev.map.width, h: dev.map.height }, online: navigator.onLine !== false,
+        aerialUrl: dev.assets.aerialWide ? async () => (bgUrls.aerialWide = bgUrls.aerialWide || (H.assets ? await H.assets.get(dev.assets.aerialWide) : dev.assets.aerialWide)) : null, // lazy: only when chosen / tiles fail
         onLot: id => selectLot(id, { from: 'map' }) });
       const vp = box.querySelector('.envvp'); if (vp) vp.focus({ preventScroll: true });
     } catch (e) { report(e, 'Surroundings'); box.innerHTML = `<div class="envbar">${E.switchHtml('environment')}</div><p class="small" role="alert">Não foi possível abrir o Entorno.</p>`; }
