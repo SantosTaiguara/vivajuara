@@ -36,6 +36,9 @@ headers.push({ source: '/chunks/(.*)', headers: [{ key: 'Cache-Control', value: 
 const config = {
   $schema: 'https://openapi.vercel.sh/vercel.json',
   framework: null,
+  // Sem um comando de build a Vercel ignora outputDirectory e serve a raiz (404).
+  buildCommand: 'echo "painel ja compilado em dash/"',
+  installCommand: 'echo "sem dependencias"',
   outputDirectory: 'dash',
   cleanUrls: false,
   trailingSlash: false,
