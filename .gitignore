@@ -8,3 +8,4 @@ codigo/backend/reports/*
 !codigo/backend/reports/.gitkeep
 .DS_Store
 hostgator/
+public/

@@ -74,6 +74,8 @@ function copyDir(src, dst) {
   }
 }
 
+// Recalcula dash/_headers antes: os hashes do CSP mudam a cada build e, velhos, bloqueiam o script do painel.
+require('child_process').execFileSync(process.execPath, [path.join(__dirname, 'securityHeaders.js'), '--write'], { stdio: 'inherit' });
 const rules = parseHeaders(fs.readFileSync(path.join(DASH, '_headers'), 'utf8'));
 if (!rules.find(r => r.path === '/')) throw new Error('dash/_headers sem a regra "/"');
 fs.rmSync(OUT, { recursive: true, force: true });

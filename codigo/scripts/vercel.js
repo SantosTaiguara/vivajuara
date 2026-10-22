@@ -25,6 +25,8 @@ function parseHeaders(text) {
 
 // Na Vercel, quando duas regras definem o mesmo cabeçalho, vale a última.
 const SOURCE = { '/': '/(.*)', '/*.json': '/(.*)\\.json', '/sw.js': '/sw.js', '/index.html': '/index.html', '/admin.html': '/admin.html' };
+// Recalcula dash/_headers antes: os hashes do CSP mudam a cada build e, velhos, bloqueiam o script do painel.
+require('child_process').execFileSync(process.execPath, [path.join(__dirname, 'securityHeaders.js'), '--write'], { stdio: 'inherit' });
 const rules = parseHeaders(fs.readFileSync(path.join(DASH, '_headers'), 'utf8'));
 if (!rules.find(r => r.path === '/')) throw new Error('dash/_headers sem a regra "/"');
 const headers = rules.map(r => {
@@ -36,10 +38,11 @@ headers.push({ source: '/chunks/(.*)', headers: [{ key: 'Cache-Control', value: 
 const config = {
   $schema: 'https://openapi.vercel.sh/vercel.json',
   framework: null,
-  // Sem um comando de build a Vercel ignora outputDirectory e serve a raiz (404).
-  buildCommand: 'echo "painel ja compilado em dash/"',
+  // Copia dash/ para public/ procurando a pasta a partir da raiz configurada na Vercel
+  // (funciona com Root Directory vazio, codigo/ ou codigo/backend).
+  buildCommand: 'for d in dash ../dash ../../dash; do if [ -f "$d/index.html" ]; then rm -rf public && mkdir public && cp -R "$d"/. public/ && rm -f public/_headers public/index_v1.html && echo "painel copiado de $d" && exit 0; fi; done; echo "pasta dash nao encontrada"; exit 1',
   installCommand: 'echo "sem dependencias"',
-  outputDirectory: 'dash',
+  outputDirectory: 'public',
   cleanUrls: false,
   trailingSlash: false,
   redirects: [
