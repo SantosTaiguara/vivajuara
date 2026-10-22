@@ -1,0 +1,190 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "outputDirectory": "dash",
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "condominiovivajuara.com.br"
+        }
+      ],
+      "destination": "https://www.condominiovivajuara.com.br/$1",
+      "permanent": true
+    },
+    {
+      "source": "/index_v1.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/_headers",
+      "destination": "/",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), payment=(), usb=(), geolocation=(self)"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'none'; script-src 'self' 'sha256-ENTVhTz7pfQTuT4k1Kzq6i824+RB5CR3fbAj7zqHb3c=' 'sha384-SXHxTgenR2V+OgIJwu0Nr54IwC9JIaTEhdWuMntlzaI4LIkGPif0661KrWv5dOLV' 'sha384-BW6C2z49cH97yfYhsq3TjpkRi/wNfD7L9xPKVQB0GDf3F1+Xk5ynVJmvMZRUZEDB' 'sha384-zlwHZY1ExkOZhy0c4f4R0iDMw5EDD4FDs/Q4g/g0zNVZc2pgOi/G2jQ3X1zcWtRG' 'sha384-HQAO088e6QGPnBdTdhMj0CNx12i0RjKF+bHmc97UJ08ptHm5WF3eLQj0sd4DQ9g8' 'sha384-aqXciHigVzRCane7t5BTZT5UsN6g8nprclf6u+R8O+dGgGnMABdNa0PUv7KORWiU' 'sha384-K54//Mm8dUrV7N88+aCb7txcOKnd28x8ebWVrkU/lAYnvqOlPeVM31Ht5Dz+ItKN' 'sha384-9SB/lssUxKUeG3dH2/B6pK8zIuFSZ9U6P2eZyRn9ftOBYSP90o97YKJoTcM8D83r' 'sha384-5v/64+apLEWFH5Nt4z55+tUemXpS4PEIzIbUXOCJrLLVZY4RdsTtGCz/QKF6Oe5O'; style-src-elem 'self' https://fonts.googleapis.com 'sha256-WbqA2yK8eSxrGxYkC6PYWHjMPdwQ6DmIRWD0ehvryl8=' 'sha256-iM7p1+KCQxB68GNT4jThG327kd1kWYFPbIHsL33Ti48='; style-src-attr 'unsafe-inline'; img-src 'self' data: blob: https://tile.openstreetmap.org; font-src https://fonts.gstatic.com; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+        }
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), payment=(), usb=(), geolocation=(self)"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'none'; script-src 'self' 'sha256-ENTVhTz7pfQTuT4k1Kzq6i824+RB5CR3fbAj7zqHb3c=' 'sha384-SXHxTgenR2V+OgIJwu0Nr54IwC9JIaTEhdWuMntlzaI4LIkGPif0661KrWv5dOLV' 'sha384-BW6C2z49cH97yfYhsq3TjpkRi/wNfD7L9xPKVQB0GDf3F1+Xk5ynVJmvMZRUZEDB' 'sha384-zlwHZY1ExkOZhy0c4f4R0iDMw5EDD4FDs/Q4g/g0zNVZc2pgOi/G2jQ3X1zcWtRG' 'sha384-HQAO088e6QGPnBdTdhMj0CNx12i0RjKF+bHmc97UJ08ptHm5WF3eLQj0sd4DQ9g8' 'sha384-aqXciHigVzRCane7t5BTZT5UsN6g8nprclf6u+R8O+dGgGnMABdNa0PUv7KORWiU' 'sha384-K54//Mm8dUrV7N88+aCb7txcOKnd28x8ebWVrkU/lAYnvqOlPeVM31Ht5Dz+ItKN' 'sha384-9SB/lssUxKUeG3dH2/B6pK8zIuFSZ9U6P2eZyRn9ftOBYSP90o97YKJoTcM8D83r' 'sha384-5v/64+apLEWFH5Nt4z55+tUemXpS4PEIzIbUXOCJrLLVZY4RdsTtGCz/QKF6Oe5O'; style-src-elem 'self' https://fonts.googleapis.com 'sha256-WbqA2yK8eSxrGxYkC6PYWHjMPdwQ6DmIRWD0ehvryl8=' 'sha256-iM7p1+KCQxB68GNT4jThG327kd1kWYFPbIHsL33Ti48='; style-src-attr 'unsafe-inline'; img-src 'self' data: blob: https://tile.openstreetmap.org; font-src https://fonts.gstatic.com; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+        }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.json",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    },
+    {
+      "source": "/admin.html",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), payment=(), usb=(), geolocation=(self)"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'none'; script-src 'self' 'sha256-guwMnWf/mbac69edT5BS3UCAtYBeu8RTgsHhLULnBnM='; style-src-elem 'self' https://fonts.googleapis.com 'sha256-XC6ZI5sS98DjJeL8Ywy0dZfYp/5DD6ntYK5ab+eulQI='; style-src-attr 'unsafe-inline'; img-src 'self' data: blob: https://tile.openstreetmap.org; font-src https://fonts.gstatic.com; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/chunks/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}
