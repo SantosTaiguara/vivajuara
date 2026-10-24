@@ -170,7 +170,7 @@ App.model = (() => {
     R('metadata.schemaVersion', 'PROVENANCE', 'schema', 'Versão do schema', 'string', null, false, 'P3', '', 'S', 'CONFIRMED', null, 'schema', 'HIGH', null, 'Versão do contrato Lot; não confundir com versão da análise ou da tabela', { provenanceRequired: false }),
     // K. AVAILABILITY
     R('availability.status', 'AVAILABILITY', null, 'Disponibilidade', 'enum', null, false, 'P0', 'fc', 'D', 'UNKNOWN', null, null, null, 'st', 'Situação comercial informada pela loteadora; sem confirmação, aparece como "Status não confirmado" e nunca como disponível', { enum: 'AvailabilityStatus' }),
-    R('availability.updatedAt', 'AVAILABILITY', null, 'Atualizado em', 'datetime', null, true, 'P1', '', 'D', 'UNKNOWN', null, null, null, null, 'Data e hora (ISO 8601) da última atualização conhecida da situação'),
+    R('availability.updatedAt', 'AVAILABILITY', null, 'Atualizado em', 'datetime', null, true, 'P1', '', 'D', 'UNKNOWN', null, null, null, 'stAt', 'Data e hora (ISO 8601) da última atualização conhecida da situação'),
     R('availability.revision', 'AVAILABILITY', null, 'Revisão', 'number', null, true, 'P3', '', 'D', 'CALCULATED', null, 'sequence', 'HIGH', null, 'Ordem das atualizações: uma revisão antiga nunca sobrescreve uma nova'),
     R('availability.reason', 'AVAILABILITY', null, 'Motivo', 'enum', null, true, 'P2', '', 'D', 'UNKNOWN', null, null, null, null, 'Motivo de bloqueio ou indisponibilidade, quando informado', { enum: 'AvailabilityReason' }),
     R('availability.notes', 'AVAILABILITY', null, 'Observação interna', 'string', null, true, 'P3', '', 'D', 'UNKNOWN', null, null, null, null, 'Nota interna; nunca exibida no modo cliente'),

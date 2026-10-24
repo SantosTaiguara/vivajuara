@@ -17,9 +17,9 @@ interface ParityException {
 
 | Data | Capacidade | Caminho | Motivo | Aprovado por | Evidência |
 |---|---|---|---|---|---|
-| — | — | — | — | — | — |
+| 2026-10-24 | Disponibilidade | golden inteiro (recapturado com `--update`) | Correção de dado: 21 lotes da construtora (I-5, N-1 a N-7, N-21, N-22, O-1 a O-5, P-21 a P-24, Q-1, Q-2) marcados INDISPONÍVEL (`st`/`stAt` em lots.json). Muda contagens de status, camada de disponibilidade, exclusões da recomendação (STATUS_NOT_AVAILABLE), textos de compartilhamento e o fingerprint dos lotes (frescor do conjunto). Preço, geometria, scores e classes sem mudança. | Edmilson Margon (pedido no projeto, 2026-10-24) | `node scripts/goldenBaseline.js` antes do `--update` |
 
-Nenhuma exceção em 2026-10-11.
+Nenhuma exceção até 2026-10-11.
 
 ## Procedimento
 

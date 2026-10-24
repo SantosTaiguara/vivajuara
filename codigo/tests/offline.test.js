@@ -6,7 +6,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path');
 require('./node_modules/fake-indexeddb/auto');
-const { load, DATA } = require('./harness.js');
+const { load, DATA, publishedStatus } = require('./harness.js');
 
 const plain = x => JSON.parse(JSON.stringify(x));
 const FILES = {}; // published files read once
@@ -201,7 +201,7 @@ test('first visit online: REMOTE origin, commercial FRESH (confirmed now), cache
   assert.equal(lots.length, 498);
   assert.equal(h.source.origin, 'REMOTE');
   assert.equal(h.repo.getFreshness().commercial, 'FRESH');
-  assert.equal(h.repo.getFreshness().availability, 'UNKNOWN');
+  assert.equal(h.repo.getFreshness().availability, 'FRESH'); // lots.json carries the developer lots status
   assert.equal(h.connectivity.get(), 'ONLINE');
   assert.equal(await h.source.pendingPersist, true);
   const m = await h.local.getManifest();
@@ -225,9 +225,9 @@ test('offline boot from cache → origin CACHE, commercial STALE on every lot (n
   assert.equal(h.repo.getFreshness().commercial, 'STALE');
   assert.equal(h.repo.getFreshnessState().commercial.source, 'CACHE');
   assert.ok(lots.every(l => l.metadata.freshness.commercial === 'STALE'));
-  assert.ok(lots.every(l => l.availability.status === 'UNKNOWN' && l.availability.freshness !== 'FRESH'));
+  assert.ok(lots.every(l => l.availability.status === publishedStatus(l) && l.availability.freshness !== 'FRESH'));
   assert.equal(h.repo.getLotById(B79).commercial.price, priceBefore);
-  assert.deepEqual(plain(h.repo.getLotById(B79)), plain({ ...plain(first.repo.getLotById(B79)), metadata: { ...plain(first.repo.getLotById(B79).metadata), freshness: { commercial: 'STALE', availability: 'UNKNOWN' } } }));
+  assert.deepEqual(plain(h.repo.getLotById(B79)), plain({ ...plain(first.repo.getLotById(B79)), metadata: { ...plain(first.repo.getLotById(B79).metadata), freshness: { commercial: 'STALE', availability: 'STALE' } } })); // offline: the cached status feed is never FRESH
   // a sync while offline cannot confirm anything
   const r = await h.sync.sync('manual');
   assert.equal(r.manifest, 'error');

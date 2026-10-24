@@ -2,7 +2,7 @@
 // Data lifecycle: STATIC / VERSIONED / DYNAMIC separation, snapshot validation, freshness policy and state, composition.
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { load } = require('./harness.js');
+const { load, publishedStatus } = require('./harness.js');
 
 const plain = x => JSON.parse(JSON.stringify(x));
 const codes = list => plain(list).map(e => e.code);
@@ -207,8 +207,9 @@ test('compose: all 498 lots from the four layers, versions and freshness in meta
   assert.deepEqual(plain(res.orphans), []);
   const l = res.lots.find(x => x.identity.code === 'B79');
   assert.deepEqual(plain(l.metadata.dataVersions), { staticVersion: '2026-10-06.1', analysisVersion: '2026-10-06', priceTableVersion: '2026-10-06', availabilityRevision: 0 });
-  assert.deepEqual(plain(l.metadata.freshness), { commercial: 'FRESH', availability: 'UNKNOWN' });
-  assert.equal(l.availability.freshness, 'UNKNOWN');
+  assert.deepEqual(plain(l.metadata.freshness), { commercial: 'FRESH', availability: 'FRESH' }); // dataset freshness: lots.json carries the developer lots status
+  assert.equal(l.availability.freshness, 'UNKNOWN', 'B79 itself has no status');
+  assert.ok(res.lots.every(x => x.availability.status === publishedStatus(x)));
   assert.equal(l.metadata.schemaVersion, '1.0');
 });
 

@@ -301,9 +301,12 @@ test('ObsHealthLiveReady: live is minimal; ready needs lots + config; connectivi
   const d = S.dependencies({}); assert.ok(d.every(x => x.status === 'UNKNOWN' && /não disponível/.test(x.label)));
   assert.equal(S.dependencies({ dataOrigin: 'BUNDLED' })[0].status, 'DEGRADED');
 });
-test('data freshness: reads the repository FreshnessState; availability stays "não confirmado"; no limit decided → no alert, "necessita confirmação"', () => {
+test('data freshness: reads the repository FreshnessState; availability "não confirmado" without a feed; no limit decided → no alert, "necessita confirmação"', () => {
   const fr = S.freshnessSignals({ freshnessState: repo.getFreshnessState(), versions: repo.getDataVersions() });
-  assert.notEqual(fr.AVAILABILITY.status, 'FRESH', 'disponibilidade UNKNOWN nunca aparece como atual');
+  // lots.json carries the status of the developer lots (st/stAt), so the dataset has a feed; lot by lot UNKNOWN stays UNKNOWN
+  assert.equal(fr.AVAILABILITY.status, repo.getFreshnessState().availability.status);
+  const none = S.freshnessSignals({ freshnessState: { availability: { status: 'UNKNOWN' } } });
+  assert.notEqual(none.AVAILABILITY.status, 'FRESH', 'disponibilidade UNKNOWN nunca aparece como atual');
   assert.equal(fr.AVAILABILITY.limitLabel, 'necessita confirmação'); assert.equal(fr.AVAILABILITY.alert, null);
   const p = fresh(); assert.equal(S.evaluateLocalAlerts({ metrics: p.metrics, freshness: fr }, { last: {} }).find(a => a.alertId === 'availability_feed_stale').state, 'NEEDS_DECISION');
   const reg = C.registry(), saved = reg.freshnessSignals.AVAILABILITY.expectedMaxAgeMs;
@@ -360,7 +363,7 @@ test('"Saúde da plataforma": technical-only view model; unknown values say "nã
   const vm = P.viewModel({ allowed: true, lotCount: repo.lotsSync().length, devInfo: { versions: repo.getDataVersions(), freshness: repo.getFreshnessState(), connectivity: 'ONLINE', origin: 'BUNDLED' } });
   assert.equal(vm.title, 'Saúde da plataforma'); assert.deepEqual(plain(vm.acts), { refresh: 'obsRefresh', copy: 'obsCopyDiagnostic', clear: 'obsClear' });
   assert.equal(vm.health.find(h => h.id === 'READY').status, 'DEGRADED', 'sem mapa no Node: pronto parcial');
-  assert.equal(vm.freshness[0].statusText, 'não confirmado'); assert.equal(vm.freshness[0].limit, 'necessita confirmação');
+  assert.equal(vm.freshness[0].statusText, 'atual', 'feed = lots.json with the developer lots'); assert.equal(vm.freshness[0].limit, 'necessita confirmação');
   assert.ok(vm.performance.every(r => r.value === 'não disponível' ? r.label === 'não disponível' : true)); assert.ok(!vm.performance.some(r => r.value === '0 ms'));
   assert.ok(vm.slos.every(s => s.statusText === 'não disponível'), 'SLO sem amostra não é 100%');
   assert.deepEqual(plain(vm.decisions.map(d => d.id)), ['O1', 'O2', 'O3', 'O4', 'O5', 'O6', 'O7', 'O8']);

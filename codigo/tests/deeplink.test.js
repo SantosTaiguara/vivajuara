@@ -3,7 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path');
-const { load, SRC } = require('./harness.js');
+const { load, SRC, publishedStatus } = require('./harness.js');
 
 let App, C, RS, REF, NAV, SVC, repo, lots;
 const DEV = 'viva-juara';
@@ -343,5 +343,5 @@ test('regression: decoding/restoring never mutates lots, prices, availability or
   const before = JSON.stringify(lots.slice(0, 20)), st0 = JSON.stringify(App.store.get());
   for (const h of ['#viva-juara.lots.B79?v=1&layer=price', '#viva-juara.compare.A1~B79', '#viva-juara?f=' + encodeURIComponent('p1:300000')]) RS.restore(C.decode(h).envelope, deps());
   assert.equal(JSON.stringify(lots.slice(0, 20)), before); assert.equal(JSON.stringify(App.store.get()), st0);
-  assert.ok(lots.every(l => l.availability.status === 'UNKNOWN'));
+  assert.ok(lots.every(l => l.availability.status === publishedStatus(l)));
 });

@@ -118,7 +118,7 @@ App.MapView = (() => {
     // ---------- geometry, created once
     function init(lots) {
       const t0 = performance.now();
-      g.lots.textContent = ''; g.lbl.textContent = ''; g.blk.textContent = ''; g.poi.textContent = ''; nodes = new Map(); lotsById = new Map(); labelsById = new Map(); shownLabels = null; culledBounds = null;
+      g.lots.textContent = ''; g.ovl.textContent = ''; g.lbl.textContent = ''; g.blk.textContent = ''; g.poi.textContent = ''; nodes = new Map(); lotsById = new Map(); labelsById = new Map(); shownLabels = null; culledBounds = null;
       geo = null; clearTimeout(geoT); const gen = ++geoGen;
       const draw = () => {
         const fl = document.createDocumentFragment(), fx = document.createDocumentFragment();
@@ -135,6 +135,7 @@ App.MapView = (() => {
           nodes.set(id, path); lotsById.set(id, l); labelsById.set(id, [tn, ta]);
         }
         g.lots.append(fl); g.lbl.append(fx);
+        strikeUnavailable(lots);
         // block letters at the block's centre
         const blocks = new Map();
         for (const l of lots) { const k = l.identity.blockId, e = blocks.get(k) || { n: 0, x: 0, y: 0 }; e.n++; e.x += l.geometry.centroid[0]; e.y += l.geometry.centroid[1]; blocks.set(k, e); }
@@ -157,6 +158,28 @@ App.MapView = (() => {
       if (GEO) geoT = setTimeout(() => { if (destroyed || gen !== geoGen) return; buildGeo(lots); }, 0);
     }
     let initMs = null, geoT = 0, geoGen = 0;
+    /** lots withheld from sale (status UNAVAILABLE, e.g. kept by the developer) are struck through in red on every layer;
+        the marks sit in #gOvl above the fills, ignore the pointer, and leave the thematic fill and hit test untouched */
+    function strikeUnavailable(lots) {
+      g.ovl.textContent = '';
+      const hit = lots.filter(l => l.availability && l.availability.status === 'UNAVAILABLE' && l.geometry.polygon && l.geometry.polygon.length >= 3);
+      if (!hit.length) return;
+      const defs = el('defs'), pat = el('pattern', { id: 'vjStrike', patternUnits: 'userSpaceOnUse', width: 5, height: 5, patternTransform: 'rotate(45)' });
+      pat.append(el('line', { x1: 0, y1: 0, x2: 0, y2: 5, class: 'strk-l' })); defs.append(pat);
+      const fo = document.createDocumentFragment(); fo.append(defs);
+      for (const l of hit) {
+        const p = l.geometry.polygon, b = l.geometry.bounds;
+        const d = 'M' + p.map(q => q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join('L') + 'Z';
+        const gg = el('g', { class: 'strk', 'data-id': l.identity.id, 'aria-hidden': 'true' });
+        gg.append(el('path', { d, class: 'strk-h', fill: 'url(#vjStrike)' }));
+        if (b) { // one bold stroke across the lot, clipped to its outline
+          const cp = el('clipPath', { id: 'vjStrikeC-' + l.identity.id }); cp.append(el('path', { d })); defs.append(cp);
+          gg.append(el('line', { x1: b.x.toFixed(1), y1: (b.y + b.h).toFixed(1), x2: (b.x + b.w).toFixed(1), y2: b.y.toFixed(1), class: 'strk-x', 'clip-path': `url(#vjStrikeC-${l.identity.id})` }));
+        }
+        fo.append(gg);
+      }
+      g.ovl.append(fo);
+    }
     function buildGeo(lots) {
       try {
         const bundle = time('map_geometry_decode', () => GEO.geometry.buildBundle({ organizationId: dev.tenantId || null, developmentId: dev.id, dev, lots, sourceGeometryVersion: dev.staticDataVersion }));

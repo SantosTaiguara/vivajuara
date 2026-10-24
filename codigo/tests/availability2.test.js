@@ -111,12 +111,12 @@ test('ConflictedAvailabilitySources: no silent resolution without an authoritati
 });
 
 // ------------------------------------------------------------------ snapshot / manifest / change set / events / diagnostics
-test('real data: snapshot of 498 lots, all UNKNOWN (UNKNOWN_SOURCE), offerable 0, status counts never read pricing', () => {
+test('real data: snapshot of 498 lots, 477 UNKNOWN (UNKNOWN_SOURCE) + 21 developer lots UNAVAILABLE, offerable 0, status counts never read pricing', () => {
   const s = AV.snapshotFromLots(lots, { developmentId: 'viva-juara', revision: 0 });
-  assert.equal(s.statusCounts.UNKNOWN, 498); assert.equal(s.dataStateCounts.UNKNOWN_SOURCE, 498);
+  assert.equal(s.statusCounts.UNKNOWN, 477); assert.equal(s.statusCounts.UNAVAILABLE, 21); assert.equal(s.dataStateCounts.UNKNOWN_SOURCE, 477);
   const noPrice = AV.snapshotFromLots(lots.map(l => ({ ...l, commercial: { ...l.commercial, price: null } })), { developmentId: 'viva-juara', revision: 0 });
   assert.equal(noPrice.checksum, s.checksum); deq(noPrice.statusCounts, s.statusCounts);
-  const d = AV.diagnostics(s); assert.equal(d.offerableCount, 0); assert.equal(d.unknownCount, 498); assert.equal(d.availableCount, 0);
+  const d = AV.diagnostics(s); assert.equal(d.offerableCount, 0); assert.equal(d.unknownCount, 477); assert.equal(d.availableCount, 0);
 });
 test('checksum: stable order (lotId-sorted), changes when a status changes; manifest sync', () => {
   const st = { L2: { status: 'SOLD', sourceId: 's', updatedAt: AT }, L1: { status: 'AVAILABLE', sourceId: 's', updatedAt: AT, freshness: 'FRESH' } };

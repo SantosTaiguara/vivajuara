@@ -65,7 +65,7 @@ App.legacy = (() => {
     deeeb: 'location.distanceToTechnicalAreaM', dav: 'location.distanceToExternalRoadM', dpark: 'location.distanceToGreenAreaM', flow: 'mobility.vehiclesPassingEstimate', fc: 'mobility.estimatedTraffic',
     via: 'mobility.streetHierarchy', fontes: 'environmental.noiseSources', ruido: 'environmental.noiseLevel', priv: 'environmental.privacyLevel', liq: 'intelligence.liquidity', nt: 'intelligence.notes',
     sm: 'intelligence.scores.housing', si: 'intelligence.scores.investment', sf: 'intelligence.scores.family', sp: 'intelligence.scores.premium', sg: 'intelligence.scores.overall', cl: 'intelligence.class',
-    conf: 'intelligence.confidence', perfil: 'intelligence.idealProfiles', al: 'intelligence.alerts', vzE: 'surroundings.leftNeighborType', vzD: 'surroundings.rightNeighborType', st: 'availability.status'
+    conf: 'intelligence.confidence', perfil: 'intelligence.idealProfiles', al: 'intelligence.alerts', vzE: 'surroundings.leftNeighborType', vzD: 'surroundings.rightNeighborType', st: 'availability.status', stAt: 'availability.updatedAt'
   };
   const NOTE_KEYS = { priv: 'environmental.privacyScore', sil: 'environmental.quietScore', sol: 'environmental.solarScore', vista: 'environmental.viewScore', geo: 'geometry.usableGeometryScore',
     laz: 'intelligence.notes.leisure', port: 'intelligence.notes.gate', flux: 'intelligence.notes.lowTraffic', liq: 'intelligence.notes.liquidity', val: 'intelligence.notes.relativeValue',
