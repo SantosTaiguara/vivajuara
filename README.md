@@ -9,6 +9,7 @@ Painel de inteligência comercial dos 498 lotes do Viva Juara (Serra/ES): mapa d
 | `dash/` | Painel pronto para publicar (arquivos estáticos): `index.html`, `admin.html`, `chunks/`, dados (`lots.json`, `routes.json`, `analysis-input.json`), imagens e service worker. |
 | `codigo/src/` | Código-fonte do painel (módulos que se registram no objeto global `App`). |
 | `codigo/config/` | Configurações por empreendimento (permissões, recursos, governança, privacidade, qualidade de dados etc.). |
+| `apresentacao/` | Apresentação da House 7 em HTML (slides do lançamento), publicada em `/apresentacao/`. |
 | `codigo/scripts/` | Build do painel (`build.js`), área administrativa (`buildAdmin.js`), cabeçalhos de segurança e geradores de documentação. |
 | `codigo/tests/` | Testes do painel (`node:test`). |
 | `codigo/backend/` | Servidor (monólito modular Node 20 + PostgreSQL 16), migrações 001–016, contrato OpenAPI. |

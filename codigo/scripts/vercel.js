@@ -39,8 +39,8 @@ const config = {
   $schema: 'https://openapi.vercel.sh/vercel.json',
   framework: null,
   // Copia dash/ para public/ procurando a pasta a partir da raiz configurada na Vercel
-  // (funciona com Root Directory vazio, codigo/ ou codigo/backend).
-  buildCommand: 'for d in dash ../dash ../../dash; do if [ -f "$d/index.html" ]; then rm -rf public && mkdir public && cp -R "$d"/. public/ && rm -f public/_headers public/index_v1.html && echo "painel copiado de $d" && exit 0; fi; done; echo "pasta dash nao encontrada"; exit 1',
+  // (funciona com Root Directory vazio, codigo/ ou codigo/backend). A apresentação vai junto em /apresentacao/.
+  buildCommand: 'for d in dash ../dash ../../dash; do if [ -f "$d/index.html" ]; then rm -rf public && mkdir public && cp -R "$d"/. public/ && rm -f public/_headers public/index_v1.html && r=$(dirname "$d") && if [ -d "$r/apresentacao" ]; then cp -R "$r/apresentacao" public/apresentacao; fi && echo "painel copiado de $d" && exit 0; fi; done; echo "pasta dash nao encontrada"; exit 1',
   installCommand: 'echo "sem dependencias"',
   outputDirectory: 'public',
   cleanUrls: false,

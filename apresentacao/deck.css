@@ -1,0 +1,40 @@
+/* Apresentação Viva Juara · House 7 Imóveis. Slides de 1920×1080 escalados para a tela. */
+:root { --bg: #0f1a11; --ui: #f5f3ea; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; }
+body { font-family: 'DM Sans', Arial, sans-serif; }
+#deck { position: fixed; inset: 0; }
+#deck > section {
+  position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; overflow: hidden;
+  transform-origin: center center; opacity: 0; visibility: hidden; transition: opacity .35s ease;
+}
+#deck > section.atual { opacity: 1; visibility: visible; }
+section h1, section h2, section h3, section p, section ul, section ol { margin: 0; }
+section h1, section h2, section h3 { font-weight: inherit; }
+section p, section li { line-height: 1.3; }
+section img { display: block; object-fit: cover; }
+/* Como no editor de slides: o que flui no slide pinta por cima do fundo fixado antes dele. */
+#deck > section > :not([style*="position:absolute"]):not([style*="position: absolute"]) { position: relative; }
+section table { border-collapse: collapse; }
+section th, section td { padding: 14px 24px; }
+section th { font-weight: 700; }
+#controls {
+  position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px;
+  background: rgba(15, 26, 17, .78); color: var(--ui); border-radius: 999px; padding: 6px 10px; font-size: 15px;
+  transition: opacity .3s; z-index: 2;
+}
+#controls button {
+  min-width: 44px; height: 44px; border: 0; border-radius: 999px; background: transparent; color: var(--ui);
+  font-size: 26px; line-height: 1; cursor: pointer;
+}
+#controls button:hover, #controls button:focus-visible { background: rgba(245, 243, 234, .14); outline: none; }
+#count { min-width: 64px; text-align: center; font-variant-numeric: tabular-nums; }
+body.ocioso #controls { opacity: 0; }
+
+@media print {
+  @page { size: 1920px 1080px; margin: 0; }
+  html, body { height: auto; overflow: visible; background: none; }
+  #deck { position: static; }
+  #deck > section { position: relative; left: 0; top: 0; transform: none !important; opacity: 1; visibility: visible; break-after: page; }
+  #controls { display: none; }
+}
