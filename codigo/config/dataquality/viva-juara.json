@@ -492,7 +492,7 @@
     {
       "id": "KL-AVAILABILITY-NO-MIRROR",
       "scopeRef": "viva-juara/AVAILABILITY",
-      "description": "Sem espelho de vendas: os 498 lotes estão com disponibilidade UNKNOWN (sem data nem fonte).",
+      "description": "Sem espelho de vendas: 477 lotes estão com disponibilidade UNKNOWN (sem data nem fonte); 21 lotes da construtora foram marcados INDISPONÍVEL pelo corretor em 2026-10-24.",
       "impact": "Nenhum lote pode ser apresentado como disponível; reserva e proposta ficam bloqueadas pelo gate de frescor.",
       "workaround": "Confirmar com a loteadora lote a lote.",
       "clientSafeMessage": "Disponibilidade a confirmar com o corretor.",
@@ -569,7 +569,7 @@
       "dataDomainId": "AVAILABILITY",
       "description": "Fonte de autoridade da disponibilidade não definida.",
       "risk": "Sem reconciliação possível.",
-      "workaround": "Status UNKNOWN em todos os lotes.",
+      "workaround": "Status UNKNOWN nos lotes sem informação; indisponíveis informados pelo corretor no campo st de lots.json.",
       "ownerRef": null,
       "targetResolution": null,
       "status": "OPEN"
@@ -1145,7 +1145,18 @@
             "nullable": false
           },
           "st": {
-            "types": [],
+            "types": [
+              "string"
+            ],
+            "nullable": true,
+            "enumValues": [
+              "INDISPONIVEL"
+            ]
+          },
+          "stAt": {
+            "types": [
+              "string"
+            ],
             "nullable": true
           },
           "tarde": {
@@ -1256,9 +1267,10 @@
               "nullRate": 0
             },
             "availability.status": {
-              "distinct": 1,
+              "distinct": 2,
               "distribution": {
-                "UNKNOWN": 498
+                "UNAVAILABLE": 21,
+                "UNKNOWN": 477
               }
             },
             "intelligence.class": {

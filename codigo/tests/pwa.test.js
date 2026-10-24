@@ -7,7 +7,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path'), vm = require('vm'), os = require('os');
 require('./node_modules/fake-indexeddb/auto');
-const { load, SRC, DATA } = require('./harness.js');
+const { load, SRC, DATA, publishedStatus } = require('./harness.js');
 
 const MODS = ['pwa/swRouting.js', 'pwa/webManifest.js', 'pwa/pwaCore.js', 'pwa/connectivity.js', 'pwa/update.js', 'pwa/offlinePack.js', 'pwa/sync.js', 'pwa/pwaView.js'];
 function app() { const A = load(); for (const f of MODS) new Function('App', fs.readFileSync(path.join(SRC, f), 'utf8'))(A); return A; }
@@ -368,7 +368,8 @@ golden('PwaOfflineMapBrowse + PwaOfflineLotSearch + PwaOfflineLotQuickView + Pwa
   const res = await H.source.loadLayers();
   assert.equal(Object.keys(res.layers.static.lots).length, 498, 'map geometry available offline');
   assert.equal(res.layers.commercial.source, 'OFFLINE_PACK'); assert.equal(res.layers.commercial.stale, true, 'price from the pack is never confirmed');
-  assert.equal(res.layers.availability ? Object.values(res.layers.availability.lots).every(l => l.availability.status === 'UNKNOWN') : true, true, 'availability stays UNKNOWN');
+  const codeOf = id => (res.layers.static.lots[id] || {}).identity;
+  assert.equal(res.layers.availability ? Object.entries(res.layers.availability.lots).every(([id, l]) => l.availability.status === publishedStatus({ identity: codeOf(id) })) : true, true, 'availability stays as published (UNKNOWN or the developer UNAVAILABLE)');
   const lot = Object.values(res.layers.static.lots).find(l => l.identity && l.identity.code); assert.ok(lot, 'lot searchable by code');
   const av = PK.availabilityOffline('AVAILABLE', { downloadedAt: '2026-10-10T20:20:00Z', revision: 884 });
   assert.equal(av.claimCurrent, false); assert.deepEqual(av.lines.slice(0, 3), ['Última informação conhecida', 'Modo offline', 'Confirme disponibilidade ao reconectar']);

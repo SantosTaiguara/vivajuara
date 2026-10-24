@@ -17,4 +17,8 @@ function load(opts = {}) {
   }
   return ctx.App;
 }
-module.exports = { load, DATA, SRC, ORDER };
+// Lots the developer kept (marked INDISPONÍVEL by the broker on 2026-10-24, field st of lots.json); every other lot has no status (UNKNOWN).
+const DEV_UNAVAILABLE = Object.freeze(['I5', 'N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N21', 'N22', 'O1', 'O2', 'O3', 'O4', 'O5', 'P21', 'P22', 'P23', 'P24', 'Q1', 'Q2']);
+/** status a published lot must have today: UNAVAILABLE for the developer's lots, UNKNOWN for the rest (never AVAILABLE) */
+const publishedStatus = lot => DEV_UNAVAILABLE.includes(lot.identity.code) ? 'UNAVAILABLE' : 'UNKNOWN';
+module.exports = { load, DATA, SRC, ORDER, DEV_UNAVAILABLE, publishedStatus };

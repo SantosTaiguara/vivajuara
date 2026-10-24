@@ -35,12 +35,14 @@ const headers = rules.map(r => {
 });
 headers.push({ source: '/chunks/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] });
 
+const BUILD_COMMAND = 'for d in . .. ../..; do if [ -f $d/vercel-build.sh ]; then exec sh $d/vercel-build.sh; fi; done; echo "vercel-build.sh nao encontrado"; exit 1';
+if (BUILD_COMMAND.length > 256) throw new Error('buildCommand passa do limite de 256 caracteres da Vercel');
 const config = {
   $schema: 'https://openapi.vercel.sh/vercel.json',
   framework: null,
-  // Copia dash/ para public/ procurando a pasta a partir da raiz configurada na Vercel
-  // (funciona com Root Directory vazio, codigo/ ou codigo/backend). A apresentação vai junto em /apresentacao/.
-  buildCommand: 'for d in dash ../dash ../../dash; do if [ -f "$d/index.html" ]; then rm -rf public && mkdir public && cp -R "$d"/. public/ && rm -f public/_headers public/index_v1.html && r=$(dirname "$d") && if [ -d "$r/apresentacao" ]; then cp -R "$r/apresentacao" public/apresentacao; fi && echo "painel copiado de $d" && exit 0; fi; done; echo "pasta dash nao encontrada"; exit 1',
+  // A cópia de dash/ para public/ fica em vercel-build.sh (raiz do repositório): a Vercel recusa buildCommand com mais de
+  // 256 caracteres. O comando acha o script a partir da raiz configurada (Root Directory vazio, codigo/ ou codigo/backend).
+  buildCommand: BUILD_COMMAND,
   installCommand: 'echo "sem dependencias"',
   outputDirectory: 'public',
   cleanUrls: false,

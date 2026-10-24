@@ -5,7 +5,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path');
-const { load, DATA } = require('./harness.js');
+const { load, DATA, DEV_UNAVAILABLE } = require('./harness.js');
 const { attachDataQuality, readDataQualityConfig } = require('../backend/src/modules/dataquality/dataquality.loader.js');
 
 let App, DQ, M, E, W, repo, lots, rows, before;
@@ -68,8 +68,8 @@ test('REAL: full check over the 498 published lots — findings reported, data u
     'DQ-PRICE-008', 'DQ-PRICE-002', 'DQ-PRICE-003', 'DQ-PRICE-004', 'DQ-PRICE-005', 'DQ-ANA-001', 'DQ-ANA-002', 'DQ-ANA-003', 'DQ-VOL-001', 'DQ-VJ-LOT-003', 'DQ-VJ-SCHEMA-001', 'DQ-VJ-DIST-001'])
     assert.equal(R(id).status, 'PASSED', id);
   assert.equal(R('DQ-GEO-012').evaluatedCount, 498, '498/498 valid geometries, 0 lots without geometry');
-  assert.equal(R('DQ-AVAIL-002').failedCount, 498, 'availability UNKNOWN for all 498 lots');
-  assert.equal(R('DQ-AVAIL-003').status, 'NOT_EVALUATED'); assert.equal(R('DQ-TX-001').reason, 'NO_SOLD_LOT');
+  assert.equal(R('DQ-AVAIL-002').failedCount, 498 - DEV_UNAVAILABLE.length, 'availability UNKNOWN for every lot except the developer ones');
+  assert.equal(R('DQ-AVAIL-003').status, 'PASSED', 'the UNAVAILABLE lots carry their date (stAt)'); assert.equal(R('DQ-TX-001').reason, 'NO_SOLD_LOT');
   assert.equal(R('DQ-PROV-001').failedCount, 2, 'identity.id and identity.developmentId without sourceId in the Field Registry');
   const nulls = a.run.findings.find(f => f.ruleId === 'DQ-NULL-001');
   assert.equal(nulls.effectiveMode, 'SHADOW'); assert.ok(nulls.failedEntityCount >= 20, 'null fields observed (never treated as errors)');
@@ -79,7 +79,7 @@ test('REAL: full check over the 498 published lots — findings reported, data u
   assert.notEqual(a.health.overallStatus, 'HEALTHY');
   assert.ok(a.slos.every(s => s.evaluation.status === 'NOT_CONFIGURED'));
   assert.equal(a.slos.find(s => s.id === 'SLO-LOT-ID-UNIQUENESS').observedBaseline, 1);
-  assert.equal(a.slos.find(s => s.id === 'SLO-AVAILABILITY-FRESHNESS').observedBaseline, 0);
+  assert.equal(a.slos.find(s => s.id === 'SLO-AVAILABILITY-FRESHNESS').observedBaseline, +(DEV_UNAVAILABLE.length / 498).toFixed(6), 'only the developer lots have a dated status');
   assert.ok(!('score' in a.scorecard) && a.scorecard.dimensions.length === 12, 'dimensional scorecard, no single %');
 });
 test('gate for topic 58: the current batch (rows or lots) passes ONBOARDING_BATCH; unknown action is denied', () => {
@@ -96,7 +96,7 @@ test('DQCanonicalLotIdDuplicateBlocked', () => {
 });
 test('DQAvailabilityUnknownStatusDetected', () => {
   const f = E.run({ input: { developmentId: DEV, lots, now: NOW }, ruleIds: ['DQ-AVAIL-002'] }).findings[0];
-  assert.equal(f.failedEntityCount, 498); assert.equal(f.sampleEntityRefs.length, 10); assert.equal(f.ownerStatus, 'NECESSITA_CONFIRMACAO');
+  assert.equal(f.failedEntityCount, 498 - DEV_UNAVAILABLE.length); assert.equal(f.sampleEntityRefs.length, 10); assert.equal(f.ownerStatus, 'NECESSITA_CONFIRMACAO');
 });
 test('DQAvailabilityStaleForReservationBlocked: map display allowed, reservation blocked', () => {
   const ls = J(lots).slice(0, 3); ls.forEach(l => Object.assign(l.availability, { status: 'AVAILABLE', updatedAt: '2026-10-16T08:00:00Z', sourceId: 'mirror', revision: 1 }));

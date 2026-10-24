@@ -3,7 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path');
-const { load, SRC } = require('./harness.js');
+const { load, SRC, publishedStatus } = require('./harness.js');
 
 const MODULES = ['customer/customerDomain.js', 'customer/customerContext.js', 'customer/customerRepository.js', 'customer/customerView.js'];
 let App, D, C, R, repo, lots, fitCfg, pol;
@@ -175,7 +175,7 @@ test('CustomerRecommendationFromProfileSnapshot: recommendation records the exac
   const r2 = rec(D.toFitProfile(v2.version, { developmentId: DEV }));
   assert.notEqual(r2.customerProfileVersion, r1.customerProfileVersion); assert.equal(r1Ref.profileVersionId, v1.version.id, 'R(V1) keeps pointing to V1');
   // UNKNOWN is never AVAILABLE: no lot is promoted by the customer context
-  assert.ok(lots.every(l => l.availability.status === 'UNKNOWN'));
+  assert.ok(lots.every(l => l.availability.status === publishedStatus(l)));
 });
 
 // ---------------------------------------------------------------- context

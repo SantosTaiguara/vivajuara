@@ -5,7 +5,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path');
-const { load, SRC, DATA } = require('./harness.js');
+const { load, SRC, DATA, publishedStatus } = require('./harness.js');
 
 const MODULES = ['rules/ruleCore.js', 'rules/alertDomain.js', 'rules/legacyAlertMigration.js'];
 const clone = x => x === undefined ? x : JSON.parse(JSON.stringify(x));
@@ -114,7 +114,7 @@ test('invariants: evaluating every rule changes no lot, score, class, ranking or
   MIG.engine.shareWarnings(cat, lots, { asOf: AS_OF });
   deq(lots.map(l => App.domain.serializeLot(l)), beforeLots);
   deq(analysis.results.map(r => [r.lotId, r.scores, r.class, r.rankings]), beforeEngine.results.map(r => [r.lotId, r.scores, r.class, r.rankings]));
-  assert.ok(lots.every(l => l.availability.status === 'UNKNOWN'));
+  assert.ok(lots.every(l => l.availability.status === publishedStatus(l)));
   for (const f of MODULES) { const s = fs.readFileSync(path.join(SRC, f), 'utf8'); assert.ok(!/App\.(fit|recommendation|compare)\b/.test(s), f + ' must not touch Fit/Recommendation/winner'); }
 });
 test('integration: flag off → legacy list; flag on + analysis → rule engine (identical); flag on without analysis → legacy fallback', () => {

@@ -2,7 +2,7 @@
 // Availability: transition matrix of the state machine, UNKNOWN default without a feed, feed application, client/broker labels.
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { load } = require('./harness.js');
+const { load, DEV_UNAVAILABLE, publishedStatus } = require('./harness.js');
 
 const plain = x => JSON.parse(JSON.stringify(x));
 const codes = list => plain(list).map(e => e.code);
@@ -151,25 +151,27 @@ test('policy flags: offerable, visible, recommendable, simulable, primary action
 });
 
 // ------------------------------------------------------------------ UNKNOWN default without a feed
-test('no availability feed: all 498 lots UNKNOWN (never AVAILABLE), freshness UNKNOWN', async () => {
+test('no availability feed: 477 lots UNKNOWN (never AVAILABLE), the 21 developer lots UNAVAILABLE with date and provenance', async () => {
   const repo = await freshRepo();
   const lots = repo.lotsSync();
   assert.equal(lots.length, 498);
-  assert.deepEqual(plain(AV.counts(lots)), { AVAILABLE: 0, RESERVED: 0, PROPOSAL: 0, BLOCKED: 0, SOLD: 0, UNAVAILABLE: 0, UNKNOWN: 498 });
+  assert.deepEqual(plain(AV.counts(lots)), { AVAILABLE: 0, RESERVED: 0, PROPOSAL: 0, BLOCKED: 0, SOLD: 0, UNAVAILABLE: 21, UNKNOWN: 477 });
   for (const l of lots) {
-    assert.equal(l.availability.status, 'UNKNOWN');
-    assert.equal(l.availability.freshness, 'UNKNOWN');
-    assert.equal(l.availability.updatedAt, null);
-    assert.equal(App.model.getFieldProvenance(l, 'availability.status').status, 'UNKNOWN');
+    const status = publishedStatus(l);
+    assert.equal(l.availability.status, status, l.identity.code);
+    if (status === 'UNKNOWN') {
+      assert.equal(l.availability.freshness, 'UNKNOWN');
+      assert.equal(l.availability.updatedAt, null);
+      assert.equal(App.model.getFieldProvenance(l, 'availability.status').status, 'UNKNOWN');
+    } else {
+      assert.equal(l.availability.updatedAt, '2026-10-24T00:00:00.000Z');
+      assert.equal(App.model.getFieldProvenance(l, 'availability.status').status, 'CONFIRMED');
+    }
   }
-  const av = repo.getLayers().availability;
-  assert.equal(av.revision, 0);
-  assert.equal(av.updatedAt, null);
-  assert.equal(repo.getFreshness().availability, 'UNKNOWN');
+  assert.deepEqual(plain(lots.filter(l => l.availability.status === 'UNAVAILABLE').map(l => l.identity.code).sort()), [...DEV_UNAVAILABLE].sort());
   const sel = App.selectors(repo, App.config.DEVELOPMENTS[0]);
   const st = { ...App.store.INITIAL, dataRevision: 1 };
-  assert.equal(sel.selectHasAvailabilityFeed(st), false);
-  assert.equal(sel.selectOfferableLotIds(st).size, 0);
+  assert.equal(sel.selectOfferableLotIds(st).size, 0, 'UNAVAILABLE and UNKNOWN are never offerable');
   // the offline helper used when no last-known value exists also yields UNKNOWN
   const u = App.offline.unknownAvailability({ id: 'viva-juara' }, repo.getLayers().static);
   assert.ok(Object.values(u.lots).every(x => x.availability.status === 'UNKNOWN'));

@@ -5,7 +5,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path');
-const { load, SRC, DATA } = require('./harness.js');
+const { load, SRC, DATA, publishedStatus } = require('./harness.js');
 
 const MODS = ['loading/resources.js', 'loading/coordinator.js', 'loading/planner.js', 'loading/loadingView.js', 'cache/cacheCore.js', 'cache/cacheManager.js'];
 function boot(opts) { const App = load(opts); for (const f of MODS) new Function('App', fs.readFileSync(path.join(SRC, f), 'utf8'))(App); return App; }
@@ -307,7 +307,8 @@ test('MapBootstrap and MapLotIndex are minimal projections (no price, no detail 
   assert.equal(idx.length, 498);
   const keys = new Set(idx.flatMap(Object.keys));
   for (const k of keys) assert.ok(['lotId', 'blockCode', 'lotNumber', 'area', 'geometryFeatureIndex', 'searchableLabel', 'quickFlags'].includes(k), k);
-  assert.ok(idx.every(i => i.quickFlags.includes('STATUS_UNKNOWN')), 'all 498 lots UNKNOWN, never AVAILABLE');
+  const byId = new Map(repo.lotsSync().map(l => [l.identity.id, l]));
+  assert.ok(idx.every(i => publishedStatus(byId.get(i.lotId)) === 'UNKNOWN' ? i.quickFlags.includes('STATUS_UNKNOWN') : !i.quickFlags.includes('STATUS_UNKNOWN')), 'UNKNOWN lots flagged, never AVAILABLE');
   assert.ok(JSON.stringify(idx).length < 120000, 'index is a fraction of lots.json');
 });
 
@@ -382,8 +383,8 @@ test('first visit: manifest, lots and commercial are requested in parallel (no w
   open();
   const lots = await p;
   assert.equal(lots.length, 498); assert.equal(h.source.origin, 'REMOTE');
-  assert.equal(h.repo.getFreshness().commercial, 'FRESH'); assert.equal(h.repo.getFreshness().availability, 'UNKNOWN');
-  assert.ok(h.repo.lotsSync().every(l => l.availability.status === 'UNKNOWN'));
+  assert.equal(h.repo.getFreshness().commercial, 'FRESH'); assert.equal(h.repo.getFreshness().availability, 'FRESH', 'lots.json now carries the developer lots status');
+  assert.ok(h.repo.lotsSync().every(l => l.availability.status === publishedStatus(l)));
   assert.equal(await h.source.pendingPersist, true);
 });
 

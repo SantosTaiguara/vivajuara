@@ -598,6 +598,10 @@ svg#map .lot.cmp.dim{stroke-opacity:1}
 .ws.pres{--lw:0px!important}
 @media (max-width:419px){ .seg .mtech{display:none} }
 @media (max-width:699px){ .presbtn{display:none} }
+svg#map .strk{pointer-events:none}
+svg#map .strk-h{stroke:#c62828;stroke-width:1.4;fill-opacity:1}
+svg#map .strk-l{stroke:#c62828;stroke-width:1.3;stroke-opacity:.85}
+svg#map .strk-x{stroke:#c62828;stroke-width:3;stroke-linecap:round}
 svg#map .lot.srch{stroke:var(--brand);stroke-width:3;animation:vjpulse 1.3s ease-in-out 2}
 @keyframes vjpulse{0%,100%{stroke-opacity:1}50%{stroke-opacity:.25}}
 svg#map.hashl .lot:not(.lhov):not(.sel){fill-opacity:.18!important}

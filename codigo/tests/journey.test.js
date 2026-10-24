@@ -3,7 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path');
-const { load, SRC } = require('./harness.js');
+const { load, SRC, publishedStatus } = require('./harness.js');
 
 const MODULES = ['customer/customerDomain.js', 'customer/customerContext.js', 'customer/customerRepository.js', 'customer/customerView.js', 'journey/journeyDomain.js', 'journey/journeyServices.js'];
 let App, J, S, model, lots, repo;
@@ -164,7 +164,7 @@ test('JourneyClosedWonWithReservationRef / JourneyClosedLostWithReason: explicit
   assert.equal(J.closeOutcome(j, { type: 'WON' }, O({ expectedRevision: 9, actorId: undefined })).code, 'EXPLICIT_ACTOR_REQUIRED');
   const won = J.closeOutcome(j, { type: 'WON', relatedResourceRefs: [{ resourceType: 'RESERVATION', resourceId: 'R22' }] }, O({ expectedRevision: 9 }));
   assert.equal(won.ok, true); assert.equal(won.journey.lifecycleStatus, 'CLOSED_WON'); assert.equal(won.outcome.relatedResourceRefs[0].resourceId, 'R22'); deq(won.events.map(e => e.type), ['STAGE_CHANGED', 'JOURNEY_WON']);
-  deq(lots.map(l => l.availability.status), statuses, 'availability never mutated'); assert.ok(statuses.every(s => s === 'UNKNOWN'));
+  deq(lots.map(l => l.availability.status), statuses, 'availability never mutated'); assert.ok(lots.every((l, i) => statuses[i] === publishedStatus(l)));
   const lostNoReason = J.closeOutcome(j, { type: 'LOST' }, O({ expectedRevision: 9 })); assert.equal(lostNoReason.code, 'REASON_REQUIRED');
   assert.equal(J.closeOutcome(j, { type: 'LOST', reasonCode: 'ALIENS' }, O({ expectedRevision: 9 })).code, 'INVALID_REASON');
   const lost = J.closeOutcome(j, { type: 'LOST', reasonCode: 'TIMING' }, O({ expectedRevision: 9 })); assert.equal(lost.journey.lifecycleStatus, 'CLOSED_LOST');

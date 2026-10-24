@@ -3,7 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path');
-const { load, SRC } = require('./harness.js');
+const { load, SRC, DEV_UNAVAILABLE, publishedStatus } = require('./harness.js');
 
 let App, D, repo, lots, lot0;
 const DEV = 'viva-juara';
@@ -235,10 +235,10 @@ test('map and legend: unknown values get the neutral no-data style, never the lo
   const u = D.mapBucket(D.resolve(set(clone(lot0), 'commercial.price', null), 'commercial.price'), binOf);
   assert.equal(u.bucket, null); assert.equal(u.style.token, 'map-nodata'); assert.equal(u.style.legend, 'Sem dado'); assert.notEqual(u.style.pattern, 'none');
   assert.equal(D.mapBucket(D.resolve(lot0, 'identity.blockNumber'), binOf).style.legend, 'Não se aplica');
-  deq(D.legendCounts(lots.map(l => D.resolve(l, 'availability.status'))), { withData: 0, noData: 498, conflicted: 0, notApplicable: 0 });
+  deq(D.legendCounts(lots.map(l => D.resolve(l, 'availability.status'))), { withData: DEV_UNAVAILABLE.length, noData: 498 - DEV_UNAVAILABLE.length, conflicted: 0, notApplicable: 0 });
 });
 test('availability adapter: UNKNOWN status is UNKNOWN data (value null), never AVAILABLE; a known status keeps its value', () => {
-  for (const l of lots) { const r = D.resolve(l, 'availability.status'); assert.notEqual(r.value, 'AVAILABLE'); assert.equal(r.canonicalState, 'UNKNOWN'); }
+  for (const l of lots) { const r = D.resolve(l, 'availability.status'); assert.notEqual(r.value, 'AVAILABLE'); assert.equal(r.canonicalState, publishedStatus(l) === 'UNKNOWN' ? 'UNKNOWN' : 'KNOWN'); }
   const s = set(clone(lot0), 'availability.status', 'RESERVED'); const r = D.resolve(s, 'availability.status'); assert.equal(r.value, 'RESERVED'); assert.equal(r.canonicalState, 'KNOWN');
   const c = clone(lot0); c.availability.dataState = 'CONFLICTED'; assert.equal(D.resolve(c, 'availability.status').canonicalState, 'CONFLICTED');
   assert.equal(App.fmt.formatAvailability('UNKNOWN'), 'Status não confirmado');

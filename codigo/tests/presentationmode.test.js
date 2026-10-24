@@ -3,7 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path');
-const { load, SRC } = require('./harness.js');
+const { load, SRC, publishedStatus } = require('./harness.js');
 
 const MODULES = ['presentationmode/policy.js', 'presentationmode/projection.js', 'presentationmode/domain.js', 'presentationmode/runtime.js', 'presentationmode/presentationView.js'];
 let App, PM, P, PJ, D, RT, V, repo, lots, dev, byCode;
@@ -378,5 +378,5 @@ test('regression: presentation does not change lots, scores, prices or availabil
   const before = json(lots.map(l => [l.identity.id, l.intelligence.scores, l.commercial.price, l.availability.status]));
   snapOf(D.applyTemplate(make(), 'INITIAL_OPTIONS', ctx()));
   assert.equal(json(lots.map(l => [l.identity.id, l.intelligence.scores, l.commercial.price, l.availability.status])), before);
-  assert.equal(lots.length, 498); assert.ok(lots.every(l => l.availability.status === 'UNKNOWN'));
+  assert.equal(lots.length, 498); assert.ok(lots.every(l => l.availability.status === publishedStatus(l)));
 });

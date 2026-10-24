@@ -49,10 +49,10 @@ for (const cat of ['dataset', 'lots', 'map', 'layers', 'filters', 'recommendatio
   });
 }
 
-test('golden invariants (Viva Juara fixture): 498 lots, unique ids, every status UNKNOWN, never offerable, R$ 1.196/m², every anchor hits its own lot', () => {
+test('golden invariants (Viva Juara fixture): 498 lots, unique ids, every status UNKNOWN except the 21 developer lots (UNAVAILABLE), never offerable, R$ 1.196/m², every anchor hits its own lot', () => {
   const d = current.categories.dataset, f = current.categories.filters, r = current.categories.recommendations, m = current.categories.map;
   assert.equal(d.lotCount, 498); assert.equal(d.uniqueIds, 498); assert.equal(m.featureCount, 498);
-  assert.deepEqual(d.availabilityStatusCounts, { UNKNOWN: 498 });
+  assert.deepEqual(d.availabilityStatusCounts, { UNKNOWN: 477, UNAVAILABLE: 21 });
   assert.equal(f['status-available'].count, 0, 'UNKNOWN nunca vira AVAILABLE');
   assert.equal(f['only-offerable'].count, 0);
   for (const id of ['privacy', 'privacy-solar-quiet', 'green']) assert.equal(r.engine[id].recommended, 0, 'sem lote disponível confirmado, nada é recomendado');

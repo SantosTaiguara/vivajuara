@@ -2,7 +2,7 @@
 // Fit Score (topic 14), RecommendationEngine (topic 15) and ExplanationEngine (topic 16).
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { load } = require('./harness.js');
+const { load, DEV_UNAVAILABLE } = require('./harness.js');
 const clone = x => x === undefined ? x : JSON.parse(JSON.stringify(x));
 const deq = (a, b, m) => assert.deepEqual(clone(a), clone(b), m);
 
@@ -90,10 +90,10 @@ test('fit: single equals batch; 498 lots in well under a second', () => {
 });
 
 // ---------------------------------------------------------------- Recommendation
-test('today every lot is UNKNOWN: nothing is recommended, candidates go to review', () => {
+test('today every lot is UNKNOWN or UNAVAILABLE: nothing is recommended, UNKNOWN candidates go to review', () => {
   const r = App.recommendation.recommend(req(profile({ privacy: 3 })));
   assert.equal(r.status, 'NO_ELIGIBLE_LOTS'); assert.equal(r.recommendations.length, 0);
-  assert.equal(r.reviewRequiredCount, 498); assert.equal(r.reviewCandidates.length, pol.reviewLimit);
+  assert.equal(r.reviewRequiredCount, 498 - DEV_UNAVAILABLE.length); assert.equal(r.reviewCandidates.length, pol.reviewLimit);
   assert.ok(r.reviewCandidates.every(x => x.tier === 'REVIEW_REQUIRED' && x.keyReasonCodes.includes('AVAILABILITY_UNKNOWN')));
 });
 test('available lots are ranked and tiered; SOLD never reaches constraints or Fit', () => {

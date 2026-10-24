@@ -92,7 +92,7 @@ test('parity: same engine inputs as the selectors, the selector result is consum
 
 // ====================================================================== golden scenarios
 test('DecisionHousingBudgetStrict / DecisionUnknownCriticalData: over-budget excluded with its reason, sold excluded, unknown noise is review (never pass), explainable shortlist of 3', () => {
-  const soldCode = 'I2', unknownNoise = 'Q1';
+  const soldCode = 'I2', unknownNoise = 'I14';
   let ls = withStatus({ [soldCode]: 'SOLD' });
   ls = ls.map(l => { if (l.identity.code !== unknownNoise) return l; const c = clone(l); c.environmental.noiseLevel = null; if (c.provenance && c.provenance['environmental.noiseLevel']) c.provenance['environmental.noiseLevel'].status = 'UNKNOWN'; return c; });
   const ui = { preferences: { privacy: 3, leisure: 2 }, constraints: { budgetMax: 320000, maxNoise: ['VERY_LOW', 'LOW', 'MEDIUM'] }, objective: 'housing' };
@@ -168,7 +168,7 @@ test('DecisionNoEligibleLots / insufficient / invalid: no fake recommendation; r
   const r = run(ctxOf({ preferences: { privacy: 3 }, constraints: { budgetMax: 100000 } }));
   assert.equal(r.status, 'NO_ELIGIBLE_LOTS'); assert.equal(r.candidateSummaries.length, 0); deq(r.suggestedShortlistIds, []);
   assert.equal(r.readiness.status, 'NOT_READY'); assert.ok(r.resolutionSuggestions.some(s => s.code === 'INCREASE_BUDGET' && s.requiresUserConfirmation === true));
-  assert.equal(r.engineResult.excluded.every(e => e.reasonCode === 'PRICE_ABOVE_MAX'), true, 'the constraint was kept, never auto-relaxed');
+  assert.equal(r.engineResult.excluded.every(e => e.reasonCode === 'PRICE_ABOVE_MAX' || e.reasonCode === 'STATUS_NOT_AVAILABLE'), true, 'the constraint was kept, never auto-relaxed (developer lots are out by status)');
   const e = run(ctxOf({})); assert.equal(e.status, 'INSUFFICIENT_CONTEXT'); assert.equal(e.nextBestAction.actionType, 'CONFIRM_PREFERENCE');
   const bad = run(ctxOf({ constraints: { areaMin: 400, areaMax: 300 } })); assert.equal(bad.status, 'INVALID_CONTEXT'); assert.equal(bad.validation.status, 'INVALID');
 });
